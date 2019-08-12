@@ -9,7 +9,7 @@ $ wget https://github.com/naver/ngrinder/releases/download/ngrinder-3.4.3-201907
 ### Requirement
 
 #### nGrinder requires Java 1.6 over to run
-ref. [Install and setup JAVA](../AA/install.n.setup.java.md)
+>ref. [Install and setup JAVA](../AA/install.n.setup.java.md)
 
 nGrinder is distributed as a self executable web archive file(WAR) file just like Jenkins, you can put this archive file into your familiar web application server (like Tomcat) or run the package in the command line.
 
