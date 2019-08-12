@@ -15,4 +15,6 @@
 
 5. QA(Quality Assurance)
    * Testing and Tuning
-      - [Performance testing and tuning](QA/performance.testing.and.tuning.md)
+      + [Performance testing and tuning](QA/performance.testing.and.tuning.md)
+        - [Install and setup nGrinder](QA/install.n.setup.ngrinder.md)
+        - [Install and setup Scouter](QA/install.n.setup.scouter.md)
