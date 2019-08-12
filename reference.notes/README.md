@@ -6,6 +6,7 @@
 
 2. AA(Application Architecture)
    * Development Environment
+      - [Install and setup JAVA](AA/install.n.setup.java.md) : JDK(Java™ Platform, Development Kit) 설치
       - [Eclipse IDE Setup](eclipse.ide.setup.md) : J2EE 개발을 위한 통합개발환경 도구 Eclipse IDE 설치
       - [Apache Tomcat Setup](apache.tomcat.setup.md) : Tomcat Servlet Container - Multi Instances
 
@@ -15,6 +16,6 @@
 
 5. QA(Quality Assurance)
    * Testing and Tuning
-      + [Performance testing and tuning](QA/performance.testing.and.tuning.md)
-        - [Install and setup nGrinder](QA/install.n.setup.ngrinder.md)
-        - [Install and setup Scouter](QA/install.n.setup.scouter.md)
+      + [Performance testing and tuning](QA/performance.testing.and.tuning.md) : 성능 테스트 환경 구성
+        - [Install and setup nGrinder](QA/install.n.setup.ngrinder.md) : 성능 및 스트레이스 테스트를 위한 nGrinder 설치
+        - [Install and setup Scouter](QA/install.n.setup.scouter.md) : APM(Application Performance Management) Scouter 설치
