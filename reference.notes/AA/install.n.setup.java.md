@@ -1,4 +1,4 @@
-# 01.install.n.setup
+# Install and setup JAVA
 
 >Created 목요일 30 11월 2017  
 Java Development Kit
