@@ -1,115 +1,191 @@
-## 1. nGrinder : controller
-
-### Download
->https://github.com/naver/ngrinder/releases
-
-$ cd /apps/install  
-$ wget https://github.com/naver/ngrinder/releases/download/ngrinder-3.4.3-20190709/ngrinder-controller-3.4.3.war
+## Scouter : server
 
 ### Requirement
 
-#### nGrinder requires Java 1.6 over to run
+#### scouter requires Java 1.8 over to run
 >ref. 30.architecture/30.technical/30.solution/a.jdk/01.install.n.setup
 
-nGrinder is distributed as a self executable web archive file(WAR) file just like Jenkins, you can put this archive file into your familiar web application server (like Tomcat) or run the package in the command line.
-
->2019.08.06 현재 openjdk version "12.0.2"에서 embedded jetty로 기동시 에러 
->```
->## HTTP ERROR: 503
->```
->
->#### Make directory and copy library
->$ mkdir -p /apps/ngrinder/controller
->
->$ cp /apps/install/ngrinder-controller-3.4.3.war /apps/ngrinder/controller
->
->#### Make shell script
->$ vi /apps/ngrinder/controller/startup.sh
->```
->#!/usr/bin/env bash
->
->nohup java -Xms2048m -Xmx2048m -XX:MaxPermSize=200m -jar /apps/ngrinder/controller/ngrinder-controller-3.4.3.war --port 8080 > nohup.out &
->sleep 1
->tail -100 nohup.out
->```
->
->$ chmod 755 /apps/ngrinder/controller/startup.sh
-
-#### deploy to application server : tomcat 6.x over
->deploying a war file from ngrinder to tomcat  
->ref. 30.architecture/30.technical/30.solution/g.tomcat/01.install.n.setup
-
-`copy sample instance`
-$ cp -R /apps/tomcat/instances/es.01 /apps/tomcat/instances/ngrinder
-
-`change instance ports`  
-$ sed -i -e 's/es.01/ngrinder/g' /apps/tomcat/instances/ngrinder/bin/tomcat.sh  
-$ sed -i -e 's/8080/18080/g' /apps/tomcat/instances/ngrinder/bin/tomcat.sh  
-$ sed -i -e 's/8443/18443/g' /apps/tomcat/instances/ngrinder/bin/tomcat.sh  
-$ sed -i -e 's/8005/18005/g' /apps/tomcat/instances/ngrinder/bin/tomcat.sh  
-$ sed -i -e 's/8009/18009/g' /apps/tomcat/instances/ngrinder/bin/tomcat.sh
-
-$ cp /apps/install/ngrinder-controller-3.4.3.war /pgms/tomcat/service/ngrinder/webapps/ROOT.war
-
-`Run`  
-$ /apps/tomcat/instances/ngrinder/bin/tomcat.sh start
-
-`Access`  
-http://192.168.100.9:18080  
-admin / P@ssw0rd (default  : admin /admin)
-
-## 2. nGrinder : agent
+### Create directory
+$ mkdir /apps/scouter
 
 ### Download
-> nGrinder - controller admin menu / Download Agent
+>https://github.com/scouter-project/scouter/releases
 
 $ cd /apps/install  
-$ wget http://192.168.100.9:18080/ngrinder-controller/agent/download/ngrinder-agent-3.4.3-192.168.100.9.tar  
-$ tar xvf ngrinder-agent-3.4.3-192.168.100.9.tar  
-$ mv /apps/install/ngrinder-agent /apps
+$ wget https://github.com/scouter-project/scouter/releases/download/v2.7.0/scouter-all-2.7.0.tar.gz  
+>$ curl -O https://github.com/scouter-project/scouter/releases/download/v2.7.0/scouter-all-2.7.0.tar.gz
+
+$ tar xvf scouter-all-2.7.0.tar.gz  
+$ cp -R /apps/install/scouter /apps/scouter/2.7.0
 
 #### Configuration
-$ vi ~/.ngrinder_agent/agent.conf
+$ vi /apps/scouter/2.7.0/server/conf/scouter.conf
 ```
-common.start_mode=agent
-agent.controller_host=192.168.100.9
-agent.controller_port=16001
-agent.region=NONE
-#agent.host_id=
-#agent.server_mode=true
-
-# provide more agent java execution option if necessary.
-#agent.java_opt=
-# set following false if you want to use more than 1G Xmx memory per a agent process.
-#agent.limit_xmx=true
-# please uncomment the following option if you want to send all logs to the controller.
-#agent.all_logs=true
-# some jvm is not compatible with DNSJava. If so, set this false.
-#agent.enable_local_dns=false
+# Agent Control and Service Port(Default : TCP 6100)
+#net_tcp_listen_port=6100
+# UDP Receive Port(Default : 6100)
+#net_udp_listen_port=6100
+# DB directory(Default : ./database)
+#db_dir=./database
+# Log directory(Default : ./logs)
+#log_dir=./logs
 ```
 
 #### Run
-$ ./apps/ngrinder-agent/run_agent.sh
-> `error`  
-0 [main] DEBUG Sigar  - no libsigar-amd64-linux.so in java.library.path: [/usr/java/packages/lib, /usr/lib64, /lib64, /lib, /usr/lib]
->
->#### Hyperic SIGAR : https://sourceforge.net/projects/sigar/
->$ cd /apps/install  
-$ wget https://jaist.dl.sourceforge.net/project/sigar/sigar/1.6/hyperic-sigar-1.6.4.zip  
-$ unzip hyperic-sigar-1.6.4.zip  
-$ cp /apps/install/hyperic-sigar-1.6.4/sigar-bin/lib/libsigar-amd64-linux.so /apps/ngrinder-agent/lib
+$ cd /apps/scouter/2.7.0/server
+$ ./startup.sh
 
-#### Check
-> nGrinder - controller admin menu / Agent Management
+### Scouter : client
+
+#### Download
+>https://github.com/scouter-project/scouter/releases
+
+$ cd /apps/install
+$ wget https://github.com/scouter-project/scouter/releases/download/v2.7.0/scouter.client.product-linux.gtk.x86_64.tar.gz
+
+$ tar xvf scouter.client.product-linux.gtk.x86_64.tar.gz
+
+#### Configuration
+$ vi scouter.client/scouter.ini
+```
+-startup
+plugins/org.eclipse.equinox.launcher_1.5.100.v20180827-1352.jar
+--launcher.library
+plugins/org.eclipse.equinox.launcher.gtk.linux.x86_64_1.1.800.v20180827-1352
+-data
+@user.home/.scouter
+-vmargs
+-Xms2048m
+-Xmx2048m
+-XX:+UseG1GC
+-Dosgi.requiredJavaVersion=1.8
+```
+
+#### Execute
+$ scouter.client/scouter
+
+#### Login
+>Server Address : 192.168.100.8:6100
+ID : admin
+Password : admin
+
+### Scouter : agent
+
+#### create directory
+$ mkdir /apps/scouter
+
+#### Download
+>https://github.com/scouter-project/scouter/releases
+
+$ cd /apps/install
+$ wget https://github.com/scouter-project/scouter/releases/download/v2.7.0/scouter-all-2.7.0.tar.gz
+>$ curl -O https://github.com/scouter-project/scouter/releases/download/v2.7.0/scouter-all-2.7.0.tar.gz
+
+$ tar xvf scouter-all-2.7.0.tar.gz
+$ cp -R /apps/install/scouter /apps/scouter/2.7.0
+
+> 기본 설정으로 포트 등이 설정되어있어 서버에 기본 설정을 변경하지 않았다면 설정에서 생략해도 된다.
+
+#### set host agent
+- Configuration
+$ vi /apps/scouter/2.7.0/agent.host/conf/scouter.conf
+	```
+	### scouter host configruation sample
+	net_collector_ip=192.168.100.8
+	#net_collector_udp_port=6100
+	#net_collector_tcp_port=6100
+	#cpu_warning_pct=80
+	#cpu_fatal_pct=85
+	#cpu_check_period_ms=60000
+	#cpu_fatal_history=3
+	#cpu_alert_interval_ms=300000
+	#disk_warning_pct=88
+	#disk_fatal_pct=92
+	```
+- Run
+$ cd /apps/scouter/2.7.0/agent.host
+$ ./host.sh
+
+#### set java agent
+> JVM Option보다 설정파일에 설정이 우선해서 적용되는 듯
+> 여러 어플리케이션에서 같은 파일에 설정을 공유하고 obj_name 같은 설정만 JVM Option으로 다르게 적용
+
+- Configuration
+$ cp /apps/scouter/2.7.0/agent.host/conf/scouter.conf /apps/scouter/2.7.0/agent.host/conf/scouter-product.conf
+$ vi /apps/scouter/2.7.0/agent.host/conf/scouter-product.conf
+	```
+	### scouter java agent configuration sample
+	#obj_name=mdev-was-01-product
+	# Scouter Server IP Address (Default : 127.0.0.1)
+	net_collector_ip=192.168.100.8
+	# Scouter Server Port (Default : 6100)
+	#net_collector_udp_port=6100
+	#net_collector_tcp_port=6100
+	#hook_method_patterns=sample.mybiz.*Biz.*,sample.service.*Service.*
+	trace_http_client_ip_header_key=X-Forwarded-For
+	#profile_spring_controller_method_parameter_enabled=false
+	#hook_exception_class_patterns=my.exception.TypedException
+	#profile_fullstack_hooked_exception_enabled=true
+	#hook_exception_handler_method_patterns=my.AbstractAPIController.fallbackHandler,my.ApiExceptionLoggingFilter.handleNotFoundErrorResponse
+	#hook_exception_hanlder_exclude_class_patterns=exception.BizException
+
+	### HTTP header/parameter profile
+	profile_http_parameter_enabled=true
+	profile_http_header_enabled=true
+
+	### ignore low response time(ms)
+	xlog_lower_bound_time_ms=300
+	
+	### method profile
+	#hook_method_patterns=com.xxx.controller*.*,com.xxx.service*.*,com.xxx.dao*.*
+	#hook_method_ignore_classes=com.xxx.dto*.*
+	```
+
+- Set JVM Options 
+	모니터링 대상 Java Application 실행 시 JVM 옵션 지정
+	1. -javaagent:/apps/scouter/2.7.0/agent.java/scouter.agent.jar
+	2. -Dscouter.config=/apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+		(default : [directory of scouter.agent.jar]/conf/scouter.conf)
+	3. -Dobj_name=mdev-was-01-product
+		(default : java1 or tomcat1)
+
+	$ vi /apps/tomcat/instances/mobon.product.01/bin/tomcat.sh
+	```
+	...
+	#scouter.agent.java
+	export SCOUTER_DIR=/apps/scouter/2.7.0  
+	export JAVA_OPTS="$JAVA_OPTS -javaagent:$SCOUTER_DIR/agent.java/scouter.agent.jar"
+	export JAVA_OPTS="$JAVA_OPTS -Dscouter.config=$SCOUTER_DIR/agent.java/conf/scouter-product.conf"
+	export JAVA_OPTS="$JAVA_OPTS -Dobj_name=product-01"
+	...
+	```
+	$ vi /apps/tomcat/instances/mobon.product.02/bin/tomcat.sh
+	```
+	...
+	#scouter.agent.java
+	export SCOUTER_DIR=/apps/scouter/2.7.0  
+	export JAVA_OPTS="$JAVA_OPTS -javaagent:$SCOUTER_DIR/agent.java/scouter.agent.jar"
+	export JAVA_OPTS="$JAVA_OPTS -Dscouter.config=$SCOUTER_DIR/agent.java/conf/scouter-product.conf"
+	export JAVA_OPTS="$JAVA_OPTS -Dobj_name=product-02"
+	...
+	```
 
 ## 9. Appendix
 
 ### reference site
 
-* Installation Guide  
-https://github.com/naver/ngrinder/wiki/Installation-Guide
+#### scouter/scouter.document/main/Setup.md
+https://github.com/scouter-project/scouter/blob/master/scouter.document/main/Setup.md
 
-+ nGrinder 시작하기  
-https://nesoy.github.io/articles/2018-10/nGrinder-Start
+#### [Scouter] 오픈소스 APM Scouter 설치 및 연동 가이드
+https://waspro.tistory.com/409
+
+#### Scouter APM 소소한 시리즈 #1 - 설치하기
+http://gunsdevlog.blogspot.com/2017/07/scouter-apm-1.html
+
+#### 오픈소스 성능 모니터링 도구 Scouter 설정하기
+https://www.popit.kr/scouter-open-source-apm-config/
 
 
+#### Scouter Plugin Guide
+https://github.com/scouter-project/scouter/blob/master/scouter.document/main/Plugin-Guide_kr.md
