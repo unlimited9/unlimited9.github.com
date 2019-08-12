@@ -1,6 +1,6 @@
 # 01.install.n.setup
 
->Created 목요일 30 11월 2017
+>Created 목요일 30 11월 2017  
 Java Development Kit
 
 # Installation/Setup/Configuration
@@ -107,19 +107,19 @@ $ source /etc/profile.d/java11.sh
 $ sudo alternatives --list
 
 #### swap java versions
-$ sudo alternatives --config java
+$ sudo alternatives --config java  
 >  java with [+] is currently on use
 
-$ sudo alternatives --install java
-> $ alternatives --install /usr/bin/java java $JAVA_HOME/bin/java 1
+$ sudo alternatives --install java  
+> $ alternatives --install /usr/bin/java java $JAVA_HOME/bin/java 1  
 > $ update-alternatives --install /usr/bin/java java $JAVA_HOME/bin/java 1
 
-also do the same for :  javac, jar, javaws, Java Browser (Mozilla) Plugin ...
-> Install javac only if you installed JDK (Java Development Kit) package
-> $ alternatives --install /usr/bin/javac javac $JAVA_HOME/bin/javac 1
-> $ alternatives --install /usr/bin/jar jar $JAVA_HOME/bin/jar 1
-> $ alternatives --install /usr/bin/javaws javaws $JAVA_HOME/jre/bin/javaws 1
-> $ alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so libjavaplugin.so $JAVA_HOME/jre/lib/i386/libnpjp2.so 1
+also do the same for :  javac, jar, javaws, Java Browser (Mozilla) Plugin ...  
+> Install javac only if you installed JDK (Java Development Kit) package  
+> $ alternatives --install /usr/bin/javac javac $JAVA_HOME/bin/javac 1  
+> $ alternatives --install /usr/bin/jar jar $JAVA_HOME/bin/jar 1  
+> $ alternatives --install /usr/bin/javaws javaws $JAVA_HOME/jre/bin/javaws 1  
+> $ alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so libjavaplugin.so $JAVA_HOME/jre/lib/i386/libnpjp2.so 1  
 > $ alternatives --install /usr/lib64/mozilla/plugins/libjavaplugin.so libjavaplugin.so.x86_64 $JAVA_HOME/jre/lib/amd64/libnpjp2.so 1
 
 ##### ubuntu
@@ -135,11 +135,11 @@ $ sudo update-java-alternatives -s java-1.8.0-openjdk-amd64
 
 ### reference site
 
-#### How to Install Java 11 (OpenJDK 11) on RHEL 8
+- How to Install Java 11 (OpenJDK 11) on RHEL 8  
 https://computingforgeeks.com/how-to-install-java-11-openjdk-11-on-rhel-8/
 
-#### How to Install Java 11 on Ubuntu 18.04 /16.04 / Debian 9
+- How to Install Java 11 on Ubuntu 18.04 /16.04 / Debian 9  
 https://computingforgeeks.com/how-to-install-java-11-on-ubuntu-18-04-16-04-debian-9/
 
-#### How to Install Java 11 on CentOS 7 / Fedora 29 / Fedora 28
+- How to Install Java 11 on CentOS 7 / Fedora 29 / Fedora 28  
 https://computingforgeeks.com/how-to-install-java-11-on-centos-7-fedora-29-fedora-28/
