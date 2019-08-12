@@ -16,6 +16,6 @@
 
 5. QA(Quality Assurance)
    * Testing and Tuning
-      + [Performance testing and tuning](QA/performance.testing.and.tuning.md) : 성능 테스트 환경 구성
+      + [Performance testing and tuning](QA/performance.testing.and.tuning.md) : 성능 테스트 및 환경 구성
         - [Install and setup nGrinder](QA/install.n.setup.ngrinder.md) : 성능 및 스트레이스 테스트를 위한 nGrinder 설치
         - [Install and setup Scouter](QA/install.n.setup.scouter.md) : APM(Application Performance Management) Scouter 설치
