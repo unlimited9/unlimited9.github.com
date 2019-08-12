@@ -5,6 +5,8 @@ Java Development Kit
 
 # Installation/Setup/Configuration
 
+[Script install and setup Java](install.n.setup.java.script.md)
+
 ## 1. Pre-installation setup
 
 ### A. creating required operating system group and user
