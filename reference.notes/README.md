@@ -15,4 +15,4 @@
 
 5. QA(Quality Assurance)
    * Testing and Tuning
-      - [Performance testing and tuning](./QA/performance.testing.and.tuning)
+      - [Performance testing and tuning](QA/performance.testing.and.tuning.md)
