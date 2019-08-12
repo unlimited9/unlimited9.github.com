@@ -1,7 +1,7 @@
-#### JAXB on Java 9 and beyond 
+### JAXB on Java 9 and beyond 
 JAXB is no longer provided by default in java 9 and above  
 
-##### add dependencies (gradle/maven)
+#### add dependencies (gradle/maven)
 ```
   , "org.glassfish.jaxb:jaxb-runtime" // spring boot
 
