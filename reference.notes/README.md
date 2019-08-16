@@ -18,6 +18,10 @@
     * Build
       + Maven
       + Gradle
+    * Framework
+      + Spring
+        - [Overriding Dependency Versions with Spring Boot](AA/Framework/springboot.transitive.dependency.md)
+
 
 3. TA(technical architecture)
 
