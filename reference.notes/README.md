@@ -24,7 +24,8 @@
 
 
 3. TA(technical architecture)
-
+    * Middle-ware
+      + [Install and setup Nginx](TA/install.n.setup.nginx.md) ([install script](AA/install.n.setup.nginx.script.md)) : Nginx Web Server 설치
 4. DA(technical architecture)
 
 5. QA(Quality Assurance)
