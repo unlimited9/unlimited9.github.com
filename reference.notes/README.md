@@ -25,7 +25,11 @@
 
 3. TA(technical architecture)
     * Middle-ware
-      + [Install and setup Nginx](TA/install.n.setup.nginx.md) ([install script](AA/install.n.setup.nginx.script.md)) : Nginx Web Server 설치
+      + [Install and setup Nginx](TA/nginx/install.n.setup.md) ([install script](AA/install.n.setup.nginx.script.md)) : Nginx Web Server 설치
+        - [Optimize(performance tunning)](TA/nginx/optimize.performance.tunning.md) : 성능 최적화
+        - [Install PHP](TA/nginx/install.n.setup.php.md) : PHP 연계 구성
+        - [Configuration Sample](TA/nginx/configuration.sample.md) : 설정 샘픔
+      
 4. DA(technical architecture)
 
 5. QA(Quality Assurance)
