@@ -26,7 +26,7 @@
 3. TA(technical architecture)
     * Middle-ware
       + [Install and setup Nginx](TA/nginx/install.n.setup.md) : Nginx Web Server 설치
-        - [Optimize(performance tunning)](TA/nginx/optimize.performance.tunning.md) : 성능 최적화
+        - [Optimize : performance tunning](TA/nginx/optimize.performance.tunning.md) : 성능 최적화
         - [Install PHP](TA/nginx/install.n.setup.php.md) : PHP 연계 구성
         - [Configuration Sample](TA/nginx/configuration.sample.md) : 설정 샘픔
       
