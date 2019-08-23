@@ -5,7 +5,7 @@ Java Development Kit
 
 # Installation/Setup/Configuration
 
-[Script install and setup Java](install.n.setup.java.script.md)
+[Script install and setup Java](install.n.setup.script.md)
 
 ## 1. Pre-installation setup
 
