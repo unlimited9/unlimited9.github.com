@@ -1,6 +1,6 @@
 # 01.install.n setup : Nginx
 
->Created 목요일 30 11월 2017
+>Created 목요일 30 11월 2017  
 Server.setting - proxy
 
 # Installation/Setup/Configuration
@@ -37,26 +37,27 @@ $ yum install pcre pcre-devel openssl libssl-dev
 ##### case of debian
 $ apt-get install libpcre3 libpcre3-dev openssl libssl-dev
 
-
 #### utility libray  
+
 ##### case of redhat
 $ yum install zlib*  
+
 ##### case of debian
 $ apt-get install zlib1g zlib1g-dev
 
 ### C. creating base directory
 
 #### 디렉토리 생성
-~~$ mkdir -p /apps~~
-$ mkdir -p /apps/install
-$ mkdir -p /pgms
-$ mkdir -p /data
+~~$ mkdir -p /apps~~  
+$ mkdir -p /apps/install  
+$ mkdir -p /pgms  
+$ mkdir -p /data  
 $ mkdir -p /logs
 
 #### 소유권 변경
-$ chown -R app:app /apps
-$ chown -R app:app /pgms
-$ chown -R app:app /data
+$ chown -R app:app /apps  
+$ chown -R app:app /pgms  
+$ chown -R app:app /data  
 $ chown -R app:app /logs
 
 ### D. firewall configuration
@@ -86,15 +87,15 @@ $ su - app
 ### B. creating application directory
 
 #### make directory
-$ mkdir -p /apps/nginx
-$ mkdir -p /data/nginx
+$ mkdir -p /apps/nginx  
+$ mkdir -p /data/nginx  
 $ mkdir -p /logs/nginx
 
 ### C. download
 
 #### Nginx(http://nginx.org/)  
 
-$ curl -O http://nginx.org/download/nginx-1.14.2.tar.gz -P /apps/install
+$ curl -O http://nginx.org/download/nginx-1.14.2.tar.gz -P /apps/install  
 ~~$ wget http://nginx.org/download/nginx-1.14.2.tar.gz -P /apps/install~~
 
 ### D. install
@@ -132,9 +133,9 @@ Configuration summary
   nginx http scgi temporary files: "scgi_temp"
 ```
 #### configuration error  
-./configure: error: SSL modules require the OpenSSL library.
-You can either do not enable the modules, or install the OpenSSL library
-into the system, or build the OpenSSL library statically from the source
+./configure: error: SSL modules require the OpenSSL library.  
+You can either do not enable the modules, or install the OpenSSL library  
+into the system, or build the OpenSSL library statically from the source  
 with nginx by using --with-openssl=<path> option.
 
 ##### Debian/Ubuntu  
@@ -384,6 +385,7 @@ worker_processes 1;
 pid logs/nginx.pid;
 
 events {
+    use epoll;
     worker_connections  1024;
 }
 
@@ -528,44 +530,48 @@ $ service nginx stop
 
 ## 9. Appendix
 
-### Nginx HTTP Server - 2. 설치  
+### reference site
+
+* Nginx HTTP Server - 2. 설치  
 http://ohgyun.com/478
 
-### [Ubuntu] 우분투 NGINX(엔진엑스) Configure 옵션  
+* [Ubuntu] 우분투 NGINX(엔진엑스) Configure 옵션  
 http://webdir.tistory.com/238
 
-### Nginx 소스 컴파일 설치 및 HTTPS 설정하기 우분투 16.04  
+* Nginx 소스 컴파일 설치 및 HTTPS 설정하기 우분투 16.04  
 https://www.wsgvet.com/bbs/board.php?bo_table=ubuntu&wr_id=[[https://www.wsgvet.com/bbs/board.php?bo_table=ubuntu&wr_id=68|68]]
 
-### NGINX 컴파일  
+* NGINX 컴파일  
 https://opentutorials.org/module/384/4511
 
-### NGINX Init Scripts  
+* NGINX Init Scripts  
 https://www.nginx.com/resources/wiki/start/topics/examples/initscripts/
 
-### nginx.conf / sites-enabled/ sites-available  
+* nginx.conf / sites-enabled/ sites-available  
 http://i5on9i.blogspot.kr/2016/01/nginxconf-sites-enabled-sites-available.html
 
-### 강력한 웹서버 NGINX  
+* 강력한 웹서버 NGINX  
 http://egloos.zum.com/repository/v/5676451
 
-### Nginx + tomcat 연동 시리즈 3탄 - 연동하기  
-http://storyofdream.tistory.com/124
-
-### php fpm 설치 및 설정  
-https://www.lesstif.com/pages/viewpage.action?pageId=2444507[[https://www.lesstif.com/pages/viewpage.action?pageId=24445073|3]]
-
-### nginx php-fpm 설치  
-http://itraveler.tistory.com/28
-
-### How To Optimize Nginx Configuration  
+* How To Optimize Nginx Configuration  
 https://www.digitalocean.com/community/tutorials/how-to-optimize-nginx-configuration
 
-### nginx Performance  
+* nginx Performance  
 http://kwonnam.pe.kr/wiki/nginx/performance
 
-### Nginx 이해하기 및 기본 환경설정 세팅하기  
+* Nginx 이해하기 및 기본 환경설정 세팅하기  
 http://whatisthenext.tistory.com/123
 
-### NGINX 기본 환경 설정 튜닝 및 설명  
+* NGINX 기본 환경 설정 튜닝 및 설명  
 https://extrememanual.net/9976
+
+* Nginx + tomcat 연동 시리즈 3탄 - 연동하기  
+http://storyofdream.tistory.com/124
+
+
+- php fpm 설치 및 설정  
+https://www.lesstif.com/pages/viewpage.action?pageId=2444507[[https://www.lesstif.com/pages/viewpage.action?pageId=24445073|3]]
+
+- nginx php-fpm 설치  
+http://itraveler.tistory.com/28
+
