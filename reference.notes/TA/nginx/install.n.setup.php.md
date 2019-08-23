@@ -185,5 +185,5 @@ https://blog.asamaru.net/2018/02/14/install-php-7-2-on-centos-with-remi-rpm-repo
 * RHEL/CentOS 5,6,7 에 EPEL 과 Remi/WebTatic Repository 설치하기
 https://www.lesstif.com/pages/viewpage.action?pageId=6979743
 
-*Webtatic Yum Repository
+* Webtatic Yum Repository
 https://webtatic.com/projects/yum-repository/
