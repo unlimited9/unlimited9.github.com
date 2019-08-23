@@ -102,6 +102,10 @@ $ cp /apps/install/hyperic-sigar-1.6.4/sigar-bin/lib/libsigar-amd64-linux.so /ap
 #### Check
 > nGrinder - controller admin menu / Agent Management
 
+## 3. nGrinder : Script
+
+>ref. [nGrinder Groovy Script](ngrinder.groovy.script.md)
+
 ## 9. Appendix
 
 ### reference site
