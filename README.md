@@ -1,4 +1,4 @@
-# Reference Notes
+# AA/TA, Java/Framework, Design/Prototyping/Optimization
 
-* [AA/TA, Java/Framework, Design/Prototyping/Optimization](reference.notes)
+* [Reference Notes](reference.notes)
 
