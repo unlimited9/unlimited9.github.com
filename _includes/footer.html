@@ -1,7 +1,7 @@
-<div class="wrapper">
-  <footer>
+<div id="footer_wrap" class="outer">
+  <footer class="inner">
     {% capture currentyear %}{{ 'now' | date: "%Y" }}{% endcapture %}
-    Copyright ⓒ 2014-{{ currentyear }} <a href="{{ site.github.owner_url }}">°{{ site.owner | default: site.github.owner_name}}™</a>. Verbatim copying and distribution of this entire article are permitted worldwide, without royalty, in any medium, provided this notice, and the copyright notice, are preserved.
+    <p class="copyright">Copyright ⓒ 2014-{{ currentyear }} <a href="{{ site.github.owner_url }}">°{{ site.owner | default: site.github.owner_name}}™</a>. Verbatim copying and distribution of this entire article are permitted worldwide, without royalty, in any medium, provided this notice, and the copyright notice, are preserved.</p>
   </footer>
 </div>
 {% if site.google_analytics %}
