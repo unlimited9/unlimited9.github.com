@@ -1,4 +1,5 @@
-## Reference Notes - Scott.Lee, Application Architect
+## Reference Notes
+AA/TA, Java/Framework, Design/Prototyping/Optimization
 
 ### EA(Enterprise Architecture)
 
