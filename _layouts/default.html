@@ -18,17 +18,20 @@
     <div id="title">
       <h1>{{ site.title | default: site.github.repository_name }}</h1>
       <p>{{ site.description | default: site.github.project_tagline }}</p>
-      <img src="/images/noSmoking_01.gif"
-           style="display: block; margin: 0px auto;
-                  width: 240px; height: 240px;
-                  object-fit: cover;
-                  object-position: top;
-                  border-radius: 50%; " />
     </div>
     
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
+        <h1>{{ site.title | default: site.github.repository_name }}</h1>
+        <p>{{ site.description | default: site.github.project_tagline }}</p>
+        <img src="/images/noSmoking_01.gif"
+             style="display: block; margin: 0px auto;
+                    width: 240px; height: 240px;
+                    object-fit: cover;
+                    object-position: top;
+                    border-radius: 50%; " />
+
         {{ content }}
       </section>
     </div>
