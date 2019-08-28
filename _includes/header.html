@@ -1,10 +1,5 @@
 <!-- HEADER -->
-<div id="header_wrap" class="outer">
-  <header class="inner">
-    <!--
-    <a id="forkme_banner" href="{{ site.github.repository_url }}">View on GitHub</a>
-    -->
-    <p><img src="/images/noSmoking.png"
+<div><img src="/images/noSmoking.png"
                style="display: block; margin: 0px auto;
                       width: 120px; height: 120px;
                       object-fit: cover;
@@ -13,9 +8,16 @@
                       padding: 0px;
                       border: 0px solid #ebebeb
                       " />
-      <h1 id="project_title">{{ site.title | default: site.github.repository_name }}</h1>
-      <h2 id="project_tagline">{{ site.description | default: site.github.project_tagline }}</h2>
-    </p>
+</div>
+<div id="header_wrap" class="outer">
+  <header class="inner">
+    <!--
+    <a id="forkme_banner" href="{{ site.github.repository_url }}">View on GitHub</a>
+    -->
+
+    <h1 id="project_title">{{ site.title | default: site.github.repository_name }}</h1>
+    <h2 id="project_tagline">{{ site.description | default: site.github.project_tagline }}</h2>
+
     <!--
     <section id="downloads">
       <a class="zip_download_link" href="{{ site.github.zip_url }}">Download this project as a .zip file</a>
