@@ -1,4 +1,4 @@
-# Scott.Lee, Application Architect
+# Reference Notes
 
-* [Reference Notes](reference.notes)
-AA/TA, Java/Framework, Design/Prototyping/Optimization 
+* [AA/TA, Java/Framework, Design/Prototyping/Optimization](reference.notes)
+
