@@ -1,5 +1,4 @@
-# unlimited9.github.com
+# Scott.Lee, Application Architect
 
-[Reference Notes](reference.notes) - Scott.Lee, Application Architect  
->AA/TA, Java/Framework, Design/Prototyping/Optimization 
-
+* [Reference Notes](reference.notes)
+AA/TA, Java/Framework, Design/Prototyping/Optimization 
