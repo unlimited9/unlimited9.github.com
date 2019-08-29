@@ -257,21 +257,21 @@ $ chmod 755 /apps/tomcat/instances/es.01/bin/tomcat.sh
 >
 >$ chmod 755 /apps/tomcat/instances/es.01/bin/setenv.sh
 
-#### set instance port  
-$ sed -i -e 's/8080/18080/g' /apps/tomcat/instances/es.01/bin/tomcat.sh
-$ sed -i -e 's/8443/18443/g' /apps/tomcat/instances/es.01/bin/tomcat.sh
-$ sed -i -e 's/8005/18005/g' /apps/tomcat/instances/es.01/bin/tomcat.sh
-$ sed -i -e 's/8009/18009/g' /apps/tomcat/instances/es.01/bin/tomcat.sh
+#### set instance port
+$ sed -i -e 's/8080/18080/g' /apps/tomcat/instances/es.01/bin/tomcat.sh  
+$ sed -i -e 's/8443/18443/g' /apps/tomcat/instances/es.01/bin/tomcat.sh  
+$ sed -i -e 's/8005/18005/g' /apps/tomcat/instances/es.01/bin/tomcat.sh  
+$ sed -i -e 's/8009/18009/g' /apps/tomcat/instances/es.01/bin/tomcat.sh  
 
 >####  set more instances
->`copy sample instance`
+>`copy sample instance`  
 $ cp -R /apps/tomcat/instances/es.01 /apps/tomcat/instances/new.instance.01
 >
->`change instance ports`
-$ sed -i -e 's/es.01/new.instance.01/g' /apps/tomcat/instances/ngrinder/bin/tomcat.sh
-$ sed -i -e 's/18080/28080/g' /apps/tomcat/instances/new.instance.01/bin/tomcat.sh
-$ sed -i -e 's/18443/28443/g' /apps/tomcat/instances/new.instance.01/bin/tomcat.sh
-$ sed -i -e 's/18005/28005/g' /apps/tomcat/instances/new.instance.01/bin/tomcat.sh
+>`change instance ports`  
+$ sed -i -e 's/es.01/new.instance.01/g' /apps/tomcat/instances/ngrinder/bin/tomcat.sh  
+$ sed -i -e 's/18080/28080/g' /apps/tomcat/instances/new.instance.01/bin/tomcat.sh  
+$ sed -i -e 's/18443/28443/g' /apps/tomcat/instances/new.instance.01/bin/tomcat.sh  
+$ sed -i -e 's/18005/28005/g' /apps/tomcat/instances/new.instance.01/bin/tomcat.sh  
 $ sed -i -e 's/18009/28009/g' /apps/tomcat/instances/new.instance.01/bin/tomcat.sh
 
 ### G. run application
