@@ -48,30 +48,29 @@ $ cp -R /apps/install/jdk-11.0.2 /apps/jdk/11.0.2
 >* cenos  
 >  $ sudo yum install java-11-openjdk-devel
 >* ubuntu  
-$ sudo apt-get install openjdk-11-jdk
+>$ sudo apt-get install openjdk-11-jdk
 
 ## 3. post-installation setup
 
-### A. set environment variable
+#### A. set environment variable
+add JAVA_HOME environment variable to /etc/profile file or $HOME/.bash_profile file package install path : /usr/lib/jvm
 
-> add JAVA_HOME environment variable to /etc/profile file or $HOME/.bash_profile file package install path : /usr/lib/jvm
-
-$ su - 
-$ cat > /etc/profile.d/java11.sh <<EOF  
+$ su -  
+$ cat > /etc/profile.d/jdk.sh <<EOF  
 export JAVA_HOME=$(dirname $(dirname $(readlink $(readlink $(which javac)))))  
 export PATH=\$PATH:\$JAVA_HOME/bin  
 export CLASSPATH=.:\$JAVA_HOME/jre/lib:\$JAVA_HOME/lib:\$JAVA_HOME/lib/tools.jar  
 EOF
 
-$ source /etc/profile.d/java11.sh
+$ source /etc/profile.d/jdk.sh
 
->$ vi /etc/profile.d/jdk11.sh
+>$ vi /etc/profile.d/jdk.sh
 >```
 ># create new
 >export JAVA_HOME=/apps/jdk/11.0.2
 >export PATH=$PATH:$JAVA_HOME/bin
 >```
->$ source /etc/profile.d/jdk11.sh
+>$ source /etc/profile.d/jdk.sh
 >>$ source /etc/profile
 
 >$ vi /etc/profile
@@ -83,35 +82,34 @@ $ source /etc/profile.d/java11.sh
 >```
 >$ source /etc/profile
 
-### B. Selecting Java Versions with Alternatives
-
-##### centos
-$ sudo alternatives --list
-
-#### swap java versions
-$ sudo alternatives --config java  
->  java with [+] is currently on use
-
-$ sudo alternatives --install java  
-> $ alternatives --install /usr/bin/java java $JAVA_HOME/bin/java 1  
-> $ update-alternatives --install /usr/bin/java java $JAVA_HOME/bin/java 1
-
-also do the same for :  javac, jar, javaws, Java Browser (Mozilla) Plugin ...  
-> Install javac only if you installed JDK (Java Development Kit) package  
-> $ alternatives --install /usr/bin/javac javac $JAVA_HOME/bin/javac 1  
-> $ alternatives --install /usr/bin/jar jar $JAVA_HOME/bin/jar 1  
-> $ alternatives --install /usr/bin/javaws javaws $JAVA_HOME/jre/bin/javaws 1  
-> $ alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so libjavaplugin.so $JAVA_HOME/jre/lib/i386/libnpjp2.so 1  
-> $ alternatives --install /usr/lib64/mozilla/plugins/libjavaplugin.so libjavaplugin.so.x86_64 $JAVA_HOME/jre/lib/amd64/libnpjp2.so 1
-
-##### ubuntu
-$ sudo update-java-alternatives -l
-```
-java-1.11.0-openjdk-amd64      1111       /usr/lib/jvm/java-1.11.0-openjdk-amd64
-java-1.8.0-openjdk-amd64       1081       /usr/lib/jvm/java-1.8.0-openjdk-amd64
-```
-
-$ sudo update-java-alternatives -s java-1.8.0-openjdk-amd64
+#### B. Selecting Java Versions with Alternatives
+* centos  
+  $ sudo alternatives --list
+  
+  `swap java versions`
+  $ sudo alternatives --config java  
+  >  java with [+] is currently on use
+  
+  $ sudo alternatives --install java  
+  > $ alternatives --install /usr/bin/java java $JAVA_HOME/bin/java 1  
+  > $ update-alternatives --install /usr/bin/java java $JAVA_HOME/bin/java 1
+  
+  also do the same for :  javac, jar, javaws, Java Browser (Mozilla) Plugin ...  
+  > Install javac only if you installed JDK (Java Development Kit) package  
+  > $ alternatives --install /usr/bin/javac javac $JAVA_HOME/bin/javac 1  
+  > $ alternatives --install /usr/bin/jar jar $JAVA_HOME/bin/jar 1  
+  > $ alternatives --install /usr/bin/javaws javaws $JAVA_HOME/jre/bin/javaws 1  
+  > $ alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so libjavaplugin.so $JAVA_HOME/jre/lib/i386/libnpjp2.so 1  
+  > $ alternatives --install /usr/lib64/mozilla/plugins/libjavaplugin.so libjavaplugin.so.x86_64 $JAVA_HOME/jre/lib/amd64/libnpjp2.so 1
+  
+* ubuntu  
+  $ sudo update-java-alternatives -l
+  ```
+  java-1.11.0-openjdk-amd64      1111       /usr/lib/jvm/java-1.11.0-openjdk-amd64
+  java-1.8.0-openjdk-amd64       1081       /usr/lib/jvm/java-1.8.0-openjdk-amd64
+  ```
+  
+  $ sudo update-java-alternatives -s java-1.8.0-openjdk-amd64
 
 ## 9. Appendix
 
