@@ -75,20 +75,20 @@ $ cp -R apache-tomcat-9.0.20 /apps/tomcat/9.0.20
 ### E. instance configure
 
 #### make directory
-$ mkdir -p \
-/apps/tomcat/instances/es.01/bin  \
-/apps/tomcat/instances/es.01/conf \
-/apps/tomcat/instances/es.01/logs \
-/apps/tomcat/instances/es.01/temp \
+$ mkdir -p \  
+/apps/tomcat/instances/es.01/bin  \  
+/apps/tomcat/instances/es.01/conf \  
+/apps/tomcat/instances/es.01/logs \  
+/apps/tomcat/instances/es.01/temp \  
 /apps/tomcat/instances/es.01/webapps/ROOT
 
 $ cp -R /apps/tomcat/9.0.20/conf/* /apps/tomcat/instances/es.01/conf
 
 #### port - system property  
-$ sed -i -e 's/8005/\${tomcat\.port\.shutdown}/g' /apps/tomcat/instances/es.01/conf/server.xml
-$ sed -i -e 's/8080/\${tomcat\.port\.http}/g' /apps/tomcat/instances/es.01/conf/server.xml
-$ sed -i -e 's/8009/\${tomcat\.port\.ajp}/g' /apps/tomcat/instances/es.01/conf/server.xml
-$ sed -i -e 's/8443/\${tomcat\.port\.https}/g' /apps/tomcat/instances/es.01/conf/server.xml
+$ sed -i -e 's/8005/\${tomcat\.port\.shutdown}/g' /apps/tomcat/instances/es.01/conf/server.xml  
+$ sed -i -e 's/8080/\${tomcat\.port\.http}/g' /apps/tomcat/instances/es.01/conf/server.xml  
+$ sed -i -e 's/8009/\${tomcat\.port\.ajp}/g' /apps/tomcat/instances/es.01/conf/server.xml  
+$ sed -i -e 's/8443/\${tomcat\.port\.https}/g' /apps/tomcat/instances/es.01/conf/server.xml  
 
 #### application context 
 $ vi /apps/tomcat/instances/es.01/conf/server.xml
