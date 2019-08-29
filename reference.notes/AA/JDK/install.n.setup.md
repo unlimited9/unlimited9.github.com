@@ -16,12 +16,7 @@ Java Development Kit
 
 ### C. creating base directory
 
-#### 디렉토리 생성
-~~$ mkdir -p /apps~~
-$ mkdir -p /apps/install
-
-#### 소유권 변경
-$ chown -R app:app /apps
+[Create operating system drectory](/reference.notes/TA/system/create.directory.md)
 
 ### D. firewall configuration
 
