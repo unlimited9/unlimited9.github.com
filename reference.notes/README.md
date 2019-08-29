@@ -9,7 +9,6 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
     * Development Environment
       + [Install and setup Java](AA/JDK/install.n.setup.md) ([install script](AA/JDK/install.n.setup.script.md)) : JDK(Java™ Platform, Development Kit) 설치
       + [Eclipse IDE Setup](eclipse.ide.setup.md) : J2EE 개발을 위한 통합개발환경 도구 Eclipse IDE 설치
-      + [Apache Tomcat Setup](AA/apache.tomcat/install.n.setup.md) ([install script](AA/apache.tomcat/install.n.setup.script.md)) : Tomcat Servlet Container - Multi Instances
     * Language
       + JAVA
         - [Collections.sort with multiple fields](AA/Java/collections.sort.sample.md)
@@ -32,6 +31,7 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
         - [Optimize : performance tunning](TA/nginx/optimize.performance.tunning.md) : 성능 최적화
         - [Install PHP](TA/nginx/install.n.setup.php.md) : PHP 연계 구성
         - [Configuration Sample](TA/nginx/configuration.sample.md) : 설정 예
+      + [Apache Tomcat Setup](AA/apache.tomcat/install.n.setup.md) ([install script](AA/apache.tomcat/install.n.setup.script.md)) : Tomcat Servlet Container - Multi Instances
       
 4. DA(technical architecture)
 
