@@ -13,7 +13,8 @@ Server.setting - application
 [Create operating system group and user](/reference.notes/TA/system/create.account.n.group.md)
 
 ### B. install dependency packages
->tomcat requires Java to run
+
+>[tomcat requires Java to run](/reference.notes/AA/JDK/install.n.setup.md)
 
 ### C. creating base directory
 
