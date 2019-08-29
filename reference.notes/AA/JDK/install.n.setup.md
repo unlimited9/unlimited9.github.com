@@ -86,7 +86,7 @@ $ source /etc/profile.d/jdk.sh
 * centos  
   $ sudo alternatives --list
   
-  `swap java versions`
+  `swap java versions`  
   $ sudo alternatives --config java  
   >  java with [+] is currently on use
   
@@ -113,7 +113,7 @@ $ source /etc/profile.d/jdk.sh
 
 ## 9. Appendix
 
-### reference site
+#### reference site
 
 - How to Install Java 11 (OpenJDK 11) on RHEL 8  
 https://computingforgeeks.com/how-to-install-java-11-openjdk-11-on-rhel-8/
