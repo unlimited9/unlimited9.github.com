@@ -35,7 +35,7 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
     * Cloud Computing
       + [Install and setup Docker](TA/cloud/docker/install.n.setup.md) ([install script](TA/cloud/docker/install.n.setup.script.md)) : Docker(independent container platform) 설치
         - [Administration : management and dockerize](TA/cloud/docker/administration.management.md) : 도커 관리
-        - [Container orchestration and clustering](TA/cloud/docker/container.orchestration.n.clustering.md) : 분산 클러스터링
+        - [Container orchestration and clustering](TA/cloud/docker/orchestration.n.clustering.md) : 분산 클러스터링
         - [Docker Change Port Mapping for an Existing Container](TA/cloud/docker/change.port.mapping.md) : 도커 포트 변경
       
 4. DA(technical architecture)
