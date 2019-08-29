@@ -26,9 +26,9 @@ $ su - app
 $ mkdir -p /apps/jdk
 
 #### C. download
-`https://jdk.java.net/ - JDK 11.0.2 General-Availability Release`
-$ curl -O https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install
->~~$ wget https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install~~
+`https://jdk.java.net/ - JDK 11.0.2 General-Availability Release`  
+$ curl -O https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install  
+~~$ wget https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install~~
 
 >`http://oracle.com - Java SE Development Kit 11.0.2(LTS)`
 >>for accept header and license
