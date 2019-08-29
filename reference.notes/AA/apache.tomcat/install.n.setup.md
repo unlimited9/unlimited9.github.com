@@ -61,7 +61,7 @@ $ mkdir -p /pgms/tomcat/backup
 #### Tomcat(http://tomcat.apache.org/)  
 
 $ cd /apps/install
-$ curl -O http://mirror.apache-kr.org/tomcat/tomcat-9/v9.0.20/bin/apache-tomcat-9.0.20.tar.gz
+$ curl -O http://mirror.apache-kr.org/tomcat/tomcat-9/v9.0.20/bin/apache-tomcat-9.0.20.tar.gz  
 ~~$ wget http://mirror.apache-kr.org/tomcat/tomcat-9/v9.0.20/bin/apache-tomcat-9.0.20.tar.gz -P /apps/install~~
 
 ### D. install
