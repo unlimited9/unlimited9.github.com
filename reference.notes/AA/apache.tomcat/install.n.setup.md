@@ -47,13 +47,13 @@ $ su - app
 ### B. creating application directory
 
 #### make directory
-$ mkdir -p /apps/tomcat
-$ mkdir -p /data/tomcat
+$ mkdir -p /apps/tomcat  
+$ mkdir -p /data/tomcat  
 $ mkdir -p /logs/tomcat
 
-$ mkdir -p /logs/tomcat
-$ mkdir -p /pgms/tomcat/webapps
-$ mkdir -p /pgms/tomcat/wars
+$ mkdir -p /logs/tomcat  
+$ mkdir -p /pgms/tomcat/webapps  
+$ mkdir -p /pgms/tomcat/wars  
 $ mkdir -p /pgms/tomcat/backup
 
 ### C. download
