@@ -4,4 +4,4 @@
 
 ## Family sites
 
-* [Ruan.Lee, 4th child, 2th son](http://arch.ruaniz.com)
+* [Ruan.Lee, 4th child, 2th son](http://ruaniz.com)
