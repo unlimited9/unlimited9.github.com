@@ -26,12 +26,11 @@ $ su - app
 $ mkdir -p /apps/jdk
 
 #### C. download
+`https://jdk.java.net/ - JDK 11.0.2 General-Availability Release`
+$ curl -O https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install
+>~~$ wget https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install~~
 
-* https://jdk.java.net/ - JDK 11.0.2 General-Availability Release
-  $ curl -O https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install
-  >~~$ wget https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install~~
-
->#### http://oracle.com - Java SE Development Kit 11.0.2(LTS)
+>`http://oracle.com - Java SE Development Kit 11.0.2(LTS)`
 >>for accept header and license
 >
 >~~$ curl -LO -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/11.0.2+9/f51449fcd52f4d52b93a989c5c56ed3c/jdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install~~
@@ -39,12 +38,11 @@ $ mkdir -p /apps/jdk
 >
 >~~$ wget http://download.oracle.com/otn-pub/java/jdk/11.0.2+9/f51449fcd52f4d52b93a989c5c56ed3c/jdk-11.0.2_linux-x64_bin.tar.gz -H --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" -P /apps/install~~
 
-### D. install
-
-#### decompress tarball
+#### D. install
+* decompress tarball
 $ tar -zxvf /apps/install/openjdk-11.0.2_linux-x64_bin.tar.gz
 
-#### copy application directory
+* copy application directory
 $ cp -R /apps/install/jdk-11.0.2 /apps/jdk/11.0.2
 
 #### package install
