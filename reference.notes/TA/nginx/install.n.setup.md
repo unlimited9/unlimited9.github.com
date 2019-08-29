@@ -11,23 +11,21 @@ Installation/Setup/Configuration Server.setting - proxy
 
 #### B. install dependency packages
 `dependency libray`  
-* case of redhat
+* case of redhat  
 $ yum install pcre pcre-devel openssl libssl-dev  
-* case of debian
+* case of debian  
 $ apt-get install libpcre3 libpcre3-dev openssl libssl-dev
 
 `utility libray`  
-* case of redhat
+* case of redhat  
 $ yum install zlib*  
-* case of debian
+* case of debian  
 $ apt-get install zlib1g zlib1g-dev
 
 #### C. creating base directory
-
-#### 디렉토리 생성
 [Create operating system drectory](/reference.notes/TA/system/create.directory.md)
 
-### D. firewall configuration
+#### D. firewall configuration
 
 $ vi /etc/sysconfig/iptables
 ```
@@ -40,32 +38,28 @@ $ vi /etc/sysconfig/iptables
 ...
 ```
 
-#### restart iptalbes service 
+`restart iptalbes service`  
 $ service iptables restart
 
 $ iptables -nL
 
 ## 2. installation setup : app
 
-### A. change account
-
+#### A. change account
 $ su - app
 
-### B. creating application directory
-
-#### make directory
+#### B. creating application directory
 $ mkdir -p /apps/nginx  
 $ mkdir -p /data/nginx  
 $ mkdir -p /logs/nginx
 
-### C. download
+#### C. download
 
-#### Nginx(http://nginx.org/)  
-
+`Nginx(http://nginx.org/)`  
 $ curl -O http://nginx.org/download/nginx-1.14.2.tar.gz -P /apps/install  
 ~~$ wget http://nginx.org/download/nginx-1.14.2.tar.gz -P /apps/install~~
 
-### D. install
+#### D. install
 
 #### decompress tarball
 $ tar -zxvf /apps/install/nginx-1.14.2.tar.gz
