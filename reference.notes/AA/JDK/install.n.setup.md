@@ -31,25 +31,24 @@ $ curl -O https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64
 ~~$ wget https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install~~
 
 >`http://oracle.com - Java SE Development Kit 11.0.2(LTS)`
->>for accept header and license
+>* for accept header and license  
+>$ curl -LO -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/11.0.2+9/f51449fcd52f4d52b93a989c5c56ed3c/jdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install
+>   >$ curl -O -v -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/11.0.2+9/f51449fcd52f4d52b93a989c5c56ed3c/jdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install  
 >
->~~$ curl -LO -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/11.0.2+9/f51449fcd52f4d52b93a989c5c56ed3c/jdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install~~
->>~~$ curl -O -v -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/11.0.2+9/f51449fcd52f4d52b93a989c5c56ed3c/jdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install~~
->
->~~$ wget http://download.oracle.com/otn-pub/java/jdk/11.0.2+9/f51449fcd52f4d52b93a989c5c56ed3c/jdk-11.0.2_linux-x64_bin.tar.gz -H --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" -P /apps/install~~
+>   ~~$ wget http://download.oracle.com/otn-pub/java/jdk/11.0.2+9/f51449fcd52f4d52b93a989c5c56ed3c/jdk-11.0.2_linux-x64_bin.tar.gz -H --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" -P /apps/install~~
 
 #### D. install
-* decompress tarball
+`decompress tarball`  
 $ tar -zxvf /apps/install/openjdk-11.0.2_linux-x64_bin.tar.gz
 
-* copy application directory
+`copy application directory`  
 $ cp -R /apps/install/jdk-11.0.2 /apps/jdk/11.0.2
 
-#### package install
-##### cenos
-~~$ sudo yum install java-11-openjdk-devel~~
-##### ubuntu
-~~$ sudo apt-get install openjdk-11-jdk~~
+>`package install`
+>* cenos  
+>  $ sudo yum install java-11-openjdk-devel
+>* ubuntu  
+$ sudo apt-get install openjdk-11-jdk
 
 ## 3. post-installation setup
 
