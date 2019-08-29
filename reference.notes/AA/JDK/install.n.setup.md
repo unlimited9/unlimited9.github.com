@@ -1,11 +1,11 @@
-## Install and setup JAVA
+# Install and setup JAVA
 
 >Created 목요일 30 11월 2017  
 Installation/Setup/Configuration Java Development Kit
 
 [Script install and setup Java](install.n.setup.script.md)
 
-### 1. Pre-installation setup
+## 1. Pre-installation setup
 
 #### A. creating required operating system group and user
 [Create operating system group and user](/reference.notes/TA/system/create.account.n.group.md)
@@ -17,7 +17,7 @@ Installation/Setup/Configuration Java Development Kit
 
 #### D. firewall configuration
 
-### 2. installation setup : app
+## 2. installation setup : app
 
 #### A. change account
 $ su - app
@@ -28,8 +28,8 @@ $ mkdir -p /apps/jdk
 #### C. download
 
 * https://jdk.java.net/ - JDK 11.0.2 General-Availability Release
-$ curl -O https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install
->~~$ wget https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install~~
+  $ curl -O https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install
+  >~~$ wget https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install~~
 
 >#### http://oracle.com - Java SE Development Kit 11.0.2(LTS)
 >>for accept header and license
