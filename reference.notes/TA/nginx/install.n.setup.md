@@ -530,7 +530,7 @@ $ service nginx stop
 
 ## 9. Appendix
 
-### reference site
+#### reference site
 
 * Nginx HTTP Server - 2. 설치  
 http://ohgyun.com/478
