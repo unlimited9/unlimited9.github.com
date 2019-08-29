@@ -5,34 +5,29 @@ Installation/Setup/Configuration Java Development Kit
 
 [Script install and setup Java](install.n.setup.script.md)
 
-## 1. Pre-installation setup
+### 1. Pre-installation setup
 
-### A. creating required operating system group and user
-
+#### A. creating required operating system group and user
 [Create operating system group and user](/reference.notes/TA/system/create.account.n.group.md)
 
-### B. install dependency packages
+#### B. install dependency packages
 
-### C. creating base directory
-
+#### C. creating base directory
 [Create operating system drectory](/reference.notes/TA/system/create.directory.md)
 
-### D. firewall configuration
+#### D. firewall configuration
 
-## 2. installation setup : app
+### 2. installation setup : app
 
-### A. change account
-
+#### A. change account
 $ su - app
 
-### B. creating application directory
-
-#### make directory
+#### B. creating application directory
 $ mkdir -p /apps/jdk
 
-### C. download
+#### C. download
 
-#### https://jdk.java.net/ - JDK 11.0.2 General-Availability Release
+* https://jdk.java.net/ - JDK 11.0.2 General-Availability Release
 $ curl -O https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install
 >~~$ wget https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -P /apps/install~~
 
