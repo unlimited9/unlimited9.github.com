@@ -1,64 +1,31 @@
 # 01.install.n setup : Nginx
 
 >Created 목요일 30 11월 2017  
-Server.setting - proxy
-
-# Installation/Setup/Configuration
+Installation/Setup/Configuration Server.setting - proxy
 
 ## 1. Pre-installation setup
 
-### A. creating required operating system group and user
+#### A. creating required operating system group and user
+[Create operating system group and user](/reference.notes/TA/system/create.account.n.group.md)
 
-#### create the os application group(typically, app)
-$ groupadd -g 3000 app
 
-> 어플리케이션 단위 관리 주체가 다르지 않고 권한을 나눌 필요가 없어 통합 계정을 생성하여 관리
-> ~~어플리케이션 단위 관리 주체가 다르다면 어플리케이션별 계정을 생성하여 생성하여 관리~~
-
-#### create the software unified account (typically, app)
-$ useradd -d /apps -g 3000 -m -u 3000 -s /bin/bash app
-$ passwd app
-
-#### create the nginx software owner (typically, nginx) 
-~~$ useradd -d /apps/nginx -g 3000 -m -u 3020 -s /bin/bash nginx~~
-> ~~$ useradd -d /apps/nginx -g 3000 -m -u 3020 -s /bin/bash nginx  -s /sbin/nologin~~
-> 
-~~$ passwd nginx~~
->#### usermod (append group) 
->$ usermod --append --groups app nginx
->#### service status 
->$ sudo /sbin/service --status-all
-
-### B. install dependency packages
-
-#### dependency libray  
-##### case of redhat
+#### B. install dependency packages
+`dependency libray`  
+* case of redhat
 $ yum install pcre pcre-devel openssl libssl-dev  
-##### case of debian
+* case of debian
 $ apt-get install libpcre3 libpcre3-dev openssl libssl-dev
 
-#### utility libray  
-
-##### case of redhat
+`utility libray`  
+* case of redhat
 $ yum install zlib*  
-
-##### case of debian
+* case of debian
 $ apt-get install zlib1g zlib1g-dev
 
-### C. creating base directory
+#### C. creating base directory
 
 #### 디렉토리 생성
-~~$ mkdir -p /apps~~  
-$ mkdir -p /apps/install  
-$ mkdir -p /pgms  
-$ mkdir -p /data  
-$ mkdir -p /logs
-
-#### 소유권 변경
-$ chown -R app:app /apps  
-$ chown -R app:app /pgms  
-$ chown -R app:app /data  
-$ chown -R app:app /logs
+[Create operating system drectory](/reference.notes/TA/system/create.directory.md)
 
 ### D. firewall configuration
 
@@ -213,7 +180,8 @@ sbin : nginx 실행파일
 
 #### nginx
 $ vi /apps/nginx/nginx  
-> ref. https://www.nginx.com/resources/wiki/start/topics/examples/redhatnginxinit/  
+> ref. https://www.nginx.com/resources/wiki/start/topics/examples/redhatnginxinit/
+
 ```
 #!/bin/sh
 #
