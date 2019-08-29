@@ -1,9 +1,4 @@
-# Account/Group
-
->Created 목요일 30 11월 2017  
-Create xNix System account/group
-
-## creating required operating system group and user
+## creating operating system group and user
 
 #### create the os application group(typically, app)
 $ groupadd -g 3000 app
