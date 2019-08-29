@@ -10,43 +10,14 @@ Server.setting - application
 
 ### A. creating required operating system group and user
 
-#### create the os application group(typically, app)
-$ groupadd -g 3000 app
-
-> 어플리케이션 단위 관리 주체가 다르지 않고 권한을 나눌기 필요가 없어 통합 계정을 생성하여 관리
-> ~~어플리케이션 단위 관리 주체가 다르다면 어플리케이션별 계정을 생성하여 생성하여 관리~~
-
-#### create the software unified account (typically, app)
-$ useradd -d /apps -g 3000 -m -u 3000 -s /bin/bash app
-$ passwd app
-
-#### create the tomcat software owner (typically, tomcat) 
-~~$ useradd -d /apps/tomcat -g 3000 -m -u 3020 -s /bin/bash tomcat~~
-> ~~$ useradd -d /apps/tomcat -g 3000 -m -u 3020 -s /bin/bash tomcat  -s /sbin/nologin~~
-> 
-~~$ passwd tomcat~~
->#### usermod (append group) 
->$ usermod --append --groups app tomcat
->#### service status 
->$ sudo /sbin/service --status-all
+[Create operating system group and user](/reference.notes/TA/system/create.account.n.group.md)
 
 ### B. install dependency packages
 >tomcat requires Java to run
 
 ### C. creating base directory
 
-#### 디렉토리 생성
-~~$ mkdir -p /apps~~
-$ mkdir -p /apps/install
-$ mkdir -p /pgms
-$ mkdir -p /data
-$ mkdir -p /logs
-
-#### 소유권 변경
-$ chown -R app:app /apps
-$ chown -R app:app /pgms
-$ chown -R app:app /data
-$ chown -R app:app /logs
+[Create operating system drectory](/reference.notes/TA/system/create.directory.md)
 
 ### D. firewall configuration
 
