@@ -17,7 +17,7 @@ $ passwd app
 >#### create the nginx software owner (typically, nginx)
 >$ useradd -d /apps/nginx -g 3000 -m -u 3020 -s /bin/bash nginx  
 >$ passwd nginx
->
+
 >#### 터미널 접속 로그인 제한(FTP 접속 가능)
 >$ useradd -d /apps/nginx -g 3000 -m -u 3020 -s /bin/bash nginx -s /sbin/nologin  
 >$ su - nginx
