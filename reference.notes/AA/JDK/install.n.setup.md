@@ -9,14 +9,7 @@ Java Development Kit
 
 ## 1. Pre-installation setup
 
-### A. creating required operating system group and user
-
-#### create the os application group(typically, app)
-$ groupadd -g 3000 app
-
-#### create the software unified account (typically, app)
-$ useradd -d /apps -g 3000 -m -u 3000 -s /bin/bash app
-$ passwd app
+### A. [creating required operating system group and user](/reference.notes/TA/system/create.account.n.group.md)
 
 ### B. install dependency packages
 
