@@ -1,6 +1,6 @@
-## Springboot dependency management
+# Springboot dependency management
 
-### gradle
+## gradle
 
 #### add spring dependency management plugin
 $ vi build.gradle
@@ -39,7 +39,7 @@ org.mongodb:mongo-java-driver:3.10.2
 
 ## 9. Appendix
 
-### reference site
+#### reference site
 
 - Managing Transitive Dependencies
 https://docs.gradle.org/current/userguide/managing_transitive_dependencies.html#sec:excluding_transitive_module_dependencies
