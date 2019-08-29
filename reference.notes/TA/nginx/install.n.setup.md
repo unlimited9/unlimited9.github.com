@@ -213,7 +213,7 @@ sbin : nginx 실행파일
 
 #### nginx
 $ vi /apps/nginx/nginx  
-> ref. https://www.nginx.com/resources/wiki/start/topics/examples/redhatnginxinit/
+> ref. https://www.nginx.com/resources/wiki/start/topics/examples/redhatnginxinit/  
 ```
 #!/bin/sh
 #
