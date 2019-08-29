@@ -1,9 +1,7 @@
-# Install and setup JAVA
+## Install and setup JAVA
 
 >Created 목요일 30 11월 2017  
-Java Development Kit
-
-# Installation/Setup/Configuration
+Installation/Setup/Configuration Java Development Kit
 
 [Script install and setup Java](install.n.setup.script.md)
 
