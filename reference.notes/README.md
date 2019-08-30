@@ -41,6 +41,8 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
         - [Install and setup](TA/cloud/kubernetes/install.n.setup.md) ([install script](TA/cloud/kubernetes/install.n.setup.script.md)) : Kubernetes(Docker orchestration and clustering) 설치
         - [Web UI (Dashboard) : Install and setup](TA/cloud/kubernetes/install.n.setup.dashboard.md) : 웹 관리 모듈 설치
         - [Administration : management](TA/cloud/kubernetes/administration.management.md) : 쿠버네티스 관리
+    * Cloud Computing
+      + [Hadoop ecosystem : Introduction](TA/hadoop/introduction.md) : Hadoop이란
 
 4. DA(technical architecture)
 
