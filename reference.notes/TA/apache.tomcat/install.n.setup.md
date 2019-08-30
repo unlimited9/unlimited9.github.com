@@ -252,7 +252,7 @@ $ sed -i -e 's/8443/18443/g' /apps/tomcat/instances/es.01/bin/tomcat.sh
 $ sed -i -e 's/8005/18005/g' /apps/tomcat/instances/es.01/bin/tomcat.sh  
 $ sed -i -e 's/8009/18009/g' /apps/tomcat/instances/es.01/bin/tomcat.sh  
 
->**set more instances**
+>**set more instances**  
 >`copy sample instance`  
 $ cp -R /apps/tomcat/instances/es.01 /apps/tomcat/instances/new.instance.01
 >
