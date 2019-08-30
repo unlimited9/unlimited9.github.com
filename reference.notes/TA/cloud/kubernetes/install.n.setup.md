@@ -716,54 +716,51 @@ $ sudo systemctl restart kubelet.service
 
 #### reference site
 
-#### Kubernetes
-https://kubernetes.io/ko/
+* Kubernetes  
+https://kubernetes.io/ko/  
 https://kubernetes.io/ko/docs/setup/pick-right-solution/
 
-#### kubeadm init
+* kubeadm init  
 https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/
 
-#### Installing Addons
+* Installing Addons  
 https://kubernetes.io/docs/concepts/cluster-administration/addons/
 
-#### kubernetes를 이용한 서비스 무중단 배포
+
++ kubernetes를 이용한 서비스 무중단 배포  
 http://tech.kakao.com/2018/12/24/kubernetes-deploy/
 
-#### 우분투 Kubernetes 설치 방법
++ 우분투 Kubernetes 설치 방법  
 https://hiseon.me/2018/08/23/ubuntu-kubernetes-install/
 
-#### kubeadm을 사용하여 kubernetes 설치하기 (ubuntu 18.04)
++ kubeadm을 사용하여 kubernetes 설치하기 (ubuntu 18.04)  
 https://medium.com/@dirty49374/kubeadm%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-kubernetes-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0-ubuntu-18-04-61710f0b4db8
 
-#### INTRODUCTION TO KUBERNETES ARCHITECTURE
++ INTRODUCTION TO KUBERNETES ARCHITECTURE  
 https://x-team.com/blog/introduction-kubernetes-architecture/
 
-#### IBM Developer : 쿠버네티스 실습(Tutorial)
++ IBM Developer : 쿠버네티스 실습(Tutorial)  
 https://developer.ibm.com/kr/cloud/container/2019/03/05/kubernetes_practice/
 
-#### Creating a single master cluster with kubeadm
++ Creating a single master cluster with kubeadm  
 https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/
 
-#### [Kubernetes  & Docker] Kubernetes Master Node Install & Setting
++ [Kubernetes  & Docker] Kubernetes Master Node Install & Setting  
 https://waspro.tistory.com/363
-#### [Kubernetes & Docker] Docker Private Registry Install & Setting
+
++ [Kubernetes & Docker] Docker Private Registry Install & Setting  
 https://waspro.tistory.com/366?category=831751
 
-#### Docker with Kubernetes #5 - Dashboard 설치
++ Docker with Kubernetes #5 - Dashboard 설치  
 https://crystalcube.co.kr/199
 
-#### [Kubernetes] 1.7.x~1.9.x, kubeadm 으로 L3 네트워크 기반 Cluster 구성(with Calico CNI)-3/4  
++ [Kubernetes] 1.7.x~1.9.x, kubeadm 으로 L3 네트워크 기반 Cluster 구성(with Calico CNI)-3/4  
 https://bryan.wiki/285
 
-#### Kubernetes completely uninstall
++ Kubernetes completely uninstall  
 https://medium.com/@meysam1369/kubernetes-completely-uninstall-3f2a83dd985d
 
-#### Docker, Kubernetes 환경에서 CUBRID 컨테이너 서비스 해보기
++ Docker, Kubernetes 환경에서 CUBRID 컨테이너 서비스 해보기  
 http://www.cubrid.com/blog/3820603
 
-#### Kubernetes
-https://kubernetes.io/ko/
-https://kubernetes.io/ko/docs/setup/pick-right-solution/
 
-#### kubernetes를 이용한 서비스 무중단 배포
-http://tech.kakao.com/2018/12/24/kubernetes-deploy/
