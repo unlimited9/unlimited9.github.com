@@ -40,7 +40,7 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
       + [Kubernetes(k8s) : Concept and theorem](TA/cloud/kubernetes/concept.theorem.md) : 쿠버네티스 개요
         - [Install and setup](TA/cloud/kubernetes/install.n.setup.md) ([install script](TA/cloud/kubernetes/install.n.setup.script.md)) : Kubernetes(Docker orchestration and clustering) 설치
         - [Web UI (Dashboard) : Install and setup](TA/cloud/kubernetes/install.n.setup.dashboard.md) : 웹 관리 모듈 설치
-        - [Administration : management and dockerize](TA/cloud/docker/administration.management.md) : 도커 관리
+        - [Administration : management](TA/cloud/kubernetes/administration.management.md) : 쿠버네티스 관리
 
 4. DA(technical architecture)
 
