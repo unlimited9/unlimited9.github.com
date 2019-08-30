@@ -1,4 +1,4 @@
-# install.n setup : Kubernetes
+# install  setup : Kubernetes
 
 >Created 목요일 20 2월 2017  
 automating deployment, scaling, and management of containerized applications.
