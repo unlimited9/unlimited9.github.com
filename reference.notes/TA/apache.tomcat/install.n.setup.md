@@ -1,5 +1,5 @@
 
-# 01.install.n setup : tomcat
+# Install and setup : tomcat
 
 >Created 목요일 30 11월 2017
 Server.setting - application
