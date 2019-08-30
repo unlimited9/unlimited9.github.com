@@ -23,7 +23,7 @@ $ yum install zlib*
 $ apt-get install zlib1g zlib1g-dev
 
 #### C. creating base directory
-[Create operating system drectory](/reference.notes/TA/system/create.directory.md)
+[Create operating system drectory](/reference.notes/TA/system/management.directory.md)
 
 #### D. firewall configuration
 
