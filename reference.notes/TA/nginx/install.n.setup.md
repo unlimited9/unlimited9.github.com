@@ -1,4 +1,4 @@
-# install.n setup : Nginx
+# Install and setup : Nginx
 
 >Created 목요일 30 11월 2017  
 Installation/Setup/Configuration Server.setting - proxy
