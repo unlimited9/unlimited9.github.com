@@ -3,9 +3,7 @@
 >Created 월요일 20 11월 2017
 linux container
 
-## Getting Started
-
-### A.  change container repository directory
+## 1.change container repository directory
 
 #### make docker configuration file
 $ sudo vi /etc/docker/daemon.json
@@ -18,7 +16,7 @@ $ sudo vi /etc/docker/daemon.json
 
 $ sudo systemctl restart docker
 
-### B. command
+## 2.command
 
 ####  컨테이너 실행하기
 ```bash
@@ -72,7 +70,7 @@ $ docker rm [OPTIONS] CONTAINER [CONTAINER...]
 > 중지된 컨테이너 ID를 가져와서 한번에 삭제
 > $ docker rm -v $(docker ps -a -q -f status=exited)
 
-### C. network
+## 3.network
 
 ####  Docker0 inteface
 $ ifconfig docker0
@@ -102,7 +100,7 @@ $ docker network ls
 #### Network 구성 조회 (구성 컨테이너/IP)
 $ docker network inspect [NETWORK ID or NAME]
 
-### D.  Dockerize
+## 4.Dockerize
 
 #### Dockerfile 기본 명령어
 
