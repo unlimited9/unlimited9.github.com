@@ -31,10 +31,10 @@ mobon/apps.server                    1.1                 bb8349385d53        4 w
 ...
 ```
 
->`image tag`
+>`image tag`  
 >$ docker tag mobon/apps.server mobon/apps.server:latest
 >
->`image push`
+>`image push`  
 >$ docker push mobon/apps.server
 
 `deployment yaml 파일 작성`  
