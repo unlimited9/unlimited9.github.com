@@ -31,7 +31,8 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
         - [Optimize : performance tunning](TA/nginx/optimize.performance.tunning.md) : 성능 최적화
         - [Install PHP](TA/nginx/install.n.setup.php.md) : PHP 연계 구성
         - [Configuration Sample](TA/nginx/configuration.sample.md) : 설정 예
-      + [Apache Tomcat : Install and setup](AA/apache.tomcat/install.n.setup.md) ([install script](AA/apache.tomcat/install.n.setup.script.md)) : Tomcat Servlet Container - Multi Instances
+      + [Apache Tomcat : Install and setup](TA/apache.tomcat/install.n.setup.md) ([install script](TA/apache.tomcat/install.n.setup.script.md)) : Tomcat Servlet Container - Multi Instances
+      + [Hadoop ecosystem : Introduction](TA/hadoop/introduction.md) : Hadoop이란
     * Cloud Computing
       + [Docker : Install and setup](TA/cloud/docker/install.n.setup.md) ([install script](TA/cloud/docker/install.n.setup.script.md)) : Docker(independent container platform) 설치
         - [Administration : management and dockerize](TA/cloud/docker/administration.management.md) : 도커 관리
@@ -41,8 +42,6 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
         - [Install and setup](TA/cloud/kubernetes/install.n.setup.md) ([install script](TA/cloud/kubernetes/install.n.setup.script.md)) : Kubernetes(Docker orchestration and clustering) 설치
         - [Web UI (Dashboard) : Install and setup](TA/cloud/kubernetes/install.n.setup.dashboard.md) : 웹 관리 모듈 설치
         - [Administration : management](TA/cloud/kubernetes/administration.management.md) : 쿠버네티스 관리
-    * Cloud Computing
-      + [Hadoop ecosystem : Introduction](TA/hadoop/introduction.md) : Hadoop이란
 
 4. DA(technical architecture)
 
