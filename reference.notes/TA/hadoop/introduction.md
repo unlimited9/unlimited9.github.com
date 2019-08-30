@@ -3,7 +3,7 @@
 단일 서버에서 수천대의 머신으로 확장 할 수 있도록 설계되었다.  
 일반적으로 하둡파일시스템(HDFS)과 맵리듀스(MapReduce)프레임워크로 시작되었으나, 여러 데이터저장, 실행엔진, 프로그래밍 및 데이터처리 같은 하둡 생태계 전반을 포함하는 의미로 확장 발전 되었다.
 
-![](http://postfiles8.naver.net/MjAxNzAzMTNfMTY5/MDAxNDg5NDAyNjcwNzUw.oFVCJWbiT0wxBQ98gpdW5V7N-U-gkLXA4VGL21nNXlMg.BjfSmzoIvec1v1VBjKRm9W94Ew2ZVRQGhB6nd_Rvry0g.PNG.acornedu/hha05.png?type=w966)](http://blog.naver.com/PostView.nhn?blogId=acornedu&logNo=220957220179&categoryNo=1&parentCategoryNo=0#)
+![](http://postfiles8.naver.net/MjAxNzAzMTNfMTY5/MDAxNDg5NDAyNjcwNzUw.oFVCJWbiT0wxBQ98gpdW5V7N-U-gkLXA4VGL21nNXlMg.BjfSmzoIvec1v1VBjKRm9W94Ew2ZVRQGhB6nd_Rvry0g.PNG.acornedu/hha05.png?type=w966)
 
 출처:클라우데라 (하둡 생태계)
 
