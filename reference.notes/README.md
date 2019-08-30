@@ -24,8 +24,8 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
 
 3. TA(technical architecture)
     * Operating System
-      + [Create Account/Group](TA/system/create.account.n.group.md) : 시스템 계정/그룹 관리
-      + [Create Ditectory](TA/system/create.directory.md) : 시스템 디렉토리 정의/관리
+      + [Account/Group management](TA/system/management.account.n.group.md) : 시스템 계정/그룹 관리
+      + [Ditectory management](TA/system/management.directory.md) : 시스템 디렉토리 정의/관리
     * Middle-ware
       + [Nginx : Install and setup](TA/nginx/install.n.setup.md) : Nginx Web Server 설치
         - [Optimize : performance tunning](TA/nginx/optimize.performance.tunning.md) : 성능 최적화
