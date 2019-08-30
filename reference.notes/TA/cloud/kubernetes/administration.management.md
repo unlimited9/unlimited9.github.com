@@ -1,7 +1,7 @@
-# 02.administration : kubernetes
+# administration : kubernetes
 
->Created 월요일 20 11월 2017
-linux container
+>Created 월요일 20 11월 2017  
+Container orchestration and clustering
 
 ## Getting Started
 
