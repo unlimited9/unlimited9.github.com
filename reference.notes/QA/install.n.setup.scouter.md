@@ -3,7 +3,7 @@
 ### Requirement
 
 #### scouter requires Java 1.8 over to run
->ref. [Install and setup JAVA](../AA/install.n.setup.java.md)
+>ref. [Install and setup JAVA](../AA/JDK/install.n.setup.md)
 
 ### Create directory
 $ mkdir /apps/scouter
