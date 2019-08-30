@@ -1,3 +1,11 @@
+# Hadoop ecosystem : Introduction
+
+>Created 목요일 20 2월 2017
+Hadoop Ecosystem is a platform or a suite which provides various services to solve the big data problems.
+
+
+## 1. Introduce
+
 **Hadoop 이란?**  
 하둡 소프트웨어 라이브러리는 간단한 프로그래밍 모델을 사용하여 여러대의 컴퓨터 클러스터에서 대규모 데이터 세트를 분산 처리 할 수있게 해주는 프레임워크 이다.  
 단일 서버에서 수천대의 머신으로 확장 할 수 있도록 설계되었다.  
@@ -6,6 +14,8 @@
 ![](http://postfiles8.naver.net/MjAxNzAzMTNfMTY5/MDAxNDg5NDAyNjcwNzUw.oFVCJWbiT0wxBQ98gpdW5V7N-U-gkLXA4VGL21nNXlMg.BjfSmzoIvec1v1VBjKRm9W94Ew2ZVRQGhB6nd_Rvry0g.PNG.acornedu/hha05.png?type=w966)
 
 출처:클라우데라 (하둡 생태계)
+
+## 2. Ecosystem
 
 **분산 코디네이터**  
 - **Zookeeper**  
