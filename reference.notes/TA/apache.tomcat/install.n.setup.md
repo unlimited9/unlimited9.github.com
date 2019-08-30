@@ -2,26 +2,20 @@
 # Install and setup : tomcat
 
 >Created 목요일 30 11월 2017
-Server.setting - application
-
-# Installation/Setup/Configuration
+Server.setting - application : Installation/Setup/Configuration
 
 ## 1. Pre-installation setup
 
-### A. creating required operating system group and user
+#### A. creating required operating system group and user
+[Create operating system group and user](/reference.notes/TA/system/management.account.n.group.md)
 
-[Create operating system group and user](/reference.notes/TA/system/create.account.n.group.md)
-
-### B. install dependency packages
-
+#### B. install dependency packages
 >[tomcat requires Java to run](/reference.notes/AA/JDK/install.n.setup.md)
 
-### C. creating base directory
+#### C. creating base directory
+[Create operating system drectory](/reference.notes/TA/system/management.directory.md)
 
-[Create operating system drectory](/reference.notes/TA/system/create.directory.md)
-
-### D. firewall configuration
-
+#### D. firewall configuration
 $ vi /etc/sysconfig/iptables
 ```
 ...  
@@ -33,20 +27,19 @@ $ vi /etc/sysconfig/iptables
 ...
 ```
 
-#### restart iptalbes service 
+`restart iptalbes service`  
 $ service iptables restart
 
 $ iptables -nL
 
 ## 2. installation setup : app
 
-### A. change account
-
+#### A. change account
 $ su - app
 
-### B. creating application directory
+#### B. creating application directory
 
-#### make directory
+`make directory`  
 $ mkdir -p /apps/tomcat  
 $ mkdir -p /data/tomcat  
 $ mkdir -p /logs/tomcat
@@ -56,25 +49,22 @@ $ mkdir -p /pgms/tomcat/webapps
 $ mkdir -p /pgms/tomcat/wars  
 $ mkdir -p /pgms/tomcat/backup
 
-### C. download
-
-#### Tomcat(http://tomcat.apache.org/)  
+#### C. download
+>Tomcat(http://tomcat.apache.org/)
 
 $ cd /apps/install
 $ curl -O http://mirror.apache-kr.org/tomcat/tomcat-9/v9.0.20/bin/apache-tomcat-9.0.20.tar.gz  
 ~~$ wget http://mirror.apache-kr.org/tomcat/tomcat-9/v9.0.20/bin/apache-tomcat-9.0.20.tar.gz -P /apps/install~~
 
-### D. install
-
-#### decompress tarball
+#### D. install
+`decompress tarball`  
 $ tar -zxvf /apps/install/apache-tomcat-9.0.20.tar.gz
 
-#### copy application directory
+`copy application directory`  
 $ cp -R apache-tomcat-9.0.20 /apps/tomcat/9.0.20	
 
-### E. instance configure
-
-#### make directory
+#### E. instance configure
+`make directory`  
 $ mkdir -p \  
 /apps/tomcat/instances/es.01/bin  \  
 /apps/tomcat/instances/es.01/conf \  
@@ -84,13 +74,13 @@ $ mkdir -p \
 
 $ cp -R /apps/tomcat/9.0.20/conf/* /apps/tomcat/instances/es.01/conf
 
-#### port - system property  
+`port - system property`  
 $ sed -i -e 's/8005/\${tomcat\.port\.shutdown}/g' /apps/tomcat/instances/es.01/conf/server.xml  
 $ sed -i -e 's/8080/\${tomcat\.port\.http}/g' /apps/tomcat/instances/es.01/conf/server.xml  
 $ sed -i -e 's/8009/\${tomcat\.port\.ajp}/g' /apps/tomcat/instances/es.01/conf/server.xml  
 $ sed -i -e 's/8443/\${tomcat\.port\.https}/g' /apps/tomcat/instances/es.01/conf/server.xml  
 
-#### application context 
+`application context`  
 $ vi /apps/tomcat/instances/es.01/conf/server.xml
 ```
     ...
@@ -116,8 +106,7 @@ $ vi /apps/tomcat/instances/es.01/conf/server.xml
     ...
 ```
 
-### F. create instance shell script
-
+#### F. create instance shell script
 $ vi /apps/tomcat/instances/es.01/bin/tomcat.sh  
 ```
 #!/bin/sh
@@ -257,13 +246,13 @@ $ chmod 755 /apps/tomcat/instances/es.01/bin/tomcat.sh
 >
 >$ chmod 755 /apps/tomcat/instances/es.01/bin/setenv.sh
 
-#### set instance port
+`set instance port`  
 $ sed -i -e 's/8080/18080/g' /apps/tomcat/instances/es.01/bin/tomcat.sh  
 $ sed -i -e 's/8443/18443/g' /apps/tomcat/instances/es.01/bin/tomcat.sh  
 $ sed -i -e 's/8005/18005/g' /apps/tomcat/instances/es.01/bin/tomcat.sh  
 $ sed -i -e 's/8009/18009/g' /apps/tomcat/instances/es.01/bin/tomcat.sh  
 
->####  set more instances
+>**set more instances**
 >`copy sample instance`  
 $ cp -R /apps/tomcat/instances/es.01 /apps/tomcat/instances/new.instance.01
 >
@@ -274,26 +263,24 @@ $ sed -i -e 's/18443/28443/g' /apps/tomcat/instances/new.instance.01/bin/tomcat.
 $ sed -i -e 's/18005/28005/g' /apps/tomcat/instances/new.instance.01/bin/tomcat.sh  
 $ sed -i -e 's/18009/28009/g' /apps/tomcat/instances/new.instance.01/bin/tomcat.sh
 
-### G. run application
-
-#### start service
+#### G. run application
+`start service`  
 $ /apps/tomcat/instances/es.01/bin/tomcat start
 
-#### check status
+`check status`  
 $ /apps/tomcat/instances/es.01/bin/tomcat status
 
-#### check process and port
-$ ps -ef | grep tomcat
-$ netstat -na | grep LISTEN  
+`check process and port`  
+$ ps -ef | grep tomcat  
+$ netstat -na | grep LISTEN
 
-#### stop service
+`stop service`  
 $ /apps/tomcat/instances/es.01/bin/tomcat stop
 
 ## 3. post-installation setup
 
-### A. create shell script
-
-#### 등록된 인스턴스들을 일괄적으로 start/stop
+#### A. create shell script
+`등록된 인스턴스들을 일괄적으로 start/stop`  
 $ vi /apps/tomcat/tomcat
 ```
 #!/bin/sh
@@ -351,23 +338,21 @@ esac
 exit 0
 ```
 
-### B. add service
-
+#### B. add service
 $ cp /apps/tomcat/tomcat /etc/rc.d/init.d/tomcat
 
-#### case of redhat
-$ chkconfig --add tomcat  
-$ chkconfig --level 35 tomcat on
+* case of redhat  
+	$ chkconfig --add tomcat  
+	$ chkconfig --level 35 tomcat on
+	
+	$ chkconfig --list | grep tomcat  
+	```
+	nginx 0:off 1:off 2:off 3:on 4:off 5:on 6:off
+	```
+* case of debian  
+	$ sudo update-rc.d -f tomcat defaults
 
-$ chkconfig --list | grep tomcat  
-```
-nginx 0:off 1:off 2:off 3:on 4:off 5:on 6:off
-```
-
->#### case of debian
->$ sudo update-rc.d -f tomcat defaults
-
-### C. configure SELinux(optional)
+#### C. configure SELinux(optional)
 $ vi /etc/selinux/config  
 ```
 ...
@@ -391,7 +376,7 @@ $ service tomcat stop
 
 ## 9. Appendix
 
-### reference site
+#### reference site
 
 * DBCP 소개/설정 및 validationQuery 이슈  
 http://linuxism.tistory.com/579
