@@ -8,7 +8,7 @@ automating deployment, scaling, and management of containerized applications.
 
 ## 2. Architecture
 
-### 1. Concept/Features
+## 1. Concept/Features
 
 ![](https://res.cloudinary.com/dukp6c7f7/image/upload/f_auto,fl_lossy,q_auto/s3-ghost/2016/06/o7leok.png)
 
