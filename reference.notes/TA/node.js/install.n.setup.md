@@ -184,40 +184,50 @@ express.vhost | vhost
 express.csrf | csurf
 express.directory | serve-index
 express.static | serve-static
-Express 4 미들웨어의 전체 목록을 참조하십시오.
 
->> PM2 - Node.js 프로세스 관리 도구
-pm2 명령어를 사용해야 하므로 npm을 이용해서 전역으로 설치한다.
-$ npm install pm2 -g
+Express 4 미들웨어의 [전체 목록](https://github.com/senchalabs/connect#middleware) 참조
+
+#### PM2 - Node.js 프로세스 관리 도구
+pm2 명령어를 사용해야 하므로 npm을 이용해서 전역으로 설치한다.  
+$ npm install pm2 -g  
 $ pm2 version
 
-$ pm2 start app.js
-$ pm2 list
-$ pm2 show app
+$ pm2 start app.js  
+$ pm2 list  
+$ pm2 show app  
 $ pm2 delete app
 
+#### reference site
+* Node.js 개발환경 구성  
+http://teraspoon.egloos.com/1779944
 
->> reference site
-Node.js 개발환경 구성
-teraspoon.egloos.com/1779944
-Realm Node.js와 Express로 블로그 만들기
+* Realm Node.js와 Express로 블로그 만들기  
 https://academy.realm.io/kr/posts/realm-node-js-express-blog-tutorial/
-Node.js 애플리케이션의 간단한 프로파일링
+
+* Node.js 애플리케이션의 간단한 프로파일링  
 https://nodejs.org/ko/docs/guides/simple-profiling/
-Express 4로의 이전
+
+* Express 4로의 이전  
 http://expressjs.com/ko/guide/migrating-4.html
-Use EJS to Template Your Node Application
+
+* Use EJS to Template Your Node Application  
 https://scotch.io/tutorials/use-ejs-to-template-your-node-application
-vue : https://github.com/vuejs/vue
+
++ vue : https://github.com/vuejs/vue  
 Vue.js is an MIT-licensed open source project. It's an independent project with its ongoing development made possible entirely thanks to the support by these awesome backers. If you'd like to join them, please consider:
-Element : http://element.eleme.io
+
++ Element : http://element.eleme.io  
 Element, a Vue 2.0 based component library for developers, designers and product managers
-vue-element-admin : https://github.com/PanJiaChen/vue-element-admin
+
++ vue-element-admin : https://github.com/PanJiaChen/vue-element-admin  
 vue-element-admin is a front-end management background integration solution. It based on vue and use the UI Toolkit element.
-익스프레스 템플릿(Jade, Pug), Express template
+
+- 익스프레스 템플릿(Jade, Pug), Express template  
 https://www.zerocho.com/category/NodeJS/post/578c64621e3613150037d3b3
-노드 프로젝트의 설정 파일들
+
+- 노드 프로젝트의 설정 파일들  
 https://www.zerocho.com/category/NodeJS/post/5b934c8e6c974e001b710767
-PM2 - Node.js 프로세스 관리 도구
+
+- PM2 - Node.js 프로세스 관리 도구  
 https://blog.outsider.ne.kr/1197
 
