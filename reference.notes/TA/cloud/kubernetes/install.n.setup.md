@@ -203,12 +203,12 @@ $ sysctl --system
 
 $ sudo kubeadm init --pod-network-cidr 10.244.0.0/16 --service-dns-domain "mobon.stage"
 
---apiserver-advertise-address : 서버 IP
---apiserver-bind-port : (default 6443)
---service-cidr : (default "10.96.0.0/12")
---service-dns-domain : (default "cluster.local")
---ignore-preflight-errors=all : 에러 무시(swap 등)
---token-ttl 0 : 토큰이 만료되지 않도록 설정(default 24h0m0s)
+--apiserver-advertise-address : 서버 IP  
+--apiserver-bind-port : (default 6443)  
+--service-cidr : (default "10.96.0.0/12")  
+--service-dns-domain : (default "cluster.local")  
+--ignore-preflight-errors=all : 에러 무시(swap 등)  
+--token-ttl 0 : 토큰이 만료되지 않도록 설정(default 24h0m0s)  
 >$ sudo kubeadm init --ignore-preflight-errors=all --pod-network-cidr 10.244.0.0/16 --service-cidr 10.96.0.0/12 --service-dns-domain "cluster.local" --apiserver-advertise-address 172.20.0.31 --apiserver-bind-port 6443 --token-ttl 0  
     ```
 
@@ -299,11 +299,11 @@ kubeadm join 192.168.100.12:6443 --token fpcq1q.nb2okgy5x2r6xlxz \
     --discovery-token-ca-cert-hash sha256:4ddb92af1f45ee771dc8ecfcddfa516440641ff6547490a9e6a9eb30e1ff0637 
 
 root 이외 계정에서 사용 시 아래와 같이 환경 설정을 추가한다.
-```
-$ mkdir -p $HOME/.kube
-$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
+$ mkdir -p $HOME/.kube  
+$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config  
+$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
 $ export KUBECONFIG=$HOME/.kube/config
 ```
 
