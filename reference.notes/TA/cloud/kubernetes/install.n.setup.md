@@ -687,7 +687,7 @@ The connection to the server 192.168.100.12:6443 was refused - did you specify t
 시스템에서 스왑을 사용하면 기본적으로 kubelet이 시작되지 않는다.
 
 #### a. 스왑 제거
-$ sudo swapoff -a
+$ sudo swapoff -a  
 $ sudo systemctl restart kubelet.service
 > $ sudo service kubelet restart
 
