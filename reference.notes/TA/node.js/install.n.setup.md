@@ -112,157 +112,28 @@ Eclipse IDE for Java EE Developers (recommended)
   
     File Name : index.js
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-`make directory`  
-$ mkdir -p /apps/tomcat  
-$ mkdir -p /data/tomcat  
-$ mkdir -p /logs/tomcat
-
-
-
-Node.js는 V8이라는 구글에서 개발한 고성능 자바스크립트 엔진으로 빌드된 서버 사이드 개발용 소프트웨어 플랫폼입니다.
-1. Installation(basic)
-
->> 
-
-NVM(Node Version Manager) : https://github.com/creationix/nvm
-Install script
-To install or update nvm, you can use the install script using cURL
-     $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-or Wget:
-     $ wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-설치가 되면 ~/.bash_profile, ~/.zshrc, ~/.profile 등의 프로파일에 nvm.sh이 실행되도록 다음 스크립트가 추가됩니다.
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-Verify installation
-$ command -v nvm
-Node.js : https://nodejs.org/en/
-Node 버전 설치
-$ nvm install <version> # ex> nvm install 8.11.4
-
-# 설치된 Node 버전 목록 확인
-$ nvm ls
-
-# 사용할 Node 설정
-$ nvm use <version> # ex> nvm use 8.9.4
-$ nvm use <alias> # ex> nvm use default
-
-# 사용할 alias 설정
-$ nvm alias <alias> <version> # ex> nvm alias test-v 8.9.4
-
-# Node 삭제
-$ nvm uninstall <version> # ex> nvm uninstall 8.9.4 
-
-Verify installation
-$ command -v nvm
-2. Development Environment (eclipse)
-
->> 
-
-Eclipse Install : http://www.eclipse.org/downloads/
-Package Install
--. Eclipse IDE for Java EE Developers (recommended)
-   or Eclipse IDE for JavaScript and Web Developers
-3. Create Project (JavaScript)
-
->> 
-
-Create Project
-File > New > Project > JavaScript > JavaScript Project
-Project Name : prj.surface
-Encoding setup
-Window > Preferences > General > Workspace > Text file encoding : UTF-8  
-NPM Initialize
-File > New > Other... > JavaScript > npm Init
-Node.js Module Install
-open terminal
-add/create eclipse external script : run a program
-Run > External Tools > External Tools Configurations
-   Project Name : terminalOpen
-   Location : /usr/bin/xfce4-terminal
-   Working Directory : ${resource_loc}
-Express Module 
-# Express : 웹 요청을 처리
-# Realm : 데이터베이스 활용
-# EJS(Embedded JavaScript) : 템플릿 처리
-# body-parser : 폼으로 전달된 쿼리를 처리
-
-# Morgan : 메시지 콘솔 표시
-# Compression : 페이지 압축 전송
-# Session : 세션 처리
-# Cookie-parser : 쿠키 사용
-# Method-override : REST API에서 PUT과 DELETE 메소드를 사용
-# Cors : 크로스오리진(다른 도메인 간의 AJAX 요청) 가능
-# Multer : 파일업로드
-
-$ npm install --save express
-$ npm install --save realm
-$ npm install --save ejs
-$ npm install --save body-parser
-
-# “–save” option : 설치된 모듈을 package.json에 기록
-eclipse project refresh
-Dependent Packages/Modules Install with package.json
-$ npm install
-Create a new JavaScript file
-File > New > JavaScript Source File
-   File Name : index.js
-4. Environment Extensions (optional)
-
->> 
-
-node.js plugin : Express
-Global Install
-$ npm install -g express
-$ npm install -gd express-generator
-Eclipse plugin
-Nodeclipse Plugin Install
--. Help > Eclipse Marketplace... > "node" Search
--. Nodeclipse Install
-Nodeclipse Plugin Setup
--. Window > Preferences > Nodeclipse
-   Node Path: ~/.nvm/versions/node/v8.11.4/bin/node
-   Express Path: ~/.nvm/versions/node/v8.11.4/bin/express
+#### Environment Extensions (optional)
+1. node.js plugin : Express  
+  `Global Install`  
+  $ npm install -g express  
+  $ npm install -gd express-generator
+  
+2. Eclipse plugin
+   1. Nodeclipse Plugin Install  
+      Help > Eclipse Marketplace... > "node" Search  
+      Nodeclipse Install
+      
+   2. Nodeclipse Plugin Setup  
+      Window > Preferences > Nodeclipse  
+      Node Path: ~/.nvm/versions/node/v8.11.4/bin/node  
+      Express Path: ~/.nvm/versions/node/v8.11.4/bin/express
+      
 5. Project Extensions (optional)
 
 >> 
 Create Node.js Express Project
--. File > New > Node Project
-   Project Name : mobon.ad.surface
+-. File > New > Node Project  
+   Project Name : mobon.ad.surface  
    Template Engine : select ejs
    Stylesheet Engine : select stylus
 Execute
