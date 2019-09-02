@@ -1,8 +1,6 @@
 # Install and setup : node.js
 
->Created 목요일 30 11월 2017
-Server.setting - application : Installation/Setup/Configuration
-
+>Created 목요일 30 11월 2017  
 Node.js는 구글에서 개발한 고성능 자바스크립트 엔진 V8로 빌드된 서버 사이드 개발용 소프트웨어 플랫폼이다.
 
 ## 1. Pre-installation setup
@@ -33,8 +31,6 @@ export NVM_DIR="$HOME/.nvm"
 
 `Verify installation`  
 $ command -v nvm
-
-
 
 #### B. Node.js : https://nodejs.org/en/
 `Node 버전 설치`  
@@ -128,22 +124,22 @@ Eclipse IDE for Java EE Developers (recommended)
       Node Path: ~/.nvm/versions/node/v8.11.4/bin/node  
       Express Path: ~/.nvm/versions/node/v8.11.4/bin/express
       
-5. Project Extensions (optional)
-
->> 
-Create Node.js Express Project
--. File > New > Node Project  
-   Project Name : mobon.ad.surface  
-   Template Engine : select ejs
-   Stylesheet Engine : select stylus
-Execute
--. Project Explorer > mobon.ad.surface > (right click) Run As > Node.js Application
-   Main file : ${workspace_loc:/mobon.ad.surface/bin/www}
-   Apply > Run
-   Error: Cannot find module 'http-errors' ...
-Dependent Packages/Modules Install with package.json
--. Project Explorer > mobon.ad.surface > (right click) StartExplorer > Start Shell Here
-   npm install
+#### Project Extensions (optional)
+1. Create Node.js Express Project  
+  File > New > Node Project  
+  Project Name : mobon.ad.surface  
+  Template Engine : select ejs  
+  Stylesheet Engine : select stylus
+  
+2. Execute  
+  Project Explorer > mobon.ad.surface > (right click) Run As > Node.js Application  
+  Main file : ${workspace_loc:/mobon.ad.surface/bin/www}  
+  Apply > Run  
+  Error: Cannot find module 'http-errors' ...
+  
+3. Dependent Packages/Modules Install with package.json  
+  Project Explorer > mobon.ad.surface > (right click) StartExplorer > Start Shell Here  
+  npm install
 
 9. Troubleshooting
 
