@@ -169,8 +169,8 @@ Express 4는 더 이상 Connect에 종속되지 않으며, express.static 함수
 #### xpress 3의 미들웨어 및 그에 대응하는 Express 4의 미들웨어
 | Express 3	| Express 4 |
 | - | - |
-express.bodyParser | body-parser + multer
-express.compress | compression
+| express.bodyParser | body-parser + multer |
+| express.compress | compression |
 express.cookieSession | cookie-session
 express.cookieParser | cookie-parser
 express.logger | morgan
