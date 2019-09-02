@@ -171,19 +171,19 @@ Express 4는 더 이상 Connect에 종속되지 않으며, express.static 함수
 | - | - |
 | express.bodyParser | body-parser + multer |
 | express.compress | compression |
-express.cookieSession | cookie-session
-express.cookieParser | cookie-parser
-express.logger | morgan
-express.session | express-session
-express.favicon | serve-favicon
-express.responseTime | response-time
-express.errorHandler | errorhandler
-express.methodOverride | method-override
-express.timeout | connect-timeout
-express.vhost | vhost
-express.csrf | csurf
-express.directory | serve-index
-express.static | serve-static
+| express.cookieSession | cookie-session |
+| express.cookieParser | cookie-parser |
+| express.logger | morgan |
+| express.session | express-session |
+| express.favicon | serve-favicon |
+| express.responseTime | response-time |
+| express.errorHandler | errorhandler |
+| express.methodOverride | method-override |
+| express.timeout | connect-timeout |
+| express.vhost | vhost |
+| express.csrf | csurf |
+| express.directory | serve-index |
+| express.static | serve-static |
 
 Express 4 미들웨어의 [전체 목록](https://github.com/senchalabs/connect#middleware) 참조
 
