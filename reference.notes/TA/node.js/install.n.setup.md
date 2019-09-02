@@ -141,20 +141,22 @@ Eclipse IDE for Java EE Developers (recommended)
   Project Explorer > mobon.ad.surface > (right click) StartExplorer > Start Shell Here  
   npm install
 
-9. Troubleshooting
+## 8. Troubleshooting
 
->> ISSUE
-
+#### ISSUE
 /bin/bash: 줄 1: npm: 명령어를 찾을 수 없음.
-cause
-eclipse가 non-login shell로 실행되면서 /etc/profile과 /etc/bashrc만 실행되고 login(interactive) shell에서 사용하는 ~/.bashrc, ~/.profile, ~/.bash_profile이 실행되지 않는다.
-solution
-non-login shell에서 사용하는 /etc/profile과 /etc/bashrc 스크립트에 Path 추가
-eclipse를 login shell로 기동 : ex) bash -ic "eclipse"
-(nvm 이하 node.js가 ~/.nvm에 설치되므로 2번으로 해결)
-X. Appendix
 
->> reference site
+`cause`  
+eclipse가 non-login shell로 실행되면서 /etc/profile과 /etc/bashrc만 실행되고 login(interactive) shell에서 사용하는 ~/.bashrc, ~/.profile, ~/.bash_profile이 실행되지 않는다.
+
+`solution`  
+non-login shell에서 사용하는 /etc/profile과 /etc/bashrc 스크립트에 Path 추가  
+eclipse를 login shell로 기동 : ex) bash -ic "eclipse"  
+(nvm 이하 node.js가 ~/.nvm에 설치되므로 2번으로 해결)  
+
+## 9. Appendix
+
+#### reference site
 
 ## Express 코어 및 미들웨어 시스템에 대한 변경
 Express 4는 더 이상 Connect에 종속되지 않으며, express.static 함수를 제외한 모든 기본 제공 미들웨어가 Express 4 코어에서 제거되었습니다. 따라서 Express는 이제 독립적인 라우팅 및 미들웨어 웹 프레임워크가 되었으며, Express 버전화 및 릴리스는 미들웨어 업데이트의 영향을 받지 않게 되었습니다.
