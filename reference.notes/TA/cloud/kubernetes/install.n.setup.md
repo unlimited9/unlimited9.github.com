@@ -31,7 +31,7 @@ automating deployment, scaling, and management of containerized applications.
 Master | TCP | Inbound | 6443 | Kubernetes API server | All
 Master | TCP | Inbound | 2379-2380 | etcd server client API | kube-apiserver, etcd
 Master | TCP | Inbound | 10250 | Kubelet API | Self, Control plane
-Master | TCP | Inbound | 10251 | kube-scheduler | Self
+Master | TCP | Inbound | 10251 | kube-scheduler | Selfkubeadm init options
 Master | TCP | Inbound | 10252 | kube-controller-manager | Self
 Worker | TCP | Inbound | 10250 | Kubelet API | Self, Control plane
 Worker | TCP | Inbound | 30000-32767 | NodePort Services | All
@@ -167,10 +167,10 @@ $ firewall-cmd --reload
 
 $ sudo sysctl net.bridge.bridge-nf-call-iptables=1
 
->$ cat <<EOF >  /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF
+>$ cat <<EOF >  /etc/sysctl.d/k8s.conf  
+net.bridge.bridge-nf-call-ip6tables = 1  
+net.bridge.bridge-nf-call-iptables = 1  
+EOF  
 $ sysctl --system
 
 
