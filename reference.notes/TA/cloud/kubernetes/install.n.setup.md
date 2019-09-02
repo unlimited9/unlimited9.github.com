@@ -26,8 +26,8 @@ automating deployment, scaling, and management of containerized applications.
 
 #### kubernetes default ports
 
-Node | Protocol | Direction | Port Range | Purpose | Used By
-- | - | - | - | - | -
+| Node | Protocol | Direction | Port Range | Purpose | Used By |
+| - | - | - | - | - | - |
 Master | TCP | Inbound | 6443 | Kubernetes API server | All
 Master | TCP | Inbound | 2379-2380 | etcd server client API | kube-apiserver, etcd
 Master | TCP | Inbound | 10250 | Kubelet API | Self, Control plane
