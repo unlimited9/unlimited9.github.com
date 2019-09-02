@@ -75,39 +75,40 @@ Eclipse IDE for Java EE Developers (recommended)
   File > New > Other... > JavaScript > npm Init
 
 4. Node.js Module Install
-  1. open terminal  
-    + add/create eclipse external script : run a program  
-      Run > External Tools > External Tools Configurations  
-      - Project Name : terminalOpen  
-      - Location : /usr/bin/xfce4-terminal  
-      - Working Directory : ${resource_loc}  
-  2. Express Module  
-    + Express : 웹 요청을 처리  
-    + Realm : 데이터베이스 활용  
-    + EJS(Embedded JavaScript) : 템플릿 처리  
-    + body-parser : 폼으로 전달된 쿼리를 처리  
-    - Morgan : 메시지 콘솔 표시  
-    - Compression : 페이지 압축 전송  
-    - Session : 세션 처리  
-    - Cookie-parser : 쿠키 사용  
-    - Method-override : REST API에서 PUT과 DELETE 메소드를 사용  
-    - Cors : 크로스오리진(다른 도메인 간의 AJAX 요청) 가능  
-    - Multer : 파일업로드
+    1. open terminal
+        + add/create eclipse external script : run a program  
+          Run > External Tools > External Tools Configurations  
+          - Project Name : terminalOpen  
+          - Location : /usr/bin/xfce4-terminal  
+          - Working Directory : ${resource_loc}  
+    2. Express Module  
+        + Express : 웹 요청을 처리  
+        + Realm : 데이터베이스 활용  
+        + EJS(Embedded JavaScript) : 템플릿 처리  
+        + body-parser : 폼으로 전달된 쿼리를 처리
+        
+        - Morgan : 메시지 콘솔 표시  
+        - Compression : 페이지 압축 전송  
+        - Session : 세션 처리  
+        - Cookie-parser : 쿠키 사용  
+        - Method-override : REST API에서 PUT과 DELETE 메소드를 사용  
+        - Cors : 크로스오리진(다른 도메인 간의 AJAX 요청) 가능  
+        - Multer : 파일업로드
 
-    $ npm install --save express  
-    $ npm install --save realm  
-    $ npm install --save ejs  
-    $ npm install --save body-parser
+        $ npm install --save express  
+        $ npm install --save realm  
+        $ npm install --save ejs  
+        $ npm install --save body-parser
 
-    > “--save” option : 설치된 모듈을 package.json에 기록
+        > “--save” option : 설치된 모듈을 package.json에 기록
     
-  3. eclipse project refresh
+    3. eclipse project refresh
 
-5. Dependent Packages/Modules Install with package.json
+5. Dependent Packages/Modules Install with package.json  
   $ npm install
-6. Create a new JavaScript file
+6. Create a new JavaScript file  
   File > New > JavaScript Source File
-    File Name : index.js
+  * File Name : index.js
 
 
 
