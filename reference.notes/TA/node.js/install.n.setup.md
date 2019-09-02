@@ -158,30 +158,32 @@ eclipse를 login shell로 기동 : ex) bash -ic "eclipse"
 
 #### reference site
 
-## Express 코어 및 미들웨어 시스템에 대한 변경
-Express 4는 더 이상 Connect에 종속되지 않으며, express.static 함수를 제외한 모든 기본 제공 미들웨어가 Express 4 코어에서 제거되었습니다. 따라서 Express는 이제 독립적인 라우팅 및 미들웨어 웹 프레임워크가 되었으며, Express 버전화 및 릴리스는 미들웨어 업데이트의 영향을 받지 않게 되었습니다.
-기본 제공 미들웨어가 없으므로 사용자는 앱을 실행하는 데 필요한 모든 미들웨어를 명시적으로 추가해야 합니다. 이를 위해서는 다음 단계를 따르기만 하면 됩니다.
-모듈 설치: npm install --save <module-name>
-앱 내에서, 모듈 요청: require('module-name')
-해당 모듈의 문서에 따라 모듈 사용: app.use( ... )
+#### Express 코어 및 미들웨어 시스템에 대한 변경
+Express 4는 더 이상 Connect에 종속되지 않으며, express.static 함수를 제외한 모든 기본 제공 미들웨어가 Express 4 코어에서 제거되었다.  
+따라서 Express는 독립적인 라우팅 및 미들웨어 웹 프레임워크가 되었으며, Express 버전화 및 릴리스는 미들웨어 업데이트의 영향을 받지 않게 되었다.
+기본 제공 미들웨어가 없어 사용자는 앱 실행에 필요한 모든 미들웨어를 명시적으로 추가해야 한다.
+1. 모듈 설치: npm install --save <module-name>
+2. 내에서, 모듈 요청: require('module-name')
+3. 해당 모듈의 문서에 따라 모듈 사용: app.use( ... )
 
-다음 표에는 Express 3의 미들웨어 및 그에 대응하는 Express 4의 미들웨어가 나열되어 있습니다.
-Express 3	Express 4
-express.bodyParser	body-parser + multer
-express.compress	compression
-express.cookieSession	cookie-session
-express.cookieParser	cookie-parser
-express.logger	morgan
-express.session	express-session
-express.favicon	serve-favicon
-express.responseTime	response-time
-express.errorHandler	errorhandler
-express.methodOverride	method-override
-express.timeout	connect-timeout
-express.vhost	vhost
-express.csrf	csurf
-express.directory	serve-index
-express.static	serve-static
+#### xpress 3의 미들웨어 및 그에 대응하는 Express 4의 미들웨어
+| Express 3	| Express 4 |
+| - | - |
+express.bodyParser | body-parser + multer
+express.compress | compression
+express.cookieSession | cookie-session
+express.cookieParser | cookie-parser
+express.logger | morgan
+express.session | express-session
+express.favicon | serve-favicon
+express.responseTime | response-time
+express.errorHandler | errorhandler
+express.methodOverride | method-override
+express.timeout | connect-timeout
+express.vhost | vhost
+express.csrf | csurf
+express.directory | serve-index
+express.static | serve-static
 Express 4 미들웨어의 전체 목록을 참조하십시오.
 
 >> PM2 - Node.js 프로세스 관리 도구
