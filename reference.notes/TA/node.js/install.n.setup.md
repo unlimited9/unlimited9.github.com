@@ -64,23 +64,24 @@ Eclipse IDE for Java EE Developers (recommended)
 > or Eclipse IDE for JavaScript and Web Developers
 
 #### Create Project (JavaScript)
-1. Create Project
+1. Create Project  
   File > New > Project > JavaScript > JavaScript Project  
   Project Name : prj.surface
 
-2. Encoding setup
+2. Encoding setup  
   Window > Preferences > General > Workspace > Text file encoding : UTF-8  
 
-3. NPM Initialize
+3. NPM Initialize  
   File > New > Other... > JavaScript > npm Init
 
-4. Node.js Module Install
-    1. open terminal
+4. Node.js Module Install  
+    1. open terminal  
         + add/create eclipse external script : run a program  
-          Run > External Tools > External Tools Configurations  
-          - Project Name : terminalOpen  
-          - Location : /usr/bin/xfce4-terminal  
-          - Working Directory : ${resource_loc}  
+          Run > External Tools > External Tools Configurations
+          
+          Project Name : terminalOpen  
+          Location : /usr/bin/xfce4-terminal  
+          Working Directory : ${resource_loc}
     2. Express Module  
         + Express : 웹 요청을 처리  
         + Realm : 데이터베이스 활용  
@@ -105,10 +106,11 @@ Eclipse IDE for Java EE Developers (recommended)
     3. eclipse project refresh
 
 5. Dependent Packages/Modules Install with package.json  
-  $ npm install
+  $ npm install  
 6. Create a new JavaScript file  
-    File > New > JavaScript Source File  
-    * File Name : index.js
+  File > New > JavaScript Source File
+  
+    File Name : index.js
 
 
 
