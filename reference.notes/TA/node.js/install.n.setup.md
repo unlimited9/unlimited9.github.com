@@ -107,8 +107,8 @@ Eclipse IDE for Java EE Developers (recommended)
 5. Dependent Packages/Modules Install with package.json  
   $ npm install
 6. Create a new JavaScript file  
-  File > New > JavaScript Source File
-  * File Name : index.js
+    File > New > JavaScript Source File  
+    * File Name : index.js
 
 
 
