@@ -102,7 +102,7 @@ $ sudo add-apt-repository "deb https://apt.kubernetes.io/ kubernetes-$(lsb_relea
 >EOF
 >```
 
-$ sudo apt update
+$ sudo apt update  
 $ sudo apt install kubelet kubeadm kubectl kubernetes-cni
 
 >2019.04.24 아직 18.04를 지원하지 않는다.
@@ -122,8 +122,8 @@ repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 exclude=kube*
 ```
-$ sudo
-$ yum update
+$ sudo  
+$ yum update  
 $ sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 
 $ sudo systemctl  enable kubelet && systemctl start kubelet
@@ -142,7 +142,7 @@ $ sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 > $ vi /etc/fstab 
 
 ##### swap off
-$ sudo su -
+$ sudo su -  
 $ swapoff -a
 
 
@@ -158,11 +158,11 @@ $ swapoff -a
 >$ hostnamectl set-hostname 'k8-master'
 
 ##### 방화벽 포트 설정
-$ firewall-cmd --zone=public  --permanent --add-port=6443/tcp
-$ firewall-cmd --zone=public  --permanent --add-port=2379-2380/tcp
-$ firewall-cmd --zone=public --permanent --add-port=10250/tcp
-$ firewall-cmd --zone=public --permanent --add-port=10251/tcp
-$ firewall-cmd --zone=public --permanent --add-port=10252/tcp
+$ firewall-cmd --zone=public  --permanent --add-port=6443/tcp  
+$ firewall-cmd --zone=public  --permanent --add-port=2379-2380/tcp  
+$ firewall-cmd --zone=public --permanent --add-port=10250/tcp  
+$ firewall-cmd --zone=public --permanent --add-port=10251/tcp  
+$ firewall-cmd --zone=public --permanent --add-port=10252/tcp  
 $ firewall-cmd --reload
 
 $ sudo sysctl net.bridge.bridge-nf-call-iptables=1
