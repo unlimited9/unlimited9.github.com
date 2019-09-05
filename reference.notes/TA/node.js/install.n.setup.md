@@ -17,7 +17,7 @@ Node.js는 구글에서 개발한 고성능 자바스크립트 엔진 V8로 빌�
 ## 2. installation setup : app
 
 #### A. NVM(Node Version Manager) : https://github.com/creationix/nvm
-`nstall script`  
+`ㅑnstall script`  
 * To install or update nvm, you can use the install script using cURL  
   $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 * or Wget:  
@@ -46,6 +46,9 @@ $ nvm ls
 > 사용할 Node 설정  
 $ nvm use <version> # ex> nvm use 8.9.4  
 $ nvm use <alias> # ex> nvm use default
+
+> default alias version
+$ cat ~/.nvm/alias/default
 
 > 사용할 alias 설정  
 $ nvm alias <alias> <version> # ex> nvm alias test-v 8.9.4
