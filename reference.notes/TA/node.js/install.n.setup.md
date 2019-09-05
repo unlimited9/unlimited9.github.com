@@ -33,11 +33,15 @@ export NVM_DIR="$HOME/.nvm"
 $ command -v nvm
 
 #### B. Node.js : https://nodejs.org/en/
-`Node 버전 설치`  
-$ nvm install <version> # ex> nvm install 8.11.4
+
+`LTS 최신 버전 설치`  
+$ nvm install --lts
+
+> Node 버전 설치  
+$ nvm install <version> # ex> nvm install 10.16.3
 
 > 설치된 Node 버전 목록 확인  
-$ `nvm ls
+$ nvm ls
 
 > 사용할 Node 설정  
 $ nvm use <version> # ex> nvm use 8.9.4  
