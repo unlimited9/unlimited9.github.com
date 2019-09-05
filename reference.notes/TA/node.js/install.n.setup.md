@@ -47,7 +47,7 @@ $ nvm ls
 $ nvm use <version> # ex> nvm use 8.9.4  
 $ nvm use <alias> # ex> nvm use default
 
-> default alias version
+> default alias version  
 $ cat ~/.nvm/alias/default
 
 > 사용할 alias 설정  
