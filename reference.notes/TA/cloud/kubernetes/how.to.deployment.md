@@ -11,7 +11,7 @@ $ docker run --name mobon.service.01 -d -p 8080:8080 -it mobon/centos.7.base:lat
 
 $ docker exec -it mobon.service.01 /bin/bash
 
-ref. [install and setup apache tomcat](/reference.notes/TA/apache.tomcat/install.n.setup.md) ([install script](/reference.notesTA/apache.tomcat/install.n.setup.script.md)) : Tomcat Servlet Container - Multi Instances
+ref. [install and setup apache tomcat](/reference.notes/TA/apache.tomcat/install.n.setup) ([install script](/reference.notesTA/apache.tomcat/install.n.setup.script.md)) : Tomcat Servlet Container - Multi Instances
 
 
 #### 
