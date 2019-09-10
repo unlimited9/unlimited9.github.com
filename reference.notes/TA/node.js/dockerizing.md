@@ -10,17 +10,55 @@ how to get a Node.js application into a Docker container.
 
 ## 2. Dockerizing a Node.js web app
 
-#### A. Create the Node.js app
+#### A. Add Node.js application
+$ vi server.js
+```
+/*
+var os = require('os');
+var http = require('http');
+
+var handleRequest = function(request, response) {
+  response.writeHead(200);
+  response.end("Hello World! I'm "+os.hostname());
+
+  //log
+  console.log("["+Date(Date.now()).toLocaleString()+"] "+os.hostname());
+}
+
+var www = http.createServer(handleRequest);
+www.listen(8080);
+*/
+
+'use strict';
+
+const express = require('express');
+
+// 상수
+const PORT = 8080;
+const HOST = '0.0.0.0';
+
+// 앱
+const app = express();
+app.get('/', (req, res) => {
+  res.send('Hello world\n');
+});
+
+app.listen(PORT, HOST);
+console.log(`Running on http://${HOST}:${PORT}`);
+
+```
+
+#### B. Create the Node.js app
 $ vi package.json
 ```json
 {
-  "name": "docker.web.app",
+  "name": "mobon.tracker.srv",
   "version": "0.1.0",
   "description": "Node.js on Docker",
   "author": "Scott Lee <unlimited9@gmail.com>",
-  "main": "docker.node.main",
+  "main": "mobon.tracker.srv",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.16.1"
@@ -28,13 +66,13 @@ $ vi package.json
 }
 ```
 
-#### B. Creating a Dockerfile
+#### C. Creating a Dockerfile
 $ vi Dockerfile
 ```
 FROM node:10
 
 # Craete application directory
-WORKDIR /pgms/node.js/mobon.tracker/
+WORKDIR /pgms/node.js/mobon.tracker.srv/
 
 # Install application dependency
 COPY package*.json ./
