@@ -1,3 +1,6 @@
+# build/create image and container
+
+## install and setup docker 
 groupadd -g 3000 app  
 useradd -d /apps -g 3000 -m -u 3000 -s /bin/bash app  
 passwd app
