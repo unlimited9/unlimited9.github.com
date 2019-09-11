@@ -3,7 +3,7 @@
 ## service packaging deploy
 
 #### packaging : get/create docker image (dockerizing)
-ref. [create docker image and container](../../cloud/docker/create.image.n.container.md)
+ref. [create docker image and container](../docker/create.image.n.container.md)
 
 `build/create docker image`  
 docker build -t mobon/centos.7.base:1.1 -t mobon/centos.7.base:latest -f /apps/docker/images/Dockerfile.centos.7.base .
