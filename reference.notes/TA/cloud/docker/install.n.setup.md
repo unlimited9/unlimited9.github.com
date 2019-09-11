@@ -11,7 +11,7 @@ Installation/Setup/Configuration independent container platform
 #### B. install dependency packages
 
 #### C. creating base directory
-[Create operating system drectory](../../TA/system/management.directory.md)
+[Create operating system drectory](../../system/management.directory.md)
 
 #### D. firewall configuration
 
