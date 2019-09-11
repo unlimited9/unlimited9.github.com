@@ -27,7 +27,58 @@ vi /apps/docker/images/Dockerfile.mobon.service
 FROM mobon/centos.7.base:latest
 
 USER app
-WORKDIR /apps
+
+# install and setup application
+WORKDIR /apps/install
+
+RUN curl -O https://download.java.net/java/GA/jdk12.0.2/e482c34c86bd4bf8b56c0b35558996b9/10/GPL/openjdk-12.0.2_linux-x64_bin.tar.gz
+RUN tar xvf openjdk-12.0.2_linux-x64_bin.tar.gz
+
+RUN mkdir /apps/jdk
+RUN mv /apps/install/jdk-12.0.2 /apps/jdk/12.0.2
+
+RUN vi /etc/profile.d/jdk.sh
+
+export JAVA_HOME=/apps/jdk/12.0.2
+export PATH=$PATH:$JAVA_HOME/bin
+export CLASSPATH=.:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:$JAVA_HOME/lib/tools.jar
+source /etc/profile
+
+su - app
+java -version
+
+openjdk version "12.0.2" 2019-07-16
+OpenJDK Runtime Environment (build 12.0.2+10)
+OpenJDK 64-Bit Server VM (build 12.0.2+10, mixed mode, sharing)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# create application directory 
+
+
+
+
+
+
+RUN mkdir -p /apps/tomcat /data/tomcat /logs/tomcat
+RUN mkdir -p /pgms/tomcat/webapps /pgms/tomcat/wars /pgms/tomcat/backup
+
+
+
+
+
 
 
 
