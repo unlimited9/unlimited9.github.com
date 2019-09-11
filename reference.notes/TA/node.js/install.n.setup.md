@@ -6,7 +6,7 @@ Node.js는 구글에서 개발한 고성능 자바스크립트 엔진 V8로 빌�
 ## 1. Pre-installation setup
 
 #### A. creating required operating system group and user
-[Create operating system group and user](/reference.notes/TA/system/management.account.n.group.md)
+[Create operating system group and user](../system/management.account.n.group.md)
 
 #### B. install dependency packages
 
