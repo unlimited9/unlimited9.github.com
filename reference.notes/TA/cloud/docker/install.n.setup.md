@@ -6,12 +6,12 @@ Installation/Setup/Configuration independent container platform
 ## 1. Pre-installation setup
 
 #### A. creating required operating system group and user
-[Create operating system group and user](/reference.notes/TA/system/management.account.n.group.md)
+[Create operating system group and user](../../system/management.account.n.group.md)
 
 #### B. install dependency packages
 
 #### C. creating base directory
-[Create operating system drectory](/reference.notes/TA/system/management.directory.md)
+[Create operating system drectory](../../TA/system/management.directory.md)
 
 #### D. firewall configuration
 
