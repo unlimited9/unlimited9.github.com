@@ -7,13 +7,13 @@ Server.setting - application : Installation/Setup/Configuration
 ## 1. Pre-installation setup
 
 #### A. creating required operating system group and user
-[Create operating system group and user](/reference.notes/TA/system/management.account.n.group.md)
+[Create operating system group and user](../system/management.account.n.group.md)
 
 #### B. install dependency packages
->[tomcat requires Java to run](/reference.notes/AA/JDK/install.n.setup.md)
+>[tomcat requires Java to run](../../AA/JDK/install.n.setup.md)
 
 #### C. creating base directory
-[Create operating system drectory](/reference.notes/TA/system/management.directory.md)
+[Create operating system drectory](../system/management.directory.md)
 
 #### D. firewall configuration
 $ vi /etc/sysconfig/iptables
