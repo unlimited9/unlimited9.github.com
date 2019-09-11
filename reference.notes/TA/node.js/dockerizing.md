@@ -6,7 +6,7 @@ how to get a Node.js application into a Docker container.
 
 ## 1. Install Docker
 
-[Install and setup Docker](/reference.notes/TA/cloud/docker/install.n.setup.md)
+[Install and setup Docker](../cloud/docker/install.n.setup.md)
 
 ## 2. Dockerizing a Node.js web app
 
