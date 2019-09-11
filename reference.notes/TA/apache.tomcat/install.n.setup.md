@@ -376,7 +376,7 @@ $ service tomcat stop
 
 ## 9. Appendix
 
-[Operation and Maintenance](TA/apache.tomcat/operation.n.maintenance.md) : 운영 관리
+[Operation and Maintenance](operation.n.maintenance.md) : 운영 관리
 
 #### reference site
 
