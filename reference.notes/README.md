@@ -32,6 +32,7 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
         - [Install PHP](TA/nginx/install.n.setup.php.md) : PHP 연계 구성
         - [Configuration Sample](TA/nginx/configuration.sample.md) : 설정 예
       + [Apache Tomcat : Install and setup](TA/apache.tomcat/install.n.setup.md) ([install script](TA/apache.tomcat/install.n.setup.script.md)) : Tomcat Servlet Container - Multi Instances
+        - [Operation and Maintenance](TA/apache.tomcat/operation.n.maintenance.md) : 운영 관리
       + [Node.js : Install and setup](TA/node.js/install.n.setup.md) : Node.js 설치
         - [Dockerizing](TA/node.js/dockerizing.md) : 도커 이미지 만들기
       + [Hadoop ecosystem : Introduction](TA/hadoop/introduction.md) : Hadoop이란
