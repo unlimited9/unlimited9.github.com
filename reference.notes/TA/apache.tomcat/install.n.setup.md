@@ -44,7 +44,6 @@ $ mkdir -p /apps/tomcat
 $ mkdir -p /data/tomcat  
 $ mkdir -p /logs/tomcat
 
-$ mkdir -p /logs/tomcat  
 $ mkdir -p /pgms/tomcat/webapps  
 $ mkdir -p /pgms/tomcat/wars  
 $ mkdir -p /pgms/tomcat/backup
