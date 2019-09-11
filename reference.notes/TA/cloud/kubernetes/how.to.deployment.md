@@ -1,9 +1,13 @@
 # How to Kubernetes Deployment
 
-## 
+## service packaging deploy
 
 #### packaging : get/create docker image (dockerizing)
-ref. [create docker image and container](/reference.notes/TA/cloud/docker/create.image.n.container.md)
+ref. [create docker image and container](../../TA/cloud/docker/create.image.n.container.md)
+
+`build/create docker image`  
+docker build -t mobon/centos.7.base:1.1 -t mobon/centos.7.base:latest -f /apps/docker/images/Dockerfile.centos.7.base .
+>docker image tag mobon/centos.7.base:1.1 mobon/centos.7.base:latest
 
 `create docker service container`  
 $ docker run --name mobon.service.01 -d -p 8080:8080 -it mobon/centos.7.base:latest
@@ -12,7 +16,21 @@ $ docker run --name mobon.service.01 -d -p 8080:8080 -it mobon/centos.7.base:lat
 $ docker exec -it mobon.service.01 /bin/bash
 
 `install and setup application`  
-ref. [install and setup apache tomcat](/reference.notes/TA/apache.tomcat/install.n.setup) ([install script](/reference.notesTA/apache.tomcat/install.n.setup.script.md)) : Tomcat Servlet Container - Multi Instances
+ref. [install and setup apache tomcat](../../TA/apache.tomcat/install.n.setup) ([install script](../../apache.tomcat/install.n.setup.script.md)) : Tomcat Servlet Container - Multi Instances
 
 
 #### 
+
+`create dockerize file`  
+vi /apps/docker/images/Dockerfile.mobon.service 
+```
+FROM mobon/centos.7.base:latest
+
+USER app
+WORKDIR /apps
+
+
+
+# 컨테이너 실행시 실행될 명령
+CMD /bin/bash
+```
