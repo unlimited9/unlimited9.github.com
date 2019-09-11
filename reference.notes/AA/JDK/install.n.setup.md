@@ -8,7 +8,7 @@ Installation/Setup/Configuration Java Development Kit
 ## 1. Pre-installation setup
 
 #### A. creating required operating system group and user
-[Create operating system group and user](/reference.notes/TA/system/management.account.n.group.html)
+[Create operating system group and user](/reference.notes/TA/system/management.account.n.group)
 
 #### B. install dependency packages
 
