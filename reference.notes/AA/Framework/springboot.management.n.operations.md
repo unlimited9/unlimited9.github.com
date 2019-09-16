@@ -2,9 +2,10 @@
 Created 목요일 30 11월 2017  
 spring-boot administration
 
-1. Pre-installation setup
-A. creating required operating system group and user
-Create operating system group and user
+## 1. Pre-installation setup
+
+#### A. 
+
 
 
 
