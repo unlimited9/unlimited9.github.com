@@ -11,9 +11,9 @@ Create operating system group and user
 ## 9. Appendix
 
 #### reference site
-* A Guide to Spring Boot Admin
+* A Guide to Spring Boot Admin  
 https://www.baeldung.com/spring-boot-admin
 
-* Embedded Tomcat  in 스프링 부트
+* Embedded Tomcat  in 스프링 부트  
 https://brunch.co.kr/@springboot/98
 
