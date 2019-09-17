@@ -123,28 +123,44 @@ $ vi /apps/docker/images/Dockerfile.java.app.env
 ```
 FROM mobon/centos.7.base:latest
 
+USER root
+
+RUN yum install -y unzip
+
 USER app
 
 # install and setup application
 WORKDIR /apps/install
 
-# set Java Development Kit
+# install java development kit
 RUN curl -O https://download.java.net/java/GA/jdk12.0.2/e482c34c86bd4bf8b56c0b35558996b9/10/GPL/openjdk-12.0.2_linux-x64_bin.tar.gz
 RUN tar xvf openjdk-12.0.2_linux-x64_bin.tar.gz
 
 RUN mkdir /apps/jdk
 RUN mv /apps/install/jdk-12.0.2 /apps/jdk/12.0.2
 
-RUN cat > /etc/profile.d/jdk.sh <<EOF
-export JAVA_HOME=$/apps/jdk/12.0.2
-export PATH=$PATH:$JAVA_HOME/bin
-export CLASSPATH=.:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:$JAVA_HOME/lib/tools.jar
-EOF
+# install gradle
+RUN curl -O https://downloads.gradle-dn.com/distributions/gradle-5.6.2-bin.zip
+
+RUN mkdir -p /apps/gradle/5.6.2
+RUN unzip -d /apps/gradle/5.6.2 gradle-5.6.2-bin.zip
+
+USER root
+
+# set env java development kit
+RUN echo "export JAVA_HOME=$/apps/jdk/12.0.2\n" \
+  "export PATH=$PATH:$JAVA_HOME/bin\n" \
+  "export CLASSPATH=.:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:$JAVA_HOME/lib/tools.jar" \
+  >> /etc/profile.d/jdk.sh
+
+# set env gradle
+RUN echo "export GRADLE_HOME=/apps/gradle/5.6.2\n" \
+  "export PATH=${GRADLE_HOME}/bin:${PATH}\n" \
+  >> /etc/profile.d/gradle.sh
+
 RUN source /etc/profile
 
-# install gradle
-RUN add-apt-repository ppa:cwchien/gradle
-RUN apt-get install gradle
+USER app
 
 # 컨테이너 실행시 실행될 명령
 CMD /bin/bash
