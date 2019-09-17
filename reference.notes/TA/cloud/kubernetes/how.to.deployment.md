@@ -34,28 +34,6 @@ RUN source /etc/profile
 RUN java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -jar /pgms/tomcat/wars/.jar
 
 
-
-
-# set tomcat servlet container
-#RUN curl -O http://mirror.navercorp.com/apache/tomcat/tomcat-9/v9.0.24/bin/apache-tomcat-9.0.24.tar.gz
-#RUN tar xvf apache-tomcat-9.0.24.tar.gz
-#
-# create application directory 
-#RUN mkdir /apps/tomcat
-#RUN mv /apps/install/apache-tomcat-9.0.24 /apps/tomcat/9.0.24
-#
-#RUN mkdir -p /data/tomcat /logs/tomcat /pgms/tomcat/webapps /pgms/tomcat/wars /pgms/tomcat/backup
-#
-#RUN mkdir -p \
-#/apps/tomcat/instances/mobon.gateway.01/bin \
-#/apps/tomcat/instances/mobon.gateway.01/conf \
-#/apps/tomcat/instances/mobon.gateway.01/logs \
-#/apps/tomcat/instances/mobon.gateway.01/temp \
-#/apps/tomcat/instances/mobon.gateway.01/webapps/ROOT
-#
-#RUN cp -R /apps/tomcat/9.0.24/conf/* /apps/tomcat/instances/mobon.gateway.01/conf
-#
-
 # 컨테이너 실행시 실행될 명령
 CMD /bin/bash
 ```
