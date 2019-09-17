@@ -110,3 +110,40 @@ docker run --net mobon.subnet --ip 192.168.104.42 --name mobon.mongodb.02 -d -it
 docker run --net mobon.subnet --ip 192.168.104.43 --name mobon.mongodb.03 -d -it mobon/apps.server:1.1
  
 
+#### ref. build image mobon/java.app.env:1.1(mobon/java.app.env:lastest) based mobon/centos.7.base:latest
+
+`create dockerize file`  
+$ vi /apps/docker/images/Dockerfile.java.app.env
+```
+FROM mobon/centos.7.base:latest
+
+USER app
+
+# install and setup application
+WORKDIR /apps/install
+
+# set Java Development Kit
+RUN curl -O https://download.java.net/java/GA/jdk12.0.2/e482c34c86bd4bf8b56c0b35558996b9/10/GPL/openjdk-12.0.2_linux-x64_bin.tar.gz
+RUN tar xvf openjdk-12.0.2_linux-x64_bin.tar.gz
+
+RUN mkdir /apps/jdk
+RUN mv /apps/install/jdk-12.0.2 /apps/jdk/12.0.2
+
+RUN cat > /etc/profile.d/jdk.sh <<EOF
+export JAVA_HOME=$/apps/jdk/12.0.2
+export PATH=$PATH:$JAVA_HOME/bin
+export CLASSPATH=.:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:$JAVA_HOME/lib/tools.jar
+EOF
+RUN source /etc/profile
+
+# install gradle
+RUN add-apt-repository ppa:cwchien/gradle
+RUN apt-get install gradle
+
+# 컨테이너 실행시 실행될 명령
+CMD /bin/bash
+```
+
+`build/create docker image`  
+& docker build -t mobon/java.app.env:1.1 -t mobon/java.app.env:latest -f /apps/docker/images/Dockerfile.java.app.env .
+>$ docker image tag mobon/java.app.env:1.1 mobon/java.app.env:latest
