@@ -167,5 +167,5 @@ CMD /bin/bash
 ```
 
 `build/create docker image`  
-& docker build -t mobon/java.app.env:1.1 -t mobon/java.app.env:latest -f /apps/docker/images/Dockerfile.java.app.env .
+$ docker build -t mobon/java.app.env:1.1 -t mobon/java.app.env:latest -f /apps/docker/images/Dockerfile.java.app.env .
 >$ docker image tag mobon/java.app.env:1.1 mobon/java.app.env:latest
