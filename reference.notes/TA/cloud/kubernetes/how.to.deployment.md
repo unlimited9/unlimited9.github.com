@@ -6,7 +6,7 @@
 ref. [create docker image and container](../docker/create.image.n.container.md)
 
 `create dockerize file`  
-$ vi /apps/docker/images/Dockerfile.mobon.gateway 
+$ vi /apps/docker/images/Dockerfile.mobon.platform.gateway.aggregator
 ```
 FROM mobon/centos.7.base:latest
 
@@ -29,27 +29,22 @@ export CLASSPATH=.:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:$JAVA_HOME/lib/tools.jar
 EOF
 RUN source /etc/profile
 
-
 # run spring-boot application
 RUN java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -jar /pgms/tomcat/wars/.jar
-
 
 # 컨테이너 실행시 실행될 명령
 CMD /bin/bash
 ```
 
 `build/create docker image`  
-docker build -t mobon/centos.7.base:1.1 -t mobon/centos.7.base:latest -f /apps/docker/images/Dockerfile.centos.7.base .
->docker image tag mobon/centos.7.base:1.1 mobon/centos.7.base:latest
+docker build -t mobon/platform/gateway.aggregator:1.0 -t mobon/platform/gateway.aggregator:latest -f /apps/docker/images/Dockerfile.mobon.platform.gateway.aggregator .
+>docker image tag mobon/platform/gateway/aggregator:1.0 mobon/platform/gateway/aggregator:latest
 
 >`create docker service container`  
->$ docker run --name mobon.gateway.01 -d -p 8080:8080 -it mobon/centos.7.base:latest
->>$ docker run --net mobon.subnet --ip 192.168.104.91 --name mobon.gateway.01 -d -p 8080:8080 -p 18080:18080 -it mobon/centos.7.base:latest
+>$ docker run --name mobon.platform.gateway.aggregator.01 -d -p 8080:8080 -it mobon/platform/gateway.aggregator:latest 
+>>$ docker run --net mobon.subnet --ip 192.168.104.91 --name mobon.platform.gateway.aggregator.01 -d -p 8080:8080 -p 18080:18080 -itmobon/platform/gateway.aggregator:latest
 >
->$ docker exec -it mobon.gateway.01 /bin/bash
->
->`install and setup application`  
->ref. [install and setup apache tomcat](../../apache.tomcat/install.n.setup.md) ([install script](../../apache.tomcat/install.n.setup.script.md)) : Tomcat Servlet Container - Multi Instances
+>$ docker exec -it mobon.platform.gateway.aggregator.01 /bin/bash
 
 #### ReplicationController
 `create kubernetes object file : ReplicationController`  
@@ -58,54 +53,36 @@ $ vi /apps/kubernetes/object/mobon.gateway.rc.yaml
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: mobon.gateway.rc
+  name: mobon.platform.gateway.aggregator.rc
 spec:
   replicas: 3
   selector:
-    app: mobon.gateway
+    app: mobon.platform.gateway.aggregator
   template:
     metadata:
-      name: mobon.gateway.pod
+      name: mobon.platform.gateway.aggregator.pod
       labels:
-        app: mobon.gateway
+        app: mobon.platform.gateway.aggregator
     spec:
       containers:
-      - name: mobon.gateway
-        image: mobon/centos.7.base:latest
+      - name: mobon.platform.gateway.aggregator
+        image: mobon/platform/gateway.aggregator:latest
         imagePullPolicy: Always
+        volumeMounts:
+          - name: app.source
+            mountPath: /pgms/mobon.platform.gateway/source/git
+            readOnly: true
         ports:
-        - containerPort: 8080
-
-
+          - containerPort: 8080
+        command: ["/bin/bash", "-c"]
+        args:
+          - ls -al /pgms/mobon.platform.gateway/source/git
     volumes:
-     - name: html
+     - name: app.source
        gitRepo:
-            repository: https://github.com/luksa/kubia-website-example.git
+            repository: http://172.20.0.7:9000/enliple/mobon/platform/gateway.git
             revision: master
             directory: .
-```
-```
-apiVersion: v1
-kind: Pod
-metadata:
- name: gitrepo-volume-pod
-spec:
- containers:
- - image: nginx:alpine
-   name: web-server
-   volumeMounts:
-   - name: html
-     mountPath: /usr/share/nginx/html
-     readOnly: true
-   ports:
-   - containerPort: 80
-     protocol: TCP
- volumes:
- - name: html
-   gitRepo:
-        repository: https://github.com/luksa/kubia-website-example.git
-        revision: master
-        directory: .
 ```
 
 #### Service
