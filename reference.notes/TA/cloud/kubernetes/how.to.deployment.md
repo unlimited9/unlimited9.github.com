@@ -51,12 +51,9 @@ docker build -t mobon/centos.7.base:1.1 -t mobon/centos.7.base:latest -f /apps/d
 >`install and setup application`  
 >ref. [install and setup apache tomcat](../../apache.tomcat/install.n.setup.md) ([install script](../../apache.tomcat/install.n.setup.script.md)) : Tomcat Servlet Container - Multi Instances
 
-#### register ReplicationController
-
+#### ReplicationController
 `create kubernetes object file : ReplicationController`  
-
 $ vi /apps/kubernetes/object/mobon.gateway.rc.yaml 
-
 ```
 apiVersion: v1
 kind: ReplicationController
@@ -78,4 +75,22 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+```
+
+#### Service
+`create kubernetes object file : Service`  
+$ vi /apps/kubernetes/object/mobon.gateway.svc.yaml 
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: mobon.gateway.svc
+spec:
+  selector:
+    app: mobon.gateway
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+  type: LoadBalancer
 ```
