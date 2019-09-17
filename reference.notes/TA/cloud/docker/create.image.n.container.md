@@ -125,7 +125,7 @@ FROM mobon/centos.7.base:latest
 
 USER root
 
-RUN yum install -y unzip
+RUN yum -y install unzip git
 
 USER app
 
