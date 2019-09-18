@@ -14,23 +14,23 @@ $ vi /apps/kubernetes/resources/mobon.gateway.rc.yaml
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: mobon.platform.gateway.aggregator.rc
+  name: mobon-platform-gateway-aggregator-rc
 spec:
   replicas: 3
   selector:
-    app: mobon.platform.gateway.aggregator
+    app: mobon-platform-gateway-aggregator
   template:
     metadata:
-      name: mobon.platform.gateway.aggregator.pod
+      name: mobon-platform-gateway-aggregator-pod
       labels:
-        app: mobon.platform.gateway.aggregator
+        app: mobon-platform-gateway-aggregator
     spec:
       containers:
-      - name: mobon.platform.gateway.aggregator
+      - name: mobon-platform-gateway-aggregator
         image: mobon/java.app.env:latest
         imagePullPolicy: Always
         volumeMounts:
-          - name: app.repository
+          - name: app-git-repository
             mountPath: /pgms/mobon.platform.gateway/repository/git
             readOnly: true
         ports:
@@ -39,16 +39,25 @@ spec:
         args:
           - ls -al /pgms/mobon.platform.gateway/repository/git
           - gradle --build-file /pgms/mobon.platform.gateway/repository/git/aggregation.service/build.gradle :framework.boot.application:build
-          - gradle --build-file /pgms/mobon.platform.gateway/repository/git/aggregation.service/build.gradle :framework.boot.application:build
-    volumes:
-     - name: app.repository
-       gitRepo:
-            repository: http://172.20.0.7:9000/enliple/mobon/platform/gateway.git
-            revision: master
-            directory: .
+      volumes:
+      - name: app-git-repository
+        gitRepo:
+          repository: http://172.20.0.7:9000/enliple/mobon/platform/gateway.git
+          revision: master
+          directory: .
 ```
 
+`rc 생성`  
 $ kubectl create -f /apps/kubernetes/resources/mobon.gateway.rc.yaml
+
+`pod 확인`  
+$ kubectl get pod
+
+`pod 접속 확인`  
+$ kubectl exec -it mobon.platform.gateway.aggregator -- curl ip:8080
+
+`rc scale(pod 수) 변경`  
+$ kubectl scale --replicas=6 rc/mobon.platform.gateway.aggregator.rc 
 
 #### Service
 `create kubernetes object file : Service`  
@@ -67,6 +76,15 @@ spec:
       targetPort: 8080
   type: LoadBalancer
 ```
+
+`svc 생성`  
+$ kubectl create -f /apps/kubernetes/resources/mobon.gateway.svc.yaml
+
+`svc 확인`  
+$ kubectl get svc
+
+`접속 확인`  
+$ curl ip:80
 
 ## delete kubernetes resources
 
