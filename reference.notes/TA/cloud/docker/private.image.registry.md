@@ -49,8 +49,9 @@ STAR.mobon.net.crt  STAR.mobon.net.key
 
 `restart docker`  
 $ service docker restart
+> $ systemctl restart docker.service
 
-> docker registry에 접속할 각 장비에도 같은 경로로 ca.crt파일 복사해야함
+docker registry에 접속할 각 장비에도 같은 경로로 ca.crt파일 복사해야함
 
 
 #### pull registry image
