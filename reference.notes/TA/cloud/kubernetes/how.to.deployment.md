@@ -63,3 +63,10 @@ spec:
       targetPort: 8080
   type: LoadBalancer
 ```
+
+## 9. Appendix
+
+#### reference site
+
+* 쿠버네티스 #6 - 실제 서비스 배포해보기
+https://bcho.tistory.com/1261?category=731548
