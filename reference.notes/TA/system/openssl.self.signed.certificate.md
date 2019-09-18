@@ -1,3 +1,54 @@
+#### generate certificate
+$ mkdir -p /apps/certs
+$ openssl req \
+  -newkey rsa:4096 -nodes -sha256 -keyout /apps/certs/server.key \
+  -x509 -days 36500 -out /apps/certs/server.crt
+```
+Generating a 4096 bit RSA private key
+.................................++
+...........................................................++
+writing new private key to '/apps/certs/server.key'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:KR
+State or Province Name (full name) []:SEOUL
+Locality Name (eg, city) [Default City]:SEOUL
+Organization Name (eg, company) [Default Company Ltd]:hajimaro
+Organizational Unit Name (eg, section) []:dev
+Common Name (eg, your name or your server's hostname) []:*.hajimaro.com
+Email Address []:admin@hajimaro.com
+```
+$ ls /apps/certs
+server.crt  server.key
+
+>$ openssl genrsa -des3 -out /apps/certs/server.key 2048
+>$ openssl req -new -key /apps/certs/server.key -out /apps/certs/server.csr
+>$ openssl x509 -req -days 365 -in /apps/certs/server.csr -signkey /apps/certs/server.key -out /apps/certs/server.crt
+>$ cp /apps/certs/server.key /apps/certs/server.key.origin
+>$ openssl rsa -in /apps/certs/server.key.origin -out /apps/certs/server.key
+
+#### update ca
+* ubuntu  
+  $ cp /apps/certs/server.crt /usr/share/ca-certificates/  
+  $ echo /apps/certs/server.crt >> /etc/ca-certificates.conf  
+  $ update-ca-certificates
+
+* centos  
+  $ cp /apps/certs/server.crt /etc/pki/ca-trust/source/anchors/  
+  $ update-ca-trust
+
+* mac  
+  $ security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /apps/certs/server.crt
+
+---
+
+
 **********************************************************
 1. openssl - generate SSL (self-signed) certificate
 **********************************************************
@@ -267,55 +318,6 @@
 		cf.SSL debugging
 			# java 실행옵션에 아래를 추가한다.
 			-Djavax.net.debug=ssl,trustmanager
----
-`generate certificate`  
-$ mkdir -p /apps/certs
-$ openssl req \
-  -newkey rsa:4096 -nodes -sha256 -keyout /apps/certs/server.key \
-  -x509 -days 36500 -out /apps/certs/server.crt
-```
-Generating a 4096 bit RSA private key
-.................................++
-...........................................................++
-writing new private key to '/apps/certs/server.key'
------
-You are about to be asked to enter information that will be incorporated
-into your certificate request.
-What you are about to enter is what is called a Distinguished Name or a DN.
-There are quite a few fields but you can leave some blank
-For some fields there will be a default value,
-If you enter '.', the field will be left blank.
------
-Country Name (2 letter code) [XX]:KR
-State or Province Name (full name) []:SEOUL
-Locality Name (eg, city) [Default City]:SEOUL
-Organization Name (eg, company) [Default Company Ltd]:hajimaro
-Organizational Unit Name (eg, section) []:dev
-Common Name (eg, your name or your server's hostname) []:*.hajimaro.com
-Email Address []:admin@hajimaro.com
-```
-$ ls /apps/certs
-server.crt  server.key
-
->$ openssl genrsa -des3 -out /apps/certs/server.key 2048
->$ openssl req -new -key /apps/certs/server.key -out /apps/certs/server.csr
->$ openssl x509 -req -days 365 -in /apps/certs/server.csr -signkey /apps/certs/server.key -out /apps/certs/server.crt
->$ cp /apps/certs/server.key /apps/certs/server.key.origin
->$ openssl rsa -in /apps/certs/server.key.origin -out /apps/certs/server.key
-
-`update ca`  
-* ubuntu  
-  $ cp /apps/certs/server.crt /usr/share/ca-certificates/  
-  $ echo /apps/certs/server.crt >> /etc/ca-certificates.conf  
-  $ update-ca-certificates
-
-* centos  
-  $ cp /apps/certs/server.crt /etc/pki/ca-trust/source/anchors/  
-  $ update-ca-trust
-
-* mac  
-  $ security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /apps/certs/server.crt
-
 
 **********************************************************
 90. trobleshooting
