@@ -114,3 +114,6 @@ https://waspro.tistory.com/368?category=831751
 
 * 쿠버네티스 Docker Hub (public/private) 사용  
 https://sarc.io/index.php/cloud/1378-docker-hub-public-private
+
+* 쿠버네티스 #4 - 아키텍쳐
+https://bcho.tistory.com/1258?category=731548
