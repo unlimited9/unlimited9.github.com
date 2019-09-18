@@ -1,6 +1,6 @@
 # How to Kubernetes Deployment
 
-## service packaging deploy
+## packaging and deploy
 
 #### packaging : get/create docker image (dockerizing)
 ref. [create docker image and container](../docker/create.image.n.container.md)
@@ -64,9 +64,22 @@ spec:
   type: LoadBalancer
 ```
 
+## resource delete
+
+#### service delete
+$ kubectl delete svc --all
+
+#### replication controller delete
+$ kubectl delete rc --all
+
+#### pod delete
+$ kubectl delete pod --all
+
+> rc를 지우지 않고 pod를 삭제하면 rc가 pod를 다시 생성한다.
+
 ## 9. Appendix
 
 #### reference site
 
-* 쿠버네티스 #6 - 실제 서비스 배포해보기
+* 쿠버네티스 #6 - 실제 서비스 배포해보기  
 https://bcho.tistory.com/1261?category=731548
