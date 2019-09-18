@@ -57,8 +57,10 @@ server.crt  server.key
 
 #### reference site
 
-* 쿠버네티스 #6 - 실제 서비스 배포해보기  
+* Openssl 사설인증기관(CA) 만들기 - Part 1
 http://j30231.tistory.com/21  
+
+* Openssl 사설인증기관(CA) 만들기 - Part 2
 http://j30231.tistory.com/22
 
 
