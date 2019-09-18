@@ -1,9 +1,11 @@
 # How to Kubernetes Deployment
 
-## packaging and deploy
+## packaging
 
 #### packaging : get/create docker image (dockerizing)
 ref. [create docker image and container](../docker/create.image.n.container.md)
+
+## create kubernetes resouces
 
 #### ReplicationController
 `create kubernetes object file : ReplicationController`  
@@ -46,6 +48,8 @@ spec:
             directory: .
 ```
 
+$ kubectl create -f /apps/kubernetes/resources/mobon.gateway.rc.yaml
+
 #### Service
 `create kubernetes object file : Service`  
 $ vi /apps/kubernetes/resources/mobon.gateway.svc.yaml 
@@ -64,7 +68,7 @@ spec:
   type: LoadBalancer
 ```
 
-## resource delete
+## delete kubernetes resources
 
 #### service delete
 $ kubectl delete svc --all
