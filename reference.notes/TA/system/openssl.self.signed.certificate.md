@@ -57,10 +57,10 @@ server.crt  server.key
 
 #### reference site
 
-* Openssl 사설인증기관(CA) 만들기 - Part 1
+* Openssl 사설인증기관(CA) 만들기 - Part 1  
 http://j30231.tistory.com/21  
 
-* Openssl 사설인증기관(CA) 만들기 - Part 2
+* Openssl 사설인증기관(CA) 만들기 - Part 2  
 http://j30231.tistory.com/22
 
 
