@@ -1,3 +1,7 @@
+# self-signed certificate
+
+## 1. openssl - generate SSL (self-signed) certificate
+
 #### generate certificate
 $ mkdir -p /apps/certs  
 $ openssl req \  
@@ -48,6 +52,19 @@ server.crt  server.key
 
 * mac  
   $ security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /apps/certs/server.crt
+
+## 9. Appendix
+
+#### reference site
+
+* 쿠버네티스 #6 - 실제 서비스 배포해보기  
+http://j30231.tistory.com/21  
+http://j30231.tistory.com/22
+
+
+
+
+
 
 ---
 
@@ -329,7 +346,7 @@ server.crt  server.key
 **********************************************************
 99. reference sites
 **********************************************************
-http://j30231.tistory.com/21
+http://j30231.tistory.com/21  
 http://j30231.tistory.com/22
 
 
