@@ -268,6 +268,20 @@
 			# java 실행옵션에 아래를 추가한다.
 			-Djavax.net.debug=ssl,trustmanager
 
+ref.
+$ mkdir -p /apps/certs
+
+$ openssl genrsa -des3 -out /apps/certs/server.key 2048
+$ openssl req -new -key /apps/certs/server.key -out /apps/certs/server.csr
+$ openssl x509 -req -days 365 -in /apps/certs/server.csr -signkey /apps/certs/server.key -out /apps/certs/server.crt
+$ cp /apps/certs/server.key /apps/certs/server.key.origin
+$ openssl rsa -in /apps/certs/server.key.origin -out /apps/certs/server.key
+
+$ openssl req \
+  -newkey rsa:4096 -nodes -sha256 -keyout /apps/certs/domain.key \
+  -x509 -days 36500 -out /apps/certs/domain.crt
+
+
 **********************************************************
 90. trobleshooting
 **********************************************************
