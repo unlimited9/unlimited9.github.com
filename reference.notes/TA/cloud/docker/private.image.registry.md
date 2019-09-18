@@ -1,20 +1,23 @@
 # Docker private image registry
 
+#### pull registry image
+$ docker pull registry
+
 #### SSL certificate
 docker private registry는 보안상의 이유로 http를 지원하지 않아, localhost가 아닌 외부에서 접근시 https/ssl 인증서가 필요
 
 ref. [self-signed certificate](../system/openssl.self.signed.certificate.md)
 
 `generate certificate`  
-$ mkdir -p /apps/certs
-$ openssl req \
-  -newkey rsa:4096 -nodes -sha256 -keyout /apps/certs/STAR.mobon.net.key \
-  -x509 -days 36500 -out /apps/certs/STAR.mobon.net.crt
+$ mkdir -p /apps/docker-registry/certs
+$ openssl req \  
+  -newkey rsa:4096 -nodes -sha256 -keyout /apps/docker-registry/certs/STAR.mobon.net.key \  
+  -x509 -days 36500 -out /apps/docker-registry/certs/STAR.mobon.net.crt
 ```
 Generating a 4096 bit RSA private key
 .................................++
 ...........................................................++
-writing new private key to '/apps/certs/STAR.mobon.net.key'
+writing new private key to '/apps/docker-registry/certs/STAR.mobon.net.key'
 -----
 You are about to be asked to enter information that will be incorporated
 into your certificate request.
@@ -31,21 +34,21 @@ Organizational Unit Name (eg, section) []:Dev
 Common Name (eg, your name or your server's hostname) []:*.mobon.net
 Email Address []:admin@mobon.net
 ```
-$ ls /apps/certs
-STAR.mobon.net.crt  STAR.mobon.net.key
+$ ls /apps/docker-registry/certs
+server.crt  server.key
 
 `update ca`  
 * ubuntu  
-  $ cp /apps/certs/STAR.mobon.net.crt /usr/share/ca-certificates/  
-  $ echo /apps/certs/STAR.mobon.net.crt >> /etc/ca-certificates.conf  
+  $ cp /apps/docker-registry/certs/STAR.mobon.net.crt /usr/share/ca-certificates/  
+  $ echo /apps/docker-registry/certs/STAR.mobon.net.crt >> /etc/ca-certificates.conf  
   $ update-ca-certificates
 
 * centos  
-  $ cp /apps/certs/STAR.mobon.net.crt /etc/pki/ca-trust/source/anchors/  
+  $ cp /apps/docker-registry/certs/STAR.mobon.net.crt /etc/pki/ca-trust/source/anchors/  
   $ update-ca-trust
 
 * mac  
-  $ security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /apps/certs/STAR.mobon.net.crt
+  $ security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /apps/docker-registry/certs/STAR.mobon.net.crt  
 
 `restart docker`  
 $ service docker restart
@@ -54,12 +57,51 @@ $ service docker restart
 docker registry에 접속할 각 장비에도 같은 경로로 ca.crt파일 복사해야함
 
 
-#### pull registry image
-$ docker pull registry
+#### create docker private registry container (default registry port : 5000)
+$ mkdir -p /apps/docker-registry/auth
+$ docker run --entrypoint htpasswd registry -Bbn mobon P@ssw0rd > /apps/docker-registry/auth/htpasswd
 
-#### create docker private registry container
-> default registry port : 5000  
-$ docker run -dit --name docker-registry -p 5000:5000 registry
+$ mkdir -p /apps/docker-registry/volume
+$ docker run -d \
+  -p 5000:5000 \
+  --restart=always \
+  --name registry \
+  -v /apps/docker-registry/auth:/auth \
+  -e "REGISTRY_AUTH=htpasswd" \
+  -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" \
+  -e REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/data \
+  -v /apps/docker-registry/volume:/data \
+  -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \
+  -v /apps/docker-registry/certs:/certs \
+  -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/STAR.mobon.net.crt \
+  -e REGISTRY_HTTP_TLS_KEY=/certs/STAR.mobon.net.key \
+  registry
+
+>$ vi docker-compose.yml
+>```
+>version: '2'
+>services:
+>  docker-registry:
+>    image: registry
+>    restart: always
+>    ports:
+>      - "5000:5000"
+>    volumes:
+>      - /apps/docker-registry/auth:/auth
+>      - /apps/docker-registry/certs:/certs
+>      - /apps/docker-registry/data:/data
+>    environment:
+>      - REGISTRY_AUTH=htpasswd
+>      - REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm
+>      - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/data
+>      - REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd
+>      - REGISTRY_HTTP_TLS_CERTIFICATE=/certs/STAR.mobon.net.crt
+>      - REGISTRY_HTTP_TLS_KEY=/certs/STAR.mobon.net.key
+>    container_name: registry
+>```
+>$ docker-compose up -d
+
+>$ docker run -dit --name docker-registry -p 5000:5000 registry
 
 #### Docker 사용
 
