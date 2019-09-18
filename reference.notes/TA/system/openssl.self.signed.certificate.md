@@ -1,7 +1,7 @@
 #### generate certificate
-$ mkdir -p /apps/certs
-$ openssl req \
-  -newkey rsa:4096 -nodes -sha256 -keyout /apps/certs/server.key \
+$ mkdir -p /apps/certs  
+$ openssl req \  
+  -newkey rsa:4096 -nodes -sha256 -keyout /apps/certs/server.key \  
   -x509 -days 36500 -out /apps/certs/server.crt
 ```
 Generating a 4096 bit RSA private key
@@ -24,13 +24,16 @@ Organizational Unit Name (eg, section) []:dev
 Common Name (eg, your name or your server's hostname) []:*.hajimaro.com
 Email Address []:admin@hajimaro.com
 ```
-$ ls /apps/certs
-server.crt  server.key
 
->$ openssl genrsa -des3 -out /apps/certs/server.key 2048
->$ openssl req -new -key /apps/certs/server.key -out /apps/certs/server.csr
->$ openssl x509 -req -days 365 -in /apps/certs/server.csr -signkey /apps/certs/server.key -out /apps/certs/server.crt
->$ cp /apps/certs/server.key /apps/certs/server.key.origin
+$ ls /apps/certs
+```
+server.crt  server.key
+```
+
+>$ openssl genrsa -des3 -out /apps/certs/server.key 2048  
+>$ openssl req -new -key /apps/certs/server.key -out /apps/certs/server.csr  
+>$ openssl x509 -req -days 365 -in /apps/certs/server.csr -signkey /apps/certs/server.key -out /apps/certs/server.crt  
+>$ cp /apps/certs/server.key /apps/certs/server.key.origin  
 >$ openssl rsa -in /apps/certs/server.key.origin -out /apps/certs/server.key
 
 #### update ca
