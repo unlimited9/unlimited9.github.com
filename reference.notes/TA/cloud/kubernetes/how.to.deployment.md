@@ -52,6 +52,15 @@ spec:
         args:
           - ls -al /pgms/mobon.platform.gateway/repository/git
           - gradle --build-file /pgms/mobon.platform.gateway/repository/git/aggregation.service/build.gradle :framework.boot.application:build
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - "sh"
+                - "-c"
+                - >
+                  ls -al /pgms/mobon.platform.gateway/repository/git;
+                  whoami;
       imagePullSecrets:
         - name: regcred
       volumes:
@@ -127,3 +136,8 @@ $ kubectl delete pod --all
 
 * 쿠버네티스 #6 - 실제 서비스 배포해보기  
 https://bcho.tistory.com/1261?category=731548
+
+* 컨테이너를 위한 커맨드와 인자 정의하기
+https://kubernetes.io/ko/docs/tasks/inject-data-application/define-command-argument-container/
+
+
