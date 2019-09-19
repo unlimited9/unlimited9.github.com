@@ -5,7 +5,7 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
 
 1. BA(Business Architecture)
 
-2. AA(Application Architecture)
+2. [AA(Application Architecture)](AA/)
     * Development Environment
       + [Install and setup Java](AA/JDK/install.n.setup.md) ([install script](AA/JDK/install.n.setup.script.md)) : JDK(Java™ Platform, Development Kit) 설치
       + [Eclipse IDE Setup](eclipse.ide.setup.md) : J2EE 개발을 위한 통합개발환경 도구 Eclipse IDE 설치
