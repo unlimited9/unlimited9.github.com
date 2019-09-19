@@ -237,7 +237,7 @@ spec:
     spec:
       containers:
       - name: mobon-platform-gateway-aggregator
-        image: mobon/java.app.env:latest
+        image: docker-registry.mobon.net:5000/mobon/java.app.env:latest
         imagePullPolicy: Always
         volumeMounts:
           - name: app-git-repository
