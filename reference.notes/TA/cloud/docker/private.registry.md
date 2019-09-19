@@ -153,12 +153,111 @@ $ curl -k -u 'mobon:P@ssw0rd' -X GET https://docker-registry.mobon.net:5000/v2/_
 {"repositories":["mobon/java.app.env"]}
 ```
 
-#### remote client에서 docker private registry 이용
-
-
 #### docker private registry image pull and execute
 $ docker pull docker-registry.mobon.net:5000/mobon/java.app.env
+                                                                    
+## kubernetes
 
+#### create a secret by providing credentials on the command line
+```
+kubectl create secret docker-registry <name> --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
+```
+$ kubectl create secret docker-registry regcred --docker-server=docker-registry.mobon.net --docker-username=mobon --docker-password=P@ssword --docker-email=admin@enliple.com
+
+#### inspecting the secret regcred
+$ kubectl get secret regcred --output=yaml
+```
+apiVersion: v1
+data:
+  .dockerconfigjson: eyJ...X0=
+kind: Secret
+metadata:
+  creationTimestamp: "2019-09-19T04:55:41Z"
+  name: regcred
+  namespace: default
+  resourceVersion: "8142613"
+  selfLink: /api/v1/namespaces/default/secrets/regcred
+  uid: 12ba7f05-2c0f-42d9-bb40-ac3ffc274066
+type: kubernetes.io/dockerconfigjson
+```
+
+$ kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
+```
+{"auths":{"docker-registry.mobon.net":{"username":"mobon","password":"passwd","email":"admin@enliple.com","auth":"bW9...mQ="}}}
+```
+
+$ echo "bW9...mQ=" | base64 --decode
+```
+mobon:passwd
+```
+$ cat  ~/.docker/config.json
+```
+{
+	"auths": {
+		"docker-registry.mobon.net:5000": {
+			"auth": "bW9...mQ="
+		}
+	},
+	"HttpHeaders": {
+		"User-Agent": "Docker-Client/18.09.7 (linux)"
+	}
+}
+```
+
+#### create a pod that uses your secret
+$ vi /apps/kubernetes/resources/pods/private-reg-pod.yaml
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: private-reg
+spec:
+  containers:
+  - name: private-reg-container
+    image: <your-private-image>
+  imagePullSecrets:
+  - name: regcred
+```
+
+$ vi /apps/kubernetes/resources/mobon.gateway.rc.yaml
+```
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: mobon-platform-gateway-aggregator-rc
+spec:
+  replicas: 3
+  selector:
+    app: mobon-platform-gateway-aggregator
+  template:
+    metadata:
+      name: mobon-platform-gateway-aggregator-pod
+      labels:
+        app: mobon-platform-gateway-aggregator
+    spec:
+      containers:
+      - name: mobon-platform-gateway-aggregator
+        image: mobon/java.app.env:latest
+        imagePullPolicy: Always
+        volumeMounts:
+          - name: app-git-repository
+            mountPath: /pgms/mobon.platform.gateway/repository/git
+            readOnly: true
+        ports:
+          - containerPort: 8080
+        command: ["/bin/bash", "-c"]
+        args:
+          - ls -al /pgms/mobon.platform.gateway/repository/git
+          - gradle --build-file /pgms/mobon.platform.gateway/repository/git/aggregation.service/build.gradle :framework.boot.application:build
+      imagePullSecrets:
+        - name: regcred
+      volumes:
+      - name: app-git-repository
+        gitRepo:
+          repository: http://172.20.0.7:9000/enliple/mobon/platform/gateway.git
+          revision: master
+          directory: .
+```
 
 ## 9. Appendix
 
@@ -167,16 +266,23 @@ $ docker pull docker-registry.mobon.net:5000/mobon/java.app.env
 * Verify repository client with certificates  
 https://docs.docker.com/engine/security/certificates/
 
-+ 나만의 private docker registry 구성하기  
+
++ Using a Private Registry  
+https://kubernetes.io/docs/concepts/containers/images/#using-a-private-registry
+
++ Create a Secret based on existing Docker credentials  
+https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials
+
+
+- 나만의 private docker registry 구성하기  
 https://novemberde.github.io/2017/04/09/Docker_Registry_0.html
 
-+ 도커 이미지 개인 저장소(Docker Private Registry) 구축  
+- 도커 이미지 개인 저장소(Docker Private Registry) 구축  
 https://m.blog.naver.com/PostView.nhn?blogId=complusblog&logNo=221000797682&proxyReferer=https%3A%2F%2Fwww.google.com%2F
 
-+ 사내 docker 저장소(registry) 구축하기  
+- 사내 docker 저장소(registry) 구축하기  
 http://www.kwangsiklee.com/2017/08/%EC%82%AC%EB%82%B4-docker-%EC%A0%80%EC%9E%A5%EC%86%8Cregistry-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/
 
-+ docker private registry  
+- docker private registry  
 https://setyourmindpark.github.io/2018/02/06/docker/docker-4/
-
 
