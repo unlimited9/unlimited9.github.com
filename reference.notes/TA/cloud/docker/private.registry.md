@@ -1,4 +1,4 @@
-# Docker private image registry
+# Docker private registry
 
 #### pull registry image
 $ docker pull registry
