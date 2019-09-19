@@ -134,9 +134,9 @@ $ vi /etc/hosts
 #### docker private registry login
 client에서 remote docker private registry에 접근
 
-$ docker login docker-registry.mobon.net:5000
-Username (setyourmindpark): 
-Password: 
+$ docker login docker-registry.mobon.net:5000  
+Username:  
+Password:  
 Login Succeeded
 
 #### docker private registry image push
