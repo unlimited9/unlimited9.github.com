@@ -23,7 +23,7 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
         - [Spring Boot : Management and Operations](AA/Framework/springboot.management.n.operations.md)
         - [Overriding Dependency Versions with Spring Boot](AA/Framework/springboot.transitive.dependency.md)
 
-3. TA(technical architecture)
+3. [TA(technical architecture)](TA/)
     * Operating System
       + [Account/Group management](TA/system/management.account.n.group.md) : 시스템 계정/그룹 관리
       + [Ditectory management](TA/system/management.directory.md) : 시스템 디렉토리 정의/관리
