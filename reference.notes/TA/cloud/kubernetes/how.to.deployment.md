@@ -52,6 +52,8 @@ spec:
         args:
           - ls -al /pgms/mobon.platform.gateway/repository/git
           - gradle --build-file /pgms/mobon.platform.gateway/repository/git/aggregation.service/build.gradle :framework.boot.application:build
+      imagePullSecrets:
+        - name: regcred
       volumes:
       - name: app-git-repository
         gitRepo:
@@ -89,7 +91,7 @@ metadata:
   name: mobon.gateway.svc
 spec:
   selector:
-    app: mobon.gateway
+    app: mobon-platform-gateway-aggregator
   ports:
     - port: 80
       protocol: TCP
