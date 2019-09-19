@@ -164,19 +164,19 @@ $ docker pull docker-registry.mobon.net:5000/mobon/java.app.env
 
 #### reference site
 
-* Verify repository client with certificates
+* Verify repository client with certificates  
 https://docs.docker.com/engine/security/certificates/
 
-+ 나만의 private docker registry 구성하기 
++ 나만의 private docker registry 구성하기  
 https://novemberde.github.io/2017/04/09/Docker_Registry_0.html
 
-+ 도커 이미지 개인 저장소(Docker Private Registry) 구축
++ 도커 이미지 개인 저장소(Docker Private Registry) 구축  
 https://m.blog.naver.com/PostView.nhn?blogId=complusblog&logNo=221000797682&proxyReferer=https%3A%2F%2Fwww.google.com%2F
 
-+ 사내 docker 저장소(registry) 구축하기
++ 사내 docker 저장소(registry) 구축하기  
 http://www.kwangsiklee.com/2017/08/%EC%82%AC%EB%82%B4-docker-%EC%A0%80%EC%9E%A5%EC%86%8Cregistry-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/
 
-+ docker private registry
++ docker private registry  
 https://setyourmindpark.github.io/2018/02/06/docker/docker-4/
 
 
