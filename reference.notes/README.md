@@ -1,11 +1,11 @@
 ## Reference Notes
 AA/TA, Java/Framework, Design/Prototyping/Optimization
 
-### EA(Enterprise Architecture)
+#### EA(Enterprise Architecture)
 
 1. BA(Business Architecture)
 
-2. [AA(Application Architecture)](AA/)
+2. AA(Application Architecture)
     * Development Environment
       + [Install and setup Java](AA/JDK/install.n.setup.md) ([install script](AA/JDK/install.n.setup.script.md)) : JDK(Java™ Platform, Development Kit) 설치
       + [Eclipse IDE Setup](eclipse.ide.setup.md) : J2EE 개발을 위한 통합개발환경 도구 Eclipse IDE 설치
@@ -23,7 +23,7 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
         - [Spring Boot : Management and Operations](AA/Framework/springboot.management.n.operations.md)
         - [Overriding Dependency Versions with Spring Boot](AA/Framework/springboot.transitive.dependency.md)
 
-3. [TA(technical architecture)](TA/)
+3. TA(technical architecture)
     * Operating System
       + [Account/Group management](TA/system/management.account.n.group.md) : 시스템 계정/그룹 관리
       + [Ditectory management](TA/system/management.directory.md) : 시스템 디렉토리 정의/관리
