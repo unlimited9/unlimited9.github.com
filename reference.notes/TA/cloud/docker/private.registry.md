@@ -3,13 +3,17 @@
 #### pull registry image
 $ docker pull registry
 
+>#### insecure registry
+>--insecure-registry 설정  
+>도커는 기본적으로 TLS(https)를 사용하므로 사설 저장소에 https를 설정하거나 아니면 --insecure-registry 설정을 해주고 docker daemon 제구동해야 함
+
 #### SSL certificate
 docker private registry는 보안상의 이유로 http를 지원하지 않아, localhost가 아닌 외부에서 접근시 https/ssl 인증서가 필요
 
 ref. [self-signed certificate](../system/openssl.self.signed.certificate.md)
 
 `generate certificate`  
-$ mkdir -p /apps/docker-registry/certs
+$ mkdir -p /apps/docker-registry/certs  
 $ openssl req \  
   -newkey rsa:4096 -nodes -sha256 -keyout /apps/docker-registry/certs/STAR.mobon.net.key \  
   -x509 -days 36500 -out /apps/docker-registry/certs/STAR.mobon.net.crt
@@ -35,27 +39,7 @@ Common Name (eg, your name or your server's hostname) []:*.mobon.net
 Email Address []:admin@mobon.net
 ```
 $ ls /apps/docker-registry/certs
-server.crt  server.key
-
-`update ca`  
-* ubuntu  
-  $ cp /apps/docker-registry/certs/STAR.mobon.net.crt /usr/share/ca-certificates/  
-  $ echo /apps/docker-registry/certs/STAR.mobon.net.crt >> /etc/ca-certificates.conf  
-  $ update-ca-certificates
-
-* centos  
-  $ cp /apps/docker-registry/certs/STAR.mobon.net.crt /etc/pki/ca-trust/source/anchors/  
-  $ update-ca-trust
-
-* mac  
-  $ security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /apps/docker-registry/certs/STAR.mobon.net.crt  
-
-`restart docker`  
-$ service docker restart
-> $ systemctl restart docker.service
-
-docker registry에 접속할 각 장비에도 같은 경로로 ca.crt파일 복사해야함
-
+STAR.mobon.net.crt  STAR.mobon.net.key
 
 #### create docker private registry container (default registry port : 5000)
 $ mkdir -p /apps/docker-registry/auth
@@ -103,25 +87,96 @@ $ docker run -d \
 
 >$ docker run -dit --name docker-registry -p 5000:5000 registry
 
-#### Docker 사용
+#### access docker private registry
+registry에 접근할 모든 client에 아래 작업을 수행한다.
 
---insecure-registry 설정
-도커는 기본적으로 TLS(https)를 사용하므로 사설 저장소에 https를 설정하거나 아니면 --insecure-registry 설정을 해주고 docker daemon 제구동해야 함
+`copy ca`  
+docker private registry에 생성하고 등록한 인증서(STAR.mobon.net.crt)를 아래 경로에 넣어준다.
+```
+/etc/docker/certs.d/        <-- Certificate directory
+└── localhost:5000          <-- Hostname:port
+   ├── client.cert          <-- Client certificate
+   ├── client.key           <-- Client key
+   └── ca.crt               <-- Certificate authority that signed
+                                the registry certificate
+```
 
+$ sudo mkdir -p /etc/docker/certs.d/docker-registry.mobon.net:5000  
+$ sudo cp STAR.mobon.net.crt /etc/docker/certs.d/docker-registry.mobon.net:5000
+
+>참고.
+>
+>`update ca`  
+>* ubuntu  
+>  $ cp /apps/docker-registry/certs/STAR.mobon.net.crt /usr/share/ca-certificates/  
+>  $ echo /apps/docker-registry/certs/STAR.mobon.net.crt >> /etc/ca-certificates.conf  
+>  $ update-ca-certificates
+>
+>* centos  
+>  $ cp /apps/docker-registry/certs/STAR.mobon.net.crt /etc/pki/ca-trust/source/anchors/  
+>  $ update-ca-trust
+>
+>* mac  
+>  $ security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /apps/docker-registry/certs/STAR.mobon.net.crt  
+>
+>`restart docker`  
+>$ service docker restart
+>> $ systemctl restart docker.service
+
+`host domain registration`  
+ca를 사용하기 위해서 DNS나 hosts 등록이 필요
+
+$ vi /etc/hosts
+```
+172.20.0.104  docker-registry.mobon.net
+```
+
+#### docker private registry login
+client에서 remote docker private registry에 접근
+
+$ docker login docker-registry.mobon.net:5000
+Username (setyourmindpark): 
+Password: 
+Login Succeeded
+
+#### docker private registry image push
+
+`tag alias`  
+$ docker tag mobon/java.app.env docker-registry.mobon.net:5000/mobon/java.app.env
+
+`push image`  
+$ docker push docker-registry.mobon.net:5000/mobon/java.app.env
+
+`push image`  
+$ curl -k -u 'mobon:P@ssw0rd' -X GET https://docker-registry.mobon.net:5000/v2/_catalog
+```
+{"repositories":["mobon/java.app.env"]}
+```
+
+#### remote client에서 docker private registry 이용
+
+
+#### docker private registry image pull and execute
+$ docker pull docker-registry.mobon.net:5000/mobon/java.app.env
 
 
 ## 9. Appendix
 
 #### reference site
 
-* 나만의 private docker registry 구성하기 
+* Verify repository client with certificates
+https://docs.docker.com/engine/security/certificates/
+
++ 나만의 private docker registry 구성하기 
 https://novemberde.github.io/2017/04/09/Docker_Registry_0.html
 
-* 도커 이미지 개인 저장소(Docker Private Registry) 구축
++ 도커 이미지 개인 저장소(Docker Private Registry) 구축
 https://m.blog.naver.com/PostView.nhn?blogId=complusblog&logNo=221000797682&proxyReferer=https%3A%2F%2Fwww.google.com%2F
 
-* 사내 docker 저장소(registry) 구축하기
++ 사내 docker 저장소(registry) 구축하기
 http://www.kwangsiklee.com/2017/08/%EC%82%AC%EB%82%B4-docker-%EC%A0%80%EC%9E%A5%EC%86%8Cregistry-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/
 
-* docker private registry
++ docker private registry
 https://setyourmindpark.github.io/2018/02/06/docker/docker-4/
+
+
