@@ -162,7 +162,9 @@ $ docker pull docker-registry.mobon.net:5000/mobon/java.app.env
 ```
 kubectl create secret docker-registry <name> --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
 ```
-$ kubectl create secret docker-registry regcred --docker-server=docker-registry.mobon.net --docker-username=mobon --docker-password=passwd --docker-email=admin@enliple.com
+$ kubectl create secret docker-registry regcred --docker-server=docker-registry.mobon.net:5000 --docker-username=mobon --docker-password=passwd --docker-email=admin@enliple.com
+
+>$ kubectl delete secret regcred
 
 #### inspecting the secret regcred
 $ kubectl get secret regcred --output=yaml
