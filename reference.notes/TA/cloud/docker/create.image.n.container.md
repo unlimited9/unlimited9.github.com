@@ -141,9 +141,10 @@ RUN mv /apps/install/jdk-12.0.2 /apps/jdk/12.0.2
 
 # install gradle
 RUN curl -O https://downloads.gradle-dn.com/distributions/gradle-5.6.2-bin.zip
+RUN unzip gradle-5.6.2-bin.zip
 
-RUN mkdir -p /apps/gradle/5.6.2
-RUN unzip -d /apps/gradle/5.6.2 gradle-5.6.2-bin.zip
+RUN mkdir -p /apps/gradle
+RUN mv -d /apps/install/gradle-5.6.2 /apps/gradle/5.6.2
 
 USER root
 
