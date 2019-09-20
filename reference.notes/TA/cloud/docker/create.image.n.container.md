@@ -154,7 +154,7 @@ RUN echo 'export CLASSPATH=.:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:$JAVA_HOME/lib/to
 
 # set env gradle
 RUN echo 'export GRADLE_HOME=/apps/gradle/5.6.2' >> /etc/profile.d/gradle.sh
-RUN echo 'export PATH=${GRADLE_HOME}/bin:${PATH}' >> /etc/profile.d/gradle.sh
+RUN echo 'export PATH=$PATH:$GRADLE_HOME/bin' >> /etc/profile.d/gradle.sh
 
 RUN source /etc/profile
 
