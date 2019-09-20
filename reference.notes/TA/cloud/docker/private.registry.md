@@ -43,7 +43,7 @@ STAR.mobon.net.crt  STAR.mobon.net.key
 
 #### create docker private registry container (default registry port : 5000)
 $ mkdir -p /apps/docker-registry/auth
-$ docker run --entrypoint htpasswd registry -Bbn mobon P@ssw0rd > /apps/docker-registry/auth/htpasswd
+$ docker run --entrypoint htpasswd registry -Bbn mobon passwd > /apps/docker-registry/auth/htpasswd
 
 $ mkdir -p /apps/docker-registry/volume
 $ docker run -d \
@@ -148,7 +148,7 @@ $ docker tag mobon/java.app.env docker-registry.mobon.net:5000/mobon/java.app.en
 $ docker push docker-registry.mobon.net:5000/mobon/java.app.env
 
 `push image`  
-$ curl -k -u 'mobon:P@ssw0rd' -X GET https://docker-registry.mobon.net:5000/v2/_catalog
+$ curl -k -u 'mobon:passwd' -X GET https://docker-registry.mobon.net:5000/v2/_catalog
 ```
 {"repositories":["mobon/java.app.env"]}
 ```
