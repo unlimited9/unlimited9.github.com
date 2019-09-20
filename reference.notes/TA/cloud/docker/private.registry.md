@@ -147,7 +147,7 @@ $ docker tag mobon/java.app.env docker-registry.mobon.net:5000/mobon/java.app.en
 `push image`  
 $ docker push docker-registry.mobon.net:5000/mobon/java.app.env
 
-`push image`  
+`get image catalog`  
 $ curl -k -u 'mobon:passwd' -X GET https://docker-registry.mobon.net:5000/v2/_catalog
 ```
 {"repositories":["mobon/java.app.env"]}
@@ -155,7 +155,24 @@ $ curl -k -u 'mobon:passwd' -X GET https://docker-registry.mobon.net:5000/v2/_ca
 
 #### docker private registry image pull and execute
 $ docker pull docker-registry.mobon.net:5000/mobon/java.app.env
-                                                                    
+
+## delete image
+
+#### registry 내부의 repository 정보 조회
+$ curl -k -u 'mobon:passwd' -X GET https://docker-registry.mobon.net:5000/v2/_catalog
+
+#### repository 에 대하여 tag 정보 조회
+$ curl -k -u 'mobon:passwd' -X GET https://docker-registry.mobon.net:5000/v2/mobon/java.app.env/tags/list
+
+#### content digest 조회
+$ curl -k -u 'mobon:passwd' -v --silent -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -X GET https://docker-registry.mobon.net:5000/v2/mobon/java.app.env/manifests/latest 2>&1 | grep Docker-Content-Digest | awk '{print ($3)}'
+
+#### manifest 삭제
+$ curl -k -u 'mobon:passwd' -v --silent -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -X DELETE https://docker-registry.mobon.net:5000/v2/mobon/java.app.env/manifests/<DIGEST 정보>
+
+#### GC(Garbage Collection)
+$ docker exec -it registry_dev registry garbage-collect /etc/docker/registry/config.yml
+
 ## kubernetes
 
 #### create a secret by providing credentials on the command line
@@ -288,3 +305,5 @@ http://www.kwangsiklee.com/2017/08/%EC%82%AC%EB%82%B4-docker-%EC%A0%80%EC%9E%A5%
 - docker private registry  
 https://setyourmindpark.github.io/2018/02/06/docker/docker-4/
 
+- Docker registry 와 이미지 삭제  
+https://trylhc.tistory.com/entry/Docker-registry-%EC%82%AD%EC%A0%9C-2
