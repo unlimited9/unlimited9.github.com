@@ -50,9 +50,9 @@ spec:
           - containerPort: 8080
         command: ["/bin/bash", "-c"]
         args:
-          - ls -al /pgms/mobon.platform.gateway/repository/git
-          - gradle --build-file /pgms/mobon.platform.gateway/repository/git/aggregation.service/build.gradle :framework.boot.application:build
-          - ls -al 
+#          - ls -al /pgms/mobon.platform.gateway/repository/git
+#          - gradle --build-file /pgms/mobon.platform.gateway/repository/git/aggregation.service/build.gradle :framework.boot.application:build
+          - tail -f /dev/null
       imagePullSecrets:
         - name: regcred
       volumes:
