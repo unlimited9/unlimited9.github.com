@@ -148,15 +148,13 @@ RUN unzip -d /apps/gradle/5.6.2 gradle-5.6.2-bin.zip
 USER root
 
 # set env java development kit
-RUN echo "export JAVA_HOME=$/apps/jdk/12.0.2\n" \
-  "export PATH=$PATH:$JAVA_HOME/bin\n" \
-  "export CLASSPATH=.:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:$JAVA_HOME/lib/tools.jar" \
-  >> /etc/profile.d/jdk.sh
+RUN echo 'export JAVA_HOME=/apps/jdk/12.0.2' >> /etc/profile.d/java.sh
+RUN echo 'export PATH=$PATH:$JAVA_HOME/bin' >> /etc/profile.d/java.sh
+RUN echo 'export CLASSPATH=.:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:$JAVA_HOME/lib/tools.jar' >> /etc/profile.d/java.sh
 
 # set env gradle
-RUN echo "export GRADLE_HOME=/apps/gradle/5.6.2\n" \
-  "export PATH=${GRADLE_HOME}/bin:${PATH}\n" \
-  >> /etc/profile.d/gradle.sh
+RUN echo 'export GRADLE_HOME=/apps/gradle/5.6.2' >> /etc/profile.d/gradle.sh
+RUN echo 'export PATH=${GRADLE_HOME}/bin:${PATH}' >> /etc/profile.d/gradle.sh
 
 RUN source /etc/profile
 
