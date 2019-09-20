@@ -112,9 +112,9 @@ $ curl ip:80
 ## check kubernetes resources
 
 #### debugging
-$ kubectl get rc                                                                                               
-$ kubectl get pods                                                                                               
-$ kubectl describe pod mobon-platform-gateway-aggregator-rc-2nkbm
+$ kubectl get rc  
+$ kubectl get pods  
+$ kubectl describe pod mobon-platform-gateway-aggregator-rc-2nkbm  
 $ journalctl -u kubelet
 
 ## delete kubernetes resources
