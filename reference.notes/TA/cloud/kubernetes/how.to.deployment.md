@@ -52,15 +52,7 @@ spec:
         args:
           - ls -al /pgms/mobon.platform.gateway/repository/git
           - gradle --build-file /pgms/mobon.platform.gateway/repository/git/aggregation.service/build.gradle :framework.boot.application:build
-        lifecycle:
-          postStart:
-            exec:
-              command:
-                - "sh"
-                - "-c"
-                - >
-                  ls -al /pgms/mobon.platform.gateway/repository/git;
-                  whoami;
+          - ls -al 
       imagePullSecrets:
         - name: regcred
       volumes:
@@ -117,6 +109,14 @@ $ kubectl get svc
 `접속 확인`  
 $ curl ip:80
 
+## check kubernetes resources
+
+#### debugging
+$ kubectl get rc                                                                                               
+$ kubectl get pods                                                                                               
+$ kubectl describe pod mobon-platform-gateway-aggregator-rc-2nkbm
+$ journalctl -u kubelet
+
 ## delete kubernetes resources
 
 #### service delete
@@ -141,3 +141,8 @@ https://bcho.tistory.com/1261?category=731548
 https://kubernetes.io/ko/docs/tasks/inject-data-application/define-command-argument-container/
 
 
++ Guide to Spring Cloud Kubernetes
+https://www.baeldung.com/spring-cloud-kubernetes
+
++ Configuration management: a Spring Boot use-case with Kubernetes
+https://www.exoscale.com/syslog/configuration-management-kubernetes-spring-boot/
