@@ -137,12 +137,12 @@ $ kubectl delete pod --all
 * 쿠버네티스 #6 - 실제 서비스 배포해보기  
 https://bcho.tistory.com/1261?category=731548
 
-* 컨테이너를 위한 커맨드와 인자 정의하기
+* 컨테이너를 위한 커맨드와 인자 정의하기  
 https://kubernetes.io/ko/docs/tasks/inject-data-application/define-command-argument-container/
 
 
-+ Guide to Spring Cloud Kubernetes
++ Guide to Spring Cloud Kubernetes  
 https://www.baeldung.com/spring-cloud-kubernetes
 
-+ Configuration management: a Spring Boot use-case with Kubernetes
++ Configuration management: a Spring Boot use-case with Kubernetes  
 https://www.exoscale.com/syslog/configuration-management-kubernetes-spring-boot/
