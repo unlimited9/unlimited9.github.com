@@ -27,93 +27,116 @@ $ vi /apps/kubernetes/resources/mobon.gateway.deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: mobon-platform-gateway-aggregator-deployment
   labels:
     app: mobon-platform-gateway-aggregator
-  name: mobon-platform-gateway-aggregator-deployment
 spec:
-  replicas: 5
   selector:
     matchLabels:
       app: mobon-platform-gateway-aggregator
-  template:
-    metadata:
-      labels:
-        app: mobon-platform-gateway-aggregator
-    spec:
-      containers:
-      - name: mobon-platform-gateway-aggregator
-        image: mobon/java.app.env:latest
-        imagePullPolicy: Always
-        volumeMounts:
-          - name: app-git-repository
-            mountPath: /repository/git/mobon.platform.gateway.git
-            readOnly: true
-        ports:
-          - containerPort: 8080
-        command: ["/bin/bash", "-c"]
-        args:
-          - source /etc/profile;
-            mkdir /pgms/mobon.platform.gateway;
-            cp -R /repository/git/mobon.platform.gateway.git /pgms/mobon.platform.gateway/sources;
-            gradle --build-file /pgms/mobon.platform.gateway/sources/aggregation.service/build.gradle :framework.boot.application:bootRun;
-#            tail -f /dev/null;
-      imagePullSecrets:
-        - name: regcred
-      volumes:
-      - name: app-git-repository
-        gitRepo:
-          repository: http://172.20.0.7:9000/enliple/mobon/platform/gateway.git
-          revision: master
-          directory: .
-```
-
-#### ReplicationController
-`create kubernetes resource file : ReplicationController`  
-$ vi /apps/kubernetes/resources/mobon.gateway.rc.yaml 
-```
-apiVersion: v1
-kind: ReplicationController
-metadata:
-  name: mobon-platform-gateway-aggregator-rc
-spec:
   replicas: 3
-  selector:
-    app: mobon-platform-gateway-aggregator
   template:
     metadata:
-      name: mobon-platform-gateway-aggregator-pod
       labels:
         app: mobon-platform-gateway-aggregator
     spec:
       containers:
-      - name: mobon-platform-gateway-aggregator
-        image: mobon/java.app.env:latest
-        imagePullPolicy: Always
-        volumeMounts:
-          - name: app-git-repository
-            mountPath: /repository/git/mobon.platform.gateway.git
-            readOnly: true
-        ports:
-          - containerPort: 8080
-        command: ["/bin/bash", "-c"]
-        args:
-          - source /etc/profile;
-            mkdir /pgms/mobon.platform.gateway;
-            cp -R /repository/git/mobon.platform.gateway.git /pgms/mobon.platform.gateway/sources;
-            gradle --build-file /pgms/mobon.platform.gateway/sources/aggregation.service/build.gradle :framework.boot.application:bootRun;
-#            tail -f /dev/null;
-      imagePullSecrets:
-        - name: regcred
+        - name: mobon-platform-gateway-aggregator
+          image: mobon/java.app.env:latest
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: app-git-repository
+              mountPath: /repository/git/mobon.platform.gateway.git
+          ports:
+            - containerPort: 8080
+          command: ["/bin/bash", "-c"]
+          args:
+            - source /etc/profile;
+              mkdir /pgms/mobon.platform.gateway;
+              cp -R /repository/git/mobon.platform.gateway.git /pgms/mobon.platform.gateway/sources;
+              gradle --build-file /pgms/mobon.platform.gateway/sources/aggregation.service/build.gradle :framework.boot.application:bootRun;
+      initContainers:
+        - name: git-sync
+          image: k8s.gcr.io/git-sync:v3.1.2
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: app-git-repository
+              mountPath: /repository/git/mobon.platform.gateway.git
+            - name: git-secret
+              mountPath: /etc/git-secret
+          env:
+            - name: GIT_SYNC_REPO
+              value: http://mobon_admin:mobonproject2019!@172.20.0.7:9000/enliple/mobon/platform/gateway.git
+            - name: GIT_SYNC_BRANCH
+              value: master
+            - name: GIT_SYNC_ROOT
+              value: /repository/git/mobon.platform.gateway.git
+            - name: GIT_SYNC_DEST
+              value: ""
+            - name: GIT_SYNC_PERMISSIONS
+              value: "0777"
+            - name: GIT_SYNC_ONE_TIME
+              value: "true"
+            - name: GIT_SYNC_SSH
+              value: "true"
+          securityContext:
+            runAsUser: 0
       volumes:
       - name: app-git-repository
-        gitRepo:
-          repository: http://172.20.0.7:9000/enliple/mobon/platform/gateway.git
-          revision: master
-          directory: .
+        emptyDir: {}
+      - name: git-secret
+        secret:
+          defaultMode: 256
+          secretName: regcred # your-ssh-key
 ```
 
-`rc 생성`  
-$ kubectl create -f /apps/kubernetes/resources/mobon.gateway.rc.yaml
+>#### ReplicationController
+>`create kubernetes resource file : ReplicationController`  
+>$ vi /apps/kubernetes/resources/mobon.gateway.rc.yaml 
+>```
+>apiVersion: v1
+>kind: ReplicationController
+>metadata:
+>  name: mobon-platform-gateway-aggregator-rc
+>spec:
+>  replicas: 3
+>  selector:
+>    app: mobon-platform-gateway-aggregator
+>  template:
+>    metadata:
+>      name: mobon-platform-gateway-aggregator-pod
+>      labels:
+>        app: mobon-platform-gateway-aggregator
+>    spec:
+>      containers:
+>      - name: mobon-platform-gateway-aggregator
+>        image: docker-registry.mobon.net:5000/mobon/java.app.env:latest
+>        imagePullPolicy: Always
+>        volumeMounts:
+>          - name: app-git-repository
+>            mountPath: /repository/git/mobon.platform.gateway.git
+>            readOnly: true
+>        ports:
+>          - containerPort: 8080
+>        command: ["/bin/bash", "-c"]
+>        args:
+>          - source /etc/profile;
+>            mkdir /pgms/mobon.platform.gateway;
+>            cp -R /repository/git/mobon.platform.gateway.git /pgms/mobon.platform.gateway/sources;
+>            gradle --build-file /pgms/mobon.platform.gateway/sources/aggregation.service/build.gradle :framework.boot.application:bootRun;
+>#            tail -f /dev/null;
+>      imagePullSecrets:
+>        - name: regcred
+>      volumes:
+>      - name: app-git-repository
+>        gitRepo:
+>          repository: http://mobon_admin:mobonproject2019!@172.20.0.7:9000/enliple/mobon/platform/gateway.git
+>          revision: master
+>          directory: .
+>```
+>
+>`rc 생성`  
+>$ kubectl create -f /apps/kubernetes/resources/mobon.gateway.rc.yaml
 
 `pod 확인`  
 $ kubectl get pod
@@ -198,3 +221,6 @@ https://www.baeldung.com/spring-cloud-kubernetes
 
 + Configuration management: a Spring Boot use-case with Kubernetes  
 https://www.exoscale.com/syslog/configuration-management-kubernetes-spring-boot/
+
+- git-sync
+https://ddii.dev/kubernetes/git-sync/#
