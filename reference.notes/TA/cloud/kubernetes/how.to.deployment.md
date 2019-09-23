@@ -81,6 +81,8 @@ spec:
               value: "true"
           securityContext:
             runAsUser: 0
+      imagePullSecrets:
+       - name: regcred
       volumes:
       - name: app-git-repository
         emptyDir: {}
