@@ -135,6 +135,8 @@ spec:
 >          directory: .
 >```
 >
+>> gitRepo volume deprecated
+>
 >`rc 생성`  
 >$ kubectl create -f /apps/kubernetes/resources/mobon.gateway.rc.yaml
 
