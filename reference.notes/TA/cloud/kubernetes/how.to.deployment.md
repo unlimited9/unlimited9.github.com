@@ -44,15 +44,17 @@ spec:
         imagePullPolicy: Always
         volumeMounts:
           - name: app-git-repository
-            mountPath: /pgms/mobon.platform.gateway/repository/git
+            mountPath: /repository/git/mobon.platform.gateway.git
             readOnly: true
         ports:
           - containerPort: 8080
         command: ["/bin/bash", "-c"]
         args:
-#          - ls -al /pgms/mobon.platform.gateway/repository/git
-#          - gradle --build-file /pgms/mobon.platform.gateway/repository/git/aggregation.service/build.gradle :framework.boot.application:build
-          - tail -f /dev/null
+          - source /etc/profile;
+            mkdir /pgms/mobon.platform.gateway;
+            cp -R /repository/git/mobon.platform.gateway.git /pgms/mobon.platform.gateway/sources;
+            gradle --build-file /pgms/mobon.platform.gateway/sources/aggregation.service/build.gradle :framework.boot.application:bootRun;
+#            tail -f /dev/null;
       imagePullSecrets:
         - name: regcred
       volumes:
