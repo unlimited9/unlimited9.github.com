@@ -21,14 +21,15 @@ ref. [create docker image and container](../docker/create.image.n.container.md)
   $ yum install git
 
 #### Deployment
+`create kubernetes object file : Deployment`  
 $ vi /apps/kubernetes/resources/mobon.gateway.deployment.yaml 
 ```
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/name: load-balancer-example
-  name: hello-world
+    app: mobon-platform-gateway-aggregator
+  name: mobon-platform-gateway-aggregator-deployment
 spec:
   replicas: 5
   selector:
@@ -142,10 +143,13 @@ spec:
   selector:
     app: mobon-platform-gateway-aggregator
   ports:
-    - port: 80
+    - name: http
+      port: 80
       protocol: TCP
       targetPort: 8080
   type: LoadBalancer
+  externalIPs:
+    - 172.20.0.31
 ```
 
 `svc 생성`  
