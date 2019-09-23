@@ -92,6 +92,18 @@ spec:
           secretName: regcred # your-ssh-key
 ```
 
+          - name: GIT_SYNC_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: git-creds
+                key: username
+          - name: GIT_SYNC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: git-creds
+                key: password
+
+
 >#### ReplicationController
 >`create kubernetes resource file : ReplicationController`  
 >$ vi /apps/kubernetes/resources/mobon.gateway.rc.yaml 
