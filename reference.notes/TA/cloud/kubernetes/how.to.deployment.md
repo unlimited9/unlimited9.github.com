@@ -21,7 +21,7 @@ ref. [create docker image and container](../docker/create.image.n.container.md)
   $ yum install git
 
 #### Deployment
-`create kubernetes object file : Deployment`  
+`create kubernetes resource file : Deployment`  
 $ vi /apps/kubernetes/resources/mobon.gateway.deployment.yaml 
 ```
 apiVersion: apps/v1
@@ -68,7 +68,7 @@ spec:
 ```
 
 #### ReplicationController
-`create kubernetes object file : ReplicationController`  
+`create kubernetes resource file : ReplicationController`  
 $ vi /apps/kubernetes/resources/mobon.gateway.rc.yaml 
 ```
 apiVersion: v1
@@ -132,7 +132,7 @@ $ kubectl exec -it mobon-platform-gateway-aggregator-rc-fxkwx /bin/bash
 $ kubectl scale --replicas=6 rc/mobon.platform.gateway.aggregator.rc 
 
 #### Service
-`create kubernetes object file : Service`  
+`create kubernetes resource file : Service`  
 $ vi /apps/kubernetes/resources/mobon.gateway.svc.yaml 
 ```
 apiVersion: v1
