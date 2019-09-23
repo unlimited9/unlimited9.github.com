@@ -20,6 +20,52 @@ ref. [create docker image and container](../docker/create.image.n.container.md)
   > `solution`  
   $ yum install git
 
+#### Deployment
+$ vi /apps/kubernetes/resources/mobon.gateway.deployment.yaml 
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: load-balancer-example
+  name: hello-world
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: mobon-platform-gateway-aggregator
+  template:
+    metadata:
+      labels:
+        app: mobon-platform-gateway-aggregator
+    spec:
+      containers:
+      - name: mobon-platform-gateway-aggregator
+        image: mobon/java.app.env:latest
+        imagePullPolicy: Always
+        volumeMounts:
+          - name: app-git-repository
+            mountPath: /repository/git/mobon.platform.gateway.git
+            readOnly: true
+        ports:
+          - containerPort: 8080
+        command: ["/bin/bash", "-c"]
+        args:
+          - source /etc/profile;
+            mkdir /pgms/mobon.platform.gateway;
+            cp -R /repository/git/mobon.platform.gateway.git /pgms/mobon.platform.gateway/sources;
+            gradle --build-file /pgms/mobon.platform.gateway/sources/aggregation.service/build.gradle :framework.boot.application:bootRun;
+#            tail -f /dev/null;
+      imagePullSecrets:
+        - name: regcred
+      volumes:
+      - name: app-git-repository
+        gitRepo:
+          repository: http://172.20.0.7:9000/enliple/mobon/platform/gateway.git
+          revision: master
+          directory: .
+```
+
 #### ReplicationController
 `create kubernetes object file : ReplicationController`  
 $ vi /apps/kubernetes/resources/mobon.gateway.rc.yaml 
@@ -91,7 +137,7 @@ $ vi /apps/kubernetes/resources/mobon.gateway.svc.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: mobon.gateway.svc
+  name: mobon-platform-gateway-aggregator-svc
 spec:
   selector:
     app: mobon-platform-gateway-aggregator
