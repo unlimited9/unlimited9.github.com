@@ -113,6 +113,10 @@ spec:
 > secret을 사용할 경우 아래와 같이 secret을 생성하고 위 주석 제거 및 GIT_SYNC_USERNAME, GIT_SYNC_PASSWORD 주석 처리한다.
 
 #### Using SSH with git-sync
+<details>
+<summary>more ...</summary>
+<div markdown="1">
+  
 https://github.com/kubernetes/git-sync/blob/master/docs/ssh.md
 
 $ ssh-keyscan github.com > /tmp/known_hosts
@@ -123,9 +127,15 @@ $ kubectl create secret generic git-creds \
 
 $ kubectl get secret git-creds
 
+</div>
+</details>
 
 
 >#### ReplicationController
+<details>
+<summary>more ...</summary>
+<div markdown="1">
+
 >`create kubernetes resource file : ReplicationController`  
 >$ vi /apps/kubernetes/resources/mobon.gateway.rc.yaml 
 >```
@@ -174,6 +184,10 @@ $ kubectl get secret git-creds
 >
 >`rc 생성`  
 >$ kubectl create -f /apps/kubernetes/resources/mobon.gateway.rc.yaml
+
+</div>
+</details>
+
 
 `pod 확인`  
 $ kubectl get pod
