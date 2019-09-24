@@ -46,8 +46,8 @@ The key's randomart image is:
 ...
 +----[SHA256]-----+
 ```
->-t : 암호화 타입
->-C : comment. github에서는 사용자의 로그인 ID 입력하도록 가이드한다.
+>-t : 암호화 타입  
+>-C : comment. github에서는 사용자의 로그인 ID 입력하도록 가이드한다.  
 >-b : 암호화 비트수. default : 2048. gitlab에서는 4096 사용
 
 $ ls -al ~/.ssh  
