@@ -42,7 +42,7 @@ spec:
     spec:
       containers:
         - name: mobon-platform-gateway-aggregator
-          image: mobon/java.app.env:latest
+          image: docker-registry.mobon.net:5000/mobon/java.app.env:latest
           imagePullPolicy: Always
           volumeMounts:
             - name: app-git-repository
@@ -55,6 +55,7 @@ spec:
               mkdir /pgms/mobon.platform.gateway;
               cp -R /repository/git/mobon.platform.gateway.git /pgms/mobon.platform.gateway/sources;
               gradle --build-file /pgms/mobon.platform.gateway/sources/aggregation.service/build.gradle :framework.boot.application:bootRun;
+#              tail -f /dev/null;
       initContainers:
         - name: git-sync
           image: k8s.gcr.io/git-sync:v3.1.2
@@ -62,11 +63,11 @@ spec:
           volumeMounts:
             - name: app-git-repository
               mountPath: /repository/git/mobon.platform.gateway.git
-            - name: git-secret
-              mountPath: /etc/git-secret
+#            - name: git-secret
+#              mountPath: /etc/git-secret
           env:
             - name: GIT_SYNC_REPO
-              value: http://mobon_admin:mobonproject2019!@172.20.0.7:9000/enliple/mobon/platform/gateway.git
+              value: http://172.20.0.7:9000/enliple/mobon/platform/gateway.git
             - name: GIT_SYNC_BRANCH
               value: master
             - name: GIT_SYNC_ROOT
@@ -77,8 +78,12 @@ spec:
               value: "0777"
             - name: GIT_SYNC_ONE_TIME
               value: "true"
-            - name: GIT_SYNC_SSH
-              value: "true"
+#            - name: GIT_SYNC_SSH
+#              value: "true"
+            - name: GIT_SYNC_USERNAME
+              value: mobon_admin
+            - name: GIT_SYNC_PASSWORD
+              value: passwd
           securityContext:
             runAsUser: 0
       imagePullSecrets:
@@ -86,22 +91,38 @@ spec:
       volumes:
       - name: app-git-repository
         emptyDir: {}
-      - name: git-secret
-        secret:
-          defaultMode: 256
-          secretName: git-cred # your-ssh-key
+#      - name: git-secret
+#        secret:
+#          defaultMode: 256
+#          secretName: git-cred # your-ssh-key
 ```
+>          - name: GIT_SYNC_USERNAME
+>            valueFrom:
+>              secretKeyRef:
+>                name: git-creds
+>                key: username
+>          - name: GIT_SYNC_PASSWORD
+>            valueFrom:
+>              secretKeyRef:
+>                name: git-creds
+>                key: password
 
-          - name: GIT_SYNC_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: git-creds
-                key: username
-          - name: GIT_SYNC_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: git-creds
-                key: password
+
+
+> ssh key로 kubernetes secret을 생성해 사용하려고 했으나 private github 서버에 ssh를 구성하지 않아 ID/PWD로 연결
+> secret을 사용할 경우 아래와 같이 secret을 생성하고 위 주석 제거 및 GIT_SYNC_USERNAME, GIT_SYNC_PASSWORD 주석 처리한다.
+
+#### Using SSH with git-sync
+https://github.com/kubernetes/git-sync/blob/master/docs/ssh.md
+
+$ ssh-keyscan github.com > /tmp/known_hosts
+
+$ kubectl create secret generic git-creds \
+    --from-file=ssh=$HOME/.ssh/git_rsa \
+    --from-file=known_hosts=/tmp/known_hosts
+
+$ kubectl get secret git-creds
+
 
 
 >#### ReplicationController
@@ -242,3 +263,6 @@ https://www.exoscale.com/syslog/configuration-management-kubernetes-spring-boot/
 
 - git-sync
 https://ddii.dev/kubernetes/git-sync/#
+
+- Using SSH with git-sync
+https://github.com/kubernetes/git-sync/blob/master/docs/ssh.md
