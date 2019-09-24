@@ -191,15 +191,15 @@ $ kubectl get secret git-creds
 `pod 확인`  
 $ kubectl get pod
 ```
-NAME                                         READY   STATUS              RESTARTS   AGE
-mobon-platform-gateway-aggregator-rc-fxkwx   0/1     ContainerCreating   0          8s
-mobon-platform-gateway-aggregator-rc-wdxpp   0/1     ContainerCreating   0          8s
-mobon-platform-gateway-aggregator-rc-x8qdz   0/1     ContainerCreating   0          8s
+NAME                                                           READY   STATUS    RESTARTS   AGE
+mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79   1/1     Running   0          5m36s
+mobon-platform-gateway-aggregator-deployment-844b4b7bc-d5gjx   1/1     Running   0          5m36s
+mobon-platform-gateway-aggregator-deployment-844b4b7bc-q8xn8   1/1     Running   0          5m36s
 ```
-$ kubectl describe pod mobon-platform-gateway-aggregator-rc-fxkwx
+$ kubectl describe pod mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79
 
 `pod 접속 확인`  
-$ kubectl exec -it mobon-platform-gateway-aggregator-rc-fxkwx /bin/bash
+$ kubectl exec -it mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79 /bin/bash
 
 `rc scale(pod 수) 변경`  
 $ kubectl scale --replicas=6 rc/mobon.platform.gateway.aggregator.rc 
@@ -239,9 +239,9 @@ $ curl ip:80
 #### debugging
 $ kubectl get rc  
 $ kubectl get pods  
-$ kubectl describe pod mobon-platform-gateway-aggregator-rc-2nkbm  
-$ kubectl logs mobon-platform-gateway-aggregator-deployment-9d5d98b77-484w9
-$ kubectl logs mobon-platform-gateway-aggregator-deployment-9d5d98b77-484w9 -c git-sync
+$ kubectl describe pod mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79  
+$ kubectl logs mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79
+$ kubectl logs mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79 -c git-sync
 $ journalctl -u kubelet
 
 ## delete kubernetes resources
