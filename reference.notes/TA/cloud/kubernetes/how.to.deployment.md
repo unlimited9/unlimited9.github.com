@@ -109,7 +109,6 @@ spec:
 
 
 
-> ssh key로 kubernetes secret을 생성해 사용하려고 했으나 private github 서버에 ssh를 구성하지 않아 ID/PWD로 연결
 > secret을 사용할 경우 아래와 같이 secret을 생성하고 위 주석 제거 및 GIT_SYNC_USERNAME, GIT_SYNC_PASSWORD 주석 처리한다.
 
 #### Using SSH with git-sync
@@ -249,6 +248,9 @@ $ journalctl -u kubelet
 
 #### service delete
 $ kubectl delete svc --all
+
+#### deployment delete
+$ kubectl delete deployment mobon-platform-gateway-aggregator-deployment
 
 #### replication controller delete
 $ kubectl delete rc --all
