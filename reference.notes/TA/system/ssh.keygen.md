@@ -30,7 +30,7 @@ usage: ssh-keygen [-q] [-b bits] [-t dsa | ecdsa | ed25519 | rsa | rsa1]
        ssh-keygen -Q -f krl_file file ...
 ```
 
-$ ssh-keygen -t rsa -b 4096 -C "mobonproject@gmail.com"
+$ ssh-keygen -t rsa -b 4096 -C "unlimited9@gmail.com"
 ```
 Generating public/private rsa key pair.
 Enter file in which to save the key (/apps/.ssh/id_rsa): 
@@ -40,7 +40,7 @@ Enter same passphrase again:
 Your identification has been saved in /apps/.ssh/id_rsa.
 Your public key has been saved in /apps/.ssh/id_rsa.pub.
 The key fingerprint is:
-SHA256:a8o+...0/Y mobonproject@gmail.com
+SHA256:a8o+...0/Y unlimited9@gmail.com
 The key's randomart image is:
 +---[RSA 4096]----+
 ...
@@ -50,12 +50,12 @@ The key's randomart image is:
 >-C : comment. github에서는 사용자의 로그인 ID 입력하도록 가이드한다.
 >-b : 암호화 비트수. default : 2048. gitlab에서는 4096 사용
 
-$ ls -al ~/.ssh
-id_rsa      : private key
+$ ls -al ~/.ssh  
+id_rsa      : private key  
 id_rsa.pub  : public key
 
 #### generate SSH key
-`github`
+`github`  
 Setting > SSH and GPG keys > SSH keys > New SSH key
 
 `gitlab`  
@@ -63,10 +63,10 @@ User > Settings > SSH keys
 
 
 #### set SSH file permission
-$ chmod 700 ~/.ssh
-$ chmod 644 ~/.ssh/authorized_keys
-$ chmod 644 ~/.ssh/known_hosts
-$ chmod 644 ~/.ssh/config
-$ chmod 600 ~/.ssh/id_rsa
+$ chmod 700 ~/.ssh  
+$ chmod 644 ~/.ssh/authorized_keys  
+$ chmod 644 ~/.ssh/known_hosts  
+$ chmod 644 ~/.ssh/config  
+$ chmod 600 ~/.ssh/id_rsa  
 $ chmod 644 ~/.ssh/id_rsa.pub
 
