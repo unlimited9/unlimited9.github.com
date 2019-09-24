@@ -238,7 +238,7 @@ http {
 
 #### product.mobon.net.conf
 ```
-upstream tomcat {
+upstream product {
     #LB method : least_conn, ip_hash  
     #ip_hash;
     
@@ -254,7 +254,7 @@ upstream tomcat {
 }  
 
 server {  
-    listen 99;  
+    listen 90;  
     server_name product.mobon.net;
     
     access_log /logs/nginx/product.mobon.net_access.log;
@@ -272,7 +272,7 @@ server {
     
     location / {
         #proxy_pass http://127.0.0.1:8080;
-        proxy_pass http://tomcat;
+        proxy_pass http://product;
         proxy_redirect off;
 
         proxy_http_version  1.1;
