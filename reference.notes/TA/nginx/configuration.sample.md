@@ -302,55 +302,46 @@ server {
 
 #### tracker.mobon.net.conf
 ```
-upstream tomcat {
-    #LB method : least_conn, ip_hash  
-    #ip_hash;
-    
-    ## proxy server  
-    server 172.20.0.103:15080;
-    server 172.20.0.103:16080;
-    server 172.20.0.103:17080;
-    server 172.20.0.103:19080;
-    server 172.20.0.103:20080;
-    server 172.20.0.103:21080;
+#upstream tracker {
+#    #LB method : least_conn, ip_hash
+#    ip_hash;
+#
+#    ## proxy server
+#    server 172.20.0.31;
+#    server 172.20.0.32;
+#}
 
-    keepalive 4096;
-}  
+server {
+    listen 90;
+    server_name tracker.mobon.net;
 
-server {  
-    listen 99;  
-    server_name product.mobon.net;
-    
-    access_log /logs/nginx/product.mobon.net_access.log;
+    access_log /logs/nginx/tracker.mobon.net_access.log;
 
-#    location / {  
-#        root /pgms/www;  
-#        index index.html index.htm;  
+#    location / {
+#        root /pgms/www;
+#        index index.html index.htm;
 #    }
-    
-    # redirect server error pages to the static page /50x.html  
-    error_page 500 502 503 504 /50x.html;  
+
+    # redirect server error pages to the static page /50x.html
+    error_page 500 502 503 504 /50x.html;
     location = /50x.html {
         root html;
     }
-    
+
     location / {
-        #proxy_pass http://127.0.0.1:8080;
-        proxy_pass http://tomcat;
-        proxy_redirect off;
-
-        proxy_http_version  1.1;
-
-        proxy_set_header Host $http_host;  
-        proxy_set_header X-Real-IP $remote_addr;  
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  
-        proxy_set_header X-Forwarded-Proto $scheme;  
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-NginX-Proxy true;
-        
+
+        proxy_pass http://172.20.0.31;
+#        proxy_pass http://tracker;
+        proxy_redirect off;
         charset utf-8;
-        
+
         index index.jsp index.html;
-        
+
         if ($request_filename ~* ^.*?/([^/]*?)$) {
             set $filename $1;
         }
@@ -358,8 +349,9 @@ server {
         if ($filename ~* ^.*?\.(eot)|(ttf)|(woff)$) {
             add_header Access-Control-Allow-Origin *;
         }
-    
+
     }
-    
+
 }
+
 ```
