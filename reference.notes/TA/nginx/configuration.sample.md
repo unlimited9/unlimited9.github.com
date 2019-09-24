@@ -361,5 +361,5 @@ server {
 #### product.mobon.net.conf
 $ ln -s /apps/nginx/1.14.2/conf/sites-available/product.mobon.net.conf /apps/nginx/1.14.2/conf/sites-enabled/product.mobon.net.conf
 
-#### product.mobon.net.conf
+#### tracker.mobon.net.conf
 $ ln -s /apps/nginx/1.14.2/conf/sites-available/tracker.mobon.net.conf /apps/nginx/1.14.2/conf/sites-enabled/tracker.mobon.net.conf
