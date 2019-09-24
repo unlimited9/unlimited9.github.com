@@ -46,15 +46,15 @@ spec:
           imagePullPolicy: Always
           volumeMounts:
             - name: app-git-repository
-              mountPath: /repository/git/mobon.platform.gateway.git
+              mountPath: /repository/git/mobon.platform
           ports:
             - containerPort: 8080
           command: ["/bin/bash", "-c"]
           args:
             - source /etc/profile;
               mkdir /pgms/mobon.platform.gateway;
-              cp -R /repository/git/mobon.platform.gateway.git /pgms/mobon.platform.gateway/sources;
-              gradle --build-file /pgms/mobon.platform.gateway/sources/aggregation.service/build.gradle :framework.boot.application:bootRun;
+              cp -R /repository/git/mobon.platform/gateway.git/aggregation.service /pgms/mobon.platform.gateway/aggregation.service;
+              gradle --build-file /pgms/mobon.platform.gateway/aggregation.service/build.gradle :framework.boot.application:bootRun;
 #              tail -f /dev/null;
       initContainers:
         - name: git-sync
@@ -62,7 +62,7 @@ spec:
           imagePullPolicy: Always
           volumeMounts:
             - name: app-git-repository
-              mountPath: /repository/git/mobon.platform.gateway.git
+              mountPath: /repository/git/mobon.platform
 #            - name: git-secret
 #              mountPath: /etc/git-secret
           env:
@@ -71,7 +71,7 @@ spec:
             - name: GIT_SYNC_BRANCH
               value: master
             - name: GIT_SYNC_ROOT
-              value: /repository/git/mobon.platform.gateway.git
+              value: /repository/git/mobon.platform
             - name: GIT_SYNC_DEST
               value: ""
             - name: GIT_SYNC_PERMISSIONS
@@ -83,7 +83,7 @@ spec:
             - name: GIT_SYNC_USERNAME
               value: mobon_admin
             - name: GIT_SYNC_PASSWORD
-              value: passwd
+              value: mobonproject2019!
           securityContext:
             runAsUser: 0
       imagePullSecrets:
