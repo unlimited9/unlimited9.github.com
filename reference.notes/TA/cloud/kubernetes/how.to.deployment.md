@@ -109,7 +109,7 @@ spec:
 
 
 
-> secret을 사용할 경우 아래와 같이 secret을 생성하고 위 주석 제거 및 GIT_SYNC_USERNAME, GIT_SYNC_PASSWORD 주석 처리한다.
+> secret을 사용할 경우 아래와 같이 secret을 생성하고 위 주석 제거 및 GIT_SYNC_USERNAME, GIT_SYNC_PASSWORD 주석 처리해서 사용
 
 #### Using SSH with git-sync
 <details>
