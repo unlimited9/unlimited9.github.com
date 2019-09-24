@@ -240,8 +240,8 @@ $ curl ip:80
 $ kubectl get rc  
 $ kubectl get pods  
 $ kubectl describe pod mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79  
-$ kubectl logs mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79
-$ kubectl logs mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79 -c git-sync
+$ kubectl logs mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79  
+$ kubectl logs mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79 -c git-sync  
 $ journalctl -u kubelet
 
 ## delete kubernetes resources
@@ -277,8 +277,8 @@ https://www.baeldung.com/spring-cloud-kubernetes
 + Configuration management: a Spring Boot use-case with Kubernetes  
 https://www.exoscale.com/syslog/configuration-management-kubernetes-spring-boot/
 
-- git-sync
+- git-sync  
 https://ddii.dev/kubernetes/git-sync/#
 
-- Using SSH with git-sync
+- Using SSH with git-sync  
 https://github.com/kubernetes/git-sync/blob/master/docs/ssh.md
