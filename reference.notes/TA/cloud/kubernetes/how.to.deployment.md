@@ -89,7 +89,7 @@ spec:
       - name: git-secret
         secret:
           defaultMode: 256
-          secretName: regcred # your-ssh-key
+          secretName: git-cred # your-ssh-key
 ```
 
           - name: GIT_SYNC_USERNAME
@@ -206,6 +206,8 @@ $ curl ip:80
 $ kubectl get rc  
 $ kubectl get pods  
 $ kubectl describe pod mobon-platform-gateway-aggregator-rc-2nkbm  
+$ kubectl logs mobon-platform-gateway-aggregator-deployment-9d5d98b77-484w9
+$ kubectl logs mobon-platform-gateway-aggregator-deployment-9d5d98b77-484w9 -c git-sync
 $ journalctl -u kubelet
 
 ## delete kubernetes resources
