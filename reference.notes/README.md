@@ -13,7 +13,7 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
       + JAVA
         - [Collections.sort with multiple fields](AA/Java/collections.sort.sample.md)
         - [JAXB on Java 9 and beyond](AA/Java/jaxb.on.java.9.n.beyond.md)
-        - [Netty](AA/Java/netty.nio.network.framework.md) : an asynchronous event-driven network application framework
+        - [Netty network application framework](AA/Java/netty.nio.network.framework.md)
       + Groovy
       + Javascript
     * Build
