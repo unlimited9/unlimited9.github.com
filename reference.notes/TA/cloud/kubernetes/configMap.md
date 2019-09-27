@@ -80,14 +80,14 @@ data:
     #profile_fullstack_hooked_exception_enabled=true
     #hook_exception_handler_method_patterns=my.AbstractAPIController.fallbackHandler,my.ApiExceptionLoggingFilter.handleNotFoundErrorResponse
     #hook_exception_hanlder_exclude_class_patterns=exception.BizException
-
+    
     ### HTTP header/parameter profile
     profile_http_parameter_enabled=true
     profile_http_header_enabled=true
-
+    
     ### ignore low response time(ms)
     xlog_lower_bound_time_ms=300
-
+    
     ### method profile
     #hook_method_patterns=com.xxx.controller*.*,com.xxx.service*.*,com.xxx.dao*.*
     #hook_method_ignore_classes=com.xxx.dto*.*
