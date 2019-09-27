@@ -32,16 +32,18 @@ data:
   GIT_SYNC_SSH: true
   GIT_SYNC_USERNAME: mobon_admin
   GIT_SYNC_PASSWORD: mobonproject2019!
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: scouter-config
-  namespace: default
-data:
-  application.properties: |-
-    bean.message=Testing reload! Message from backend is: %s <br/> Services : %s  
 ```
+>```
+>---
+>apiVersion: v1
+>kind: ConfigMap
+>metadata:
+>  name: scouter-config
+>  namespace: default
+>data:
+>  application.properties: |-
+>    bean.message=Testing reload! Message from backend is: %s <br/> Services : %s  
+>```
 
 $ vi /apps/kubernetes/resources/mobon.gateway.scouter-config.yaml
 ```
