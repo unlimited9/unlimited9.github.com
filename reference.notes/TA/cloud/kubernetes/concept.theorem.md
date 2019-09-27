@@ -100,12 +100,12 @@ An abstract way to expose an application running on a set of Pods as a network s
 
 ## 9. Appendix
 
-### reference site
+#### reference site
 
-#### 쿠버네티스 #2 - 개념 이해 (1/2)
-https://bcho.tistory.com/1256?category=731548
+* Elasticsearch Reference [7.1] » Modules » Node
+https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-node.html
 
-#### Kubernetes Concepts
+* Kubernetes Concepts
 https://kubernetes.io/docs/concepts/
 
 - Overview
@@ -154,7 +154,10 @@ https://kubernetes.io/docs/concepts/
 	- Connecting Applications with Services
 	- Ingress
 	- Ingress Controllers
-	- Network Policies#### Elasticsearch Reference [7.1] » Modules » Node
-https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-node.html
+	- Network Policies
 
++ 쿠버네티스 #2 - 개념 이해 (1/2)
+https://bcho.tistory.com/1256?category=731548
 
++ Kubernetes Architecture 101
+https://www.aquasec.com/wiki/display/containers/Kubernetes+Architecture+101
