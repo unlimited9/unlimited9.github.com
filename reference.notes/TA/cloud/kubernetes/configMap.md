@@ -38,7 +38,7 @@ data:
 >apiVersion: v1
 >kind: ConfigMap
 >metadata:
->  name: scouter-config
+>  name: application-config
 >  namespace: default
 >data:
 >  application.properties: |-
@@ -91,9 +91,12 @@ data:
     ### method profile
     #hook_method_patterns=com.xxx.controller*.*,com.xxx.service*.*,com.xxx.dao*.*
     #hook_method_ignore_classes=com.xxx.dto*.*
-  config.properties: |
-{{.Files.Get "static/abc/config.properties" | printf "%s" | indent 4}} # 이런식으로 패키지에 포함된 파일을 읽어서 컨피그 맵에 넣을 수도 있다. 
 ```
+
+>```
+>  config.properties: |
+>{{.Files.Get "service/config/config.properties" | printf "%s" | indent 4}} # load file in package
+>```
 
 ## 9. Appendix
 
