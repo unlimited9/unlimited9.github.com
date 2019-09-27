@@ -118,5 +118,5 @@ https://sarc.io/index.php/cloud/1378-docker-hub-public-private
 + 쿠버네티스 #4 - 아키텍쳐  
 https://bcho.tistory.com/1258?category=731548
 
-+ 쿠버네티스를 이용해 테스팅 환경 구현해보기
++ 쿠버네티스를 이용해 테스팅 환경 구현해보기  
 http://woowabros.github.io/experience/2018/03/13/k8s-test.html
