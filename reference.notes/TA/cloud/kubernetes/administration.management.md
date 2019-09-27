@@ -109,11 +109,14 @@ spec:
 
 #### reference site
 
-* [Kubernetes & Docker] KubernetesPod  생성 가이드  
++ [Kubernetes & Docker] KubernetesPod  생성 가이드  
 https://waspro.tistory.com/368?category=831751
 
-* 쿠버네티스 Docker Hub (public/private) 사용  
++ 쿠버네티스 Docker Hub (public/private) 사용  
 https://sarc.io/index.php/cloud/1378-docker-hub-public-private
 
-* 쿠버네티스 #4 - 아키텍쳐  
++ 쿠버네티스 #4 - 아키텍쳐  
 https://bcho.tistory.com/1258?category=731548
+
++ 쿠버네티스를 이용해 테스팅 환경 구현해보기
+http://woowabros.github.io/experience/2018/03/13/k8s-test.html
