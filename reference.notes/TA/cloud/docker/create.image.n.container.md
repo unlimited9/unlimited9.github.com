@@ -111,7 +111,6 @@ docker run --net mobon.subnet --ip 192.168.104.42 --name mobon.mongodb.02 -d -it
  
 docker run --net mobon.subnet --ip 192.168.104.43 --name mobon.mongodb.03 -d -it mobon/apps.server:1.1
  
-
 # java.app.env:1.1
 
 ## build image
@@ -129,6 +128,61 @@ RUN yum -y install unzip
 
 USER app
 
+# install and setup application
+WORKDIR /apps/install
+
+# install java development kit
+RUN curl -O https://download.java.net/java/GA/jdk12.0.2/e482c34c86bd4bf8b56c0b35558996b9/10/GPL/openjdk-12.0.2_linux-x64_bin.tar.gz
+RUN tar xvf openjdk-12.0.2_linux-x64_bin.tar.gz
+
+RUN mkdir /apps/jdk
+RUN mv /apps/install/jdk-12.0.2 /apps/jdk/12.0.2
+
+# install gradle
+RUN curl -O https://downloads.gradle-dn.com/distributions/gradle-5.6.2-bin.zip
+RUN unzip gradle-5.6.2-bin.zip
+
+RUN mkdir -p /apps/gradle
+RUN mv /apps/install/gradle-5.6.2 /apps/gradle/5.6.2
+
+USER root
+
+# set env java development kit
+RUN echo 'export JAVA_HOME=/apps/jdk/12.0.2' >> /etc/profile.d/java.sh
+RUN echo 'export PATH=$PATH:$JAVA_HOME/bin' >> /etc/profile.d/java.sh
+RUN echo 'export CLASSPATH=.:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:$JAVA_HOME/lib/tools.jar' >> /etc/profile.d/java.sh
+
+# set env gradle
+RUN echo 'export GRADLE_HOME=/apps/gradle/5.6.2' >> /etc/profile.d/gradle.sh
+RUN echo 'export PATH=$PATH:$GRADLE_HOME/bin' >> /etc/profile.d/gradle.sh
+
+RUN source /etc/profile
+
+USER app
+
+# 컨테이너 실행시 실행될 명령
+CMD /bin/bash
+```
+
+`build/create docker image`  
+$ docker build -t mobon/java.app.env:1.1 -t mobon/java.app.env:latest -f /apps/docker/images/Dockerfile.java.app.env .
+>$ docker image tag mobon/java.app.env:1.1 mobon/java.app.env:latest
+
+>`create docker service container`  
+>$ docker run --name mobon.service.01 -d -p 8080:8080 -it mobon/java.app.env:latest 
+>>$ docker run --net mobon.subnet --ip 192.168.104.91 --name mobon.service.01 -d -p 8080:8080 -p 18080:18080 -it mobon/java.app.env:latest
+>
+>$ docker exec -it mobon.service.01 /bin/bash
+
+# java.app.ext:1.1
+
+## build image
+
+#### 01. build image mobon/java.app.ext:1.1(mobon/java.app.ext:lastest) based mobon/java.app.env:lastest
+
+`create dockerize file`  
+$ vi /apps/docker/images/Dockerfile.java.app.ext
+```
 # install and setup application
 WORKDIR /apps/install
 
