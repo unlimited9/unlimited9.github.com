@@ -244,6 +244,8 @@ RUN mv /apps/install/scouter /apps/scouter/2.7.0
 >RUN export JAVA_OPTS="$JAVA_OPTS -javaagent:$SCOUTER_DIR/agent.java/scouter.agent.jar"
 >RUN export JAVA_OPTS="$JAVA_OPTS -Dscouter.config=$SCOUTER_DIR/agent.java/conf/scouter-product.conf"
 >RUN export JAVA_OPTS="$JAVA_OPTS -Dobj_name=product-01"
+>
+>RUN java $JAVA_OPTSD -jar ./mobon.gateway.aggregation.service-1.0.0.jar
 >```
 
 `build/create docker image`  
