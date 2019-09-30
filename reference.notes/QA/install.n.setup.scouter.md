@@ -111,8 +111,8 @@ $ ./host.sh
 >여러 어플리케이션에서 같은 파일에 설정을 공유하고 obj_name 같은 설정만 JVM Option으로 다르게 적용
 
 - Configuration  
-  $ cp /apps/scouter/2.7.0/agent.host/conf/scouter.conf /apps/scouter/2.7.0/agent.host/conf/scouter-product.conf  
-  $ vi /apps/scouter/2.7.0/agent.host/conf/scouter-product.conf
+  $ cp /apps/scouter/2.7.0/agent.java/conf/scouter.conf /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf  
+  $ vi /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
   ```
   ### scouter java agent configuration sample
   #obj_name=mdev-was-01-product
