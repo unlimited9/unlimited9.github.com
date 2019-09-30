@@ -183,6 +183,8 @@ $ docker build -t mobon/java.app.env:1.1 -t mobon/java.app.env:latest -f /apps/d
 `create dockerize file`  
 $ vi /apps/docker/images/Dockerfile.java.app.ext
 ```
+FROM mobon/java.app.env:lastest
+
 # install and setup application
 WORKDIR /apps/install
 
