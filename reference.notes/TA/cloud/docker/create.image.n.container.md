@@ -186,45 +186,72 @@ $ vi /apps/docker/images/Dockerfile.java.app.ext
 # install and setup application
 WORKDIR /apps/install
 
-# install java development kit
-RUN curl -O https://download.java.net/java/GA/jdk12.0.2/e482c34c86bd4bf8b56c0b35558996b9/10/GPL/openjdk-12.0.2_linux-x64_bin.tar.gz
-RUN tar xvf openjdk-12.0.2_linux-x64_bin.tar.gz
+# install scouter agent
+RUN curl -O https://github.com/scouter-project/scouter/releases/download/v2.7.0/scouter-all-2.7.0.tar.gz
+RUN tar xvf scouter-all-2.7.0.tar.gz
 
-RUN mkdir /apps/jdk
-RUN mv /apps/install/jdk-12.0.2 /apps/jdk/12.0.2
+RUN mkdir /apps/scouter
+RUN mv /apps/install/scouter /apps/scouter/2.7.0
 
-# install gradle
-RUN curl -O https://downloads.gradle-dn.com/distributions/gradle-5.6.2-bin.zip
-RUN unzip gradle-5.6.2-bin.zip
-
-RUN mkdir -p /apps/gradle
-RUN mv /apps/install/gradle-5.6.2 /apps/gradle/5.6.2
-
-USER root
-
-# set env java development kit
-RUN echo 'export JAVA_HOME=/apps/jdk/12.0.2' >> /etc/profile.d/java.sh
-RUN echo 'export PATH=$PATH:$JAVA_HOME/bin' >> /etc/profile.d/java.sh
-RUN echo 'export CLASSPATH=.:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:$JAVA_HOME/lib/tools.jar' >> /etc/profile.d/java.sh
-
-# set env gradle
-RUN echo 'export GRADLE_HOME=/apps/gradle/5.6.2' >> /etc/profile.d/gradle.sh
-RUN echo 'export PATH=$PATH:$GRADLE_HOME/bin' >> /etc/profile.d/gradle.sh
-
-RUN source /etc/profile
-
-USER app
-
-# 컨테이너 실행시 실행될 명령
-CMD /bin/bash
 ```
+>```
+># set host agent
+>RUN mv /apps/scouter/2.7.0/agent.host/conf/scouter.conf /apps/scouter/2.7.0/agent.host/conf/scouter.conf.org
+>RUN echo '### scouter host configruation sample' >> /apps/scouter/2.7.0/agent.host/conf/scouter.conf
+>RUN echo 'net_collector_ip=192.168.100.8' >> /apps/scouter/2.7.0/agent.host/conf/scouter.conf
+>RUN echo '#net_collector_udp_port=6100' >> /apps/scouter/2.7.0/agent.host/conf/scouter.conf
+>RUN echo '#net_collector_tcp_port=6100' >> /apps/scouter/2.7.0/agent.host/conf/scouter.conf
+>RUN echo '#cpu_warning_pct=80' >> /apps/scouter/2.7.0/agent.host/conf/scouter.conf
+>RUN echo '#cpu_fatal_pct=85' >> /apps/scouter/2.7.0/agent.host/conf/scouter.conf
+>RUN echo '#cpu_check_period_ms=60000' >> /apps/scouter/2.7.0/agent.host/conf/scouter.conf
+>RUN echo '#cpu_fatal_history=3' >> /apps/scouter/2.7.0/agent.host/conf/scouter.conf
+>RUN echo '#cpu_alert_interval_ms=300000' >> /apps/scouter/2.7.0/agent.host/conf/scouter.conf
+>RUN echo '#disk_warning_pct=88' >> /apps/scouter/2.7.0/agent.host/conf/scouter.conf
+>RUN echo '#disk_fatal_pct=92' >> /apps/scouter/2.7.0/agent.host/conf/scouter.conf
+>
+>RUN cd /apps/scouter/2.7.0/agent.host; ./host.sh;
+>
+># set java agent
+># RUN cp /apps/scouter/2.7.0/agent.java/conf/scouter.conf /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '### scouter java agent configuration sample' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '#obj_name=mdev-was-01-product' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '# Scouter Server IP Address (Default : 127.0.0.1)' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo 'net_collector_ip=172.20.108' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '# Scouter Server Port (Default : 6100)' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '#net_collector_udp_port=6100' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '#net_collector_tcp_port=6100' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '#hook_method_patterns=sample.mybiz.*Biz.*,sample.service.*Service.*' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo 'trace_http_client_ip_header_key=X-Forwarded-For' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '#profile_spring_controller_method_parameter_enabled=false' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '#hook_exception_class_patterns=my.exception.TypedException' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '#profile_fullstack_hooked_exception_enabled=true' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '#hook_exception_handler_method_patterns=my.AbstractAPIController.fallbackHandler,my.ApiExceptionLoggingFilter.handleNotFoundErrorResponse' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '#hook_exception_hanlder_exclude_class_patterns=exception.BizException' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '### HTTP header/parameter profile' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo 'profile_http_parameter_enabled=true' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo 'profile_http_header_enabled=true' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '### ignore low response time(ms)' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo 'xlog_lower_bound_time_ms=300' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '### method profile' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '#hook_method_patterns=com.xxx.controller*.*,com.xxx.service*.*,com.xxx.dao*.*' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>RUN echo '#hook_method_ignore_classes=com.xxx.dto*.*' >> /apps/scouter/2.7.0/agent.java/conf/scouter-product.conf
+>
+>#scouter.agent.java
+>RUN export SCOUTER_DIR=/apps/scouter/2.7.0  
+>RUN export JAVA_OPTS="$JAVA_OPTS -javaagent:$SCOUTER_DIR/agent.java/scouter.agent.jar"
+>RUN export JAVA_OPTS="$JAVA_OPTS -Dscouter.config=$SCOUTER_DIR/agent.java/conf/scouter-product.conf"
+>RUN export JAVA_OPTS="$JAVA_OPTS -Dobj_name=product-01"
+>```
 
 `build/create docker image`  
-$ docker build -t mobon/java.app.env:1.1 -t mobon/java.app.env:latest -f /apps/docker/images/Dockerfile.java.app.env .
->$ docker image tag mobon/java.app.env:1.1 mobon/java.app.env:latest
+$ docker build -t mobon/java.app.ext:1.1 -t mobon/java.app.ext:latest -f /apps/docker/images/Dockerfile.java.app.ext .
+>$ docker image tag mobon/java.app.ext:1.1 mobon/java.app.ext:latest
 
 >`create docker service container`  
->$ docker run --name mobon.service.01 -d -p 8080:8080 -it mobon/java.app.env:latest 
->>$ docker run --net mobon.subnet --ip 192.168.104.91 --name mobon.service.01 -d -p 8080:8080 -p 18080:18080 -it mobon/java.app.env:latest
+>$ docker run --name mobon.service.01 -d -p 8080:8080 -it mobon/java.app.ext:latest 
+>>$ docker run --net mobon.subnet --ip 192.168.104.91 --name mobon.service.01 -d -p 8080:8080 -p 18080:18080 -it mobon/java.app.ext:latest
 >
 >$ docker exec -it mobon.service.01 /bin/bash
