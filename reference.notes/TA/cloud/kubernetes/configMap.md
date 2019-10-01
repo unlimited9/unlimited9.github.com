@@ -15,7 +15,7 @@ kubectl create configmap <map-name> <data-source>
 > kubectl create configmap new-config --from-file=/somewhere --from-file=a.properties --from-literal=key=value
 
 `create kubernetes resource file : ConfigMap`  
-$ vi /apps/kubernetes/resources/mobon.gateway.git-config.yaml
+$ vi /apps/kubernetes/resources/mobon.gateway.git.config.yaml
 ```
 apiVersion: v1
 kind: ConfigMap
@@ -44,8 +44,9 @@ data:
 >  application.properties: |-
 >    bean.message=Testing reload! Message from backend is: %s <br/> Services : %s  
 >```
+>$ kubectl apply -f /apps/kubernetes/resources/mobon.gateway.git.config.yaml
 
-$ vi /apps/kubernetes/resources/mobon.gateway.scouter-config.yaml
+$ vi /apps/kubernetes/resources/mobon.gateway.scouter.config.yaml
 ```
 apiVersion: v1
 kind: ConfigMap
@@ -97,6 +98,8 @@ data:
 >  config.properties: |
 >{{.Files.Get "service/config/config.properties" | printf "%s" | indent 4}} # load file in package
 >```
+
+$ kubectl apply -f  /apps/kubernetes/resources/mobon.gateway.scouter.config.yaml
 
 ## 9. Appendix
 
