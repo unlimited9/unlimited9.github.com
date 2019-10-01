@@ -272,3 +272,7 @@ $ docker build -t mobon/java.app.ext:latest -f /apps/docker/images/Dockerfile.ja
 >>$ docker run --net mobon.subnet --ip 192.168.104.91 --name mobon.service.01 -d -p 8080:8080 -p 18080:18080 -it mobon/java.app.ext:latest
 >
 >$ docker exec -it mobon.service.01 /bin/bash
+
+>`push image to docker private registry`  
+>$ docker tag mobon/java.app.ext:latest docker-registry.mobon.net:5000/mobon/java.app.ext:latest
+>$ docker push docker-registry.mobon.net:5000/mobon/java.app.ext:latest
