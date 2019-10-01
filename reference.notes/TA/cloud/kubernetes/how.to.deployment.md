@@ -47,6 +47,12 @@ spec:
           volumeMounts:
             - name: app-git-repository
               mountPath: /repository/git/mobon.platform
+            - name: app-scouter-repository
+              mountPath: /apps/scouter/2.7.0/agent.host/conf/scouter.conf
+              subPath: scouter-host.conf
+            - name: app-scouter-repository
+              mountPath: /apps/scouter/2.7.0/agent.java/conf/scouter.conf
+              subPath: scouter-java.conf
           ports:
             - containerPort: 8080
           command: ["/bin/bash", "-c"]
@@ -54,8 +60,17 @@ spec:
             - source /etc/profile;
               mkdir /pgms/mobon.platform.gateway;
               cp -R /repository/git/mobon.platform/gateway.git/aggregation.service /pgms/mobon.platform.gateway/aggregation.service;
-              gradle --build-file /pgms/mobon.platform.gateway/aggregation.service/build.gradle :framework.boot.application:bootRun;
-#              tail -f /dev/null;
+              gradle --build-file /pgms/mobon.platform.gateway/aggregation.service/build.gradle :framework.boot.application:build;
+              ;
+              ;#scouter.agent.host
+              cd /apps/scouter/2.7.0/agent.host; ./host.sh;
+              ;#scouter.agent.java
+              export SCOUTER_DIR=/apps/scouter/2.7.0;
+              export JAVA_OPTS="$JAVA_OPTS -javaagent:$SCOUTER_DIR/agent.java/scouter.agent.jar";
+              export JAVA_OPTS="$JAVA_OPTS -Dscouter.config=$SCOUTER_DIR/agent.java/conf/scouter-product.conf";
+              export JAVA_OPTS="$JAVA_OPTS -Dobj_name=product-01";
+              java $JAVA_OPTS -jar /pgms/mobon.platform.gateway/aggregation.service/framework.boot.application/build/libs/framework.boot.application-1.0.war
+              tail -f /dev/null;
       initContainers:
         - name: git-sync
           image: k8s.gcr.io/git-sync:v3.1.2
@@ -95,6 +110,10 @@ spec:
 #        secret:
 #          defaultMode: 256
 #          secretName: git-cred # your-ssh-key
+      - name: app-scouter-repository
+        configMap:
+          name: scouter-config 
+          defaultMode: "6600"
 ```
 >          - name: GIT_SYNC_USERNAME
 >            valueFrom:
@@ -106,7 +125,6 @@ spec:
 >              secretKeyRef:
 >                name: git-creds
 >                key: password
-
 
 
 > secret을 사용할 경우 아래와 같이 secret을 생성하고 위 주석 제거 및 GIT_SYNC_USERNAME, GIT_SYNC_PASSWORD 주석 처리해서 사용
