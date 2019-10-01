@@ -2,7 +2,7 @@
 
 ## build image > create container
 
-#### 01. build image mobon/centos.7.base:1.1(mobon/centos.7.base:lastest) based docker.io/centos:7
+#### 01. build image mobon/centos.7.base:1.1(mobon/centos.7.base:latest) based docker.io/centos:7
 `make directory`  
 mkdir -p /apps/docker/images
 
@@ -17,7 +17,7 @@ RUN yum clean all\
  && sed -i "s/en_US/all/" /etc/yum.conf \
  && yum -y reinstall glibc-common
 
-RUN yum install -y net-tools iproute \
+RUN yum install -y net-tools iproute wget \
 # && yum -y install tar unzip vi vim telnet curl openssl \
 # && yum -y install apr apr-util apr-devel apr-util-devel \
 # && yum -y install elinks locate python-setuptools \
@@ -44,8 +44,13 @@ CMD /bin/bash
 ```
 
 `build/create docker image`  
-docker build -t mobon/centos.7.base:1.1 -t mobon/centos.7.base:latest -f /apps/docker/images/Dockerfile.centos.7.base .
+docker build -t mobon/centos.7.base:latest -f /apps/docker/images/Dockerfile.centos.7.base .
+>docker build -t mobon/centos.7.base:1.1 -t mobon/centos.7.base:latest -f /apps/docker/images/Dockerfile.centos.7.base .
 >docker image tag mobon/centos.7.base:1.1 mobon/centos.7.base:latest
+
+>`push image to docker private registry` 
+>docker tag mobon/centos.7.base:latest docker-registry.mobon.net:5000/mobon/centos.7.base:latest
+>docker push docker-registry.mobon.net:5000/mobon/centos.7.base:latest
 
 #### 02. create private network - mobon.subnet
 docker network create --driver=bridge --subnet=192.168.104.0/24 --gateway=192.168.104.10 mobon.subnet
@@ -60,7 +65,7 @@ docker run --net mobon.subnet --ip 192.168.104.41 --name mobon.mongodb.01 -d -it
 docker run --net mobon.subnet --ip 192.168.104.42 --name mobon.mongodb.02 -d -it mobon/centos.7.base:1.1
  
 docker run --net mobon.subnet --ip 192.168.104.43 --name mobon.mongodb.03 -d -it mobon/centos.7.base:1.1
- 
+
 ## create container > create image > create container
 
 #### 01. create base.container
@@ -115,12 +120,13 @@ docker run --net mobon.subnet --ip 192.168.104.43 --name mobon.mongodb.03 -d -it
 
 ## build image
 
-#### 01. build image mobon/java.app.env:1.1(mobon/java.app.env:lastest) based mobon/centos.7.base:latest
+#### 01. build image mobon/java.app.env:1.1(mobon/java.app.env:latest) based mobon/centos.7.base:latest
 
 `create dockerize file`  
 $ vi /apps/docker/images/Dockerfile.java.app.env
 ```
 FROM mobon/centos.7.base:latest
+# FROM docker-registry.mobon.net:5000/mobon/centos.7.base:latest
 
 USER root
 
@@ -165,7 +171,8 @@ CMD /bin/bash
 ```
 
 `build/create docker image`  
-$ docker build -t mobon/java.app.env:1.1 -t mobon/java.app.env:latest -f /apps/docker/images/Dockerfile.java.app.env .
+$ docker build -t mobon/java.app.env:latest -f /apps/docker/images/Dockerfile.java.app.env .
+>$ docker build -t mobon/java.app.env:1.1 -t mobon/java.app.env:latest -f /apps/docker/images/Dockerfile.java.app.env .
 >$ docker image tag mobon/java.app.env:1.1 mobon/java.app.env:latest
 
 >`create docker service container`  
@@ -174,23 +181,29 @@ $ docker build -t mobon/java.app.env:1.1 -t mobon/java.app.env:latest -f /apps/d
 >
 >$ docker exec -it mobon.service.01 /bin/bash
 
+>`push image to docker private registry` 
+>$ docker tag mobon/java.app.env:latest docker-registry.mobon.net:5000/mobon/java.app.env:latest
+>$ docker push docker-registry.mobon.net:5000/mobon/java.app.env:latest
+
 # java.app.ext:1.1
 
 ## build image
 
-#### 01. build image mobon/java.app.ext:1.1(mobon/java.app.ext:lastest) based mobon/java.app.env:lastest
+#### 01. build image mobon/java.app.ext:1.1(mobon/java.app.ext:latest) based mobon/java.app.env:latest
 
 `create dockerize file`  
 $ vi /apps/docker/images/Dockerfile.java.app.ext
 ```
-FROM mobon/java.app.env:lastest
+FROM mobon/java.app.env:latest
+# FROM docker-registry.mobon.net:5000/mobon/java.app.env:latest 
+# FROM docker-registry.mobon.net:5000/mobon/centos.7.base:latest
 
 # install and setup application
 WORKDIR /apps/install
 
 # install scouter agent
-RUN curl -O https://github.com/scouter-project/scouter/releases/download/v2.7.0/scouter-all-2.7.0.tar.gz
-RUN tar xvf scouter-all-2.7.0.tar.gz
+RUN wget https://github.com/scouter-project/scouter/releases/download/v2.7.0/scouter-min-2.7.0.tar.gz
+RUN tar xvf scouter-min-2.7.0.tar.gz
 
 RUN mkdir /apps/scouter
 RUN mv /apps/install/scouter /apps/scouter/2.7.0
@@ -251,7 +264,8 @@ RUN mv /apps/install/scouter /apps/scouter/2.7.0
 >```
 
 `build/create docker image`  
-$ docker build -t mobon/java.app.ext:1.1 -t mobon/java.app.ext:latest -f /apps/docker/images/Dockerfile.java.app.ext .
+$ docker build -t mobon/java.app.ext:latest -f /apps/docker/images/Dockerfile.java.app.ext .
+>$ docker build -t mobon/java.app.ext:1.1 -t mobon/java.app.ext:latest -f /apps/docker/images/Dockerfile.java.app.ext .
 >$ docker image tag mobon/java.app.ext:1.1 mobon/java.app.ext:latest
 
 >`create docker service container`  
