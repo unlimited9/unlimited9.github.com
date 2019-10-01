@@ -196,7 +196,6 @@ $ vi /apps/docker/images/Dockerfile.java.app.ext
 ```
 FROM mobon/java.app.env:latest
 # FROM docker-registry.mobon.net:5000/mobon/java.app.env:latest 
-# FROM docker-registry.mobon.net:5000/mobon/centos.7.base:latest
 
 # install and setup application
 WORKDIR /apps/install
