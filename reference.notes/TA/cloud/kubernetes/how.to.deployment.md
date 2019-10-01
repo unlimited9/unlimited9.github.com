@@ -16,7 +16,7 @@ ref. [create docker image and container](../docker/create.image.n.container.md)
 
 * private docker image 사용 시 아래와 같은 처리 필요
   > `error : message`  
-  Failed to pull image "mobon/java.app.env:latest": rpc error: code = Unknown desc = Error response from daemon: pull access denied for mobon/java.app.env, repository does not exist or may require 'docker login
+  Failed to pull image "mobon/java.app.ext:latest": rpc error: code = Unknown desc = Error response from daemon: pull access denied for mobon/java.app.ext, repository does not exist or may require 'docker login
   > `solution`  
   $ yum install git
 
@@ -42,7 +42,7 @@ spec:
     spec:
       containers:
         - name: mobon-platform-gateway-aggregator
-          image: docker-registry.mobon.net:5000/mobon/java.app.env:latest
+          image: docker-registry.mobon.net:5000/mobon/java.app.ext:latest
           imagePullPolicy: Always
           volumeMounts:
             - name: app-git-repository
@@ -154,7 +154,7 @@ $ kubectl get secret git-creds
 >    spec:
 >      containers:
 >      - name: mobon-platform-gateway-aggregator
->        image: docker-registry.mobon.net:5000/mobon/java.app.env:latest
+>        image: docker-registry.mobon.net:5000/mobon/java.app.ext:latest
 >        imagePullPolicy: Always
 >        volumeMounts:
 >          - name: app-git-repository
