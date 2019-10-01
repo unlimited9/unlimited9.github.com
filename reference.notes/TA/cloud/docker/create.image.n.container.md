@@ -4,10 +4,10 @@
 
 #### 01. build image mobon/centos.7.base:1.1(mobon/centos.7.base:latest) based docker.io/centos:7
 `make directory`  
-mkdir -p /apps/docker/images
+$ mkdir -p /apps/docker/images
 
 `create dockerize file`  
-vi /apps/docker/images/Dockerfile.centos.7.base 
+$ vi /apps/docker/images/Dockerfile.centos.7.base 
 ```
 FROM docker.io/centos:7
 
@@ -44,77 +44,77 @@ CMD /bin/bash
 ```
 
 `build/create docker image`  
-docker build -t mobon/centos.7.base:latest -f /apps/docker/images/Dockerfile.centos.7.base .
->docker build -t mobon/centos.7.base:1.1 -t mobon/centos.7.base:latest -f /apps/docker/images/Dockerfile.centos.7.base .
->docker image tag mobon/centos.7.base:1.1 mobon/centos.7.base:latest
+$ docker build -t mobon/centos.7.base:latest -f /apps/docker/images/Dockerfile.centos.7.base .
+>$ docker build -t mobon/centos.7.base:1.1 -t mobon/centos.7.base:latest -f /apps/docker/images/Dockerfile.centos.7.base .
+>$ docker image tag mobon/centos.7.base:1.1 mobon/centos.7.base:latest
 
->`push image to docker private registry` 
->docker tag mobon/centos.7.base:latest docker-registry.mobon.net:5000/mobon/centos.7.base:latest
->docker push docker-registry.mobon.net:5000/mobon/centos.7.base:latest
+>`push image to docker private registry`  
+>$ docker tag mobon/centos.7.base:latest docker-registry.mobon.net:5000/mobon/centos.7.base:latest
+>$ docker push docker-registry.mobon.net:5000/mobon/centos.7.base:latest
 
 #### 02. create private network - mobon.subnet
-docker network create --driver=bridge --subnet=192.168.104.0/24 --gateway=192.168.104.10 mobon.subnet
+$ docker network create --driver=bridge --subnet=192.168.104.0/24 --gateway=192.168.104.10 mobon.subnet
 
 #### 03. create containers base mobon/centos.7.base:1.1
-docker run --net mobon.subnet --ip 192.168.104.51  --ulimit memlock=-1 --name mobon.elasticsearch.01 -d -it mobon/centos.7.base:1.1
+$ docker run --net mobon.subnet --ip 192.168.104.51  --ulimit memlock=-1 --name mobon.elasticsearch.01 -d -it mobon/centos.7.base:1.1
  
-docker run --net mobon.subnet --ip 192.168.104.52  --ulimit memlock=-1 --name mobon.elasticsearch.02 -d -it mobon/centos.7.base:1.1
+$ docker run --net mobon.subnet --ip 192.168.104.52  --ulimit memlock=-1 --name mobon.elasticsearch.02 -d -it mobon/centos.7.base:1.1
  
-docker run --net mobon.subnet --ip 192.168.104.41 --name mobon.mongodb.01 -d -it mobon/centos.7.base:1.1
+$ docker run --net mobon.subnet --ip 192.168.104.41 --name mobon.mongodb.01 -d -it mobon/centos.7.base:1.1
  
-docker run --net mobon.subnet --ip 192.168.104.42 --name mobon.mongodb.02 -d -it mobon/centos.7.base:1.1
+$ docker run --net mobon.subnet --ip 192.168.104.42 --name mobon.mongodb.02 -d -it mobon/centos.7.base:1.1
  
-docker run --net mobon.subnet --ip 192.168.104.43 --name mobon.mongodb.03 -d -it mobon/centos.7.base:1.1
+$ docker run --net mobon.subnet --ip 192.168.104.43 --name mobon.mongodb.03 -d -it mobon/centos.7.base:1.1
 
 ## create container > create image > create container
 
 #### 01. create base.container
 
 `create container base centos:7 - centos.7.app`  
-docker run -d -it --name centos.7.app centos:7 /bin/bash  
-docker exec -it  centos.7.app  /bin/bash
+$ docker run -d -it --name centos.7.app centos:7 /bin/bash  
+$ docker exec -it  centos.7.app  /bin/bash
 
-> docker run --privileged --name centos.7.app -d centos:7 init  
+>$ docker run --privileged --name centos.7.app -d centos:7 init  
 >>--privileged
 >: give extended privileges to this container
 (container에서 host의 linux kernel 기능을 모두 사용)
 >
->docker exec -it  centos.7.app  /bin/bash
+>$ docker exec -it  centos.7.app  /bin/bash
 >#systemctl --version
 
 `install utility package`  
-yum install -y net-tools  
-yum install -y iproute
+$ yum install -y net-tools  
+$ yum install -y iproute
 
 `create group/user : app`  
-groupadd -g 3000 app  
-useradd -d /apps -g 3000 -m -u 3000 -s /bin/bash app  
-passwd app
+$ groupadd -g 3000 app  
+$ useradd -d /apps -g 3000 -m -u 3000 -s /bin/bash app  
+$ passwd app
 
 `create directory`  
-su - app
+$ su - app
 
-mkdir -p /apps/install  
-mkdir -p /pgms  
-mkdir -p /data  
-mkdir -p /logs
+$ mkdir -p /apps/install  
+$ mkdir -p /pgms  
+$ mkdir -p /data  
+$ mkdir -p /logs
 
 #### 02. create image from base.container - mobon/apps.server:1.1
-docker commit -a "sjlee@ruaniz.com" -m "create image from centos.7.app container" centos.7.app mobon/apps.server:1.1
+$ docker commit -a "sjlee@ruaniz.com" -m "create image from centos.7.app container" centos.7.app mobon/apps.server:1.1
 
 #### 03. create private network - mobon.subnet
-docker network create --driver=bridge --subnet=192.168.104.0/24 --gateway=192.168.104.10 mobon.subnet
+$ docker network create --driver=bridge --subnet=192.168.104.0/24 --gateway=192.168.104.10 mobon.subnet
 
 #### 04. create containers base mobon/apps.server:1.1
-docker run --net mobon.subnet --ip 192.168.104.51  --ulimit memlock=-1 --name mobon.elasticsearch.01 -d -it mobon/apps.server:1.1
+$ docker run --net mobon.subnet --ip 192.168.104.51  --ulimit memlock=-1 --name mobon.elasticsearch.01 -d -it mobon/apps.server:1.1
  
-docker run --net mobon.subnet --ip 192.168.104.52  --ulimit memlock=-1 --name mobon.elasticsearch.02 -d -it mobon/apps.server:1.1
+$ docker run --net mobon.subnet --ip 192.168.104.52  --ulimit memlock=-1 --name mobon.elasticsearch.02 -d -it mobon/apps.server:1.1
  
-docker run --net mobon.subnet --ip 192.168.104.41 --name mobon.mongodb.01 -d -it mobon/apps.server:1.1
+$ docker run --net mobon.subnet --ip 192.168.104.41 --name mobon.mongodb.01 -d -it mobon/apps.server:1.1
  
-docker run --net mobon.subnet --ip 192.168.104.42 --name mobon.mongodb.02 -d -it mobon/apps.server:1.1
+$ docker run --net mobon.subnet --ip 192.168.104.42 --name mobon.mongodb.02 -d -it mobon/apps.server:1.1
  
-docker run --net mobon.subnet --ip 192.168.104.43 --name mobon.mongodb.03 -d -it mobon/apps.server:1.1
+$ docker run --net mobon.subnet --ip 192.168.104.43 --name mobon.mongodb.03 -d -it mobon/apps.server:1.1
  
 # java.app.env:1.1
 
@@ -181,7 +181,7 @@ $ docker build -t mobon/java.app.env:latest -f /apps/docker/images/Dockerfile.ja
 >
 >$ docker exec -it mobon.service.01 /bin/bash
 
->`push image to docker private registry` 
+>`push image to docker private registry`  
 >$ docker tag mobon/java.app.env:latest docker-registry.mobon.net:5000/mobon/java.app.env:latest
 >$ docker push docker-registry.mobon.net:5000/mobon/java.app.env:latest
 
