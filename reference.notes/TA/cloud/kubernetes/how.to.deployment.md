@@ -55,22 +55,37 @@ spec:
               subPath: scouter-java.conf
           ports:
             - containerPort: 8080
+          env:
+            - name: _POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: SCOUTER_DIR
+              value: "/apps/scouter/2.7.0"
+            - name: JAVA_OPTS
+              value: "$(JAVA_OPTS) -javaagent:$(SCOUTER_DIR)/agent.java/scouter.agent.jar"
+            - name: JAVA_OPTS
+              value: "$(JAVA_OPTS) -Dscouter.config=$(SCOUTER_DIR)/agent.java/conf/scouter.conf"
+            - name: JAVA_OPTS
+              value: "$(JAVA_OPTS) -Dobj_name=product-$(_POD_IP)"
           command: ["/bin/bash", "-c"]
           args:
             - source /etc/profile;
               mkdir /pgms/mobon.platform.gateway;
               cp -R /repository/git/mobon.platform/gateway.git/aggregation.service /pgms/mobon.platform.gateway/aggregation.service;
               gradle --build-file /pgms/mobon.platform.gateway/aggregation.service/build.gradle :framework.boot.application:build;
-              ;
-              ;#scouter.agent.host
-              cd /apps/scouter/2.7.0/agent.host; ./host.sh;
-              ;#scouter.agent.java
-              export SCOUTER_DIR=/apps/scouter/2.7.0;
-              export JAVA_OPTS="$JAVA_OPTS -javaagent:$SCOUTER_DIR/agent.java/scouter.agent.jar";
-              export JAVA_OPTS="$JAVA_OPTS -Dscouter.config=$SCOUTER_DIR/agent.java/conf/scouter-product.conf";
-              export JAVA_OPTS="$JAVA_OPTS -Dobj_name=product-01";
-              java $JAVA_OPTS -jar /pgms/mobon.platform.gateway/aggregation.service/framework.boot.application/build/libs/framework.boot.application-1.0.war
-              tail -f /dev/null;
+#              tail -f /dev/null;
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/bash", "-c"]
+                args:
+                  - cd /apps/scouter/2.7.0/agent.host;
+                    ./host.sh;
+                    java $(JAVA_OPTS) -jar /pgms/mobon.platform.gateway/aggregation.service/framework.boot.application/build/libs/framework.boot.application-1.0.war;
+            preStop:
+              exec:
+                command: ["/bin/sh","-c","nginx -s quit; while killall -0 nginx; do sleep 1; done"]
       initContainers:
         - name: git-sync
           image: k8s.gcr.io/git-sync:v3.1.2
@@ -113,7 +128,7 @@ spec:
       - name: app-scouter-repository
         configMap:
           name: scouter-config 
-          defaultMode: "6600"
+          defaultMode: 420
 ```
 >          - name: GIT_SYNC_USERNAME
 >            valueFrom:
@@ -126,6 +141,8 @@ spec:
 >                name: git-creds
 >                key: password
 
+`deployment 생성`  
+$ kubectl create -f /apps/kubernetes/resources/mobon.gateway.deployment.yaml
 
 > secret을 사용할 경우 아래와 같이 secret을 생성하고 위 주석 제거 및 GIT_SYNC_USERNAME, GIT_SYNC_PASSWORD 주석 처리해서 사용
 
@@ -203,7 +220,7 @@ $ kubectl get secret git-creds
 >$ kubectl create -f /apps/kubernetes/resources/mobon.gateway.rc.yaml
 
 </div>
-</details>
+<details>
 
 
 `pod 확인`  
