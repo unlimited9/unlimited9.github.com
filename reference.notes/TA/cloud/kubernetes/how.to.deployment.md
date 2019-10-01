@@ -63,7 +63,7 @@ spec:
             - name: SCOUTER_DIR
               value: "/apps/scouter/2.7.0"
             - name: JAVA_OPTS
-              value: "$(JAVA_OPTS) -javaagent:$(SCOUTER_DIR)/agent.java/scouter.agent.jar"
+              value: "-javaagent:$(SCOUTER_DIR)/agent.java/scouter.agent.jar"
             - name: JAVA_OPTS
               value: "$(JAVA_OPTS) -Dscouter.config=$(SCOUTER_DIR)/agent.java/conf/scouter.conf"
             - name: JAVA_OPTS
@@ -74,18 +74,15 @@ spec:
               mkdir /pgms/mobon.platform.gateway;
               cp -R /repository/git/mobon.platform/gateway.git/aggregation.service /pgms/mobon.platform.gateway/aggregation.service;
               gradle --build-file /pgms/mobon.platform.gateway/aggregation.service/build.gradle :framework.boot.application:build;
+              java $JAVA_OPTS -jar /pgms/mobon.platform.gateway/aggregation.service/framework.boot.application/build/libs/framework.boot.application-1.0.war;
 #              tail -f /dev/null;
           lifecycle:
             postStart:
               exec:
-                command: ["/bin/bash", "-c"]
-                args:
-                  - cd /apps/scouter/2.7.0/agent.host;
-                    ./host.sh;
-                    java $(JAVA_OPTS) -jar /pgms/mobon.platform.gateway/aggregation.service/framework.boot.application/build/libs/framework.boot.application-1.0.war;
+                command: ["/bin/bash", "-c", "cd /apps/scouter/2.7.0/agent.host; ./host.sh;"]
             preStop:
               exec:
-                command: ["/bin/sh","-c","nginx -s quit; while killall -0 nginx; do sleep 1; done"]
+                command: ["/bin/sh","-c",""]
       initContainers:
         - name: git-sync
           image: k8s.gcr.io/git-sync:v3.1.2
@@ -127,7 +124,7 @@ spec:
 #          secretName: git-cred # your-ssh-key
       - name: app-scouter-repository
         configMap:
-          name: scouter-config 
+          name: scouter-config
           defaultMode: 420
 ```
 >          - name: GIT_SYNC_USERNAME
