@@ -74,12 +74,13 @@ spec:
               mkdir /pgms/mobon.platform.gateway;
               cp -R /repository/git/mobon.platform/gateway.git/aggregation.service /pgms/mobon.platform.gateway/aggregation.service;
               gradle --build-file /pgms/mobon.platform.gateway/aggregation.service/build.gradle :framework.boot.application:build;
-              java $JAVA_OPTS -jar /pgms/mobon.platform.gateway/aggregation.service/framework.boot.application/build/libs/framework.boot.application-1.0.war;
+              nohup java $JAVA_OPTS -jar /pgms/mobon.platform.gateway/aggregation.service/framework.boot.application/build/libs/framework.boot.application-1.0.war -Dloader.main=com.mobon.Application org.springframework.boot.loader.PropertiesLauncher &;
+              cd /apps/scouter/2.7.0/agent.host; ./host.sh;
 #              tail -f /dev/null;
           lifecycle:
-            postStart:
-              exec:
-                command: ["/bin/bash", "-c", "cd /apps/scouter/2.7.0/agent.host; ./host.sh;"]
+#            postStart:
+#              exec:
+#                command: ["/bin/bash", "-c", "cd /apps/scouter/2.7.0/agent.host; ./host.sh;"]
             preStop:
               exec:
                 command: ["/bin/sh","-c",""]
