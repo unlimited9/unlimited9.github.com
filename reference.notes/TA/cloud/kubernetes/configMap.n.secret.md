@@ -1,4 +1,4 @@
-# kubernetes configMap and Secret
+# kubernetes ConfigMap and Secret
 
 >Created 월요일 20 11월 2017  
 Container orchestration and clustering
@@ -7,7 +7,7 @@ Container orchestration and clustering
 
 #### ConfigMap
 
-#### create configMap
+#### create ConfigMap
 `usage`  
 ```
 kubectl create configmap <map-name> <data-source>
