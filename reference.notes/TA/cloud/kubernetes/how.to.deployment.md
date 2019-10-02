@@ -228,7 +228,7 @@ $ kubectl get secret git-creds
 >$ kubectl create -f /apps/kubernetes/resources/mobon.gateway.rc.yaml
 
 </div>
-<details>
+</details>
 
 
 `pod 확인`  
