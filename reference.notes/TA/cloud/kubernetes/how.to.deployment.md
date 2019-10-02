@@ -71,14 +71,20 @@ spec:
           command: ["/bin/bash", "-c"]
           args:
             - source /etc/profile;
+              echo "########################################";
               echo "start scouter agent host...";
+              echo "########################################";
               cd /apps/scouter/2.7.0/agent.host;
               ./host.sh;
+              echo "########################################";
               echo "gradle springboot application build and packaging...";
+              echo "########################################";
               mkdir /pgms/mobon.platform.gateway;
               cp -R /repository/git/mobon.platform/gateway.git/aggregation.service /pgms/mobon.platform.gateway/aggregation.service;
               gradle --build-file /pgms/mobon.platform.gateway/aggregation.service/build.gradle :framework.boot.application:bootJar;
+              echo "########################################";
               echo "run springboot application with scouter agent.java...";
+              echo "########################################";
               java $JAVA_OPTS -jar /pgms/mobon.platform.gateway/aggregation.service/framework.boot.application/build/libs/framework.boot.application-1.0.jar;
 #              tail -f /dev/null;
 #          lifecycle:
