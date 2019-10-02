@@ -204,7 +204,7 @@ $ kubectl rollout history deploy/mobon-platform-gateway-aggregator-deployment
 
 `rollout undo`  
 $ kubectl rollout undo deploy mobon-platform-gateway-aggregator-deployment
-> $ kubectl rollout undo deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
+> $ kubectl rollout undo deployment.v1.apps/mobon-platform-gateway-aggregator-deployment  
 > $ kubectl rollout undo deployment.v1.apps/mobon-platform-gateway-aggregator-deployment --to-revision=2
 
 `deployment scale(pod 수) 변경`  
