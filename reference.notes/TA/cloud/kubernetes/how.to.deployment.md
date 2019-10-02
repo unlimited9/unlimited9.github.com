@@ -19,10 +19,12 @@ ref. [create docker image and container](../docker/create.image.n.container.md)
   Failed to pull image "mobon/java.app.ext:latest": rpc error: code = Unknown desc = Error response from daemon: pull access denied for mobon/java.app.ext, repository does not exist or may require 'docker login
   > `solution`  
   $ yum install git
+#### ConfigMap
+ref. [kubernetes configMap](configMap.md)
 
 #### Deployment
 `create kubernetes resource file : Deployment`  
-$ vi /apps/kubernetes/resources/mobon.gateway.deployment.yaml 
+$ vi /apps/kubernetes/resources/mobon.gateway.aggregator.deployment.yaml 
 ```
 apiVersion: apps/v1
 kind: Deployment
@@ -150,10 +152,9 @@ spec:
 >                key: password
 
 `deployment 생성`  
-$ kubectl create -f /apps/kubernetes/resources/mobon.gateway.deployment.yaml
+$ kubectl create -f /apps/kubernetes/resources/mobon.gateway.aggregator.deployment.yaml
 
 > secret을 사용할 경우 아래와 같이 secret을 생성하고 위 주석 제거 및 GIT_SYNC_USERNAME, GIT_SYNC_PASSWORD 주석 처리해서 사용
-
 #### Using SSH with git-sync
 <details>
 <summary>more ...</summary>
@@ -171,6 +172,39 @@ $ kubectl get secret git-creds
 
 </div>
 </details>
+
+`pod 확인`  
+$ kubectl get pod
+```
+NAME                                                           READY   STATUS    RESTARTS   AGE
+mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79   1/1     Running   0          5m36s
+mobon-platform-gateway-aggregator-deployment-844b4b7bc-d5gjx   1/1     Running   0          5m36s
+mobon-platform-gateway-aggregator-deployment-844b4b7bc-q8xn8   1/1     Running   0          5m36s
+```
+$ kubectl describe pod mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79
+
+`pod 접속 확인`  
+$ kubectl exec -it mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79 /bin/bash
+
+#### Updating a Deployment
+`rollout status`  
+$ kubectl rollout status deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
+```
+deployment "mobon-platform-gateway-aggregator-deployment" successfully rolled out
+```
+
+`deployment update`  
+$ kubectl edit deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
+
+`rollout history`  
+$ kubectl rollout history deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
+
+`rollout undo`  
+$ kubectl rollout undo deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
+> $ kubectl rollout undo deployment.v1.apps/mobon-platform-gateway-aggregator-deployment --to-revision=2
+
+`deployment scale(pod 수) 변경`  
+$ kubectl scale deployment.v1.apps/mobon-platform-gateway-aggregator-deployment --replicas=10
 
 >#### ReplicationController
 <details>
@@ -226,10 +260,6 @@ $ kubectl get secret git-creds
 >`rc 생성`  
 >$ kubectl create -f /apps/kubernetes/resources/mobon.gateway.rc.yaml
 
-</div>
-</details>
-
-#### Kubernetes Resource 
 `pod 확인`  
 $ kubectl get pod
 ```
@@ -246,9 +276,12 @@ $ kubectl exec -it mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79 
 `rc scale(pod 수) 변경`  
 $ kubectl scale --replicas=6 rc/mobon.platform.gateway.aggregator.rc 
 
+</div>
+</details>
+
 #### Service
 `create kubernetes resource file : Service`  
-$ vi /apps/kubernetes/resources/mobon.gateway.svc.yaml 
+$ vi /apps/kubernetes/resources/mobon.gateway.aggregator.svc.yaml 
 ```
 apiVersion: v1
 kind: Service
@@ -268,7 +301,7 @@ spec:
 ```
 
 `svc 생성`  
-$ kubectl create -f /apps/kubernetes/resources/mobon.gateway.svc.yaml
+$ kubectl create -f /apps/kubernetes/resources/mobon.gateway.aggregator.svc.yaml
 
 `svc 확인`  
 $ kubectl get svc
@@ -305,6 +338,10 @@ $ kubectl delete pod --all
 ## 9. Appendix
 
 #### reference site
+
+* Deployments
+https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#updating-a-deployment
 
 * 쿠버네티스 #6 - 실제 서비스 배포해보기  
 https://bcho.tistory.com/1261?category=731548
