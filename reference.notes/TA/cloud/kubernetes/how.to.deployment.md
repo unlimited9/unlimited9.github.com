@@ -188,23 +188,28 @@ $ kubectl exec -it mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79 
 
 #### Updating a Deployment
 `rollout status`  
-$ kubectl rollout status deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
+$ kubectl rollout status deploy mobon-platform-gateway-aggregator-deployment
+> $ kubectl rollout status deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
 ```
 deployment "mobon-platform-gateway-aggregator-deployment" successfully rolled out
 ```
 
 `deployment update`  
-$ kubectl edit deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
+$ kubectl edit deploy mobon-platform-gateway-aggregator-deployment
+> $ kubectl edit deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
 
 `rollout history`  
-$ kubectl rollout history deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
+$ kubectl rollout history deploy/mobon-platform-gateway-aggregator-deployment
+> $ kubectl rollout history deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
 
 `rollout undo`  
-$ kubectl rollout undo deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
+$ kubectl rollout undo deploy mobon-platform-gateway-aggregator-deployment
+> $ kubectl rollout undo deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
 > $ kubectl rollout undo deployment.v1.apps/mobon-platform-gateway-aggregator-deployment --to-revision=2
 
 `deployment scale(pod 수) 변경`  
-$ kubectl scale deployment.v1.apps/mobon-platform-gateway-aggregator-deployment --replicas=10
+$ kubectl scale deploy mobon-platform-gateway-aggregator-deployment --replicas=10
+> $ kubectl scale deployment.v1.apps/mobon-platform-gateway-aggregator-deployment --replicas=10
 
 >#### ReplicationController
 <details>
@@ -340,16 +345,15 @@ $ kubectl delete pod --all
 
 #### reference site
 
-* Deployments
-https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
-https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#updating-a-deployment
-
 * 쿠버네티스 #6 - 실제 서비스 배포해보기  
 https://bcho.tistory.com/1261?category=731548
 
 * 컨테이너를 위한 커맨드와 인자 정의하기  
 https://kubernetes.io/ko/docs/tasks/inject-data-application/define-command-argument-container/
 
+* Deployments
+https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#updating-a-deployment
 
 + Guide to Spring Cloud Kubernetes  
 https://www.baeldung.com/spring-cloud-kubernetes
@@ -362,3 +366,6 @@ https://ddii.dev/kubernetes/git-sync/#
 
 - Using SSH with git-sync  
 https://github.com/kubernetes/git-sync/blob/master/docs/ssh.md
+
+- 쿠버네티스 컨트롤러 : 디플로이먼트(Deployments)  
+https://arisu1000.tistory.com/27833
