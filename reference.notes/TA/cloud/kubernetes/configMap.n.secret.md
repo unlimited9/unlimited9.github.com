@@ -1,4 +1,4 @@
-# kubernetes configMap
+# kubernetes configMap and Secret
 
 >Created 월요일 20 11월 2017  
 Container orchestration and clustering
