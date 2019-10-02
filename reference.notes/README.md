@@ -51,7 +51,7 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
         - [Web UI (Dashboard) : Install and setup](TA/cloud/kubernetes/install.n.setup.dashboard.md) : 웹 관리 모듈 설치
         - [Administration : management](TA/cloud/kubernetes/administration.management.md) : 쿠버네티스 관리
         - [Kubernetes deployment](TA/cloud/kubernetes/how.to.deployment.md) : 쿠버네티스 서비스 디플로이(tutorial)
-        - [Kubernetes configMap and Secret](TA/cloud/kubernetes/configMap.n.secret.md) : 어플리케이션 설정 분리
+        - [Kubernetes ConfigMap and Secret](TA/cloud/kubernetes/configMap.n.secret.md) : 어플리케이션 설정 분리
 
 4. DA(technical architecture)
 
