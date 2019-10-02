@@ -155,20 +155,20 @@ spec:
 $ kubectl create -f /apps/kubernetes/resources/mobon.gateway.aggregator.deployment.yaml
 
 > secret을 사용할 경우 아래와 같이 secret을 생성하고 위 주석 제거 및 GIT_SYNC_USERNAME, GIT_SYNC_PASSWORD 주석 처리해서 사용
-#### Using SSH with git-sync
+>#### Using SSH with git-sync
 <details>
 <summary>more ...</summary>
 <div markdown="1">
   
-https://github.com/kubernetes/git-sync/blob/master/docs/ssh.md
-
-$ ssh-keyscan github.com > /tmp/known_hosts
-
-$ kubectl create secret generic git-creds \
-    --from-file=ssh=$HOME/.ssh/git_rsa \
-    --from-file=known_hosts=/tmp/known_hosts
-
-$ kubectl get secret git-creds
+>https://github.com/kubernetes/git-sync/blob/master/docs/ssh.md
+>
+>$ ssh-keyscan github.com > /tmp/known_hosts
+>
+>$ kubectl create secret generic git-creds \
+>    --from-file=ssh=$HOME/.ssh/git_rsa \
+>    --from-file=known_hosts=/tmp/known_hosts
+>
+>$ kubectl get secret git-creds
 
 </div>
 </details>
