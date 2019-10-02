@@ -333,7 +333,8 @@ $ kubectl delete rc --all
 #### pod delete
 $ kubectl delete pod --all
 
-> rc를 지우지 않고 pod를 삭제하면 rc가 pod를 다시 생성한다.
+> controller rc나 deployment를 지우지 않고 pod를 삭제하면 controller가 pod를 다시 생성한다.
+> controller를 삭제하면 관련 pod가 같이 삭제된다.
 
 ## 9. Appendix
 
