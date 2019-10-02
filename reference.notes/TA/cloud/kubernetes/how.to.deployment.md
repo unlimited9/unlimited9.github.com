@@ -172,7 +172,6 @@ $ kubectl get secret git-creds
 </div>
 </details>
 
-
 >#### ReplicationController
 <details>
 <summary>more ...</summary>
@@ -230,7 +229,7 @@ $ kubectl get secret git-creds
 </div>
 </details>
 
-
+#### Kubernetes Resource 
 `pod 확인`  
 $ kubectl get pod
 ```
