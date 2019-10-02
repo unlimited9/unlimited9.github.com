@@ -71,11 +71,11 @@ spec:
           command: ["/bin/bash", "-c"]
           args:
             - source /etc/profile;
+              cd /apps/scouter/2.7.0/agent.host; ./host.sh;
               mkdir /pgms/mobon.platform.gateway;
               cp -R /repository/git/mobon.platform/gateway.git/aggregation.service /pgms/mobon.platform.gateway/aggregation.service;
-              gradle --build-file /pgms/mobon.platform.gateway/aggregation.service/build.gradle :framework.boot.application:build;
-              nohup java $JAVA_OPTS -jar /pgms/mobon.platform.gateway/aggregation.service/framework.boot.application/build/libs/framework.boot.application-1.0.war -Dloader.main=com.mobon.Application org.springframework.boot.loader.PropertiesLauncher &;
-              cd /apps/scouter/2.7.0/agent.host; ./host.sh;
+              gradle --build-file /pgms/mobon.platform.gateway/aggregation.service/build.gradle :framework.boot.application:bootJar;
+              java $JAVA_OPTS -jar /pgms/mobon.platform.gateway/aggregation.service/framework.boot.application/build/libs/framework.boot.application-1.0.jar;
 #              tail -f /dev/null;
           lifecycle:
 #            postStart:
