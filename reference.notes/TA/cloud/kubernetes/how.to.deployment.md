@@ -20,7 +20,7 @@ ref. [create docker image and container](../docker/create.image.n.container.md)
   > `solution`  
   $ yum install git
 #### ConfigMap
-ref. [kubernetes configMap](configMap.md)
+ref. [kubernetes ConfigMap and Secret](configMap.n.secret.md)
 
 #### Deployment
 `create kubernetes resource file : Deployment`  
