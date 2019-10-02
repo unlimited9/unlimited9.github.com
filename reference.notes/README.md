@@ -39,6 +39,8 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
       + [Node.js : Install and setup](TA/node.js/install.n.setup.md) : Node.js 설치
         - [Dockerizing](TA/node.js/dockerizing.md) : 도커 이미지 만들기
       + [Hadoop ecosystem : Introduction](TA/hadoop/introduction.md) : Hadoop이란
+      + [Apache Kafka : Install and setup](TA/apache.kafka/install.n.setup.md) : Kafka Message Queue 서버 설치
+        - [Kafka Manager : Monitoring](TA/apache.kafka/kafka.manager.md) : Kafka 모니터링 
     * Cloud Computing
       + [Docker : Install and setup](TA/cloud/docker/install.n.setup.md) ([install script](TA/cloud/docker/install.n.setup.script.md)) : Docker(independent container platform) 설치
         - [Administration : management and dockerize](TA/cloud/docker/administration.management.md) : 도커 관리
