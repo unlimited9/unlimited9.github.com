@@ -114,8 +114,11 @@ delete.topic.enable=true
 
 $ /apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /apps/kafka/2.12-2.2.0/config/server.properties
 
->하나의 node에 여러 인스턴스를 띄워야 할 경우 아래와 같이 설정파일을 분리해서 기동한다.
+>하나의 node에 여러 인스턴스를 띄워야 할 경우 아래와 같이 설정파일을 분리해서 기동한다.  
 >/apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /apps/kafka/instances/01/config/server.properties
+
+>kafka-manager 등을 통해 JMX로 모니터링을 위해 jmx_port를 지정해 기동한다.  
+>env JMX_PORT=19999 /apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /apps/kafka/instances/01/config/server.properties
 
 
 #### check process and port
@@ -134,7 +137,7 @@ tcp 0 0 0.0.0.0:7642 0.0.0.0:* LISTEN
 
 $ /apps/kafka/2.12-2.2.0/bin/kafka-server-stop.sh
 
->기본 경로 밖의 설정파일을 지정한 경우 설정파일을 지정해 중지한다.
+>기본 경로 밖의 설정파일을 지정한 경우 설정파일을 지정해 중지한다.  
 >/apps/kafka/2.12-2.2.0/bin/kafka-server-stop.sh /apps/kafka/instances/01/config/server.properties
 
 
