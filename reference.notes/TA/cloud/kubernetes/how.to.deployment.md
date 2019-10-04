@@ -320,8 +320,11 @@ $ curl ip:80
 $ kubectl get rc  
 $ kubectl get pods  
 $ kubectl describe pod mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79  
-$ kubectl logs mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79  
-$ kubectl logs mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79 -c git-sync  
+
+$ kubectl logs -f -lapp=mobon-platform-gateway-aggregator  
+>$ kubectl logs mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79  
+>$ kubectl logs mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79 -c git-sync
+
 $ journalctl -u kubelet
 
 ## delete kubernetes resources
