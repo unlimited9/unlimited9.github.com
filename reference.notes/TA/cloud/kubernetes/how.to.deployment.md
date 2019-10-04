@@ -322,6 +322,11 @@ $ kubectl get pods
 $ kubectl describe pod mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79  
 
 $ kubectl logs -f -lapp=mobon-platform-gateway-aggregator  
+>```
+>error: you are attempting to follow 12 log streams, but maximum allowed concurency is 5, use --max-log-requests to increase the limit
+>```
+>$ kubectl logs -f -lapp=mobon-platform-gateway-aggregator --max-log-requests 20  
+
 >$ kubectl logs mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79  
 >$ kubectl logs mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79 -c git-sync
 
