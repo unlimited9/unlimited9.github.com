@@ -1,4 +1,4 @@
-# 10.install.n setup : kafka
+# install.n setup : kafka
 
 >Created 월요일 04 12월 2017
 distributed streaming platform : Server.setting - Failover and high availability
