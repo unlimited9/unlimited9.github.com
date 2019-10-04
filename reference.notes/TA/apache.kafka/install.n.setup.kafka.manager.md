@@ -184,6 +184,14 @@ tcp        0      0 :::9000                     :::*                        LIST
 ```
 $ kill -9 `cat /apps/kafka-manager/2.0.0.2/RUNNING_PID`
 ```
+## Kafka Monitoring
+
+#### Clusters > cluster01 > Topics
+Metrics / Consumers consuming from this topic jmx 설정
+
+> kafka 기동 시 JMX_PORT를 설정해 줘야 한다.  
+$ env JMX_PORT=19999 /apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /apps/kafka/instances/01/config/server.properties  
+$ env JMX_PORT=29999 /apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /apps/kafka/instances/02/config/server.properties
 
 ## 9. Appendix
 
