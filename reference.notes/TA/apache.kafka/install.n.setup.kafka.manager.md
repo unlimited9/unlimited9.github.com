@@ -1,4 +1,4 @@
-Install and setup : kafka manager
+# Install and setup : kafka manager
 
 >Created 월요일 04 12월 2017  
 A tool for managing Apache Kafka.
@@ -81,9 +81,9 @@ $ mkdir -p /apps/kafka-manager
 $ mkdir -p /logs/kafka-manager
 
 ### C. download
-
-#### https://github.com/yahoo/kafka-manager/releases
-$ curl -O https://github.com/yahoo/kafka-manager/archive/2.0.0.2.tar.gz -P /apps/install
+>Kafka Manager(https://github.com/yahoo/kafka-manager)  
+> : https://github.com/yahoo/kafka-manager/releases  
+$ curl -O https://github.com/yahoo/kafka-manager/archive/2.0.0.2.tar.gz -P /apps/install  
 ~~$ wget https://github.com/yahoo/kafka-manager/archive/2.0.0.2.tar.gz -P /apps/install~~
 
 ### D. install
