@@ -120,7 +120,7 @@ $ /apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /apps/kafka/2.12-2.2.
 
 
 >kafka-manager 등을 통해 JMX로 모니터링을 위해 jmx_port를 지정해 기동한다.  
->$ env JMX_PORT=19999 /apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /apps/kafka/instances/01/config/server.properties
+>$ env JMX_PORT=19999 /apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /apps/kafka/instances/01/config/server.properties  
 >$ env JMX_PORT=29999 /apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /apps/kafka/instances/02/config/server.properties
 
 
