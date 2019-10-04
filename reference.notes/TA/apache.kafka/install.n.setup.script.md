@@ -1,6 +1,6 @@
-# install.n setup : kafka manager
+Install and setup : kafka manager
 
->Created 월요일 04 12월 2017
+>Created 월요일 04 12월 2017  
 A tool for managing Apache Kafka.
 
 # Installation/Setup/Configuration
