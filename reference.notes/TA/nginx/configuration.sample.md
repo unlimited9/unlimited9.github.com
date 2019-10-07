@@ -303,13 +303,13 @@ server {
 #### tracker.mobon.net.conf
 ```
 #upstream tracker {
-#    #LB method : least_conn, ip_hash
+#    #LB method : least_conn, ip_hash  
 #    ip_hash;
-#
-#    ## proxy server
+#    
+#    ## proxy server  
 #    server 172.20.0.31;
 #    server 172.20.0.32;
-#}
+#}  
 
 server {
     listen 90;
@@ -317,12 +317,12 @@ server {
 
     access_log /logs/nginx/tracker.mobon.net_access.log;
 
-#    location / {
-#        root /pgms/www;
-#        index index.html index.htm;
+#    location / {  
+#        root /pgms/www;  
+#        index index.html index.htm;  
 #    }
 
-    # redirect server error pages to the static page /50x.html
+    # redirect server error pages to the static page /50x.html  
     error_page 500 502 503 504 /50x.html;
     location = /50x.html {
         root html;
@@ -341,6 +341,37 @@ server {
         charset utf-8;
 
         index index.jsp index.html;
+
+        # setting CORS
+        if ($request_method = 'OPTIONS') {
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            #
+            # Custom headers and headers various browsers *should* be OK with but aren't
+            #
+            add_header 'Access-Control-Allow-Headers' '*';
+            #add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            #
+            # Tell client that this pre-flight info is valid for 20 days
+            #
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
+         }
+         if ($request_method = 'POST') {
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' '*';
+            #add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+         if ($request_method = 'GET') {
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
 
         if ($request_filename ~* ^.*?/([^/]*?)$) {
             set $filename $1;
