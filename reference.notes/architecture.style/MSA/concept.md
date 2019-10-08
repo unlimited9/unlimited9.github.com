@@ -11,9 +11,9 @@ MSA is a style of architecture that defines and creates systems through the use 
 
 #### reference site
 
-* Building Microservices: Using an API Gateway
+* Building Microservices: Using an API Gateway  
 https://www.nginx.com/blog/building-microservices-using-an-api-gateway/
 
-* 마이크로서비스 Microservices (2) API 게이트웨이
+* 마이크로서비스 Microservices (2) API 게이트웨이  
 https://futurecreator.github.io/2018/09/14/microservices-with-api-gateway/
 
