@@ -149,3 +149,9 @@ D1 | RAID 여유율 | RAID 디스크가 도입될 경우 데이터 보호를 위
 
 * 정보통신단체표준(TTAS) : TTAK.KO-10.0292/R2 (http://www.tta.or.kr/)  
 http://www.tta.or.kr/data/ttas_view.jsp?rn=1&pk_num=TTAK.KO-10.0292/R2&nowSu=1
+
+* TPC  
+http://www.tpc.org/
+
+* Standard Performance Evaluation Corporation - OSG and HPG Benchmark Results Search  
+http://www.spec.org/results_search.html
