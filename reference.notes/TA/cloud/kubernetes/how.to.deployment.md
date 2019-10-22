@@ -394,3 +394,6 @@ https://github.com/kubernetes/git-sync/blob/master/docs/ssh.md
 
 - 쿠버네티스 컨트롤러 : 디플로이먼트(Deployments)  
 https://arisu1000.tistory.com/27833
+
+- kubernetes를 이용한 서비스 무중단 배포
+https://tech.kakao.com/2018/12/24/kubernetes-deploy/
