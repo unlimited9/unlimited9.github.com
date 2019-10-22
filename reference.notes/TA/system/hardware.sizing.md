@@ -155,3 +155,6 @@ http://www.tpc.org/
 
 * Standard Performance Evaluation Corporation - OSG and HPG Benchmark Results Search  
 http://www.spec.org/results_search.html
+
++ CPU 성능평가 (HW용량산정)  
+http://www.jidum.com/jidums/view.do?jidumId=409
