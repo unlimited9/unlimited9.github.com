@@ -37,6 +37,7 @@ spec:
     matchLabels:
       app: mobon-platform-gateway-aggregator
   replicas: 3
+#  minReadySeconds: 5
   template:
     metadata:
       labels:
