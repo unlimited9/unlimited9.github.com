@@ -61,7 +61,7 @@ spec:
               containerPort: 8080
 #          livenessProbe:
 #            httpGet:
-#              path: /healthz
+#              path: /default/dspt/status/health
 #              port: 10254
 #              scheme: HTTP
 #            initialDelaySeconds: 10
@@ -71,7 +71,7 @@ spec:
 #            failureThreshold: 3
           readinessProbe:
             httpGet:
-              path: /default/dspt/system/snoop
+              path: /default/dspt/status/health
               port: 8080
               scheme: HTTP
 #            initialDelaySeconds: 10
