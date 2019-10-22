@@ -432,3 +432,6 @@ https://arisu1000.tistory.com/27833
 
 - kubernetes를 이용한 서비스 무중단 배포  
 https://tech.kakao.com/2018/12/24/kubernetes-deploy/
+
+- Kubernetes 실습 스크립트  
+https://github.com/TheOpenCloudEngine/uEngine-cloud/wiki/Kubernetes-%EC%8B%A4%EC%8A%B5-%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8
