@@ -57,7 +57,28 @@ spec:
               mountPath: /apps/scouter/2.7.0/agent.java/conf/scouter.conf
               subPath: scouter-java.conf
           ports:
-            - containerPort: 8080
+            - name: http
+              containerPort: 8080
+#          livenessProbe:
+#            httpGet:
+#              path: /healthz
+#              port: 10254
+#              scheme: HTTP
+#            initialDelaySeconds: 10
+#            periodSeconds: 10
+#            timeoutSeconds: 1
+#            successThreshold: 1
+#            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /default/dspt/system/snoop
+              port: 8080
+              scheme: HTTP
+#            initialDelaySeconds: 10
+#            periodSeconds: 10
+#            timeoutSeconds: 1
+#            successThreshold: 1
+#            failureThreshold: 3
           env:
             - name: _POD_IP
               valueFrom:
@@ -198,8 +219,8 @@ deployment "mobon-platform-gateway-aggregator-deployment" successfully rolled ou
 ```
 
 `deployment configuration update`  
-$ kubectl edit deploy mobon-platform-gateway-aggregator-deployment
 : 리소스의 설정 정보를 kubectl 설치 서버 에디터로 수정  
+$ kubectl edit deploy mobon-platform-gateway-aggregator-deployment
 > $ kubectl edit deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
 
 `kubectl replace`  
@@ -366,6 +387,12 @@ $ kubectl delete pod --all
 > controller rc나 deployment를 지우지 않고 pod를 삭제하면 controller가 pod를 다시 생성한다.
 > controller를 삭제하면 관련 pod가 같이 삭제된다.
 
+## Considerations
+
+#### Caution 
+
+
+
 ## 9. Appendix
 
 #### reference site
@@ -395,5 +422,5 @@ https://github.com/kubernetes/git-sync/blob/master/docs/ssh.md
 - 쿠버네티스 컨트롤러 : 디플로이먼트(Deployments)  
 https://arisu1000.tistory.com/27833
 
-- kubernetes를 이용한 서비스 무중단 배포
+- kubernetes를 이용한 서비스 무중단 배포  
 https://tech.kakao.com/2018/12/24/kubernetes-deploy/
