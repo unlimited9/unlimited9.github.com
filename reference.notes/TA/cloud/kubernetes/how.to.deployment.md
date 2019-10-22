@@ -103,7 +103,7 @@ spec:
               echo "########################################";
               echo "gradle springboot application build and packaging...";
               echo "########################################";
-              mkdir /pgms/mobon.platform.gateway;
+              mkdir # /pgms/mobon.platform.gateway;
               cp -R /repository/git/mobon.platform/gateway.git/aggregation.service /pgms/mobon.platform.gateway/aggregation.service;
               gradle --build-file /pgms/mobon.platform.gateway/aggregation.service/build.gradle :framework.boot.application:bootJar;
               echo "########################################";
@@ -172,6 +172,14 @@ spec:
 >              secretKeyRef:
 >                name: git-creds
 >                key: password
+
+>`livenessProbe, readinessProbe options`  
+initialDelaySecond : 컨테이너가 실행되고 첫 Probe체크를 할 때까지의 delay (default: 0)  
+periodSeconds : 체크 주기 (default 10초, min 1초)  
+timeoutSeconds : Probe 체크 timeout (default: 1초, min 1초)  
+successThreshold : Probe 체크 실패 시 Threshold만큼 다시 체크에 성공해야 success로 판단 (default: 1)  
+failureThreshold : Probe 체크 실패 시 Threshold만큼 재 시도 하고 체크 포기 (default: 3)  
+readness의 경우 트래픽 대상에서 제외, liveness의 경우 컨테이너 재시작  
 
 `deployment 생성`  
 $ kubectl create -f /apps/kubernetes/resources/mobon.gateway.aggregator.deployment.yaml
