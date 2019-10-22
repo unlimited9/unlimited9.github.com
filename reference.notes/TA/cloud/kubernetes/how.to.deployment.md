@@ -188,6 +188,8 @@ $ kubectl describe pod mobon-platform-gateway-aggregator-deployment-844b4b7bc-4z
 $ kubectl exec -it mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79 /bin/bash
 
 #### Updating a Deployment
+: 객체 설정 업데이트
+
 `rollout status`  
 $ kubectl rollout status deploy mobon-platform-gateway-aggregator-deployment
 > $ kubectl rollout status deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
@@ -195,22 +197,36 @@ $ kubectl rollout status deploy mobon-platform-gateway-aggregator-deployment
 deployment "mobon-platform-gateway-aggregator-deployment" successfully rolled out
 ```
 
-`deployment update`  
+`deployment configuration update`  
 $ kubectl edit deploy mobon-platform-gateway-aggregator-deployment
+: 리소스의 설정 정보를 kubectl 설치 서버 에디터로 수정  
 > $ kubectl edit deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
 
+`kubectl replace`  
+: 설정 파일 수정 및 생성 후 설정을 업데이트  
+> $ kubectl replace -f /apps/kubernetes/resources/mobon.gateway.aggregator.deployment.yaml
+
+`kubectl patch`  
+: 파일 업데이트 없이 기존 리소스의 설정 정보 중 여러개의 필드를 수정  
+> $ kubectl patch deployment mobon-platform-gateway-aggregator-deployment --patch 'pec:\n template:\n  spec:\n containers:\n - name: mobon-platform-gateway-aggregator-deployment\n image: mobon-platform-gateway-aggregator=docker-registry.mobon.net:5000/mobon/java.app.ext:v2'
+
 `rollout history`  
-$ kubectl rollout history deploy/mobon-platform-gateway-aggregator-deployment
+: 기존에 배포된 이력 확인  
+$ kubectl rollout history deploy/mobon-platform-gateway-aggregator-deployment  
 > $ kubectl rollout history deployment.v1.apps/mobon-platform-gateway-aggregator-deployment
 
 `rollout undo`  
-$ kubectl rollout undo deploy mobon-platform-gateway-aggregator-deployment
+: 이전 버전으로 롤백  
+$ kubectl rollout undo deploy mobon-platform-gateway-aggregator-deployment  
 > $ kubectl rollout undo deployment.v1.apps/mobon-platform-gateway-aggregator-deployment  
 > $ kubectl rollout undo deployment.v1.apps/mobon-platform-gateway-aggregator-deployment --to-revision=2
 
 `deployment scale(pod 수) 변경`  
 $ kubectl scale deploy mobon-platform-gateway-aggregator-deployment --replicas=10
 > $ kubectl scale deployment.v1.apps/mobon-platform-gateway-aggregator-deployment --replicas=10
+
+`deployment image 변경`  
+> $ kubectl set image deployment mobon-platform-gateway-aggregator-deployment mobon-platform-gateway-aggregator=docker-registry.mobon.net:5000/mobon/java.app.ext:v2
 
 >#### ReplicationController
 <details>
