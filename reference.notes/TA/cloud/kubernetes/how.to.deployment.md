@@ -250,6 +250,9 @@ $ kubectl rollout undo deploy mobon-platform-gateway-aggregator-deployment
 > $ kubectl rollout undo deployment.v1.apps/mobon-platform-gateway-aggregator-deployment  
 > $ kubectl rollout undo deployment.v1.apps/mobon-platform-gateway-aggregator-deployment --to-revision=2
 
+`rollout restart`  
+$ kubectl rollout restart deploy/mobon-platform-gateway-aggregator-deployment
+
 `deployment scale(pod 수) 변경`  
 $ kubectl scale deploy mobon-platform-gateway-aggregator-deployment --replicas=10
 > $ kubectl scale deployment.v1.apps/mobon-platform-gateway-aggregator-deployment --replicas=10
