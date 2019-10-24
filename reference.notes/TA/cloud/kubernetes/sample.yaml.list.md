@@ -1,7 +1,7 @@
 ## mobon.gateway.scouter
 
-#### mobon.gateway.scouter.config
-$ vi mobon.gateway.scouter.config.yaml
+#### mobon.platform.scouter.config
+$ vi mobon.platform.scouter.config.yaml
 ```
 apiVersion: v1
 kind: ConfigMap
