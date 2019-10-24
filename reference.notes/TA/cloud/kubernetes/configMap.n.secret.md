@@ -46,7 +46,7 @@ data:
 >```
 >$ kubectl apply -f /apps/kubernetes/resources/mobon.gateway.git.config.yaml
 
-$ vi /apps/kubernetes/resources/mobon.gateway.scouter.config.yaml
+$ vi /apps/kubernetes/resources/mobon.platform.scouter.config.yaml
 ```
 apiVersion: v1
 kind: ConfigMap
@@ -99,7 +99,7 @@ data:
 >{{.Files.Get "service/config/config.properties" | printf "%s" | indent 4}} # load file in package
 >```
 
-$ kubectl apply -f  /apps/kubernetes/resources/mobon.gateway.scouter.config.yaml
+$ kubectl apply -f  /apps/kubernetes/resources/mobon.platform.scouter.config.yaml
 
 ## 9. Appendix
 
