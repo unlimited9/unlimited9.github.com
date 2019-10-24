@@ -1,0 +1,45 @@
+# How to Kubernetes Deployment(StatefulSet)
+
+## create kubernetes resouces
+
+#### StatefulSet
+`create kubernetes resource file : StatefulSet`  
+$ vi /apps/kubernetes/resources/mobon.platform.mongodb.statefulset.yaml 
+
+```
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+ name: nginx
+spec:
+ selector:
+   matchLabels:
+     app: nginx
+ serviceName: "nginx"
+ replicas: 3
+ template:
+   metadata:
+     labels:
+       app: nginx
+   spec:
+     terminationGracePeriodSeconds: 10
+     containers:
+     - name: nginx
+       image: k8s.gcr.io/nginx-slim:0.8
+       ports:
+       - containerPort: 80
+         name: web
+       volumeMounts:
+       - name: www
+         mountPath: /usr/share/nginx/html
+ volumeClaimTemplates:
+ - metadata:
+     name: www
+   spec:
+     accessModes: [ "ReadWriteOnce" ]
+     storageClassName: "standard"
+     resources:
+       requests:
+         storage: 1Gi
+
+```
