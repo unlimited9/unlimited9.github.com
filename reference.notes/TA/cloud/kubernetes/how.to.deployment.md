@@ -143,9 +143,9 @@ spec:
 #            - name: GIT_SYNC_SSH
 #              value: "true"
             - name: GIT_SYNC_USERNAME
-              value: mobon_admin
+              value: git_id
             - name: GIT_SYNC_PASSWORD
-              value: mobonproject2019!
+              value: git_passwd
           securityContext:
             runAsUser: 0
       imagePullSecrets:
@@ -334,6 +334,10 @@ $ kubectl scale --replicas=6 rc/mobon.platform.gateway.aggregator.rc
 </details>
 
 #### Service
+
+`Get external IP address of Kubernetes nodes`  
+$ kubectl get nodes --selector=kubernetes.io/role!=master -o jsonpath={.items[*].status.addresses[?\(@.type==\"InternalIP\"\)].address}
+
 `create kubernetes resource file : Service`  
 $ vi /apps/kubernetes/resources/mobon.gateway.aggregator.svc.yaml 
 ```
