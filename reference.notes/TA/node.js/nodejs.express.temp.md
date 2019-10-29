@@ -189,6 +189,8 @@ package-lock.json
 </div>
 </details>
 
+$ npm install
+
 ## IntelliJ / WebStorm
 
 #### create Project
