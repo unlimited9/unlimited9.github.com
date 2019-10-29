@@ -200,6 +200,24 @@ View Engine : EJS (use scriptlet tag)
 Stylesheet Engine : Plain CSS
 ```
 
+```
+express_tutorial/
+├── data
+│   └── user.json
+├── node_modules
+├── package.json
+├── public
+│   └── css
+│       └── style.css
+├── router
+│   └── main.js
+├── server.js
+└── views
+    ├── body.ejs
+    ├── header.ejs
+    └── index.ejs
+```
+
 
 ## 9. Appendix
 
@@ -207,3 +225,25 @@ Stylesheet Engine : Plain CSS
 
 + Nodejs 기본 설정(NPM Express .gitignore 설치)  
 https://shlee0882.tistory.com/230
+
++ [Node.JS] 강좌 10-1편: Express 프레임워크 응용하기 – EJS  
+https://velopert.com/379
+
++ Webstorm으로 Node.js Express 개발환경 셋팅  
+https://gocoder.tistory.com/1036
+
++ Node.js - ejs 와 jade를 비교 살펴보기  
+https://gocoder.tistory.com/1033
+
++ nodejs -- WebStrom 에서 node.js & Express 시작하기  
+https://freeprog.tistory.com/161?category=631293
+
++ Express-URL을 이용한 정보의 전달 - 쿼리스트링  
+https://wayhome25.github.io/nodejs/2017/02/18/nodejs-11-express-query-string/
+
+- kafka-node  
+https://www.npmjs.com/package/kafka-node
+
+- Kafka Nodejs Example with Producers and Consumers  
+https://www.bennettnotes.com/post/kafka-nodejs-example/
+
