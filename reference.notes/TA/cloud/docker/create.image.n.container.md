@@ -335,6 +335,7 @@ USER root
 
 ENV DEBIAN_FRONTEND teletype
 
+# Before adding Influx repository, run this so that apt will be able to read the repository.
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
 RUN apt-get install -y sudo apt-transport-https
 
@@ -342,11 +343,10 @@ RUN apt-get install -y sudo apt-transport-https
 RUN curl -sL https://repos.influxdata.com/influxdb.key | apt-key add -
 #RUN wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
 
-# Before adding Influx repository, run this so that apt will be able to read the repository.
 RUN echo "deb https://repos.influxdata.com/debian $(. /etc/os-release; echo $VERSION_CODENAME) stable" | tee /etc/apt/sources.list.d/influxdb.list
 #RUN cat /etc/apt/sources.list.d/influxdb.list
 
-# install telegraf
+# install and start the Telegraf service
 RUN apt-get update && apt-get install -y telegraf
 RUN service telegraf start
 #RUN systemctl start telegraf
