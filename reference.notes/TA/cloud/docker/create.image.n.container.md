@@ -348,7 +348,7 @@ RUN echo "deb https://repos.influxdata.com/debian $(. /etc/os-release; echo $VER
 
 # install and start the Telegraf service
 RUN apt-get update && apt-get install -y telegraf
-RUN service telegraf start
+#RUN service telegraf start
 #RUN systemctl start telegraf
 
 USER app
