@@ -331,21 +331,27 @@ FROM mobon/node.app.env:latest
 # install and setup application
 WORKDIR /apps/install
 
-# Before adding Influx repository, run this so that apt will be able to read the repository.
-RUN sudo apt-get update && sudo apt-get install apt-transport-https
+USER root
+
+ENV DEBIAN_FRONTEND teletype
+
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+RUN apt-get install -y sudo apt-transport-https
 
 # Add the InfluxData key
-RUN curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -
-RUN source /etc/os-release
-RUN test $VERSION_ID = "7" && echo "deb https://repos.influxdata.com/debian wheezy stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
-RUN test $VERSION_ID = "8" && echo "deb https://repos.influxdata.com/debian jessie stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
-RUN test $VERSION_ID = "9" && echo "deb https://repos.influxdata.com/debian stretch stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+RUN curl -sL https://repos.influxdata.com/influxdb.key | apt-key add -
+#RUN wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+
+# Before adding Influx repository, run this so that apt will be able to read the repository.
+RUN echo "deb https://repos.influxdata.com/debian $(. /etc/os-release; echo $VERSION_CODENAME) stable" | tee /etc/apt/sources.list.d/influxdb.list
+#RUN cat /etc/apt/sources.list.d/influxdb.list
 
 # install telegraf
-RUN sudo apt-get update && sudo apt-get install telegraf
-RUN sudo systemctl start telegraf
-#RUN sudo service telegraf start
+RUN apt-get update && apt-get install -y telegraf
+RUN service telegraf start
+#RUN systemctl start telegraf
 
+USER app
 ```
 
 `build/create docker image`  
