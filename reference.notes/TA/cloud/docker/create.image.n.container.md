@@ -356,6 +356,7 @@ USER app
 
 `build/create docker image`  
 $ docker build -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.node.app.ext .
+>$ docker build --no-cache -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.node.app.ext .
 >$ docker build -t mobon/node.app.ext:1.1 -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.node.app.ext .
 >$ docker image tag mobon/node.app.ext:1.1 mobon/node.app.ext:latest
 
