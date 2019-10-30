@@ -355,9 +355,9 @@ USER app
 ```
 
 `build/create docker image`  
-$ docker build -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.node.app.ext .
->$ docker build --no-cache -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.node.app.ext .
->$ docker build -t mobon/node.app.ext:1.1 -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.node.app.ext .
+$ docker build -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.node.app.ext .  
+>$ docker build --no-cache -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.node.app.ext .  
+>$ docker build -t mobon/node.app.ext:1.1 -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.node.app.ext .  
 >$ docker image tag mobon/node.app.ext:1.1 mobon/node.app.ext:latest
 
 >`create docker service container`  
@@ -367,7 +367,7 @@ $ docker build -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.no
 >$ docker exec -it mobon.service.01 /bin/bash
 
 >`push image to docker private registry`  
->$ docker tag mobon/node.app.ext:latest docker-registry.mobon.net:5000/mobon/node.app.ext:latest
+>$ docker tag mobon/node.app.ext:latest docker-registry.mobon.net:5000/mobon/node.app.ext:latest  
 >$ docker push docker-registry.mobon.net:5000/mobon/node.app.ext:latest
 
 
