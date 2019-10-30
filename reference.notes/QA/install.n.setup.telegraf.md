@@ -3,9 +3,9 @@
 #### install
 $ sudo yum install telegraf
 
->$ mkdir -p /apps/install
->$ cd /apps/install
->$ wget --no-check-certificate https://repos.influxdata.com/centos/7/x86_64/stable/telegraf-1.12.4-1.x86_64.rpm
+>$ mkdir -p /apps/install  
+>$ cd /apps/install  
+>$ wget --no-check-certificate https://repos.influxdata.com/centos/7/x86_64/stable/telegraf-1.12.4-1.x86_64.rpm  
 >$ yum localinstall telegraf-1.12.4-1.x86_64.rpm
 
 #### run
