@@ -276,3 +276,43 @@ $ docker build -t mobon/java.app.ext:latest -f /apps/docker/images/Dockerfile.ja
 >`push image to docker private registry`  
 >$ docker tag mobon/java.app.ext:latest docker-registry.mobon.net:5000/mobon/java.app.ext:latest
 >$ docker push docker-registry.mobon.net:5000/mobon/java.app.ext:latest
+
+# node.base:1.1
+
+## build image
+
+#### 01. build image mobon/node.base:1.1(mobon/node.base:latest) based docker.io/node
+`make directory`  
+$ mkdir -p /apps/docker/images
+
+`create dockerize file`  
+$ vi /apps/docker/images/Dockerfile.node.base 
+```
+FROM docker.io/node
+
+# create group/user : app/app
+RUN groupadd -g 3000 app
+RUN useradd -d /apps -g 3000 -m -u 3000 -s /bin/bash app
+
+RUN mkdir -p /pgms /data /logs
+RUN chown -R app.app /pgms /data /logs
+
+USER app
+WORKDIR /apps
+
+# create directory 
+RUN mkdir -p /apps/install
+
+# 컨테이너 실행시 실행될 명령
+CMD /bin/bash
+```
+
+`build/create docker image`  
+$ docker build -t mobon/node.base:latest -f /apps/docker/images/Dockerfile.node.base .  
+>$ docker build -t mobon/node.base:1.1 -t mobon/node.base:latest -f /apps/docker/images/Dockerfile.node.base .  
+>$ docker image tag mobon/node.base:1.1 mobon/node.base:latest
+
+>`push image to docker private registry`  
+>$ docker tag mobon/node.base:latest docker-registry.mobon.net:5000/mobon/node.base:latest  
+>$ docker push docker-registry.mobon.net:5000/mobon/node.base:latest
+
