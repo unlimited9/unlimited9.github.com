@@ -44,12 +44,12 @@ CMD /bin/bash
 ```
 
 `build/create docker image`  
-$ docker build -t mobon/centos.7.base:latest -f /apps/docker/images/Dockerfile.centos.7.base .
->$ docker build -t mobon/centos.7.base:1.1 -t mobon/centos.7.base:latest -f /apps/docker/images/Dockerfile.centos.7.base .
+$ docker build -t mobon/centos.7.base:latest -f /apps/docker/images/Dockerfile.centos.7.base .  
+>$ docker build -t mobon/centos.7.base:1.1 -t mobon/centos.7.base:latest -f /apps/docker/images/Dockerfile.centos.7.base .  
 >$ docker image tag mobon/centos.7.base:1.1 mobon/centos.7.base:latest
 
 >`push image to docker private registry`  
->$ docker tag mobon/centos.7.base:latest docker-registry.mobon.net:5000/mobon/centos.7.base:latest
+>$ docker tag mobon/centos.7.base:latest docker-registry.mobon.net:5000/mobon/centos.7.base:latest  
 >$ docker push docker-registry.mobon.net:5000/mobon/centos.7.base:latest
 
 #### 02. create private network - mobon.subnet
