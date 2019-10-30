@@ -20,6 +20,27 @@ data:
 
 ```
 
+## mobon.gateway.telegraf
+
+#### mobon.platform.telegraf.config
+$ vi mobon.platform.telegraf.config.yaml
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: telegraf-config
+  namespace: default
+data:
+  telegraf.conf: |
+    net_collector_ip=172.20.0.108
+    net_collector_ip=172.20.108
+    trace_http_client_ip_header_key=X-Forwarded-For
+    profile_http_parameter_enabled=true
+    profile_http_header_enabled=true
+    xlog_lower_bound_time_ms=100
+
+```
+
 ## mobon.gateway.aggregator
 
 #### mobon.gateway.aggregator.deployment
