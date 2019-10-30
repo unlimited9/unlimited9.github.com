@@ -32,13 +32,56 @@ metadata:
   namespace: default
 data:
   telegraf.conf: |
-    net_collector_ip=172.20.0.108
-    net_collector_ip=172.20.108
-    trace_http_client_ip_header_key=X-Forwarded-For
-    profile_http_parameter_enabled=true
-    profile_http_header_enabled=true
-    xlog_lower_bound_time_ms=100
-
+    [global_tags]
+      role = "grafana-server"
+    
+    [agent]
+      interval = "1s"
+      round_interval = true
+      metric_batch_size = 1000
+      metric_buffer_limit = 10000
+      collection_jitter = "0s"
+      flush_interval = "5s"
+      flush_jitter = "0s"
+      precision = ""
+      debug = false
+      quiet = false
+      logfile = ""
+      hostname = "grafana-server"
+      omit_hostname = false
+    
+    [[outputs.influxdb]]
+      urls = ["http://10.0.0.127:8086"]
+      database = "telegraf"
+      precision = "s"
+      retention_policy = "default"
+      write_consistency = "any"
+      timeout = "5s"
+      username = "telegraf"
+      password = "telegraf"
+    
+    [[inputs.cpu]]
+      percpu = true
+      totalcpu = true
+      collect_cpu_time = false
+    
+    [[inputs.disk]]
+      ignore_fs = ["tmpfs", "devtmpfs"]
+    
+    [[inputs.kernel]]
+    
+    [[inputs.mem]]
+    
+    [[inputs.net]]
+    
+    [[inputs.netstat]]
+    
+    [[inputs.system]]
+    
+    [[inputs.diskio]]
+    
+    [[inputs.processes]]
+    
 ```
 
 ## mobon.gateway.aggregator
