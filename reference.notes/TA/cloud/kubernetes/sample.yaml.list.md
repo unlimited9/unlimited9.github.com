@@ -34,6 +34,7 @@ data:
   telegraf.conf: |
     [global_tags]
       role = "grafana-server"
+      scouter_obj_type_prefix = "mobon.platform"
     
     [agent]
       interval = "1s"
@@ -59,6 +60,12 @@ data:
       timeout = "5s"
       username = "telegraf"
       password = "telegraf"
+    
+    [[outputs.http]]
+      url = "http://127.0.0.1:6180/telegraf/metric"
+      timeout = "5s"
+      method = "POST"
+      data_format = "influx"
     
     [[inputs.cpu]]
       percpu = true
