@@ -277,16 +277,16 @@ $ docker build -t mobon/java.app.ext:latest -f /apps/docker/images/Dockerfile.ja
 >$ docker tag mobon/java.app.ext:latest docker-registry.mobon.net:5000/mobon/java.app.ext:latest
 >$ docker push docker-registry.mobon.net:5000/mobon/java.app.ext:latest
 
-# node.base:1.1
+# node.app.env:1.1
 
 ## build image
 
-#### 01. build image mobon/node.base:1.1(mobon/node.base:latest) based docker.io/node
+#### 01. build image mobon/node.app.env:1.1(mobon/node.app.env:latest) based docker.io/node
 `make directory`  
 $ mkdir -p /apps/docker/images
 
 `create dockerize file`  
-$ vi /apps/docker/images/Dockerfile.node.base 
+$ vi /apps/docker/images/Dockerfile.node.app.env 
 ```
 FROM docker.io/node
 
@@ -308,11 +308,59 @@ CMD /bin/bash
 ```
 
 `build/create docker image`  
-$ docker build -t mobon/node.base:latest -f /apps/docker/images/Dockerfile.node.base .  
->$ docker build -t mobon/node.base:1.1 -t mobon/node.base:latest -f /apps/docker/images/Dockerfile.node.base .  
->$ docker image tag mobon/node.base:1.1 mobon/node.base:latest
+$ docker build -t mobon/node.app.env:latest -f /apps/docker/images/Dockerfile.node.app.env .  
+>$ docker build -t mobon/node.app.env:1.1 -t mobon/node.app.env:latest -f /apps/docker/images/Dockerfile.node.app.env .  
+>$ docker image tag mobon/node.app.env:1.1 mobon/node.app.env:latest
 
 >`push image to docker private registry`  
->$ docker tag mobon/node.base:latest docker-registry.mobon.net:5000/mobon/node.base:latest  
->$ docker push docker-registry.mobon.net:5000/mobon/node.base:latest
+>$ docker tag mobon/node.app.env:latest docker-registry.mobon.net:5000/mobon/node.app.env:latest  
+>$ docker push docker-registry.mobon.net:5000/mobon/node.app.env:latest
+
+# node.app.ext:1.1
+
+## build image
+
+#### 01. build image mobon/node.app.ext:1.1(mobon/node.app.ext:latest) based mobon/node.app.env:latest
+
+`create dockerize file`  
+$ vi /apps/docker/images/Dockerfile.node.app.ext
+```
+FROM mobon/node.app.env:latest
+# FROM docker-registry.mobon.net:5000/mobon/node.app.env:latest 
+
+# install and setup application
+WORKDIR /apps/install
+
+# Before adding Influx repository, run this so that apt will be able to read the repository.
+RUN sudo apt-get update && sudo apt-get install apt-transport-https
+
+# Add the InfluxData key
+RUN curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+RUN source /etc/os-release
+RUN test $VERSION_ID = "7" && echo "deb https://repos.influxdata.com/debian wheezy stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+RUN test $VERSION_ID = "8" && echo "deb https://repos.influxdata.com/debian jessie stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+RUN test $VERSION_ID = "9" && echo "deb https://repos.influxdata.com/debian stretch stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+
+# install telegraf
+RUN sudo apt-get update && sudo apt-get install telegraf
+RUN sudo systemctl start telegraf
+#RUN sudo service telegraf start
+
+```
+
+`build/create docker image`  
+$ docker build -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.node.app.ext .
+>$ docker build -t mobon/node.app.ext:1.1 -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.node.app.ext .
+>$ docker image tag mobon/node.app.ext:1.1 mobon/node.app.ext:latest
+
+>`create docker service container`  
+>$ docker run --name mobon.service.01 -d -p 8080:8080 -it mobon/node.app.ext:latest 
+>>$ docker run --net mobon.subnet --ip 192.168.104.91 --name mobon.service.01 -d -p 8080:8080 -p 18080:18080 -it mobon/node.app.ext:latest
+>
+>$ docker exec -it mobon.service.01 /bin/bash
+
+>`push image to docker private registry`  
+>$ docker tag mobon/node.app.ext:latest docker-registry.mobon.net:5000/mobon/node.app.ext:latest
+>$ docker push docker-registry.mobon.net:5000/mobon/node.app.ext:latest
+
 
