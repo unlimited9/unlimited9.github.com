@@ -17,10 +17,11 @@ $ serivce telegraf start
 $ vi /etc/telegraf/telegraf.conf
 ```
 [global_tags]
-  role = "grafana-server"
+  role = "ap-server"
+  scouter_obj_type_prefix = "mobon.platform"
 
 [agent]
-  interval = "1s"
+  interval = "5s"
   round_interval = true
   metric_batch_size = 1000
   metric_buffer_limit = 10000
@@ -31,40 +32,95 @@ $ vi /etc/telegraf/telegraf.conf
   debug = false
   quiet = false
   logfile = ""
-  hostname = "grafana-server"
+  hostname = "ap-server"
   omit_hostname = false
 
-[[outputs.influxdb]]
-  urls = ["http://10.0.0.127:8086"]
-  database = "telegraf"
-  precision = "s"
-  retention_policy = "default"
-  write_consistency = "any"
+#[[outputs.influxdb]]
+#  urls = ["http://10.0.0.127:8086"]
+#  database = "telegraf"
+#  precision = "s"
+#  retention_policy = "default"
+#  write_consistency = "any"
+#  timeout = "5s"
+#  username = "telegraf"
+#  password = "telegraf"
+
+# APM Scouter
+[[outputs.http]]
+  url = "http://172.20.0.108:6180/telegraf/metric"
   timeout = "5s"
-  username = "telegraf"
-  password = "telegraf"
-  
-[[inputs.cpu]]
-  percpu = true
-  totalcpu = true
-  collect_cpu_time = false
+  method = "POST"
+  data_format = "influx"
 
-[[inputs.disk]]
-  ignore_fs = ["tmpfs", "devtmpfs"]
+# Influx HTTP write listener
+[[inputs.http_listener]]
+  ## Address and port to host HTTP listener on
+  service_address = ":8186"
 
-[[inputs.kernel]]
+  ## maximum duration before timing out read of the request
+  read_timeout = "10s"
+  ## maximum duration before timing out write of the response
+  write_timeout = "10s"
 
-[[inputs.mem]]
+  ## Maximum allowed http request body size in bytes.
+  ## 0 means to use the default of 536,870,912 bytes (500 mebibytes)
+  max_body_size = 0
 
-[[inputs.net]]
+  ## Maximum line size allowed to be sent in bytes.
+  ## 0 means to use the default of 65536 bytes (64 kibibytes)
+  max_line_size = 0
 
-[[inputs.netstat]]
+#[[inputs.statsd]]
+#  # Address and port to host UDP listener on
+#  service_address = ":8125"
+#  # Delete gauges every interval (default=false)
+#  delete_gauges = true
+#  # Delete counters every interval (default=false)
+#  delete_counters = true
+#  # Delete sets every interval (default=false)
+#  delete_sets = false
+#  # Delete timings & histograms every interval (default=true)
+#  delete_timings = true
+#  # Percentiles to calculate for timing & histogram stats
+#  percentiles = [90]
+#  # convert measurement names, . to _ and - to __
+#  convert_names = false
+#  templates = [
+#    "* measurement.field"
+#  ]
+#  # Number of UDP messages allowed to queue up, once filled,
+#  # the statsd server will start dropping packets
+#  allowed_pending_messages = 10000
+#  # Number of timing/histogram values to track per-measurement in the
+#  # calculation of percentiles. Raising this limit increases the accuracy
+#  # of percentiles but also increases the memory usage and cpu time.
+#  percentile_limit = 1000
+#  # UDP packet size for the server to listen for. This will depend on the size
+#  # of the packets that the client is sending, which is usually 1500 bytes.
+#  udp_packet_size = 1500
 
-[[inputs.system]]
-
-[[inputs.diskio]]
-
-[[inputs.processes]]
+#[[inputs.cpu]]
+#  percpu = true
+#  totalcpu = true
+#  collect_cpu_time = false
+#
+#[[inputs.disk]]
+#  ignore_fs = ["tmpfs", "devtmpfs"]
+#
+#[[inputs.kernel]]
+#
+#[[inputs.mem]]
+#
+#[[inputs.net]]
+#
+#[[inputs.netstat]]
+#
+#[[inputs.system]]
+#
+#[[inputs.diskio]]
+#
+#[[inputs.processes]]
+#
 ```
 
 ## 9. Appendix
@@ -98,3 +154,9 @@ https://www.mynotes.kr/telegraf-%EC%84%A4%EC%B9%98/
 
 - grafana, influxdb, telegraf로 서버 모니터링 구축하기  
 https://hero0926.tistory.com/24
+
+- scouter-project/scouter : Telegraf Server Feature  
+https://github.com/scouter-project/scouter/blob/master/scouter.document/main/Telegraf-Server.md
+
+- Grafana; Influxdb; Telegraf; 서버의 관제 (Monitoring)와 알림 (Alerting), 그리고 자동화 하기  
+https://geunhokhim.wordpress.com/2017/01/02/grafana-influxdb-telegraf-monitoring-server-alerting-automation/
