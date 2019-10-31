@@ -80,6 +80,9 @@ https://docs.influxdata.com/telegraf/v1.4/
 * influxdata/Telegraf 1.4 documentation/Aggregator and Processor Plugins  
 https://docs.influxdata.com/telegraf/v1.4/concepts/aggregator_processor_plugins/
 
+* influxdata/docs/Installing Telegraf
+https://docs.influxdata.com/telegraf/v1.12/introduction/installation
+
 * scouter-project/scouter/Telegraf Server Feature  
 https://github.com/scouter-project/scouter/blob/master/scouter.document/main/Telegraf-Server_kr.md
 
