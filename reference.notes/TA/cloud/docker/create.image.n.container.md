@@ -290,14 +290,15 @@ $ vi /apps/docker/images/Dockerfile.node.app.env
 ```
 FROM docker.io/node
 
-# create group/user : app/app
-RUN groupadd -g 3000 app
-RUN useradd -d /apps -g 3000 -m -u 3000 -s /bin/bash app
+## create group/user : app/app
+#RUN groupadd -g 3000 app
+#RUN useradd -d /apps -g 3000 -m -u 3000 -s /bin/bash app
 
 RUN mkdir -p /pgms /data /logs
 RUN chown -R app.app /pgms /data /logs
 
-USER app
+#USER app
+
 WORKDIR /apps
 
 # create directory 
@@ -351,7 +352,7 @@ RUN apt-get update && apt-get install -y telegraf
 #RUN service telegraf start
 #RUN systemctl start telegraf
 
-USER app
+#USER app
 ```
 
 `build/create docker image`  
