@@ -295,7 +295,7 @@ FROM docker.io/node
 #RUN useradd -d /apps -g 3000 -m -u 3000 -s /bin/bash app
 
 RUN mkdir -p /pgms /data /logs
-RUN chown -R app.app /pgms /data /logs
+#RUN chown -R app.app /pgms /data /logs
 
 #USER app
 
@@ -332,7 +332,7 @@ FROM mobon/node.app.env:latest
 # install and setup application
 WORKDIR /apps/install
 
-USER root
+#USER root
 
 ENV DEBIAN_FRONTEND teletype
 
