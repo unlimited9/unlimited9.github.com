@@ -239,3 +239,5 @@ https://www.zerocho.com/category/NodeJS/post/5b934c8e6c974e001b710767
 - PM2 - Node.js 프로세스 관리 도구  
 https://blog.outsider.ne.kr/1197
 
+- [Node.JS] 프로세스 관리도구 PM2 사용법  
+https://nuggy875.tistory.com/6
