@@ -256,7 +256,7 @@ $ vi $CATALINA_BASE/conf/server.xml
 		dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
 		dataSource.url="jdbc:mysql://192.168.2.190,192.168.2.127:3306/dreamsearch?autoReconnect=true"  
 		dataSource.user="dreamsearch"  
-		dataSource.password="dnjvld$%^"  
+		dataSource.password="password"  
 		dataSource.cachePrepStmts="true"  
 		dataSource.prepStmtCacheSize="250"  
 		dataSource.prepStmtCacheSqlLimit="2048"  
