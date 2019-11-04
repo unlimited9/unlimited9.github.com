@@ -69,7 +69,7 @@ $ vi /etc/telegraf/telegraf.conf
   omit_hostname = false
 
 #[[outputs.influxdb]]
-#  urls = ["http://10.0.0.127:8086"]
+#  urls = ["http://172.20.0.108:8086"]
 #  database = "telegraf"
 #  precision = "s"
 #  retention_policy = "default"
