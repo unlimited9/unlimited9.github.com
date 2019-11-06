@@ -387,6 +387,44 @@ server {
 
 ```
 
+#### cdn.mobon.net.conf
+```
+#upstream tracker {
+#    #LB method : least_conn, ip_hash  
+#    ip_hash;
+#    
+#    ## proxy server  
+#    server 172.20.0.31;
+#    server 172.20.0.32;
+#}  
+
+server {
+    listen 90;
+    server_name cdn.mobon.net;
+
+    access_log /logs/nginx/cdn.mobon.net_access.log;
+
+    location / {
+        root /pgms/www;
+        index index.html index.htm;
+
+        charset utf-8;
+
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+        add_header 'Access-Control-Allow-Headers' '*';
+    }
+
+    # redirect server error pages to the static page /50x.html  
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+        root html;
+    }
+
+}
+
+```
+
 ## sites-enabled
 
 #### product.mobon.net.conf
@@ -394,3 +432,7 @@ $ ln -s /apps/nginx/1.14.2/conf/sites-available/product.mobon.net.conf /apps/ngi
 
 #### tracker.mobon.net.conf
 $ ln -s /apps/nginx/1.14.2/conf/sites-available/tracker.mobon.net.conf /apps/nginx/1.14.2/conf/sites-enabled/tracker.mobon.net.conf
+
+#### cdn.mobon.net.conf
+$ ln -s /apps/nginx/1.14.2/conf/sites-available/cdn.mobon.net.conf /apps/nginx/1.14.2/conf/sites-enabled/cdn.mobon.net.conf
+
