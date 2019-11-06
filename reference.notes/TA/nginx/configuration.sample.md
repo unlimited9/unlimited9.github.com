@@ -236,57 +236,85 @@ http {
 
 ## sites-available
 
-#### product.mobon.net.conf
+#### gw.mobon.net.conf
 ```
-upstream product {
-    #LB method : least_conn, ip_hash  
-    #ip_hash;
-    
-    ## proxy server  
-    server 172.20.0.103:15080;
-    server 172.20.0.103:16080;
-    server 172.20.0.103:17080;
-    server 172.20.0.103:19080;
-    server 172.20.0.103:20080;
-    server 172.20.0.103:21080;
+#upstream gateway {
+#    #LB method : least_conn, ip_hash  
+#    #ip_hash;
+#    
+#    ## proxy server  
+#    server 172.20.0.103:15080;
+#    server 172.20.0.103:16080;
+#    server 172.20.0.103:17080;
+#    server 172.20.0.103:19080;
+#    server 172.20.0.103:20080;
+#    server 172.20.0.103:21080;
+#
+#    keepalive 4096;
+#}  
 
-    keepalive 4096;
-}  
+server {
+    listen 90;
+    server_name gw.mobon.net;
 
-server {  
-    listen 90;  
-    server_name product.mobon.net;
-    
-    access_log /logs/nginx/product.mobon.net_access.log;
+    access_log /logs/nginx/gw.mobon.net_access.log;
 
 #    location / {  
 #        root /pgms/www;  
 #        index index.html index.htm;  
 #    }
-    
+
     # redirect server error pages to the static page /50x.html  
-    error_page 500 502 503 504 /50x.html;  
+    error_page 500 502 503 504 /50x.html;
     location = /50x.html {
         root html;
     }
-    
+
     location / {
-        #proxy_pass http://127.0.0.1:8080;
-        proxy_pass http://product;
-        proxy_redirect off;
-
-        proxy_http_version  1.1;
-
-        proxy_set_header Host $http_host;  
-        proxy_set_header X-Real-IP $remote_addr;  
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  
-        proxy_set_header X-Forwarded-Proto $scheme;  
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-NginX-Proxy true;
-        
+
+        proxy_pass http://172.20.0.32;
+#        proxy_pass http://gateway;
+        proxy_redirect off;
         charset utf-8;
-        
+
         index index.jsp index.html;
-        
+
+        # setting CORS
+        if ($request_method = 'OPTIONS') {
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            #
+            # Custom headers and headers various browsers *should* be OK with but aren't
+            #
+            add_header 'Access-Control-Allow-Headers' '*';
+            #add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            #
+            # Tell client that this pre-flight info is valid for 20 days
+            #
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
+         }
+         if ($request_method = 'POST') {
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' '*';
+            #add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+         if ($request_method = 'GET') {
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+         }
+
         if ($request_filename ~* ^.*?/([^/]*?)$) {
             set $filename $1;
         }
@@ -294,9 +322,9 @@ server {
         if ($filename ~* ^.*?\.(eot)|(ttf)|(woff)$) {
             add_header Access-Control-Allow-Origin *;
         }
-    
+
     }
-    
+
 }
 ```
 
@@ -444,8 +472,8 @@ server {
 
 ## sites-enabled
 
-#### product.mobon.net.conf
-$ ln -s /apps/nginx/1.14.2/conf/sites-available/product.mobon.net.conf /apps/nginx/1.14.2/conf/sites-enabled/product.mobon.net.conf
+#### gw.mobon.net.conf
+$ ln -s /apps/nginx/1.14.2/conf/sites-available/gw.mobon.net.conf /apps/nginx/1.14.2/conf/sites-enabled/gw.mobon.net.conf
 
 #### tracker.mobon.net.conf
 $ ln -s /apps/nginx/1.14.2/conf/sites-available/tracker.mobon.net.conf /apps/nginx/1.14.2/conf/sites-enabled/tracker.mobon.net.conf
