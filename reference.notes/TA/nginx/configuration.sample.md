@@ -425,6 +425,20 @@ server {
 
 ```
 
+> CORS 설정에서
+>`... if ($request_method = 'POST') { ...` 등 `OPTIONS` 이외 메소드별 구분처리 안됨
+>일단 메소드 구분없이 아래부분을 추가 (나중에 원인 확인 필요 ㄷㄷ)
+>```
+>    location / {
+>        ...
+>        add_header 'Access-Control-Allow-Origin' '*';
+>        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+>        add_header 'Access-Control-Allow-Headers' '*';
+>        ...
+>    }
+>        
+>```
+
 ## sites-enabled
 
 #### product.mobon.net.conf
