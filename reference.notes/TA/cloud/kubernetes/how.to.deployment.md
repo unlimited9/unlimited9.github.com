@@ -442,3 +442,6 @@ https://tech.kakao.com/2018/12/24/kubernetes-deploy/
 
 - Kubernetes 실습 스크립트  
 https://github.com/TheOpenCloudEngine/uEngine-cloud/wiki/Kubernetes-%EC%8B%A4%EC%8A%B5-%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8
+
+- 4주차 - 쿠버네티스의 리소스  
+https://www.slipp.net/wiki/pages/viewpage.action?pageId=41583706
