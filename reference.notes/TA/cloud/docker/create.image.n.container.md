@@ -21,6 +21,7 @@ RUN yum install -y net-tools iproute wget \
 # && yum -y install tar unzip vi vim telnet curl openssl \
 # && yum -y install apr apr-util apr-devel apr-util-devel \
 # && yum -y install elinks locate python-setuptools \
+# && yum -y bind-utils \
  && yum clean all
 
 ENV LANG=ko_KR.utf8 TZ=Asia/Seoul
