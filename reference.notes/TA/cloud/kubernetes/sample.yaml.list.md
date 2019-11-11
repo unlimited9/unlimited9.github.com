@@ -606,5 +606,5 @@ spec:
 
 ```
 
-> ping mobon-platform-service-product-svc.default.svc.mobon.stage
+> ping mobon-platform-service-product-svc.default.svc.mobon.stage  
 > curl http://mobon-platform-service-product-svc/default/dspt/product/conf/developer/KR
