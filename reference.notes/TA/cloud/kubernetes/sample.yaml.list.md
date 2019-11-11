@@ -597,13 +597,13 @@ metadata:
 spec:
   selector:
     app: mobon-platform-service-product
+  type: ClusterIP
   ports:
     - name: http
       port: 80
       protocol: TCP
       targetPort: 8080
-  type: LoadBalancer
-  externalIPs:
-  - 172.20.0.32
 
 ```
+
+> ping mobon-platform-service-product-svc.default.svc.mobon.stage
