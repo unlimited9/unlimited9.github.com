@@ -208,7 +208,8 @@ $ kubectl create -f /apps/kubernetes/resources/mobon.gateway.aggregator.deployme
 </details>
 
 `pod 확인`  
-$ kubectl get pod
+$ kubectl get pod  
+>$ kubectl get pod -o wide
 ```
 NAME                                                           READY   STATUS    RESTARTS   AGE
 mobon-platform-gateway-aggregator-deployment-844b4b7bc-4zs79   1/1     Running   0          5m36s
