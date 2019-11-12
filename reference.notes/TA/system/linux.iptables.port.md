@@ -1,8 +1,9 @@
+## iptables
+
 #### 포트(서비스) 확인
 $ netstat -nap  
 $ netstat -nap | grep 80  
 $ netstat -nap | grep LISTEN
-
 
 #### 방화벽 확인 
 $ iptables -nL  
