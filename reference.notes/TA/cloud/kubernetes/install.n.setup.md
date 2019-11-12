@@ -309,10 +309,10 @@ $ export KUBECONFIG=$HOME/.kube/config
 
 #### Pod Network 추가
 
-`Kubernates를 지원하는 컨테이너 네트워크 목록`
+`Kubernates를 지원하는 컨테이너 네트워크 목록`  
 http://kubernetes.io/docs/admin/addons/
 
-`install flannel`
+`install flannel`  
 $ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 ```
 podsecuritypolicy.extensions/psp.flannel.unprivileged created
