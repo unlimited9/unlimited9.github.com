@@ -22,6 +22,10 @@ ref. [create docker image and container](../docker/create.image.n.container.md)
 #### ConfigMap
 ref. [kubernetes ConfigMap and Secret](configMap.n.secret.md)
 
+#### Docker private registry
+> create a secret by providing credentials  
+ref. [Docker private registry](../docker/private.registry.md)
+
 #### Deployment
 `create kubernetes resource file : Deployment`  
 $ vi /apps/kubernetes/resources/mobon.gateway.aggregator.deployment.yaml 
