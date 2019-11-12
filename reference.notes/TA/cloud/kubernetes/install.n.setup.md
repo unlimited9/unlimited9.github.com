@@ -201,7 +201,7 @@ $ sysctl --system
 --upload-certs							Upload control-plane certificates to the kubeadm-certs Secret.
 ```
 
-$ sudo kubeadm init --pod-network-cidr 10.244.0.0/16 --service-dns-domain "mobon.stage"
+$ sudo kubeadm init --pod-network-cidr 10.244.0.0/16 --service-dns-domain "mobon.platform"
 
 --apiserver-advertise-address : 서버 IP  
 --apiserver-bind-port : (default 6443)  
