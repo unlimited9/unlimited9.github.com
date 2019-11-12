@@ -278,7 +278,8 @@ spec:
       targetPort: 8080
   type: LoadBalancer
   externalIPs:
-  - 172.20.0.32
+  - 10.251.0.181
+  - 119.205.238.81
   
 ```
 
@@ -441,7 +442,8 @@ spec:
       targetPort: 8080
   type: LoadBalancer
   externalIPs:
-  - 172.20.0.31
+  - 10.251.0.182
+  - 119.205.238.82
 
 ```
 
