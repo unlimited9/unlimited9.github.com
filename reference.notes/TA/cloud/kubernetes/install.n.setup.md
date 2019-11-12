@@ -661,11 +661,12 @@ $ kubectl delete node <node name>
 #### Then remove  kubeadm completely
 $ kubeadm reset
 
-`on debian base`
-$ sudo apt-get purge kubeadm kubectl kubelet kubernetes-cni kube*
-$ sudo apt-get autoremove
-`on centos base`
-$ sudo yum remove kubeadm kubectl kubelet kubernetes-cni kube*
+`on debian base`  
+$ sudo apt-get purge kubeadm kubectl kubelet kubernetes-cni kube*  
+$ sudo apt-get autoremove  
+
+`on centos base`  
+$ sudo yum remove kubeadm kubectl kubelet kubernetes-cni kube*  
 $ sudo yum autoremove
 
 $ sudo rm -rf ~/.kube
