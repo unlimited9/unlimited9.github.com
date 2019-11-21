@@ -341,3 +341,6 @@ https://bluese05.tistory.com/36
 
 + Docker – change container configuration in 4 ways  
 https://bobcares.com/blog/docker-change-container-configuration/
+
+- Docker / 컨테이너 제거, 삭제 및 정리
+https://riptutorial.com/ko/docker/example/3955/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%A0%9C%EA%B1%B0--%EC%82%AD%EC%A0%9C-%EB%B0%8F-%EC%A0%95%EB%A6%AC
