@@ -36,12 +36,6 @@ $ iptables -t nat -L
 #### 재시작
 $ service iptables restart
 
-
-
-
-출처: https://lofty87.tistory.com/34 [DEV STORE]
-
-
 ## 9. Appendix
 
 #### reference site
