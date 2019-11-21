@@ -19,9 +19,35 @@ $ iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
 $ iptables -D INPUT -p tcp --dport 80 -j ACCEPT
 
 
+## port routing
+
+#### 추가
+$ iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+
+#### 삭제
+$ iptables -D PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+
+#### 저장
+$ service iptables save
+
+#### 확인
+$ iptables -t nat -L
+
+#### 재시작
+$ service iptables restart
+
+
+
+
+출처: https://lofty87.tistory.com/34 [DEV STORE]
+
+
 ## 9. Appendix
 
 #### reference site
 
 + [LINUX] 포트 열기, 확인하기  
 https://sssunho.tistory.com/67
+
++ PORT REDIRECT [80 to 8080]    
+https://lofty87.tistory.com/34
