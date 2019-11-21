@@ -57,3 +57,9 @@ https://m.blog.naver.com/tkstone/50193603872
 
 + [Linux] 리눅스 NAT : SNAT & DNAT  
 https://itragdoll.tistory.com/5
+
++ Port 80 redirect does not work for localhost  
+https://serverfault.com/questions/464410/port-80-redirect-does-not-work-for-localhost
+
++ Redirect port 80 to 8080 and make it work on local machine  
+https://askubuntu.com/questions/444729/redirect-port-80-to-8080-and-make-it-work-on-local-machine
