@@ -143,6 +143,31 @@ $ sudo systemctl stop docker
 >`서버 재시작시에도 도커 데몬이 재시작 되도록 설정`  
 >$ chkconfig docker on
 
+
+### G. uninstall docker
+
+#### Then remove docker completely
+
+`on debian base`  
+$ dpkg -l | grep -i docker
+```
+ii  docker-ce                             5:19.03.5~3-0~ubuntu-bionic                  amd64        Docker: the open-source application container engine
+ii  docker-ce-cli                         5:19.03.5~3-0~ubuntu-bionic                  amd64        Docker CLI: the open-source application container engine
+```
+$ sudo apt-get autoremove -y --purge docker-ce  
+> $ sudo apt-get purge docker-ce
+
+$ sudo apt-get autoclean
+
+$ sudo rm -rf /var/lib/docker
+
+`on centos base`  
+$ sudo yum remove docker-ce  
+$ sudo yum autoremove
+
+$ sudo rm -rf ~/.kube
+
+
 ## 3. post-installation setup
 
 #### A. create shell script
