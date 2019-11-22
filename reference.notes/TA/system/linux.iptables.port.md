@@ -23,12 +23,14 @@ $ iptables -D INPUT -p tcp --dport 80 -j ACCEPT
 
 #### 추가
 $ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
-$ sudo iptables -t nat -A OUTPUT      -p tcp --dport 80 -j REDIRECT --to-port 8080  
+$ sudo iptables -t nat -A PREROUTING  -p tcp --dport 80   -j REDIRECT --to-ports 8080  
+$ sudo iptables -t nat -A PREROUTING  -p tcp --dport 443  -j REDIRECT --to-ports 8443  
 > $ sudo iptables -t nat -A PREROUTING -p tcp -d 서버ip --dport 80 -j REDIRECT --to-port 8080
 
 #### 삭제
 $ sudo iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE  
-$ sudo iptables -t nat -D OUTPUT      -p tcp --dport 80 -j REDIRECT --to-port 8080  
+$ sudo iptables -t nat -D PREROUTING  -p tcp --dport 80   -j REDIRECT --to-ports 8080  
+$ sudo iptables -t nat -D PREROUTING  -p tcp --dport 443  -j REDIRECT --to-ports 8443  
 > $ sudo iptables -t nat -D PREROUTING -p tcp -d 서버ip --dport 80 -j REDIRECT --to-port 8080
 
 #### 저장
