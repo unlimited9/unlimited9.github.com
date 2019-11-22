@@ -21,6 +21,8 @@ $ iptables -D INPUT -p tcp --dport 80 -j ACCEPT
 
 ## port forwarding
 
+Linux/Unix에 보안적인 문제로 1024 이하의 포트(well-known port)들은 추가 설정(sudoers 등)을 하지 않으면 일반 유저 권한에서 안되고 root로만 바인딩된다.
+
 >#### 커널변수에 IP포워딩 가능하도록 설정
 >$ sudo bash -c 'echo 1 > /proc/sys/net/ipv4/ip_forward'  
 >> $ echo 1 > /proc/sys/net/ipv4/ip_forward
@@ -84,3 +86,9 @@ https://askubuntu.com/questions/444729/redirect-port-80-to-8080-and-make-it-work
 
 + iptables설정  
 https://linuxism.ustd.ip.or.kr/685
+
+- Tomcat 80포트로 바인딩하기(80,443 포트 권한 바인딩)  
+https://sysadm.kr/287
+
+- TOMCAT 80 포트 운용방법  
+https://cafe.naver.com/egosproject/29
