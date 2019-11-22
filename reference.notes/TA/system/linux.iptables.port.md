@@ -19,7 +19,11 @@ $ iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
 $ iptables -D INPUT -p tcp --dport 80 -j ACCEPT
 
 
-## port routing
+## port forwarding
+
+#### 커널변수에 IP포워딩 가능하도록 설정
+$ sudo bash -c 'echo 1 > /proc/sys/net/ipv4/ip_forward'  
+> $ echo 1 > /proc/sys/net/ipv4/ip_forward
 
 #### 추가
 $ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
