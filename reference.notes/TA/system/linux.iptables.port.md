@@ -21,21 +21,35 @@ $ iptables -D INPUT -p tcp --dport 80 -j ACCEPT
 
 ## port forwarding
 
-#### 커널변수에 IP포워딩 가능하도록 설정
-$ sudo bash -c 'echo 1 > /proc/sys/net/ipv4/ip_forward'  
-> $ echo 1 > /proc/sys/net/ipv4/ip_forward
+>#### 커널변수에 IP포워딩 가능하도록 설정
+>$ sudo bash -c 'echo 1 > /proc/sys/net/ipv4/ip_forward'  
+>> $ echo 1 > /proc/sys/net/ipv4/ip_forward
 
 #### 추가
-$ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
-$ sudo iptables -t nat -A PREROUTING  -p tcp --dport 80   -j REDIRECT --to-ports 8080  
-$ sudo iptables -t nat -A PREROUTING  -p tcp --dport 443  -j REDIRECT --to-ports 8443  
-> $ sudo iptables -t nat -A PREROUTING -p tcp -d 서버ip --dport 80 -j REDIRECT --to-port 8080
+`port : 80`  
+$ sudo iptables -t nat -A OUTPUT -d localhost -p tcp --dport 80 -j REDIRECT --to-ports 8080  
+$ sudo iptables -t nat -A PREROUTING -d localhost -p tcp --dport 80 -j REDIRECT --to-ports 8080  
+`port : 443`  
+$ sudo iptables -t nat -A OUTPUT -d localhost -p tcp --dport 443 -j REDIRECT --to-ports 843  
+$ sudo iptables -t nat -A PREROUTING -d localhost -p tcp --dport 443 -j REDIRECT --to-ports 8443  
+
+>$ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
+>$ sudo iptables -t nat -A PREROUTING  -p tcp --dport 80   -j REDIRECT --to-ports 8080  
+>$ sudo iptables -t nat -A PREROUTING  -p tcp --dport 443  -j REDIRECT --to-ports 8443  
+>> $ sudo iptables -t nat -A PREROUTING -p tcp -d 서버ip --dport 80 -j REDIRECT --to-port 8080
 
 #### 삭제
-$ sudo iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE  
-$ sudo iptables -t nat -D PREROUTING  -p tcp --dport 80   -j REDIRECT --to-ports 8080  
-$ sudo iptables -t nat -D PREROUTING  -p tcp --dport 443  -j REDIRECT --to-ports 8443  
-> $ sudo iptables -t nat -D PREROUTING -p tcp -d 서버ip --dport 80 -j REDIRECT --to-port 8080
+`port : 80`  
+$ sudo iptables -t nat -A OUTPUT -d localhost -p tcp --dport 80 -j REDIRECT --to-ports 8080  
+$ sudo iptables -t nat -A PREROUTING -d localhost -p tcp --dport 80 -j REDIRECT --to-ports 8080  
+`port : 443`  
+$ sudo iptables -t nat -A OUTPUT -d localhost -p tcp --dport 443 -j REDIRECT --to-ports 843  
+$ sudo iptables -t nat -A PREROUTING -d localhost -p tcp --dport 443 -j REDIRECT --to-ports 8443  
+
+>$ sudo iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE  
+>$ sudo iptables -t nat -D PREROUTING  -p tcp --dport 80   -j REDIRECT --to-ports 8080  
+>$ sudo iptables -t nat -D PREROUTING  -p tcp --dport 443  -j REDIRECT --to-ports 8443  
+>> $ sudo iptables -t nat -D PREROUTING -p tcp -d 서버ip --dport 80 -j REDIRECT --to-port 8080
 
 #### 저장
 $ service iptables save
