@@ -22,16 +22,14 @@ $ iptables -D INPUT -p tcp --dport 80 -j ACCEPT
 ## port routing
 
 #### 추가
-$ sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080  
-$ sudo iptables -t nat -A OUTPUT     -p tcp --dport 80 -j REDIRECT --to-port 8080  
-> $ sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080  
-> $ sudo iptables -t nat -A OUTPUT     -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080  
+$ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
+$ sudo iptables -t nat -A OUTPUT      -p tcp --dport 80 -j REDIRECT --to-port 8080  
+> $ sudo iptables -t nat -A PREROUTING -p tcp -d 서버ip --dport 80 -j REDIRECT --to-port 8080
 
 #### 삭제
-$ sudo iptables -t nat -D PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080  
-$ sudo iptables -t nat -D OUTPUT     -p tcp --dport 80 -j REDIRECT --to-port 8080  
-> $ sudo iptables -t nat -D PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080  
-> $ sudo iptables -t nat -d OUTPUT     -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080  
+$ sudo iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE  
+$ sudo iptables -t nat -D OUTPUT      -p tcp --dport 80 -j REDIRECT --to-port 8080  
+> $ sudo iptables -t nat -D PREROUTING -p tcp -d 서버ip --dport 80 -j REDIRECT --to-port 8080
 
 #### 저장
 $ service iptables save
@@ -63,3 +61,6 @@ https://serverfault.com/questions/464410/port-80-redirect-does-not-work-for-loca
 
 + Redirect port 80 to 8080 and make it work on local machine  
 https://askubuntu.com/questions/444729/redirect-port-80-to-8080-and-make-it-work-on-local-machine
+
++ iptables설정  
+https://linuxism.ustd.ip.or.kr/685
