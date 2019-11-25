@@ -120,28 +120,29 @@ data:
     
 ```
 
-## mobon.gateway.api
+## mobon.gateway.api.common
 
-#### mobon.gateway.api.deployment
+#### mobon.gateway.api.common.deployment
+$ vi mobon.gateway.api.common.deployment.yaml
 ```
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mobon-platform-gateway-api-deployment
+  name: mobon-platform-gateway-api-common-deployment
   labels:
-    app: mobon-platform-gateway-api
+    app: mobon-platform-gateway-api-common
 spec:
   selector:
     matchLabels:
-      app: mobon-platform-gateway-api
+      app: mobon-platform-gateway-api-common
   replicas: 3
   template:
     metadata:
       labels:
-        app: mobon-platform-gateway-api
+        app: mobon-platform-gateway-api-common
     spec:
       containers:
-        - name: mobon-platform-gateway-api
+        - name: mobon-platform-gateway-api-common
           image: docker-registry.mobon.net:5000/mobon/java.app.ext:latest
           imagePullPolicy: Always
           volumeMounts:
@@ -200,13 +201,13 @@ spec:
               echo "########################################";
               echo "gradle springboot application build and packaging...";
               echo "########################################";
-              mkdir /pgms/mobon.platform.gateway;
-              cp -R /repository/git/mobon.platform/gateway.git/api.service /pgms/mobon.platform.gateway/api.service;
-              gradle --build-file /pgms/mobon.platform.gateway/api.service/build.gradle :framework.boot.application:bootJar;
+              mkdir -p /pgms/mobon.platform/gateway/api.git;
+              cp -R /repository/git/mobon.platform/gateway/api.git/* /pgms/mobon.platform/gateway/api.git;
+              gradle --build-file /pgms/mobon.platform/gateway/api.git/build.gradle :gateway.api.common:bootJar;
               echo "########################################";
               echo "run springboot application with scouter agent.java...";
               echo "########################################";
-              java $JAVA_OPTS -jar /pgms/mobon.platform.gateway/api.service/framework.boot.application/build/libs/framework.boot.application-1.0.jar;
+              java $JAVA_OPTS -jar /pgms/mobon.platform/gateway/api.git/gateway.api.common/build/libs/gateway.api.common-1.0.jar;
 #              tail -f /dev/null;
 #          lifecycle:
 #            postStart:
@@ -226,11 +227,11 @@ spec:
 #              mountPath: /etc/git-secret
           env:
             - name: GIT_SYNC_REPO
-              value: http://172.20.0.7:9000/enliple/mobon/platform/gateway.git
+              value: http://172.20.0.7:9000/enliple/mobon/platform/gateway/api.git
             - name: GIT_SYNC_BRANCH
               value: master
             - name: GIT_SYNC_ROOT
-              value: /repository/git/mobon.platform
+              value: /repository/git/mobon.platform/gateway
             - name: GIT_SYNC_DEST
               value: ""
             - name: GIT_SYNC_PERMISSIONS
@@ -261,16 +262,16 @@ spec:
 
 ```
 
-#### mobon.gateway.api.svc
-$ vi mobon.gateway.api.svc.yaml
+#### mobon.gateway.api.common.svc
+$ vi mobon.gateway.api.common.svc.yaml
 ```
 apiVersion: v1
 kind: Service
 metadata:
-  name: mobon-platform-gateway-api-svc
+  name: mobon-platform-gateway-api-common-svc
 spec:
   selector:
-    app: mobon-platform-gateway-api
+    app: mobon-platform-gateway-api-common
   ports:
     - name: http
       port: 80
@@ -280,7 +281,7 @@ spec:
   externalIPs:
   - 10.251.0.181
   - 119.205.238.81
-  
+
 ```
 
 ## mobon.gateway.service.aggregation
