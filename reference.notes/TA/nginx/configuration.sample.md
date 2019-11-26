@@ -270,8 +270,17 @@ server {
         root html;
     }
     
-    location /api {
-	rewrite ^/api/(.*)$ /$1 break;
+    location / {
+
+        location ~ /api {
+            rewrite ^/api/(.*)$ /default/dspt/$1 break;
+            proxy_pass http://10.251.0.181;
+        }
+
+        location ~ /tracker {
+            rewrite ^/tracker/(.*)$ /default/dspt/$1 break;
+            proxy_pass http://10.251.0.182;
+        }
 
         proxy_set_header Host $http_host;  
         proxy_set_header X-Real-IP $remote_addr;  
@@ -279,7 +288,7 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;  
         proxy_set_header X-NginX-Proxy true;
         
-        proxy_pass http://10.251.0.181;
+#        proxy_pass http://10.251.0.181;
 #        proxy_pass http://gateway;
         proxy_redirect off;  
         charset utf-8;
@@ -325,69 +334,12 @@ server {
             add_header Access-Control-Allow-Origin *;
         }
 
-    }
-
-    location /tracker {
-        rewrite ^/tracker/(.*)$ /default/dspt/$1 break;
-
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-NginX-Proxy true;
-
-        proxy_pass http://10.251.0.182;
-#        proxy_pass http://tracker;
-        proxy_redirect off;
-        charset utf-8;
-
-        index index.jsp index.html;
-
-        # setting CORS
-        if ($request_method = 'OPTIONS') {
-            add_header 'Access-Control-Allow-Origin' '*';
-            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-            #
-            # Custom headers and headers various browsers *should* be OK with but aren't
-            #
-            add_header 'Access-Control-Allow-Headers' '*';
-            #add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
-            #
-            # Tell client that this pre-flight info is valid for 20 days
-            #
-            add_header 'Access-Control-Max-Age' 1728000;
-            add_header 'Content-Type' 'text/plain; charset=utf-8';
-            add_header 'Content-Length' 0;
-            return 204;
-         }
-         if ($request_method = 'POST') {
-            add_header 'Access-Control-Allow-Origin' '*';
-            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-            add_header 'Access-Control-Allow-Headers' '*';
-            #add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
-            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
-         }
-         if ($request_method = 'GET') {
-            add_header 'Access-Control-Allow-Origin' '*';
-            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
-            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
-         }
-
-        if ($request_filename ~* ^.*?/([^/]*?)$) {
-            set $filename $1;
-        }
-
-        if ($filename ~* ^.*?\.(eot)|(ttf)|(woff)$) {
-            add_header Access-Control-Allow-Origin *;
-        }
-
         add_header 'Access-Control-Allow-Origin' '*';
         add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
         add_header 'Access-Control-Allow-Headers' '*';
 
     }
-    
+
 }
 
 ```
