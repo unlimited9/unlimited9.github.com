@@ -344,52 +344,46 @@ server {
 
 ```
 
-#### gw.mobon.net.conf
+####  api.mediacategory.com.conf
 ```
-#upstream gateway {
+#upstream api {
 #    #LB method : least_conn, ip_hash  
-#    #ip_hash;
+#    ip_hash;
 #    
 #    ## proxy server  
-#    server 172.20.0.103:15080;
-#    server 172.20.0.103:16080;
-#    server 172.20.0.103:17080;
-#    server 172.20.0.103:19080;
-#    server 172.20.0.103:20080;
-#    server 172.20.0.103:21080;
-#
-#    keepalive 4096;
+#    server 172.20.0.31;
+#    server 172.20.0.32;
 #}  
 
-server {
-    listen 90;
-    server_name gw.mobon.net;
-
-    access_log /logs/nginx/gw.mobon.net_access.log;
-
+server {  
+    listen 90;  
+    server_name api.mediacategory.com;
+    
+    access_log /logs/nginx/api.mediacategory.com_access.log;
+    
 #    location / {  
 #        root /pgms/www;  
 #        index index.html index.htm;  
 #    }
-
+    
     # redirect server error pages to the static page /50x.html  
-    error_page 500 502 503 504 /50x.html;
+    error_page 500 502 503 504 /50x.html;  
     location = /50x.html {
         root html;
     }
-
+    
     location / {
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;  
+        proxy_set_header X-Real-IP $remote_addr;  
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  
+        proxy_set_header X-Forwarded-Proto $scheme;  
         proxy_set_header X-NginX-Proxy true;
-
-        proxy_pass http://172.20.0.32;
-#        proxy_pass http://gateway;
-        proxy_redirect off;
+        
+        proxy_pass http://10.251.0.181;
+#        proxy_pass http://api;
+        proxy_redirect off;  
         charset utf-8;
-
+        
         index index.jsp index.html;
 
         # setting CORS
@@ -431,12 +425,17 @@ server {
             add_header Access-Control-Allow-Origin *;
         }
 
-    }
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+        add_header 'Access-Control-Allow-Headers' '*';
 
+    }
+    
 }
+
 ```
 
-#### tracker.mobon.net.conf
+#### tracker.mediacategory.com.conf
 ```
 #upstream tracker {
 #    #LB method : least_conn, ip_hash  
@@ -447,35 +446,35 @@ server {
 #    server 172.20.0.32;
 #}  
 
-server {
-    listen 90;
-    server_name tracker.mobon.net;
-
-    access_log /logs/nginx/tracker.mobon.net_access.log;
-
+server {  
+    listen 90;  
+    server_name tracker.mediacategory.com;
+    
+    access_log /logs/nginx/tracker.mediacategory.com_access.log;
+    
 #    location / {  
 #        root /pgms/www;  
 #        index index.html index.htm;  
 #    }
-
+    
     # redirect server error pages to the static page /50x.html  
-    error_page 500 502 503 504 /50x.html;
+    error_page 500 502 503 504 /50x.html;  
     location = /50x.html {
         root html;
     }
-
+    
     location / {
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;  
+        proxy_set_header X-Real-IP $remote_addr;  
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  
+        proxy_set_header X-Forwarded-Proto $scheme;  
         proxy_set_header X-NginX-Proxy true;
-
-        proxy_pass http://172.20.0.31;
+        
+        proxy_pass http://10.251.0.182;
 #        proxy_pass http://tracker;
-        proxy_redirect off;
+        proxy_redirect off;  
         charset utf-8;
-
+        
         index index.jsp index.html;
 
         # setting CORS
@@ -517,8 +516,12 @@ server {
             add_header Access-Control-Allow-Origin *;
         }
 
-    }
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+        add_header 'Access-Control-Allow-Headers' '*';
 
+    }
+    
 }
 
 ```
