@@ -169,7 +169,8 @@ spec:
 #            failureThreshold: 3
           readinessProbe:
             httpGet:
-              path: /default/dspt/status/health
+              path: /status/health
+#              path: /default/dspt/status/health
               port: 8080
               scheme: HTTP
 #            initialDelaySeconds: 10
@@ -333,7 +334,8 @@ spec:
 #            failureThreshold: 3
           readinessProbe:
             httpGet:
-              path: /default/dspt/status/health
+              path: /status/health
+#              path: /default/dspt/status/health
               port: 8080
               scheme: HTTP
 #            initialDelaySeconds: 10
