@@ -606,11 +606,14 @@ server {
 
 ## sites-enabled
 
-#### gw.mobon.net.conf
-$ ln -s /apps/nginx/1.14.2/conf/sites-available/gw.mobon.net.conf /apps/nginx/1.14.2/conf/sites-enabled/gw.mobon.net.conf
+#### gateway.mediacategory.com.conf
+$ ln -s /apps/nginx/1.14.2/conf/sites-available/gateway.mediacategory.com.conf /apps/nginx/1.14.2/conf/sites-enabled/gateway.mediacategory.com.conf
 
-#### tracker.mobon.net.conf
-$ ln -s /apps/nginx/1.14.2/conf/sites-available/tracker.mobon.net.conf /apps/nginx/1.14.2/conf/sites-enabled/tracker.mobon.net.conf
+#### api.mediacategory.com.conf
+$ ln -s /apps/nginx/1.14.2/conf/sites-available/api.mediacategory.com.conf /apps/nginx/1.14.2/conf/sites-enabled/api.mediacategory.com.conf
+
+#### tracker.mediacategory.com.conf
+$ ln -s /apps/nginx/1.14.2/conf/sites-available/tracker.mediacategory.com.conf /apps/nginx/1.14.2/conf/sites-enabled/tracker.mediacategory.com.conf
 
 #### cdn.mobon.net.conf
 $ ln -s /apps/nginx/1.14.2/conf/sites-available/cdn.mobon.net.conf /apps/nginx/1.14.2/conf/sites-enabled/cdn.mobon.net.conf
