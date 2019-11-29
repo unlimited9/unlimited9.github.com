@@ -169,7 +169,7 @@ spec:
 #            failureThreshold: 3
           readinessProbe:
             httpGet:
-              path: /status/health
+              path: /api/status/health
 #              path: /default/dspt/status/health
               port: 8080
               scheme: HTTP
@@ -334,7 +334,7 @@ spec:
 #            failureThreshold: 3
           readinessProbe:
             httpGet:
-              path: /status/health
+              path: /tracker/status/health
 #              path: /default/dspt/status/health
               port: 8080
               scheme: HTTP
