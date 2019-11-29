@@ -558,6 +558,12 @@ server {
 
     }
 
+#    location ~ ^/tracker/(.*)$ {
+##        return 301 /$1;
+##        rewrite ^/tracker/(.*)$ /$1 break;
+#        return 308 /$1$is_args$args;
+#    }
+
 }
 
 ```
