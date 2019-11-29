@@ -601,8 +601,8 @@ server {
 ```
 
 >CORS(Cross-Origin Resource Sharing) 설정 과정에  
->특정 블럭에서 add_header가 들어가면 부모 혹은 다른 블럭에서 추가한 header 값이 최기화된다. 원래 그런건가 불편하네.  
->ㅋㅋ  
+>특정 블럭에서 add_header가 들어가면 부모 혹은 다른 블럭에서 추가한 header 값이 최기화된다.  
+>원래 그런건가 불편하네. ㅋㅋ  
 
 ## sites-enabled
 
