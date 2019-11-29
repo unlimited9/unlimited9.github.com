@@ -600,22 +600,8 @@ server {
 
 ```
 
-> CORS(Cross-Origin Resource Sharing) 설정에서  
->`OPTIONS` 메소드 외 `POST, GET` 메소드 구분처리 안됨 (`... if ($request_method = 'POST') { ...`)  
->일단 메소드 구분없이 아래부분을 추가 (나중에 원인 확인 필요 ㄷㄷ)  
-> >product.mobon.net.conf, tracker.mobon.net.conf
->```
->...
->    location / {
->        ...
->        add_header 'Access-Control-Allow-Origin' '*';
->        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
->        add_header 'Access-Control-Allow-Headers' '*';
->        ...
->    }
->...
->        
->```
+>CORS(Cross-Origin Resource Sharing) 설정 과정에  
+>특정 블럭에서 add_header가 들어가면 부모 혹은 다른 블럭에서 추가한 header 값이 최기화된다. 원래 그런건가 불편하네. ㅋㅋ  
 
 ## sites-enabled
 
