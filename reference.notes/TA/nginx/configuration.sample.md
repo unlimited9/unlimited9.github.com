@@ -54,7 +54,71 @@ http {
     # gzip_http_version 1.1;
     # gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
     
-    ####################
+    ####################            # Custom headers and headers various browsers *should* be OK with but aren't
+605
+            add_header 'Access-Control-Allow-Headers' '*';
+606
+​
+607
+            # Tell client that this pre-flight info is valid for 20 days
+608
+            add_header 'Access-Control-Max-Age' 1728000;
+609
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+610
+            add_header 'Content-Length' 0;
+611
+            return 204;
+612
+        }
+613
+        if ($request_method = 'POST') {
+614
+            add_header 'Access-Control-Allow-Origin' '*';
+615
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+616
+            add_header 'Access-Control-Allow-Headers' '*';
+617
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+618
+        }
+619
+        if ($request_method = 'GET') {
+620
+            add_header 'Access-Control-Allow-Origin' '*';
+621
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+622
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+623
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+624
+        }
+625
+​
+626
+#        if ($request_filename ~* ^.*?/([^/]*?)$) {
+627
+#            set $filename $1;
+628
+#        }
+629
+#        
+630
+#        if ($filename ~* ^.*?\.(eot)|(ttf)|(woff)$) {
+631
+#            add_header Access-Control-Allow-Origin *;
+632
+#        }
+633
+​
+634
+    }
+635
+​
+636
+}
     # nginx-naxsi config : Uncomment it if you installed nginx-naxsi
     ####################
     #include /etc/nginx/naxsi_core.rules;
@@ -248,26 +312,26 @@ http {
 #
 #    keepalive 4096;
 #}  
-#upstream api {
-#    #LB method : least_conn, ip_hash  
-#    ip_hash;
-#    
-#    ## proxy server  
-#    server 172.20.0.31;
-#    server 172.20.0.32;
-#
-#    keepalive 4096;
-#}  
-#upstream tracker {
-#    #LB method : least_conn, ip_hash  
-#    ip_hash;
-#    
-#    ## proxy server  
-#    server 172.20.0.31;
-#    server 172.20.0.32;
-#
-#    keepalive 4096;
-#}  
+upstream api {
+    #LB method : least_conn, ip_hash  
+    ip_hash;
+    
+    ## proxy server  
+    server 10.251.0.181;
+#    server 10.251.0.182;
+
+    keepalive 4096;
+}  
+upstream tracker {
+    #LB method : least_conn, ip_hash  
+    ip_hash;
+    
+    ## proxy server  
+#    server 10.251.0.181;
+    server 10.251.0.182;
+
+    keepalive 4096;
+}  
 
 server {  
     listen 90;  
@@ -293,8 +357,7 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-NginX-Proxy true;
 
-        proxy_pass http://10.251.0.181;
-#        proxy_pass http://api;
+        proxy_pass http://api; #http://10.251.0.181;
         proxy_redirect off;
         charset utf-8;
 
@@ -343,8 +406,7 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;  
         proxy_set_header X-NginX-Proxy true;
 
-        proxy_pass http://10.251.0.182;
-#        proxy_pass http://tracker;
+        proxy_pass http://tracker; #http://10.251.0.182;
         proxy_redirect off;
         charset utf-8;
 
@@ -383,113 +445,6 @@ server {
 #        if ($filename ~* ^.*?\.(eot)|(ttf)|(woff)$) {
 #            add_header Access-Control-Allow-Origin *;
 #        }
-
-    }
-
-}
-
-```
-
-```
-#upstream gateway {
-#    #LB method : least_conn, ip_hash  
-#    #ip_hash;
-#    
-#    ## proxy server  
-#    server 172.20.0.103:15080;
-#    server 172.20.0.103:16080;
-#    server 172.20.0.103:17080;
-#    server 172.20.0.103:19080;
-#    server 172.20.0.103:20080;
-#    server 172.20.0.103:21080;
-#
-#    keepalive 4096;
-#}  
-
-server {  
-    listen 90;  
-    server_name gw.mediacategory.com;
-    
-    access_log /logs/nginx/gw.mediacategory.com_access.log;
-
-#    location / {  
-#        root /pgms/www;  
-#        index index.html index.htm;  
-#    }
-    
-    # redirect server error pages to the static page /50x.html  
-    error_page 500 502 503 504 /50x.html;  
-    location = /50x.html {
-        root html;
-    }
-    
-    location / {
-
-        location ~ /api {
-            rewrite ^/api/(.*)$ /default/dspt/$1 break;
-            proxy_pass http://10.251.0.181;
-        }
-
-        location ~ /tracker {
-            rewrite ^/tracker/(.*)$ /default/dspt/$1 break;
-            proxy_pass http://10.251.0.182;
-        }
-
-        proxy_set_header Host $http_host;  
-        proxy_set_header X-Real-IP $remote_addr;  
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  
-        proxy_set_header X-Forwarded-Proto $scheme;  
-        proxy_set_header X-NginX-Proxy true;
-        
-#        proxy_pass http://10.251.0.181;
-#        proxy_pass http://gateway;
-        proxy_redirect off;  
-        charset utf-8;
-        
-        index index.jsp index.html;
-
-        # setting CORS
-        if ($request_method = 'OPTIONS') {
-            add_header 'Access-Control-Allow-Origin' '*';
-            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-            #
-            # Custom headers and headers various browsers *should* be OK with but aren't
-            #
-            add_header 'Access-Control-Allow-Headers' '*';
-            #add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
-            #
-            # Tell client that this pre-flight info is valid for 20 days
-            #
-            add_header 'Access-Control-Max-Age' 1728000;
-            add_header 'Content-Type' 'text/plain; charset=utf-8';
-            add_header 'Content-Length' 0;
-            return 204;
-         }
-         if ($request_method = 'POST') {
-            add_header 'Access-Control-Allow-Origin' '*';
-            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-            add_header 'Access-Control-Allow-Headers' '*';
-            #add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
-            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
-         }
-         if ($request_method = 'GET') {
-            add_header 'Access-Control-Allow-Origin' '*';
-            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
-            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
-         }
-
-        if ($request_filename ~* ^.*?/([^/]*?)$) {
-            set $filename $1;
-        }
-        
-        if ($filename ~* ^.*?\.(eot)|(ttf)|(woff)$) {
-            add_header Access-Control-Allow-Origin *;
-        }
-
-        add_header 'Access-Control-Allow-Origin' '*';
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-        add_header 'Access-Control-Allow-Headers' '*';
 
     }
 
