@@ -120,3 +120,12 @@ https://bcho.tistory.com/1258?category=731548
 
 + 쿠버네티스를 이용해 테스팅 환경 구현해보기  
 http://woowabros.github.io/experience/2018/03/13/k8s-test.html
+
+
+`kubernetes master node ha`  
+* 고가용성 쿠버네티스 클러스터 마스터 설정하기  
+https://kubernetes.io/ko/docs/tasks/administer-cluster/highly-available-master/
+
++ Docker with Kubernetes #9 - Master Node의 HA 구성  
+https://crystalcube.co.kr/203
+
