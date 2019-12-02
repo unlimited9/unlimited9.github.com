@@ -109,6 +109,7 @@ spec:
 
 #### reference site
 
+`kubernetes concept`  
 + [Kubernetes & Docker] KubernetesPod  생성 가이드  
 https://waspro.tistory.com/368?category=831751
 
@@ -129,3 +130,10 @@ https://kubernetes.io/ko/docs/tasks/administer-cluster/highly-available-master/
 + Docker with Kubernetes #9 - Master Node의 HA 구성  
 https://crystalcube.co.kr/203
 
+
+`tools with kubernetes`  
+- 쿠버네티스용 Continuous Deployment 툴인 Skaffold  
+https://bcho.tistory.com/1342?category=731548
+
+- 쿠버네티스 패키지 매니저 Helm #1 - 개념, 설치  
+https://bcho.tistory.com/1335?category=731548
