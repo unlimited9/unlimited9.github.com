@@ -568,11 +568,11 @@ spec:
               echo "########################################";
               mkdir -p /pgms/mobon/product.service;
               cp -R /repository/git/mobon/product.git/* /pgms/mobon/product.service;
-              gradle --build-file /pgms/mobon/product.service/build.gradle :framework.springboot:bootJar;
+              gradle --build-file /pgms/mobon/product.service/build.gradle :mobon.service.product:bootJar;
               echo "########################################";
               echo "run springboot application with scouter agent.java...";
               echo "########################################";
-              java $JAVA_OPTS -jar /pgms/mobon/product.service/framework.springboot/build/libs/framework.springboot-1.0.jar;
+              java $JAVA_OPTS -jar /pgms/mobon/product.service/mobon.service.product/build/libs/mobon.service.product-1.0.jar;
 #              tail -f /dev/null;
 #          lifecycle:
 #            postStart:
