@@ -16,6 +16,11 @@ metadata:
 $ vi mobon.scouter.config.yaml
 ```
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: mobon
+---
+apiVersion: v1
 kind: ConfigMap
 metadata:
   name: scouter-config
@@ -35,6 +40,11 @@ data:
 #### mobon.telegraf.config
 $ vi mobon.telegraf.config.yaml
 ```
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mobon
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -135,6 +145,11 @@ data:
 #### mobon.gateway.api.common
 $ vi mobon.gateway.api.common.yaml
 ```
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mobon
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -259,7 +274,7 @@ spec:
           securityContext:
             runAsUser: 0
       imagePullSecrets:
-       - name: regcred
+       - name: docker-reg-cred
       volumes:
       - name: app-git-repository
         emptyDir: {}
@@ -299,6 +314,11 @@ spec:
 #### mobon.gateway.service.aggregation
 $ vi mobon.gateway.service.aggregation.yaml 
 ```
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mobon
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -422,7 +442,7 @@ spec:
           securityContext:
             runAsUser: 0
       imagePullSecrets:
-       - name: regcred
+       - name: docker-reg-cred
       volumes:
       - name: app-git-repository
         emptyDir: {}
@@ -462,6 +482,11 @@ spec:
 #### mobon.service.product
 $ vi mobon.service.product.yaml
 ```
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mobon
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -585,7 +610,7 @@ spec:
           securityContext:
             runAsUser: 0
       imagePullSecrets:
-       - name: regcred
+       - name: docker-reg-cred
       volumes:
       - name: app-git-repository
         emptyDir: {}
