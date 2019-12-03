@@ -105,7 +105,58 @@ spec:
 
 #### G. Kubernetes 기반의 PaaS 비교
 
+## Helm
+Helm is a tool for managing Charts. Charts are packages of pre-configured Kubernetes resources.
+
+> requirement : Kubernetes cluster environment
+
+#### install
+$ curl https://raw.githubusercontent.com/helm/helm/master/scripts/get > get_helm.sh  
+$ chmod 700 get_helm.sh  
+$ ./get_helm.sh  
+
+#### create kubenetes service account tiller and grant role
+$ kubectl -n kube-system create sa tiller
+$ kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
+
+#### initialize
+$ helm init --service-account tiller  
+> helm init --help
+
+#### manage chart
+
+`repository update`  
+$ helm repo update
+
+`search chart`  
+$ helm search  
+
+`inspect chart`  
+$ helm inspect stable/mariadb  
+$ helm inspect values stable/mariadb
+
+`install/update chart`  
+$ echo '{mariadbUser: user01, mariadbDatabase: user01db}' > config.yaml  
+$ helm install -f config.yaml stable/mariadb --name my-maria  
+> $ helm install stable/mariadb --name my-maria  
+> $ helm install stable/mariadb
+
+$ echo '{mariadbUser: user02, mariadbDatabase: user02db}' > config.yaml  
+$ helm upgrade -f config.yaml my-maria stable/mariadb
+
+$ helm get values my-maria
+
+`get status chart`  
+$ helm status my-maria
+
+`rollback chart`  
+$ helm rollback my-maria 1
+
+`delete chart`  
+$ helm delete my-maria
+
 ## 9. Appendix
+
 
 #### reference site
 
