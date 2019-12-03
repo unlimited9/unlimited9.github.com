@@ -28,7 +28,7 @@ $ cat /etc/issue.net
 #### system architecture - bit
 $ getconf LONG_BIT
 
-#### Disk Type : 1 - HDD, 0 - SSD
+#### disk type : 1 - hdd, 0 - ssd
 $ lsblk -d -o name,rota
 NAME ROTA
 sda     1
