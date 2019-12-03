@@ -19,7 +19,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: scouter-config
-  namespace: default
+  namespace: mobon
 data:
   scouter-host.conf: |
     net_collector_ip=172.20.0.108
@@ -39,7 +39,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: telegraf-config
-  namespace: default
+  namespace: mobon
 data:
   telegraf.conf: |
     [global_tags]
@@ -139,6 +139,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mobon-gateway-api-common-deployment
+  namespace: mobon
   labels:
     app: mobon-gateway-api-common
 spec:
@@ -275,6 +276,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mobon-gateway-api-common-svc
+  namespace: mobon
+  labels:
+    app: mobon-gateway-api-common
 spec:
   selector:
     app: mobon-gateway-api-common
@@ -299,6 +303,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mobon-gateway-service-aggregation-deployment
+  namespace: mobon
   labels:
     app: mobon-gateway-service-aggregation
 spec:
@@ -434,6 +439,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mobon-gateway-service-aggregation-svc
+  namespace: mobon
+  labels:
+    app: mobon-gateway-service-aggregation
 spec:
   selector:
     app: mobon-gateway-service-aggregation
@@ -458,6 +466,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mobon-service-product-deployment
+  namespace: mobon
   labels:
     app: mobon-service-product
 spec:
@@ -593,6 +602,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mobon-service-product-svc
+  namespace: mobon
+  labels:
+    app: mobon-service-product
 spec:
   selector:
     app: mobon-service-product
