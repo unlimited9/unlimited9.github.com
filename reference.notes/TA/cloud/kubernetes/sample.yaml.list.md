@@ -9,6 +9,7 @@ metadata:
   name: mobon
 ```
 
+> 이후 계속 중복 정의한 Namespace 관련 부분은 계속 있다고 에러가 나지만 그냥 냅뒀다
 
 ## configuration
 
