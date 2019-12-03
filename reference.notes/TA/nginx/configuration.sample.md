@@ -236,9 +236,9 @@ http {
 
 ## sites-available
 
-#### gateway.mediacategory.com.conf
+#### gw.mediacategory.com.conf
 ```
-#upstream gateway {
+#upstream gw {
 #    #LB method : least_conn, ip_hash  
 #    ip_hash;
 #    
@@ -258,7 +258,7 @@ upstream api {
 
     keepalive 4096;
 }  
-upstream tracker {
+upstream tk {
     #LB method : least_conn, ip_hash  
     ip_hash;
     
@@ -271,9 +271,9 @@ upstream tracker {
 
 server {  
     listen 90;  
-    server_name gateway.mediacategory.com;
+    server_name gw.mediacategory.com;
     
-    access_log /logs/nginx/gateway.mediacategory.com_access.log;
+    access_log /logs/nginx/gw.mediacategory.com_access.log;
 
 #    location / {  
 #        root /pgms/www;  
@@ -335,14 +335,14 @@ server {
 
     }
 
-    location /tracker {
+    location /tk {
         proxy_set_header Host $http_host;  
         proxy_set_header X-Real-IP $remote_addr;  
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  
         proxy_set_header X-Forwarded-Proto $scheme;  
         proxy_set_header X-NginX-Proxy true;
 
-        proxy_pass http://tracker; #http://10.251.0.182;
+        proxy_pass http://tk; #http://10.251.0.182;
         proxy_redirect off;
         charset utf-8;
 
@@ -471,13 +471,19 @@ server {
 
     }
 
+    location ~ ^/api/(.*)$ {
+#        return 301 /$1;
+#        rewrite ^/api/(.*)$ /$1 break;
+        return 308 /$1$is_args$args;
+    }
+
 }
 
 ```
 
-#### tracker.mediacategory.com.conf
+#### tk.mediacategory.com.conf
 ```
-#upstream tracker {
+#upstream tk {
 #    #LB method : least_conn, ip_hash  
 #    ip_hash;
 #    
@@ -488,36 +494,36 @@ server {
 #    keepalive 4096;
 #}  
 
-server {
-    listen 90;
-    server_name tracker.mediacategory.com;
-
-    access_log /logs/nginx/tracker.mediacategory.com_access.log;
-
+server {  
+    listen 90;  
+    server_name tk.mediacategory.com;
+    
+    access_log /logs/nginx/tk.mediacategory.com_access.log;
+    
 #    location / {  
 #        root /pgms/www;  
 #        index index.html index.htm;  
 #    }
-
+    
     # redirect server error pages to the static page /50x.html  
-    error_page 500 502 503 504 /50x.html;
+    error_page 500 502 503 504 /50x.html;  
     location = /50x.html {
         root html;
     }
 
     location / {
-#       rewrite ^/tracker/(.*)$ /$1 break;
-#       rewrite ^/(.*)$ /tracker/$1 break;
+#	rewrite ^/tk/(.*)$ /$1 break;
+#	rewrite ^/(.*)$ /tk/$1 break;
 
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;  
+        proxy_set_header X-Real-IP $remote_addr;  
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  
+        proxy_set_header X-Forwarded-Proto $scheme;  
         proxy_set_header X-NginX-Proxy true;
-
-        proxy_pass http://10.251.0.182/tracker$uri;
-        #proxy_pass http://tracker;
-        proxy_redirect off;
+        
+        proxy_pass http://10.251.0.182/tk$uri;
+        #proxy_pass http://tk;
+        proxy_redirect off;  
         charset utf-8;
 
         index index.jsp index.html;
@@ -558,12 +564,12 @@ server {
 
     }
 
-#    location ~ ^/tracker/(.*)$ {
-##        return 301 /$1;
-##        rewrite ^/tracker/(.*)$ /$1 break;
-#        return 308 /$1$is_args$args;
-#    }
-
+    location ~ ^/tk/(.*)$ {
+#        return 301 /$1;
+#        rewrite ^/tk/(.*)$ /$1 break;
+        return 308 /$1$is_args$args;
+    }
+    
 }
 
 ```
