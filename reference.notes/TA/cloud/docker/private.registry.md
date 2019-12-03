@@ -179,12 +179,12 @@ $ docker exec -it registry_dev registry garbage-collect /etc/docker/registry/con
 ```
 kubectl create secret docker-registry <name> --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
 ```
-$ kubectl create secret docker-registry regcred --docker-server=docker-registry.mobon.net:5000 --docker-username=mobon --docker-password=passwd --docker-email=admin@enliple.com
+$ kubectl create secret docker-registry docker-reg-cred --docker-server=docker-registry.mobon.net:5000 --docker-username=mobon --docker-password=passwd --docker-email=admin@enliple.com
 
->$ kubectl delete secret regcred
+>$ kubectl delete secret docker-reg-cred
 
-#### inspecting the secret regcred
-$ kubectl get secret regcred --output=yaml
+#### inspecting the secret docker-reg-cred
+$ kubectl get secret docker-reg-cred --output=yaml
 ```
 apiVersion: v1
 data:
@@ -192,15 +192,15 @@ data:
 kind: Secret
 metadata:
   creationTimestamp: "2019-09-19T04:55:41Z"
-  name: regcred
+  name: docker-reg-cred
   namespace: default
   resourceVersion: "8142613"
-  selfLink: /api/v1/namespaces/default/secrets/regcred
+  selfLink: /api/v1/namespaces/default/secrets/docker-reg-cred
   uid: 12ba7f05-2c0f-42d9-bb40-ac3ffc274066
 type: kubernetes.io/dockerconfigjson
 ```
 
-$ kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
+$ kubectl get secret docker-reg-cred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
 ```
 {"auths":{"docker-registry.mobon.net":{"username":"mobon","password":"passwd","email":"admin@enliple.com","auth":"bW9...mQ="}}}
 ```
@@ -235,7 +235,7 @@ spec:
   - name: private-reg-container
     image: <your-private-image>
   imagePullSecrets:
-  - name: regcred
+  - name: docker-reg-cred
 ```
 
 $ vi /apps/kubernetes/resources/mobon.gateway.rc.yaml
@@ -269,7 +269,7 @@ spec:
           - ls -al /pgms/mobon.platform.gateway/repository/git
           - gradle --build-file /pgms/mobon.platform.gateway/repository/git/aggregation.service/build.gradle :framework.boot.application:build
       imagePullSecrets:
-        - name: regcred
+        - name: docker-reg-cred
       volumes:
       - name: app-git-repository
         gitRepo:
