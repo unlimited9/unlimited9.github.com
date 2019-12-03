@@ -105,6 +105,11 @@ spec:
 
 #### G. Kubernetes 기반의 PaaS 비교
 
+## management
+
+#### switch namespace
+$ kubectl config set-context $(kubectl config current-context) --namespace=mobon
+
 ## Helm
 Helm is a tool for managing Charts. Charts are packages of pre-configured Kubernetes resources.
 
