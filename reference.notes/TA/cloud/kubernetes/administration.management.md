@@ -107,6 +107,9 @@ spec:
 
 ## management
 
+#### kubenetes dns
+mobon-service-product-svc.mobon.svc.mobon.platform
+
 #### switch namespace
 $ kubectl config set-context $(kubectl config current-context) --namespace=mobon
 
@@ -164,6 +167,10 @@ $ helm delete my-maria
 
 
 #### reference site
+
+`kubernetes.io`  
+* kubectl 치트 시트  
+https://kubernetes.io/ko/docs/reference/kubectl/cheatsheet/
 
 `kubernetes concept`  
 + [Kubernetes & Docker] KubernetesPod  생성 가이드  
