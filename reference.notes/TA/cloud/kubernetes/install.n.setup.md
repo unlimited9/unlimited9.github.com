@@ -760,3 +760,5 @@ https://medium.com/@meysam1369/kubernetes-completely-uninstall-3f2a83dd985d
 http://www.cubrid.com/blog/3820603
 
 
+- Docker with Kubernetes #9 - Master Node의 HA 구성 
+https://crystalcube.co.kr/203
