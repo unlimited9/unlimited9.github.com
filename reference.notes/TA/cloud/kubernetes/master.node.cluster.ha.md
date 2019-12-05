@@ -115,6 +115,10 @@ export CP3_IP=10.251.0.193
 ## 9. Appendix
 
 #### reference site
+
+* 고가용성 토폴로지 선택  
+https://kubernetes.io/ko/docs/setup/production-environment/tools/kubeadm/ha-topology/
+
 * Installing kubeadm  
 https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin
 
