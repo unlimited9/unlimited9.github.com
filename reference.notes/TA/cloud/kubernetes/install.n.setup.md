@@ -213,8 +213,8 @@ $ sudo kubeadm init --pod-network-cidr 10.244.0.0/16 --service-dns-domain "mobon
 --token-ttl 0 : 토큰이 만료되지 않도록 설정(default 24h0m0s)  
 >$ sudo kubeadm init --ignore-preflight-errors=all --pod-network-cidr 10.244.0.0/16 --service-cidr 10.96.0.0/12 --service-dns-domain "cluster.local" --apiserver-advertise-address 172.20.0.31 --apiserver-bind-port 6443 --token-ttl 0  
     ```
+>$ sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
-$ sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 ```
 [init] Using Kubernetes version: v1.14.1
 [preflight] Running pre-flight checks
