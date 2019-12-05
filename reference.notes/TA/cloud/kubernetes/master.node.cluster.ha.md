@@ -128,7 +128,7 @@ https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/setup-ha-e
 + Docker with Kubernetes #9 - Master Node의 HA 구성  
 https://crystalcube.co.kr/203
 
-+ Docker with Kubernetes #10 - ETCD의 HA 구성 - Master Node 와 ETCD 를 HA(High Availability) 구성하기  
++ Docker with Kubernetes #10 - ETCD의 HA 구성 - Master Node와 ETCD를 HA(High Availability) 구성하기  
 https://crystalcube.co.kr/204
 
 + Install and configure a multi-master Kubernetes cluster with kubeadm  
