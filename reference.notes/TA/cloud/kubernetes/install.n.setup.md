@@ -68,6 +68,8 @@ Fail-over 시 일시적 서비스 중단.
 ### B. install dependency packages
 >Kubernetes는 docker를 기반으로 컨테이너화된 어플리케이션을 관리하는 오픈 소스 솔루션으로 docker가 설치 되어 있어야 한다.
 
+[Docker Install and setup](../docker/install.n.setup.md)
+
 ### C. creating base directory
 
 ### D. firewall configuration
