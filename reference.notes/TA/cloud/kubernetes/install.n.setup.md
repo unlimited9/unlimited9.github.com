@@ -111,7 +111,7 @@ $ sudo apt install kubelet kubeadm kubectl kubernetes-cni
 >```
 
 #### centos
-$ sudo vicat /etc/yum.repos.d/kubernetes.repo
+$ sudo vi /etc/yum.repos.d/kubernetes.repo
 ```
 [kubernetes]
 name=Kubernetes
