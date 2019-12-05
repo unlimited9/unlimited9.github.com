@@ -94,18 +94,22 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 ```
 kubelet --version
 
-export KUBERNETES_VER=v1.16.3
-export LOAD_BALANCER_DNS=10.251.0.182
+export KUBECONFIG=/etc/kubernetes/admin.conf
+export LOAD_BALANCER_DNS=master.mobon.platform
 export LOAD_BALANCER_PORT=6443
+export VIP_IP=10.251.0.182
 export CP1_HOSTNAME=MPK-Cluster-09
-export CP1_IP=10.251.0.191
 export CP2_HOSTNAME=MPK-Cluster-10
-export CP2_IP=10.251.0.192
 export CP3_HOSTNAME=MPK-Cluster-11
+export CP1_IP=10.251.0.191
+export CP2_IP=10.251.0.192
 export CP3_IP=10.251.0.193
-
-
-
+export ETCD1_HOSTNAME=MPK-Cluster-09
+export ETCD1_HOSTNAME=MPK-Cluster-10
+export ETCD1_HOSTNAME=MPK-Cluster-11
+export ETCD1_IP=10.251.0.191
+export ETCD2_IP=10.251.0.192
+export ETCD3_IP=10.251.0.193
 
 ```
 
