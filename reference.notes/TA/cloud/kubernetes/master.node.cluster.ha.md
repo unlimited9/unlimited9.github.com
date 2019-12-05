@@ -1,13 +1,10 @@
 ## set account and directory
 ```
 su -
-echo 'input root password!!!!'
 
 groupadd -g 3000 app
 useradd -d /apps -g 3000 -m -u 3000 -s /bin/bash app
 passwd app
-
-echo 'input app password!!!!'
 
 usermod -aG wheel app
 
@@ -15,7 +12,6 @@ mkdir -p /data
 chown -R app:app /data
 
 su - app
-
 
 mkdir -p /apps/install
 cd /apps/install
