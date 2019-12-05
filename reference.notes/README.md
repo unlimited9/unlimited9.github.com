@@ -50,6 +50,7 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
         - [Docker private registry](TA/cloud/docker/private.registry.md) : 도커 사설 레지스트리 구성
       + [Kubernetes(k8s) : Concept and theorem](TA/cloud/kubernetes/concept.theorem.md) : 쿠버네티스 개요
         - [Install and setup](TA/cloud/kubernetes/install.n.setup.md) ([install script](TA/cloud/kubernetes/install.n.setup.script.md)) : Kubernetes(Docker orchestration and clustering) 설치
+        - [Install and setup ha(multi-master)](TA/cloud/kubernetes/master.node.cluster.ha.md) : 작성중...
         - [Web UI (Dashboard) : Install and setup](TA/cloud/kubernetes/install.n.setup.dashboard.md) : 웹 관리 모듈 설치
         - [Administration : management](TA/cloud/kubernetes/administration.management.md) : 쿠버네티스 관리
         - [Kubernetes deployment](TA/cloud/kubernetes/how.to.deployment.md) : 쿠버네티스 서비스 디플로이(tutorial)
