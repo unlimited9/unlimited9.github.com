@@ -115,9 +115,18 @@ export CP3_IP=10.251.0.193
 ## 9. Appendix
 
 #### reference site
+* Installing kubeadm  
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin
+
+* Set up a High Availability etcd cluster with kubeadm  
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/
 
 + Docker with Kubernetes #9 - Master Node의 HA 구성  
 https://crystalcube.co.kr/203
 
 + Install and configure a multi-master Kubernetes cluster with kubeadm  
 https://blog.inkubate.io/install-and-configure-a-multi-master-kubernetes-cluster-with-kubeadm/
+
++ HA Kubernetes with Kubeadm  
+https://medium.com/@bambash/ha-kubernetes-cluster-via-kubeadm-b2133360b198
+
