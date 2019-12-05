@@ -138,8 +138,9 @@ $ sudo systemctl  enable kubelet && systemctl start kubelet
 
 ##### 재부팅 등에도 영구적으로 적용하기 위해 /etc/fstab에 # swap 관련 부분 주석처리
 $ sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
-> $ vi /etc/fstab 
-> error : sed: -e expression #1, char 23: invalid reference \1 on `s' command's RHS
+> $ vi /etc/fstab  
+>
+> error : sed: -e expression #1, char 23: invalid reference \1 on `s' command's RHS  
 > $ sudo sed -r -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
 ##### swap off
