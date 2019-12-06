@@ -71,9 +71,12 @@ $ tar -zxvf /apps/install/haproxy-2.0.10.tar.gz
 #### compile and install
 $ cd /apps/install/haproxy-2.0.10
 
-$ make TARGET=linux-glibc USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1  
+$ make TARGET=linux-glibc USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1 USE_SYSTEMD=1
+>$ make TARGET=linux-glibc USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1  
 >$ make TARGET=linux2628 USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1  
 >$ make TARGET=linux2628 USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1 USE_CRYPT_H=1 USE_LIBCRYPT=1
+
+> [ALERT] 339/174150 (17206) : master-worker mode with systemd support (-Ws) requested, but not compiled. Use master-worker mode (-W) if you are not using Type=notify in your unit file or recompile with USE_SYSTEMD=1.
 
 $ make PREFIX=/apps/haproxy/2.0.10 install
 
@@ -96,6 +99,8 @@ ExecStop=/bin/kill -USR1 $MAINPID
 [Install]
 WantedBy=multi-user.target
 ```
+> The USR2 signal instructs HAProxy to reload its configuration without bringing it down.
+> USR1 brings down HAProxy, allowing processes to finish what they were doing before exiting.
 
 #### create the systemd environment file
 $ sudo vi /etc/sysconfig/haproxy
@@ -123,17 +128,18 @@ $ sudo mkdir /etc/haproxy
 $ sudo vi /etc/haproxy/haproxy.conf
 ```
 global
-    log         127.0.0.1 local2 info
- 
+    maxconn     4000
+	ulimit-n	16384
+    log         127.0.0.1 local0 info
+    user        app
+    group       app
     chroot      /var/lib/haproxy
     pidfile     /var/run/haproxy.pid
     stats socket           /var/run/haproxy.sock mode 666 level admin
-    maxconn     4000
-    user        haproxy
-    group       haproxy
     daemon
  
-    stats socket /var/lib/haproxy/stats
+    stats socket /var/lib/haproxy/st>...
+ats
  
 defaults
     mode                    http
@@ -163,32 +169,56 @@ listen stats
 frontend  main
     bind :::80 v4v6
     option                      http-server-close
-    acl host_home1 hdr(host) -i home1.wb.com
-    acl host_home2 hdr(host) -i home2.wb.com
-    use_backend backend_1 if host_home1
-    use_backend backend_2 if host_home2
+    acl api.k8s.mobon.platform.01 hdr(host) -i MPK-Cluster-api-01
+    acl api.k8s.mobon.platform.02 hdr(host) -i MPK-Cluster-api-02
+    use_backend api.k8s.01 if api.k8s.mobon.platform.01
+    use_backend api.k8s.02 if api.k8s.mobon.platform.02
     default_backend             default
  
 backend default
     balance     roundrobin
-    server  server1 192.168.56.204:8001 check
-    server  server2 192.168.56.205:8001 check
+    server  MPK-Cluster-09 10.251.0.191:6443 check
+    server  MPK-Cluster-10 10.251.0.192:6443 check
+    server  MPK-Cluster-11 10.251.0.193:6443 check
  
-backend backend_1
+backend api.k8s.01
     balance roundrobin
-    server  server1 192.168.56.204:8002 check
-    server  server2 192.168.56.205:8002 check
+    server  MPK-Cluster-09 10.251.0.191:6443 check
+    server  MPK-Cluster-10 10.251.0.192:6443 check
+    server  MPK-Cluster-11 10.251.0.193:6443 check
  
-backend backend_2
+backend api.k8s.02
     balance roundrobin
-    server  server1 192.168.56.204:8003 check
-    server  server2 192.168.56.205:8003 check
+    server  MPK-Cluster-09 10.251.0.191:6443 check
+    server  MPK-Cluster-10 10.251.0.192:6443 check
+    server  MPK-Cluster-11 10.251.0.193:6443 check
 ```
 
 ## 4. execution(starting and stopping daemon services)
 
 #### start service
 $ systemctl start haproxy.service
+
+> `Error Occurred`
+>```
+>Job for haproxy.service failed because the control process exited with error code. See "systemctl status haproxy.service" and "journalctl -xe" for details.
+>```
+>$ systemctl status haproxy.service
+>```
+>● haproxy.service - HAProxy
+>   Loaded: loaded (/etc/systemd/system/haproxy.service; disabled; vendor preset: disabled)
+>   Active: failed (Result: exit-code) since 금 2019-12-06 17:47:02 KST; 11s ago
+>  Process: 19310 ExecStop=/bin/kill -USR1 $MAINPID (code=exited, status=1/FAILURE)
+>  Process: 19308 ExecStart=/apps/haproxy/2.0.10/sbin/haproxy -f $CONFIG_FILE -p $PID_FILE $CLI_OPTIONS (code=exited, status=1/FAILURE)
+> Main PID: 19308 (code=exited, status=1/FAILURE)
+> ...
+>``` 
+> $ journalctl -xe
+>```
+>...
+>[ALERT] 339/174702 (19308) : Starting frontend GLOBAL: cannot bind UNIX socket [/var/lib/haproxy/stats]
+>...
+>```
 
 #### configure haproxy to start at boot
 $ systemctl enable haproxy
