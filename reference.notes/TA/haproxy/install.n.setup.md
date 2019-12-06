@@ -136,7 +136,7 @@ $ sudo vi /etc/haproxy/haproxy.conf
 ```
 global
     maxconn     4000
-	ulimit-n	16384
+    ulimit-n    16384
     log         127.0.0.1 local0 info
     user        app
     group       app
@@ -144,10 +144,9 @@ global
     pidfile     /var/run/haproxy.pid
     stats socket           /var/run/haproxy.sock mode 666 level admin
     daemon
- 
-    stats socket /var/lib/haproxy/st>...
-ats
- 
+
+    stats socket /var/lib/haproxy/stats
+
 defaults
     mode                    http
     log                     global
@@ -163,7 +162,7 @@ defaults
     timeout http-keep-alive 10s
     timeout check           10s
     maxconn                 3000
- 
+
 listen stats
     bind :::8888 v4v6
     mode http
@@ -171,34 +170,49 @@ listen stats
     stats hide-version
     stats uri /
     stats realm Haproxy\ Statistics
-    stats auth user:password
- 
-frontend  main
-    bind :::80 v4v6
-    option                      http-server-close
-    acl api.k8s.mobon.platform.01 hdr(host) -i MPK-Cluster-api-01
-    acl api.k8s.mobon.platform.02 hdr(host) -i MPK-Cluster-api-02
-    use_backend api.k8s.01 if api.k8s.mobon.platform.01
-    use_backend api.k8s.02 if api.k8s.mobon.platform.02
-    default_backend             default
- 
-backend default
-    balance     roundrobin
-    server  MPK-Cluster-09 10.251.0.191:6443 check
-    server  MPK-Cluster-10 10.251.0.192:6443 check
-    server  MPK-Cluster-11 10.251.0.193:6443 check
- 
-backend api.k8s.01
+    stats auth admin:P@ssw0rd
+
+frontend kubernetes
+    bind 10.251.0.194:6443
+    option tcplog
+    mode tcp
+    default_backend kubernetes-master-nodes
+
+backend kubernetes-master-nodes
+    mode tcp
     balance roundrobin
-    server  MPK-Cluster-09 10.251.0.191:6443 check
-    server  MPK-Cluster-10 10.251.0.192:6443 check
-    server  MPK-Cluster-11 10.251.0.193:6443 check
- 
-backend api.k8s.02
-    balance roundrobin
-    server  MPK-Cluster-09 10.251.0.191:6443 check
-    server  MPK-Cluster-10 10.251.0.192:6443 check
-    server  MPK-Cluster-11 10.251.0.193:6443 check
+    option tcp-check
+    server k8s-master-0 10.251.0.191:6443 check fall 3 rise 2
+    server k8s-master-1 10.251.0.192:6443 check fall 3 rise 2
+    server k8s-master-2 10.251.0.193:6443 check fall 3 rise 2
+
+#frontend main
+#    bind :::80 v4v6
+#    option                      http-server-close
+#    acl api.k8s.mobon.platform.01 hdr(host) -i MPK-Cluster-api-01
+#    acl api.k8s.mobon.platform.02 hdr(host) -i MPK-Cluster-api-02
+#    use_backend api.k8s.01 if api.k8s.mobon.platform.01
+#    use_backend api.k8s.02 if api.k8s.mobon.platform.02
+#    default_backend             default
+#
+#backend default
+#    balance     roundrobin
+#    server  MPK-Cluster-09 10.251.0.191:6443 check
+#    server  MPK-Cluster-10 10.251.0.192:6443 check
+#    server  MPK-Cluster-11 10.251.0.193:6443 check
+#
+#backend api.k8s.01
+#    balance roundrobin
+#    server  MPK-Cluster-09 10.251.0.191:6443 check
+#    server  MPK-Cluster-10 10.251.0.192:6443 check
+#    server  MPK-Cluster-11 10.251.0.193:6443 check
+#
+#backend api.k8s.02
+#    balance roundrobin
+#    server  MPK-Cluster-09 10.251.0.191:6443 check
+#    server  MPK-Cluster-10 10.251.0.192:6443 check
+#    server  MPK-Cluster-11 10.251.0.193:6443 check
+
 ```
 
 ## 4. execution(starting and stopping daemon services)
