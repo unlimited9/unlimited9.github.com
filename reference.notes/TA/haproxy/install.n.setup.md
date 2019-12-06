@@ -77,7 +77,13 @@ $ make TARGET=linux-glibc USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1 USE_SYSTEMD=1
 >$ make TARGET=linux2628 USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1 USE_CRYPT_H=1 USE_LIBCRYPT=1
 
 > `Error Occurred`  
-> [ALERT] 339/174150 (17206) : master-worker mode with systemd support (-Ws) requested, but not compiled. Use master-worker mode (-W) if you are not using Type=notify in your unit file or recompile with USE_SYSTEMD=1.
+> [ALERT] 339/174150 (17206) : master-worker mode with systemd support (-Ws) requested, but not compiled. Use master-worker mode (-W) if you are not using Type=notify in your unit file or recompile with USE_SYSTEMD=1.  
+>
+>`RedHat/CentOS`  
+>$ yum install systemd-devel  
+>`Debian/Ubuntu`  
+>$ apt-get install libsystemd-dev
+
 
 $ make PREFIX=/apps/haproxy/2.0.10 install
 
