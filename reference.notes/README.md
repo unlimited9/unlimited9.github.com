@@ -41,6 +41,7 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
       + [Hadoop ecosystem : Introduction](TA/hadoop/introduction.md) : Hadoop이란
       + [Apache Kafka : Install and setup](TA/apache.kafka/install.n.setup.md) : Kafka Message Queue 서버 설치
         - [Kafka Manager : Monitoring](TA/apache.kafka/install.n.setup.kafka.manager.md) : Kafka 모니터링 
+      + [Haproxy : Install and setup](TA/haproxy/install.n.setup.md) : Haproxy TCP/HTTP Load Balancer 설치
     * Cloud Computing
       + [Docker : Install and setup](TA/cloud/docker/install.n.setup.md) ([install script](TA/cloud/docker/install.n.setup.script.md)) : Docker(independent container platform) 설치
         - [Administration : management and dockerize](TA/cloud/docker/administration.management.md) : 도커 관리
