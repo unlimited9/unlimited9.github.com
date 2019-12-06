@@ -90,7 +90,9 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 > kubeadm join 10.251.0.191:6443 --token xqsmni.g076nsl4qq9t4r0o \
     --discovery-token-ca-cert-hash sha256:b603abc7e73847bd13ca13ba97abeb1f92b00bf1a6ec0ef2c8ad35724f2c82cb 
 
-## master node ha 구성
+## master node ha 구성 : Stacked control plane and etcd nodes
+> 클러스터 노드가 많지 않고 간단하며 향후 External etcd nodes 보다는 이 방식이 보완될 것으로 생각됨.
+
 ```
 kubelet --version
 
