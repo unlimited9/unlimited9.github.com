@@ -53,17 +53,23 @@ ExecStart=/apps/etcd/3.3.18/etcd \
   --data-dir=/data/etcd
   --initial-cluster-state new \
   --initial-cluster-token mpk-etcd-cluster-01 \
-  --initial-cluster etcd-01=https://10.251.0.191:2380,etcd-02=https://10.251.0.192:2380,etcd-03=https://10.251.0.193:2380 \
-  --initial-advertise-peer-urls https://10.251.0.191:2380 \
-  --advertise-client-urls https://10.251.0.191:2379 \
-  --listen-peer-urls https://10.251.0.191:2380 \
-  --listen-client-urls https://10.251.0.191:2379,http://127.0.0.1:2379 \
+  --initial-cluster mpk-etcd-01=http://10.251.0.191:2380,mpk-etcd-02=http://10.251.0.192:2380,mpk-etcd-03=http://10.251.0.193:2380 \
+  --initial-advertise-peer-urls http://10.251.0.191:2380 \
+  --advertise-client-urls http://10.251.0.191:2379 \
+  --listen-peer-urls http://10.251.0.191:2380 \
+  --listen-client-urls http://10.251.0.191:2379,http://127.0.0.1:2379 \
 Restart=on-failure
 RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
 ```
+
+<details>
+<summary>TLS - https</summary>
+<div markdown="1">
+
+http://10.251.0.191 등 https://10.251.0.191 로 프로토콜 변경  
 >  --cert-file=/apps/etcd/pki/kubernetes.pem \
 >  --key-file=/apps/etcd/pki/kubernetes-key.pem \
 >  --peer-cert-file=/apps/etcd/pki/kubernetes.pem \
@@ -72,6 +78,9 @@ WantedBy=multi-user.target
 >  --peer-trusted-ca-file=/apps/etcd/pki/ca.pem \
 >  --peer-client-cert-auth \
 >  --client-cert-auth \
+
+</div>
+</details>
 
 `etcd-02 : 10.251.0.192`  
 $ sudo vi /etc/systemd/system/etcd.service
@@ -86,11 +95,11 @@ ExecStart=/apps/etcd/3.3.18/etcd \
   --data-dir=/data/etcd
   --initial-cluster-state new \
   --initial-cluster-token mpk-etcd-cluster-02 \
-  --initial-cluster etcd-01=https://10.251.0.191:2380,etcd-02=https://10.251.0.192:2380,etcd-03=https://10.251.0.193:2380 \
-  --initial-advertise-peer-urls https://10.251.0.192:2380 \
-  --advertise-client-urls https://10.251.0.192:2379 \
-  --listen-peer-urls https://10.251.0.192:2380 \
-  --listen-client-urls https://10.251.0.192:2379,http://127.0.0.1:2379 \
+  --initial-cluster mpk-etcd-01=http://10.251.0.191:2380,mpk-etcd-02=http://10.251.0.192:2380,mpk-etcd-03=http://10.251.0.193:2380 \
+  --initial-advertise-peer-urls http://10.251.0.192:2380 \
+  --advertise-client-urls http://10.251.0.192:2379 \
+  --listen-peer-urls http://10.251.0.192:2380 \
+  --listen-client-urls http://10.251.0.192:2379,http://127.0.0.1:2379 \
 Restart=on-failure
 RestartSec=5
 
@@ -111,11 +120,11 @@ ExecStart=/apps/etcd/3.3.18/etcd \
   --data-dir=/data/etcd
   --initial-cluster-state new \
   --initial-cluster-token mpk-etcd-cluster-03 \
-  --initial-cluster etcd-01=https://10.251.0.191:2380,etcd-02=https://10.251.0.192:2380,etcd-03=https://10.251.0.193:2380 \
-  --initial-advertise-peer-urls https://10.251.0.193:2380 \
-  --advertise-client-urls https://10.251.0.193:2379 \
-  --listen-peer-urls https://10.251.0.193:2380 \
-  --listen-client-urls https://10.251.0.193:2379,http://127.0.0.1:2379 \
+  --initial-cluster mpk-etcd-01=http://10.251.0.191:2380,mpk-etcd-02=http://10.251.0.192:2380,mpk-etcd-03=http://10.251.0.193:2380 \
+  --initial-advertise-peer-urls http://10.251.0.193:2380 \
+  --advertise-client-urls http://10.251.0.193:2379 \
+  --listen-peer-urls http://10.251.0.193:2380 \
+  --listen-client-urls http://10.251.0.193:2379,http://127.0.0.1:2379 \
 Restart=on-failure
 RestartSec=5
 
