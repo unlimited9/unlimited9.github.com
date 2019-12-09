@@ -153,7 +153,7 @@ kubeadm join 10.251.0.194:6443 --token jsfxu6.0kj84vtirx0vezb7 \
 
 `copy the certificates from MPK-Cluster-09`  
 [app@MPK-Cluster-09 pki]$ cp -R /etc/kubernetes/pki /apps/kubernetes  
-[app@MPK-Cluster-09 pki]$ rm -fr /apps/kubernetes/pki/apiserver*  
+[app@MPK-Cluster-09 pki]$ rm -fr /apps/kubernetes/pki/apiserver.*  
 
 `copy the certificates to MPK-Cluster-10 and kubeadm init`  
 [app@MPK-Cluster-10 pki]$ sudo cp -R /apps/kubernetes/pki /etc/kubernetes/  
