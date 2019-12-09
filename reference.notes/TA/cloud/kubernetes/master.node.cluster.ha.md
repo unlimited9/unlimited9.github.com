@@ -186,7 +186,8 @@ $ kubectl taint nodes --all node-role.kubernetes.io/master-
 > 여기부터 worker node 수행
 
 ## worker mode
-sudo kubeadm join 10.251.0.194:6443 --token 6kbq9e.qirblr0o52gplk5l --discovery-token-ca-cert-hash sha256:ea609f534e6527f8d5ffb5b5cf2488fa79f9c231401386577872037a3338dc3e
+$ sudo kubeadm join 10.251.0.194:6443 --token 6kbq9e.qirblr0o52gplk5l \  
+    --discovery-token-ca-cert-hash sha256:ea609f534e6527f8d5ffb5b5cf2488fa79f9c231401386577872037a3338dc3e 
 
 ## 9. Appendix
 
