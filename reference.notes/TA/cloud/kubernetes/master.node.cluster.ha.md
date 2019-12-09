@@ -74,52 +74,116 @@ sudo sed -r -i '/ swap / s/^(.*)$/#\1/g' /etc/fstab
 sudo swapoff -a
 ```
 
+## loadbalancer : haproxy 설치
+[haproxy](../../haproxy/install.n.setup.md)
 
 ## etcd 설치
 [etcd cluster](../../etcd/install.n.setup.md)
 
+> 여기 까지는 master/worker node 모두 수행
+
+> 여기부터 master node 수행
+
 ## master node 설정
+> Stacked control plane and etcd nodes  
+> **External etcd nodes**
+
+$ mkdir -p /apps/kubernetes
+
+$ vi /apps/kubernetes/config.yaml
 ```
-sudo kubeadm init --pod-network-cidr 10.244.0.0/16 --service-dns-domain "mobon.platform"
-
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-export KUBECONFIG=$HOME/.kube/config
-
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-```
-> `kubeadm init 결과`  
-> kubeadm join 10.251.0.191:6443 --token xqsmni.g076nsl4qq9t4r0o \
-    --discovery-token-ca-cert-hash sha256:b603abc7e73847bd13ca13ba97abeb1f92b00bf1a6ec0ef2c8ad35724f2c82cb 
-
-## master node ha 구성 : Stacked control plane and etcd nodes
-> 클러스터 노드가 많지 않고 간단하며 향후 External etcd nodes 보다는 이 방식이 보완될 것으로 생각됨.
-
-```
-kubelet --version
-
-export KUBECONFIG=/etc/kubernetes/admin.conf
-export LOAD_BALANCER_DNS=master.mobon.platform
-export LOAD_BALANCER_PORT=6443
-export VIP_IP=10.251.0.182
-export CP1_HOSTNAME=MPK-Cluster-09
-export CP2_HOSTNAME=MPK-Cluster-10
-export CP3_HOSTNAME=MPK-Cluster-11
-export CP1_IP=10.251.0.191
-export CP2_IP=10.251.0.192
-export CP3_IP=10.251.0.193
-export ETCD1_HOSTNAME=MPK-Cluster-09
-export ETCD1_HOSTNAME=MPK-Cluster-10
-export ETCD1_HOSTNAME=MPK-Cluster-11
-export ETCD1_IP=10.251.0.191
-export ETCD2_IP=10.251.0.192
-export ETCD3_IP=10.251.0.193
-
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: ClusterConfiguration
+kubernetesVersion: stable
+apiServerCertSANs:
+- 10.251.0.194
+controlPlaneEndpoint: "10.251.0.194:6443"
+etcd:
+  external:
+    endpoints:
+      - http://10.251.0.191:2379
+      - http://10.251.0.192:2379
+      - http://10.251.0.193:2379
+#      - https://10.251.0.191:2379
+#      - https://10.251.0.192:2379
+#      - https://10.251.0.193:2379
+#    caFile: /apps/kubernetes/etcd/ca.pem
+#    certFile: /apps/kubernetes/etcd/kubernetes.pem
+#    keyFile: /apps/kubernetes/etcd/kubernetes-key.pem
+networking:
+  dnsDomain: mobon.platform
+  podSubnet: 10.244.0.0/16
+#  serviceSubnet: 10.96.0.0/12
+apiServerExtraArgs:
+  apiserver-count: "3"
 ```
 
+$ sudo kubeadm init --config=/apps/kubernetes/config.yaml
+```
+...
+Your Kubernetes control-plane has initialized successfully!
 
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+You can now join any number of control-plane nodes by copying certificate authorities 
+and service account keys on each node and then running the following as root:
+
+  kubeadm join 10.251.0.194:6443 --token jsfxu6.0kj84vtirx0vezb7 \
+    --discovery-token-ca-cert-hash sha256:ea609f534e6527f8d5ffb5b5cf2488fa79f9c231401386577872037a3338dc3e \
+    --control-plane 	  
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 10.251.0.194:6443 --token jsfxu6.0kj84vtirx0vezb7 \
+    --discovery-token-ca-cert-hash sha256:ea609f534e6527f8d5ffb5b5cf2488fa79f9c231401386577872037a3338dc3e 
+```
+
+#### other master cluster nodes 설정
+
+`copy the certificates from MPK-Cluster-09`  
+[app@MPK-Cluster-09 pki]$ cp -R /etc/kubernetes/pki /apps/kubernetes  
+[app@MPK-Cluster-09 pki]$ rm -fr /apps/kubernetes/pki/apiserver*  
+
+`copy the certificates to MPK-Cluster-10 and kubeadm init`  
+[app@MPK-Cluster-10 pki]$ sudo cp -R /apps/kubernetes/pki /etc/kubernetes/  
+[app@MPK-Cluster-10 pki]$ sudo kubeadm init --config=/apps/kubernetes/config.yaml  
+>kubeadm join 10.251.0.194:6443 --token 1sxpyh.0v06p5ik5osjw5dn \  
+>    --discovery-token-ca-cert-hash sha256:ea609f534e6527f8d5ffb5b5cf2488fa79f9c231401386577872037a3338dc3e 
+>
+>`copy the certificates to MPK-Cluster-11 and kubeadm init`   
+>[app@MPK-Cluster-11 pki]$ sudo cp -R /apps/kubernetes/pki /etc/kubernetes/  
+>[app@MPK-Cluster-11 pki]$ sudo kubeadm init --config=/apps/kubernetes/config.yaml
+>kubeadm join 10.251.0.194:6443 --token 6kbq9e.qirblr0o52gplk5l \  
+>    --discovery-token-ca-cert-hash sha256:ea609f534e6527f8d5ffb5b5cf2488fa79f9c231401386577872037a3338dc3e 
+
+#### root 이외 계정에서 사용 시 아래와 같이 환경 설정을 추가한다.
+$ mkdir -p $HOME/.kube  
+$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config  
+$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+#### add pod network
+> 클러스터링된 서버중 한대에만 하면 되는 듯....  
+$ export KUBECONFIG=$HOME/.kube/config  
+$ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+#### scheduling에서 master node의 pods 제외
+$ kubectl taint nodes --all node-role.kubernetes.io/master-  
+>$ kubectl taint nodes --all node-role.kubernetes.io/master-node/k8s-master untainted  
+
+> 여기까지 master node 수행
+
+> 여기부터 worker node 수행
+
+## worker mode
+sudo kubeadm join 10.251.0.194:6443 --token 6kbq9e.qirblr0o52gplk5l --discovery-token-ca-cert-hash sha256:ea609f534e6527f8d5ffb5b5cf2488fa79f9c231401386577872037a3338dc3e
 
 ## 9. Appendix
 
