@@ -74,6 +74,10 @@ sudo sed -r -i '/ swap / s/^(.*)$/#\1/g' /etc/fstab
 sudo swapoff -a
 ```
 
+
+## etcd 설치
+[etcd cluster](../../etcd/install.n.setup.md)
+
 ## master node 설정
 ```
 sudo kubeadm init --pod-network-cidr 10.244.0.0/16 --service-dns-domain "mobon.platform"
@@ -114,7 +118,6 @@ export ETCD2_IP=10.251.0.192
 export ETCD3_IP=10.251.0.193
 
 ```
-
 
 
 
