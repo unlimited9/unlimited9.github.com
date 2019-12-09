@@ -40,40 +40,7 @@ mpk-etcd-03 10.251.0.193
 ...
 ```
 
-ref. systemd.configuration
-```
-#!/usr/bin/env bash
-
-_NAME="mpk-etcd"
-_HOSTS=("10.251.0.191" "10.251.0.192" "10.251.0.193")
-
-for IDX in "${!_HOSTS[@]}"; do
-_HOST=${_HOSTS[$IDX]}
-cat << EOF > etcd.service.$_HOST
-[Unit]
-Description=etcd
-Documentation=https://github.com/etcd-io
-
-[Service]
-ExecStart=/usr/local/bin/etcd \\
-  --name $_NAME-`printf %02d ${IDX+1}` \\
-  --data-dir=/data/etcd \\
-  --initial-cluster-state new \\
-  --initial-cluster-token $_NAME-cluster-`printf %02d ${IDX+1}` \\
-  --initial-cluster mpk-etcd-01=https://${_HOSTS[0]}:2380,mpk-etcd-02=https://${_HOSTS[1]}:2380,mpk-etcd-03=https://${_HOSTS[2]}:2380 \\
-  --initial-advertise-peer-urls https://$_HOST:2380 \\
-  --advertise-client-urls https://$_HOST:2379 \\
-  --listen-peer-urls https://$_HOST:2380 \\
-  --listen-client-urls https://$_HOST:2379,http://127.0.0.1:2379
-Restart=on-failure
-RestartSec=5
-
-[Install]
-WantedBy=multi-user.target
-EOF
-done
-```
-
+`etcd-01 : 10.251.0.191`  
 $ sudo vi /etc/systemd/system/etcd.service
 ```
 [Unit]
@@ -81,7 +48,7 @@ Description=etcd
 Documentation=https://github.com/etcd-io
 
 [Service]
-ExecStart=/usr/local/bin/etcd \
+ExecStart=/apps/etcd/3.3.18/etcd \
   --name mpk-etcd-01 \
   --data-dir=/data/etcd
   --initial-cluster-state new \
@@ -106,6 +73,96 @@ WantedBy=multi-user.target
 >  --peer-client-cert-auth \
 >  --client-cert-auth \
 
+`etcd-02 : 10.251.0.192`  
+$ sudo vi /etc/systemd/system/etcd.service
+```
+[Unit]
+Description=etcd
+Documentation=https://github.com/etcd-io
+
+[Service]
+ExecStart=/apps/etcd/3.3.18/etcd \
+  --name mpk-etcd-02 \
+  --data-dir=/data/etcd
+  --initial-cluster-state new \
+  --initial-cluster-token mpk-etcd-cluster-02 \
+  --initial-cluster etcd-01=https://10.251.0.191:2380,etcd-02=https://10.251.0.192:2380,etcd-03=https://10.251.0.193:2380 \
+  --initial-advertise-peer-urls https://10.251.0.192:2380 \
+  --advertise-client-urls https://10.251.0.192:2379 \
+  --listen-peer-urls https://10.251.0.192:2380 \
+  --listen-client-urls https://10.251.0.192:2379,http://127.0.0.1:2379 \
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+`etcd-03 : 10.251.0.193`  
+$ sudo vi /etc/systemd/system/etcd.service
+```
+[Unit]
+Description=etcd
+Documentation=https://github.com/etcd-io
+
+[Service]
+ExecStart=/apps/etcd/3.3.18/etcd \
+  --name mpk-etcd-03 \
+  --data-dir=/data/etcd
+  --initial-cluster-state new \
+  --initial-cluster-token mpk-etcd-cluster-03 \
+  --initial-cluster etcd-01=https://10.251.0.191:2380,etcd-02=https://10.251.0.192:2380,etcd-03=https://10.251.0.193:2380 \
+  --initial-advertise-peer-urls https://10.251.0.193:2380 \
+  --advertise-client-urls https://10.251.0.193:2379 \
+  --listen-peer-urls https://10.251.0.193:2380 \
+  --listen-client-urls https://10.251.0.193:2379,http://127.0.0.1:2379 \
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+
+<details>
+<summary>ref. systemd.configuration</summary>
+<div markdown="1">
+
+```
+#!/usr/bin/env bash
+
+_NAME="mpk-etcd"
+_HOSTS=("10.251.0.191" "10.251.0.192" "10.251.0.193")
+
+for IDX in "${!_HOSTS[@]}"; do
+_HOST=${_HOSTS[$IDX]}
+cat << EOF > etcd.service.$_HOST
+[Unit]
+Description=etcd
+Documentation=https://github.com/etcd-io
+
+[Service]
+ExecStart=/apps/etcd/3.3.18/etcd \\
+  --name $_NAME-`printf %02d ${IDX+1}` \\
+  --data-dir=/data/etcd \\
+  --initial-cluster-state new \\
+  --initial-cluster-token $_NAME-cluster-`printf %02d ${IDX+1}` \\
+  --initial-cluster mpk-etcd-01=https://${_HOSTS[0]}:2380,mpk-etcd-02=https://${_HOSTS[1]}:2380,mpk-etcd-03=https://${_HOSTS[2]}:2380 \\
+  --initial-advertise-peer-urls https://$_HOST:2380 \\
+  --advertise-client-urls https://$_HOST:2379 \\
+  --listen-peer-urls https://$_HOST:2380 \\
+  --listen-client-urls https://$_HOST:2379,http://127.0.0.1:2379
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+done
+```
+
+</div>
+</details>
 
 #### reload the daemon configuration.
 $ sudo systemctl daemon-reload
@@ -117,7 +174,7 @@ $ sudo systemctl enable etcd
 $ sudo systemctl start etcd
 
 #### verify that the cluster is up and running.
-$ ETCDCTL_API=3 etcdctl member list
+$ ETCDCTL_API=3 /apps/etcd/3.3.18/etcdctl member list
 
 ## 8. trouble-shooting
 
