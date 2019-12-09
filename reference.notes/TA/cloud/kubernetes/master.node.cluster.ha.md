@@ -1,4 +1,4 @@
----
+--
 > 여기부터 master/worker node 모두 수행
 
 ## set account and directory
@@ -84,7 +84,7 @@ sudo swapoff -a
 [etcd cluster](../../etcd/install.n.setup.md)
 
 > 여기까지 master/worker node 모두 수행
----
+--
 > 여기부터 master node 수행
 
 ## master node 설정
@@ -182,7 +182,7 @@ $ kubectl taint nodes --all node-role.kubernetes.io/master-
 >$ kubectl taint nodes --all node-role.kubernetes.io/master-node/k8s-master untainted  
 
 > 여기까지 master node 수행
----
+--
 > 여기부터 worker node 수행
 
 ## worker mode
