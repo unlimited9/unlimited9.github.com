@@ -1,3 +1,6 @@
+---
+> 여기부터 master/worker node 모두 수행
+
 ## set account and directory
 ```
 su -
@@ -80,8 +83,8 @@ sudo swapoff -a
 ## etcd 설치
 [etcd cluster](../../etcd/install.n.setup.md)
 
-> 여기 까지는 master/worker node 모두 수행
-
+> 여기까지 master/worker node 모두 수행
+---
 > 여기부터 master node 수행
 
 ## master node 설정
@@ -160,7 +163,7 @@ kubeadm join 10.251.0.194:6443 --token jsfxu6.0kj84vtirx0vezb7 \
 >
 >`copy the certificates to MPK-Cluster-11 and kubeadm init`   
 >[app@MPK-Cluster-11 pki]$ sudo cp -R /apps/kubernetes/pki /etc/kubernetes/  
->[app@MPK-Cluster-11 pki]$ sudo kubeadm init --config=/apps/kubernetes/config.yaml
+>[app@MPK-Cluster-11 pki]$ sudo kubeadm init --config=/apps/kubernetes/config.yaml  
 >kubeadm join 10.251.0.194:6443 --token 6kbq9e.qirblr0o52gplk5l \  
 >    --discovery-token-ca-cert-hash sha256:ea609f534e6527f8d5ffb5b5cf2488fa79f9c231401386577872037a3338dc3e 
 
@@ -179,7 +182,7 @@ $ kubectl taint nodes --all node-role.kubernetes.io/master-
 >$ kubectl taint nodes --all node-role.kubernetes.io/master-node/k8s-master untainted  
 
 > 여기까지 master node 수행
-
+---
 > 여기부터 worker node 수행
 
 ## worker mode
