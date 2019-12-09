@@ -7,244 +7,117 @@
 #### A. creating required operating system group and user
 [Create operating system group and user](../system/management.account.n.group.md)
 
-
-#### B. install dependency packages
-`dependency libray`  
-* case of redhat  
-$ yum install pcre pcre-devel openssl libssl-dev  
-* case of debian  
-$ apt-get install libpcre3 libpcre3-dev openssl libssl-dev
-
-`utility libray`  
-* case of redhat  
-$ yum install zlib*  
-* case of debian  
-$ apt-get install zlib1g zlib1g-dev
-
-#### C. creating base directory
+#### B. creating base directory
 [Create operating system drectory](../system/management.directory.md)
-
-#### D. firewall configuration
-
-$ vi /etc/sysconfig/iptables
-```
-...  
-## nginx : 3020  
-# http  
--A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT  
-# https  
--A INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
-...
-```
-
-`restart iptalbes service`  
-$ service iptables restart
-
-$ iptables -nL
 
 ## 2. installation setup : app
 
-#### A. change account
+#### change account
 >$ su - app
 
-#### B. creating application directory
-$ mkdir -p /apps/haproxy  
-$ mkdir -p /data/haproxy  
-$ mkdir -p /logs/haproxy
+#### creating application directory
+$ mkdir -p /apps/etcd  
+$ mkdir -p /data/etcd  
 
-#### C. download
-
-`Nginx(http://nginx.org/)`  
-$ curl -O http://www.haproxy.org/download/2.0/src/haproxy-2.0.10.tar.gz -P /apps/install  
-~~$ wget http://www.haproxy.org/download/2.0/src/haproxy-2.0.10.tar.gz -P /apps/install~~
-
-#### D. install
+#### download
+`https://github.com/etcd-io/etcd/releases`  
+$ wget https://github.com/etcd-io/etcd/releases/download/v3.3.18/etcd-v3.3.18-linux-amd64.tar.gz
 
 #### decompress tarball
-
-$ sudo yum -y install make gcc perl pcre-devel zlib-devel openssl-devel
-> $ sudo yum -y install make gcc perl pcre-devel zlib-devel openssl-devel --downloadonly --downloaddir=/apps/install/rpms/haproxy
-
-$ tar -zxvf /apps/install/haproxy-2.0.10.tar.gz  
-
-#### compile and install
-$ cd /apps/install/haproxy-2.0.10
-
-$ make TARGET=linux-glibc USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1 USE_SYSTEMD=1
->$ make TARGET=linux-glibc USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1  
->$ make TARGET=linux2628 USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1  
->$ make TARGET=linux2628 USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1 USE_CRYPT_H=1 USE_LIBCRYPT=1
-
-> `Error Occurred`  
-> [ALERT] 339/174150 (17206) : master-worker mode with systemd support (-Ws) requested, but not compiled. Use master-worker mode (-W) if you are not using Type=notify in your unit file or recompile with USE_SYSTEMD=1.  
->
->`RedHat/CentOS`  
->$ yum install systemd-devel  
->`Debian/Ubuntu`  
->$ apt-get install libsystemd-dev
-
-
-$ make PREFIX=/apps/haproxy/2.0.10 install
+$ tar -xvf etcd-v3.3.18-linux-amd64.tar.gz
+$ mv /apps/install/etcd-v3.3.18-linux-amd64 /apps/etcd/3.3.18
 
 ## 3. post-installation setup
 
 #### create systemd unit file
-$ sudo vi /etc/systemd/system/haproxy.service
+$ vi /etc/hosts
 ```
+...
+# mpk-etcd-cluster
+mpk-etcd-01 10.251.0.191
+mpk-etcd-02 10.251.0.192
+mpk-etcd-03 10.251.0.193
+...
+```
+
+ref. systemd.configuration
+```
+#!/usr/bin/env bash
+
+_NAME="mpk-etcd"
+_HOSTS=("10.251.0.191" "10.251.0.192" "10.251.0.193")
+
+for IDX in "${!_HOSTS[@]}"; do
+_HOST=${_HOSTS[$IDX]}
+cat << EOF > etcd.service.$_HOST
 [Unit]
-Description=HAProxy
-After=syslog.target network.target
+Description=etcd
+Documentation=https://github.com/etcd-io
 
 [Service]
-Type=notify
-EnvironmentFile=/etc/sysconfig/haproxy
-ExecStart=/apps/haproxy/2.0.10/sbin/haproxy -f $CONFIG_FILE -p $PID_FILE $CLI_OPTIONS
-ExecReload=/bin/kill -USR2 $MAINPID
-ExecStop=/bin/kill -USR1 $MAINPID
+ExecStart=/usr/local/bin/etcd \\
+  --name $_NAME-`printf %02d ${IDX+1}` \\
+  --data-dir=/data/etcd \\
+  --initial-cluster-state new \\
+  --initial-cluster-token $_NAME-cluster-`printf %02d ${IDX+1}` \\
+  --initial-cluster mpk-etcd-01=https://${_HOSTS[0]}:2380,mpk-etcd-02=https://${_HOSTS[1]}:2380,mpk-etcd-03=https://${_HOSTS[2]}:2380 \\
+  --initial-advertise-peer-urls https://$_HOST:2380 \\
+  --advertise-client-urls https://$_HOST:2379 \\
+  --listen-peer-urls https://$_HOST:2380 \\
+  --listen-client-urls https://$_HOST:2379,http://127.0.0.1:2379
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+done
+```
+
+$ sudo vi /etc/systemd/system/etcd.service
+```
+[Unit]
+Description=etcd
+Documentation=https://github.com/etcd-io
+
+[Service]
+ExecStart=/usr/local/bin/etcd \
+  --name mpk-etcd-01 \
+  --data-dir=/data/etcd
+  --initial-cluster-state new \
+  --initial-cluster-token mpk-etcd-cluster-01 \
+  --initial-cluster etcd-01=https://10.251.0.191:2380,etcd-02=https://10.251.0.192:2380,etcd-03=https://10.251.0.193:2380 \
+  --initial-advertise-peer-urls https://10.251.0.191:2380 \
+  --advertise-client-urls https://10.251.0.191:2379 \
+  --listen-peer-urls https://10.251.0.191:2380 \
+  --listen-client-urls https://10.251.0.191:2379,http://127.0.0.1:2379 \
+Restart=on-failure
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
 ```
-> The USR2 signal instructs HAProxy to reload its configuration without bringing it down.
-> USR1 brings down HAProxy, allowing processes to finish what they were doing before exiting.
+>  --cert-file=/apps/etcd/pki/kubernetes.pem \
+>  --key-file=/apps/etcd/pki/kubernetes-key.pem \
+>  --peer-cert-file=/apps/etcd/pki/kubernetes.pem \
+>  --peer-key-file=/apps/etcd/pki/kubernetes-key.pem \
+>  --trusted-ca-file=/apps/etcd/pki/ca.pem \
+>  --peer-trusted-ca-file=/apps/etcd/pki/ca.pem \
+>  --peer-client-cert-auth \
+>  --client-cert-auth \
 
-#### create the systemd environment file
-$ sudo vi /etc/sysconfig/haproxy
-```
-# Command line options to pass to HAProxy at startup
-# The default is:  
-#CLI_OPTIONS="-Ws" #be able to notify systemd when it is done starting
-CLI_OPTIONS="-Ws"
 
-# Specify an alternate configuration file. The default is:
-#CONFIG_FILE=/etc/haproxy/haproxy.conf
-CONFIG_FILE=/etc/haproxy/haproxy.conf
+#### reload the daemon configuration.
+$ sudo systemctl daemon-reload
 
-# File used to track process IDs. The default is:
-#PID_FILE=/var/run/haproxy.pid
-PID_FILE=/var/run/haproxy.pid
-```
+#### enable etcd to start at boot time.
+$ sudo systemctl enable etcd
 
-#### reload the system configuration
-$ systemctl daemon-reload
+#### start etcd.
+$ sudo systemctl start etcd
 
-#### configure
-$ sudo mkdir /etc/haproxy
-
-$ sudo vi /etc/haproxy/haproxy.conf
-```
-global
-    maxconn     4000
-    ulimit-n    16384
-    log         127.0.0.1 local0 info
-    user        app
-    group       app
-    chroot      /var/lib/haproxy
-    pidfile     /var/run/haproxy.pid
-    stats socket           /var/run/haproxy.sock mode 666 level admin
-    daemon
-
-    stats socket /var/lib/haproxy/stats
-
-defaults
-    mode                    http
-    log                     global
-    option                  httplog
-    option                  dontlognull
-    option                  http-server-close
-    retries                 3
-    timeout http-request    10s
-    timeout queue           1m
-    timeout connect         10s
-    timeout client          1m
-    timeout server          1m
-    timeout http-keep-alive 10s
-    timeout check           10s
-    maxconn                 3000
-
-listen stats
-    bind :::8888 v4v6
-    mode http
-    stats enable
-    stats hide-version
-    stats uri /
-    stats realm Haproxy\ Statistics
-    stats auth admin:P@ssw0rd
-
-frontend kubernetes
-    bind 10.251.0.194:6443
-    option tcplog
-    mode tcp
-    default_backend kubernetes-master-nodes
-
-backend kubernetes-master-nodes
-    mode tcp
-    balance roundrobin
-    option tcp-check
-    server k8s-master-0 10.251.0.191:6443 check fall 3 rise 2
-    server k8s-master-1 10.251.0.192:6443 check fall 3 rise 2
-    server k8s-master-2 10.251.0.193:6443 check fall 3 rise 2
-
-#frontend main
-#    bind :::80 v4v6
-#    option                      http-server-close
-#    acl api.k8s.mobon.platform.01 hdr(host) -i MPK-Cluster-api-01
-#    acl api.k8s.mobon.platform.02 hdr(host) -i MPK-Cluster-api-02
-#    use_backend api.k8s.01 if api.k8s.mobon.platform.01
-#    use_backend api.k8s.02 if api.k8s.mobon.platform.02
-#    default_backend             default
-#
-#backend default
-#    balance     roundrobin
-#    server  MPK-Cluster-09 10.251.0.191:6443 check
-#    server  MPK-Cluster-10 10.251.0.192:6443 check
-#    server  MPK-Cluster-11 10.251.0.193:6443 check
-#
-#backend api.k8s.01
-#    balance roundrobin
-#    server  MPK-Cluster-09 10.251.0.191:6443 check
-#    server  MPK-Cluster-10 10.251.0.192:6443 check
-#    server  MPK-Cluster-11 10.251.0.193:6443 check
-#
-#backend api.k8s.02
-#    balance roundrobin
-#    server  MPK-Cluster-09 10.251.0.191:6443 check
-#    server  MPK-Cluster-10 10.251.0.192:6443 check
-#    server  MPK-Cluster-11 10.251.0.193:6443 check
-
-```
-
-## 4. execution(starting and stopping daemon services)
-
-#### start service
-$ systemctl start haproxy.service
-
-> `Error Occurred`
->```
->Job for haproxy.service failed because the control process exited with error code. See "systemctl status haproxy.service" and "journalctl -xe" for details.
->```
->$ systemctl status haproxy.service
->```
->● haproxy.service - HAProxy
->   Loaded: loaded (/etc/systemd/system/haproxy.service; disabled; vendor preset: disabled)
->   Active: failed (Result: exit-code) since 금 2019-12-06 17:47:02 KST; 11s ago
->  Process: 19310 ExecStop=/bin/kill -USR1 $MAINPID (code=exited, status=1/FAILURE)
->  Process: 19308 ExecStart=/apps/haproxy/2.0.10/sbin/haproxy -f $CONFIG_FILE -p $PID_FILE $CLI_OPTIONS (code=exited, status=1/FAILURE)
-> Main PID: 19308 (code=exited, status=1/FAILURE)
-> ...
->``` 
-> $ journalctl -xe
->```
->...
->[ALERT] 339/174702 (19308) : Starting frontend GLOBAL: cannot bind UNIX socket [/var/lib/haproxy/stats]
->...
->```
-
-#### configure haproxy to start at boot
-$ systemctl enable haproxy
-
-#### check process
-$ ps -ef | grep haproxy | cut -c 1-100
+#### verify that the cluster is up and running.
+$ ETCDCTL_API=3 etcdctl member list
 
 ## 8. trouble-shooting
 
@@ -252,14 +125,14 @@ $ ps -ef | grep haproxy | cut -c 1-100
 
 #### reference site
 
-* HAProxy - The Reliable, High Performance TCP/HTTP Load Balancer  
-http://www.haproxy.org/
+* etcd-io/etcd
+https://github.com/etcd-io/etcd/releases
 
-+ HAProxy-1.9.8 설치 (on CentOS 7)    
-https://hbesthee.tistory.com/1622
++ etcd 3.2.3 클러스터링하기  
+https://knight76.tistory.com/entry/etcd-323-%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%EB%A7%81%ED%95%98%EA%B8%B0
 
-+ Installing HAProxy From Source On CentOS 7  
-https://tylersguides.com/guides/installing-haproxy-from-source-on-centos-7/
++ Ubuntu etcd 설치  
+https://sarc.io/index.php/cloud/1739-ubuntu-etcd-installation
 
-+ HAProxy 설치  
-https://sarc.io/index.php/miscellaneous/1487-haproxy
++ Install and configure a multi-master Kubernetes cluster with kubeadm  
+https://blog.inkubate.io/install-and-configure-a-multi-master-kubernetes-cluster-with-kubeadm/
