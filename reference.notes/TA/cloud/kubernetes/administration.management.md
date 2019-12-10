@@ -107,6 +107,18 @@ spec:
 
 ## management
 
+#### add labels to the node
+$ kubectl label nodes mpk-cluster-01 env=product servicetype=apps  
+$ kubectl label nodes mpk-cluster-02 env=product servicetype=apps  
+$ kubectl label nodes mpk-cluster-03 env=product servicetype=apps  
+$ kubectl label nodes mpk-cluster-04 env=product servicetype=apps  
+$ kubectl label nodes mpk-cluster-05 env=product servicetype=apps  
+$ kubectl label nodes mpk-cluster-06 env=product servicetype=data  
+$ kubectl label nodes mpk-cluster-07 env=product servicetype=data  
+$ kubectl label nodes mpk-cluster-08 env=product servicetype=data  
+
+> $ kubectl get nodes -o wide --show-labels
+
 #### kubenetes dns
 mobon-service-product-svc.mobon.svc.mobon.platform
 
