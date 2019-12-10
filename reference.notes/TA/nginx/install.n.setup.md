@@ -320,7 +320,7 @@ $ cp /apps/nginx/nginx /etc/rc.d/init.d/nginx
 
 ##### case of redhat
 $ chkconfig --add nginx  
-$ chkconfig --level 35 nginx on
+$ chkconfig --level 35 nginx on  
 $ chkconfig --list | grep nginx  
 ```
 nginx 0:off 1:off 2:off 3:on 4:off 5:on 6:off
@@ -330,10 +330,10 @@ nginx 0:off 1:off 2:off 3:on 4:off 5:on 6:off
 $ sudo update-rc.d -f nginx defaults
 
 #### C. configure
-$ mkdir /apps/nginx/1.14.2/conf/sites-available
+$ mkdir /apps/nginx/1.14.2/conf/sites-available  
 $ mkdir /apps/nginx/1.14.2/conf/sites-enabled  
 
-$ cp /apps/nginx/1.14.2/conf/nginx.conf /apps/nginx/1.14.2/conf/nginx.conf.default
+$ cp /apps/nginx/1.14.2/conf/nginx.conf /apps/nginx/1.14.2/conf/nginx.conf.default  
 $ vi /apps/nginx/1.14.2/conf/nginx.conf
 ```
 #user nginx app;
