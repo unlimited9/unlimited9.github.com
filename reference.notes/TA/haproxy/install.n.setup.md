@@ -12,7 +12,7 @@ Installation/Setup/Configuration Server.setting - proxy
 #### B. install dependency packages
 `dependency libray`  
 * case of redhat  
-$ sudo yum -y install make gcc perl pcre-devel zlib-devel openssl-devel
+$ sudo yum -y install make gcc perl pcre-devel zlib-devel openssl-devel  
 > $ sudo yum -y install make gcc perl pcre-devel zlib-devel openssl-devel --downloadonly --downloaddir=/apps/install/rpms/haproxy
 
 #### C. creating base directory
