@@ -42,10 +42,10 @@ $ ls /apps/docker-registry/certs
 STAR.mobon.net.crt  STAR.mobon.net.key
 
 #### create docker private registry container (default registry port : 5000)
-$ mkdir -p /apps/docker-registry/auth
+$ mkdir -p /apps/docker-registry/auth  
 $ docker run --entrypoint htpasswd registry -Bbn mobon passwd > /apps/docker-registry/auth/htpasswd
 
-$ mkdir -p /apps/docker-registry/volume
+$ mkdir -p /apps/docker-registry/volume  
 $ docker run -d \
   -p 5000:5000 \
   --restart=always \
