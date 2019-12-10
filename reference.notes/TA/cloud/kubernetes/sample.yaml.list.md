@@ -287,6 +287,9 @@ spec:
         configMap:
           name: scouter-config 
           defaultMode: 420
+      nodeSelector:
+        env: product
+        servicetype: apps
 ---
 apiVersion: v1
 kind: Service
@@ -305,8 +308,7 @@ spec:
       targetPort: 8080
   type: LoadBalancer
   externalIPs:
-  - 10.251.0.181
-  - 119.205.238.81
+  - 10.251.0.183
 
 ```
 
@@ -456,6 +458,9 @@ spec:
         configMap:
           name: scouter-config 
           defaultMode: 420
+      nodeSelector:
+        env: product
+        servicetype: apps
 ---
 apiVersion: v1
 kind: Service
@@ -474,8 +479,7 @@ spec:
       targetPort: 8080
   type: LoadBalancer
   externalIPs:
-  - 10.251.0.182
-  - 119.205.238.82
+  - 10.251.0.184
 
 ```
 
@@ -624,6 +628,9 @@ spec:
         configMap:
           name: scouter-config 
           defaultMode: 420
+      nodeSelector:
+        env: product
+        servicetype: apps
 ---
 apiVersion: v1
 kind: Service
