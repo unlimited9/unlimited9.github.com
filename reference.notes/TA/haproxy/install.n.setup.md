@@ -12,15 +12,8 @@ Installation/Setup/Configuration Server.setting - proxy
 #### B. install dependency packages
 `dependency libray`  
 * case of redhat  
-$ yum install pcre pcre-devel openssl libssl-dev  
-* case of debian  
-$ apt-get install libpcre3 libpcre3-dev openssl libssl-dev
-
-`utility libray`  
-* case of redhat  
-$ yum install zlib*  
-* case of debian  
-$ apt-get install zlib1g zlib1g-dev
+$ sudo yum -y install make gcc perl pcre-devel zlib-devel openssl-devel
+> $ sudo yum -y install make gcc perl pcre-devel zlib-devel openssl-devel --downloadonly --downloaddir=/apps/install/rpms/haproxy
 
 #### C. creating base directory
 [Create operating system drectory](../system/management.directory.md)
@@ -62,10 +55,6 @@ $ curl -O http://www.haproxy.org/download/2.0/src/haproxy-2.0.10.tar.gz -P /apps
 #### D. install
 
 #### decompress tarball
-
-$ sudo yum -y install make gcc perl pcre-devel zlib-devel openssl-devel
-> $ sudo yum -y install make gcc perl pcre-devel zlib-devel openssl-devel --downloadonly --downloaddir=/apps/install/rpms/haproxy
-
 $ tar -zxvf /apps/install/haproxy-2.0.10.tar.gz  
 
 #### compile and install
