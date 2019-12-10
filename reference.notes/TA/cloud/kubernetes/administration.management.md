@@ -118,8 +118,10 @@ $ kubectl label nodes mpk-cluster-07 env=product servicetype=data
 $ kubectl label nodes mpk-cluster-08 env=product servicetype=data  
 
 $ kubectl get nodes -o wide --show-labels -l kubernetes.io/hostname=mpk-cluster-06  
-NAME             STATUS   ROLES    AGE   VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE                KERNEL-VERSION               CONTAINER-RUNTIME   LABELS  
+```
+NAME             STATUS   ROLES    AGE   VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE                KERNEL-VERSION               CONTAINER-RUNTIME   LABELS
 mpk-cluster-06   Ready    <none>   15h   v1.16.3   10.251.0.188   <none>        CentOS Linux 7 (Core)   3.10.0-957.10.1.el7.x86_64   docker://19.3.5     beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,env=product,kubernetes.io/arch=amd64,kubernetes.io/hostname=mpk-cluster-06,kubernetes.io/os=linux,servicetype=data
+```
 
 #### kubenetes dns
 mobon-service-product-svc.mobon.svc.mobon.platform
