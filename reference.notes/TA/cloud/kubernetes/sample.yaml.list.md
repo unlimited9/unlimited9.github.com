@@ -168,6 +168,22 @@ spec:
       labels:
         app: mobon-gateway-api-common
     spec:
+#      nodeSelector:
+#        env: product
+#        servicetype: apps
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: env
+                operator: In
+                values:
+                - product
+              - key: servicetype
+                operator: In
+                values:
+                - apps
       containers:
         - name: mobon-gateway-api-common
           image: docker-registry.mobon.net:5000/mobon/java.app.ext:latest
@@ -287,9 +303,6 @@ spec:
         configMap:
           name: scouter-config 
           defaultMode: 420
-      nodeSelector:
-        env: product
-        servicetype: apps
 ---
 apiVersion: v1
 kind: Service
@@ -339,6 +352,22 @@ spec:
       labels:
         app: mobon-gateway-service-aggregation
     spec:
+#      nodeSelector:
+#        env: product
+#        servicetype: apps
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: env
+                operator: In
+                values:
+                - product
+              - key: servicetype
+                operator: In
+                values:
+                - apps
       containers:
         - name: mobon-gateway-service-aggregation
           image: docker-registry.mobon.net:5000/mobon/java.app.ext:latest
@@ -458,9 +487,6 @@ spec:
         configMap:
           name: scouter-config 
           defaultMode: 420
-      nodeSelector:
-        env: product
-        servicetype: apps
 ---
 apiVersion: v1
 kind: Service
@@ -510,6 +536,22 @@ spec:
       labels:
         app: mobon-service-product
     spec:
+#      nodeSelector:
+#        env: product
+#        servicetype: apps
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: env
+                operator: In
+                values:
+                - product
+              - key: servicetype
+                operator: In
+                values:
+                - apps
       containers:
         - name: mobon-service-product
           image: docker-registry.mobon.net:5000/mobon/java.app.ext:latest
@@ -628,9 +670,6 @@ spec:
         configMap:
           name: scouter-config 
           defaultMode: 420
-      nodeSelector:
-        env: product
-        servicetype: apps
 ---
 apiVersion: v1
 kind: Service
