@@ -373,3 +373,173 @@ $ docker build -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.no
 >$ docker push docker-registry.mobon.net:5000/mobon/node.app.ext:latest
 
 
+# elasticsearch
+
+## build image > create container
+
+#### create containers base mobon/centos.7.base:1.1
+$ docker run --net mobon.subnet --ip 192.168.104.51  --ulimit memlock=-1 --name elasticsearch.7 -d -it docker-registry.mobon.net:5000/mobon/centos.7.base:latest
+
+$ docker exec -it elasticsearch.7 /bin/bash
+
+$$ mkdir -p /apps/elasticsearch  
+$$ mkdir -p /data/elasticsearch  
+$$ mkdir -p /logs/elasticsearch
+
+$$ cd /apps/install
+
+$$ curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.5.0-linux-x86_64.tar.gz  
+$$ tar -zxvf /apps/install/elasticsearch-7.5.0-linux-x86_64.tar.gz  
+$$ cp -R elasticsearch-7.5.0 /apps/elasticsearch/7.5.0
+
+$$ cd /apps/elasticsearch/7.5.0/config  
+$$ cp /apps/elasticsearch/7.5.0/config/elasticsearch.yml /apps/elasticsearch/7.5.0/config/elasticsearch.yml.default  
+$$ vi /apps/elasticsearch/7.5.0/config/elasticsearch.yml
+```
+# ---------------------------------- Cluster -----------------------------------
+cluster.name: ${CLUSTER_NAME}
+cluster.remote.connect: false
+
+# ------------------------------------ Node ------------------------------------
+node.name: ${NODE_NAME}
+node.master: ${NODE_MASTER}
+node.data: ${NODE_DATA}
+node.ingest: ${NODE_INGEST}
+
+# coordinating/lb Node - node.master: false, node.data: false, node.ingest: false
+# master-eligible Node - node.master: true, node.data: false, node.ingest: false
+# data Node  - node.master: false, node.data: true, node.ingest: false
+# ingest Node  - node.master: false, node.data: false, node.ingest: true
+
+#node.attr.rack: rack_01
+
+#processors: ${PROCESSORS:1}
+
+# ----------------------------------- Memory -----------------------------------
+# Kubernetes requires swap is turned off, so memory lock is redundant. set false
+bootstrap.memory_lock: ${MEMORY_LOCK:true}
+bootstrap.system_call_filter : false
+
+# ---------------------------------- Network -----------------------------------
+network.host: ${NETWORK_HOST}
+#http.enabled: false (deprecated)
+http.port: 6530
+transport.tcp.port: 6540
+#http.port: 9200(default)
+#transport.tcp.port: 9300(default)
+
+# --------------------------------- Discovery ----------------------------------
+discovery.seed_hosts: ${DISCOVERY_SERVICE:["${NETWORK_HOST}:6540"]}
+cluster.initial_master_nodes: ${MASTER_NODES:["${NODE_NAME"}]}
+#discovery.zen.minimum_master_nodes: 2(deprecated)
+
+# --------------------------------- Paths ----------------------------------
+path.data: /data/elasticsearch
+path.logs: /logs/elasticsearch
+
+thread_pool.search.size: 50
+thread_pool.search.queue_size: 2000
+
+# CORS settings.
+http.cors.enabled: ${HTTP_CORS_ENABLE:true}
+http.cors.allow-origin: ${HTTP_CORS_ALLOW_ORIGIN:"*"}
+http.cors.allow-methods : OPTIONS, HEAD, GET, POST
+http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Length
+http.cors.allow-credentials: ${HTTP_CORS_ALLOW_CREDENTIALS:false}
+```
+
+$$ cp /apps/elasticsearch/7.5.0/config/jvm.options /apps/elasticsearch/7.5.0/config/jvm.options.default  
+$$ vi /apps/elasticsearch/7.5.0/config/jvm.options
+```
+...
+-Xms16g
+-Xmx16g
+...
+```
+$$ export 
+
+$$ vi /apps/elasticsearch/elasticsearch
+```
+#!/bin/sh
+# elasticsearch service control
+# chkconfig: 2345 90 90
+# description: elasticsearch
+# processname: elasticsearch
+# config: $ES_CONFIG_FILE
+# pidfile:
+
+UNAME=`id -u -n`
+
+# the user you used to run the elastic search
+ES_USER=app
+ES_HOME=/apps/elasticsearch/7.5.0
+
+ES_NAME=elasticsearch
+ES_PID_FILE=$ES_HOME/$ES_NAME.pid
+
+ES_EXEC=$ES_HOME/bin/elasticsearch
+ES_EXEC_OPTS="-d -p $ES_PID_FILE"
+
+case "$1" in
+        start)
+                echo -en "Starting Elastic Search Server..."
+                if [ e$UNAME = "eroot" ]
+                then
+                        /bin/su -p -s /bin/sh $ES_USER -c "$ES_EXEC $ES_EXEC_OPTS"
+                else
+                        $ES_EXEC $ES_EXEC_OPTS
+                fi
+
+                if [ $? == 0 ]
+                then
+                        echo "started."
+                else
+                        echo "failed."
+                fi
+                echo -e "\n"
+                ;;
+        stop)
+                echo -en "Shutting Down Elastic Search Server..."
+                kill `cat $ES_PID_FILE`
+                #rm $ES_PID_FILE
+
+                if [ $? == 0 ]
+                then
+                        echo "stopped."
+                else
+                        echo "failed."
+                fi
+                echo -e "\n"
+                ;;
+        restart)
+                $0 stop
+                sleep 5
+                $0 start
+                ;;
+        *)
+                echo "Usage: $0 {start|stop|restart}"
+                exit 1
+esac
+
+exit 0
+```
+$$ chmod 755 /apps/elasticsearch/elasticsearch  
+
+`develepment env`  
+$$ export CLUSTER_NAME=es-cluster  
+$$ export NODE_NAME=es-node  
+$$ export NODE_MASTER=true  
+$$ export NODE_DATA=true  
+$$ export NODE_INGEST=true  
+$$ export NETWORK_HOST=192.168.104.51  
+$$ export DISCOVERY_SERVICE=["192.168.104.51:6540"]  
+$$ export MASTER_NODES=["es-node"]  
+
+$$ /apps/elasticsearch/elasticsearch start
+
+#### create image from base.container - mobon/elasticsearch.7:latest
+$ docker commit -a "sjlee@ruaniz.com" -m "create image from elasticsearch.7 container" elasticsearch.7 mobon/elasticsearch.7:latest
+
+>`push image to docker private registry`  
+>$ docker tag mobon/elasticsearch.7:latest docker-registry.mobon.net:5000/mobon/elasticsearch.7:latest  
+>$ docker push docker-registry.mobon.net:5000/mobon/elasticsearch.7:latest
