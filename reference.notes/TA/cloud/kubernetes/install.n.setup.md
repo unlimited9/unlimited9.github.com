@@ -761,6 +761,10 @@ https://medium.com/@meysam1369/kubernetes-completely-uninstall-3f2a83dd985d
 + Docker, Kubernetes 환경에서 CUBRID 컨테이너 서비스 해보기  
 http://www.cubrid.com/blog/3820603
 
++ 쿠버네티스에서 원하는 Node로 Pod 배포하기  
+http://www.kwangsiklee.com/2019/02/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4%EC%97%90%EC%84%9C-%EC%9B%90%ED%95%98%EB%8A%94-node%EB%A1%9C-pod-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0/
 
 - Docker with Kubernetes #9 - Master Node의 HA 구성 
 https://crystalcube.co.kr/203
+
+
