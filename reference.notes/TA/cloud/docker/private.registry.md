@@ -170,6 +170,10 @@ $ curl -k -u 'mobon:passwd' -v --silent -H "Accept: application/vnd.docker.distr
 #### manifest 삭제
 $ curl -k -u 'mobon:passwd' -v --silent -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -X DELETE https://docker-registry.mobon.net:5000/v2/mobon/java.app.env/manifests/<DIGEST 정보>
 
+> {"errors":[{"code":"UNSUPPORTED","message":"The operation is unsupported."}]}  
+> add option : -e REGISTRY_STORAGE_DELETE_ENABLED=true
+
+
 #### GC(Garbage Collection)
 $ docker exec -it registry_dev registry garbage-collect /etc/docker/registry/config.yml
 
