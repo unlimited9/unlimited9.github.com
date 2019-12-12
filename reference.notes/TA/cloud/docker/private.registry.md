@@ -157,6 +157,7 @@ $ curl -k -u 'mobon:passwd' -X GET https://docker-registry.mobon.net:5000/v2/_ca
 #### docker private registry image pull and execute
 $ docker pull docker-registry.mobon.net:5000/mobon/java.app.env
 
+
 ## delete image
 
 #### registry 내부의 repository 정보 조회
@@ -174,9 +175,9 @@ $ curl -k -u 'mobon:passwd' -v --silent -H "Accept: application/vnd.docker.distr
 > {"errors":[{"code":"UNSUPPORTED","message":"The operation is unsupported."}]}  
 > add option : -e REGISTRY_STORAGE_DELETE_ENABLED=true
 
-
 #### GC(Garbage Collection)
 $ docker exec -it registry_dev registry garbage-collect /etc/docker/registry/config.yml
+
 
 ## kubernetes
 
