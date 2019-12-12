@@ -757,9 +757,7 @@ $ docker run --net mobon.subnet --ip 192.168.104.53 --name elasticsearch.7.kiban
 
 $ docker exec -it elasticsearch.7.kibana /bin/bash
 
-$$ mkdir -p /apps/kibana  
-$$ mkdir -p /data/kibana  
-$$ mkdir -p /logs/kibana
+$$ mkdir -p /apps/kibana /data/kibana /logs/kibana
 
 $$ cd /apps/install
 
