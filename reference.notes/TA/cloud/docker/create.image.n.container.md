@@ -763,7 +763,7 @@ $$ cd /apps/install
 
 $$ curl -O https://artifacts.elastic.co/downloads/kibana/kibana-7.5.0-linux-x86_64.tar.gz  
 $$ tar -zxvf /apps/install/kibana-7.5.0-linux-x86_64.tar.gz  
-$$ cp -R kibana-7.5.0 /apps/kibana/7.5.0
+$$ cp -R kibana-7.5.0-linux-x86_64 /apps/kibana/7.5.0
 
 $$ cd /apps/kibana/7.5.0/config
 
