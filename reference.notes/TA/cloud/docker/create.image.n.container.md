@@ -543,6 +543,9 @@ RUN chown -R app.app /apps/elasticsearch
 
 USER app
 
+RUN /apps/elasticsearch/7.5.0/bin/elasticsearch-plugin install analysis-nori
+RUN touch /apps/elasticsearch/7.5.0/config/userdic_ko.txt
+
 # Set environment
 #ENV DISCOVERY_SERVICE elasticsearch-discovery
 
@@ -722,6 +725,10 @@ esac
 exit 0
 ```
 $$ chmod 755 /apps/elasticsearch/elasticsearch  
+
+`Elasticsearch 기본 한글 형태소 분석기 노리 (nori) 설치`  
+$$ /apps/elasticsearch/7.5.0/bin/elasticsearch-plugin install analysis-nori  
+$$ touch /apps/elasticsearch/7.5.0/config/userdic_ko.txt
 
 `develepment env`  
 $$ export CLUSTER_NAME=es-cluster  
