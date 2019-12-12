@@ -278,7 +278,8 @@ $ docker build -t mobon/java.app.ext:latest -f /apps/docker/images/Dockerfile.ja
 >$ docker tag mobon/java.app.ext:latest docker-registry.mobon.net:5000/mobon/java.app.ext:latest
 >$ docker push docker-registry.mobon.net:5000/mobon/java.app.ext:latest
 
-# node.app.env:1.1
+# node.app.env:1.1cluster.initial_master_nodes: ${MASTER_NODES:["${NODE_NAME"}]}
+
 
 ## build image
 
@@ -429,13 +430,13 @@ transport.tcp.port: 6540
 #transport.tcp.port: 9300(default)
 
 # --------------------------------- Discovery ----------------------------------
-discovery.seed_hosts: ${DISCOVERY_SERVICE:["${NETWORK_HOST}:6540"]}
-cluster.initial_master_nodes: ${MASTER_NODES:["${NODE_NAME"}]}
+discovery.seed_hosts: ${DISCOVERY_SERVICE}
+cluster.initial_master_nodes: ${MASTER_NODES}
 #discovery.zen.minimum_master_nodes: 2(deprecated)
 
 # --------------------------------- Paths ----------------------------------
-path.data: /data/elasticsearch
-path.logs: /logs/elasticsearch
+path.data: ${PATH_DATA:/data/elasticsearch}
+path.logs: ${PATH_LOGS:/logs/elasticsearch}
 
 thread_pool.search.size: 50
 thread_pool.search.queue_size: 2000
