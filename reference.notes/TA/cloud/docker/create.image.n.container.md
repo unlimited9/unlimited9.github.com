@@ -660,7 +660,6 @@ $$ vi /apps/elasticsearch/7.5.0/config/jvm.options
 -Xmx16g
 ...
 ```
-$$ export 
 
 $$ vi /apps/elasticsearch/elasticsearch
 ```
@@ -751,3 +750,112 @@ $ docker commit -a "sjlee@ruaniz.com" -m "create image from elasticsearch.7 cont
 </div>
 </details>
 
+## kibana 
+
+#### create containers base mobon/centos.7.base:1.1
+$ docker run --net mobon.subnet --ip 192.168.104.53 --name elasticsearch.7.kibana -d -it docker-registry.mobon.net:5000/mobon/centos.7.base:latest
+
+$ docker exec -it elasticsearch.7.kibana /bin/bash
+
+$$ mkdir -p /apps/kibana  
+$$ mkdir -p /data/kibana  
+$$ mkdir -p /logs/kibana
+
+$$ cd /apps/install
+
+$$ curl -O https://artifacts.elastic.co/downloads/kibana/kibana-7.5.0-linux-x86_64.tar.gz  
+$$ tar -zxvf /apps/install/kibana-7.5.0-linux-x86_64.tar.gz    
+$$ cp -R kibana-7.5.0 /apps/kibana/7.5.0
+
+$$ cd /apps/kibana/7.5.0/config
+
+$$ cp /apps/kibana/7.5.0/config/kibana.yml /apps/kibana/7.5.0/config/kibana.yml.default
+$$ vi /apps/kibana/7.5.0/config/kibana.yml
+```
+# Kibana is served by a back end server. This setting specifies the port to use.
+server.port: 6636
+
+# Specifies the address to which the Kibana server will bind. IP addresses and host names are both valid values.
+# The default is 'localhost', which usually means remote machines will not be able to connect.
+# To allow connections from remote users, set this parameter to a non-loopback address.
+server.host: "192.168.104.51"
+
+# The URLs of the Elasticsearch instances to use for all your queries.
+elasticsearch.hosts: ["http://192.168.104.51:6530"]
+```
+
+$$ vi /apps/kibana/kibana  
+```
+#!/bin/sh
+# kibana    kibana service shell
+# chkconfig: 2345 90 90
+# description: kibana
+# processname: kibana
+# config: $KIBANA_CONF
+# pidfile:
+
+UNAME=`id -u -n`
+
+KIBANA_USER=app
+KIBANA_HOME=/apps/kibana/7.1.1
+KIBANA_EXEC=$KIBANA_HOME/bin/kibana
+
+kibana_pid() {
+	echo `ps aux | grep "$KIBANA_HOME" | grep -v grep | awk '{ print $2 }'`
+}
+
+_pid=$(kibana_pid)
+
+case "$1" in
+	start)
+		if [ -n "$_pid" ]
+		then
+			echo "Kibana is already running (pid: $_pid)"
+		else
+			echo -en "Starting Kibana Server..."
+	                if [ e$UNAME = "eroot" ]
+	                then
+	                        /bin/su -p -s /bin/sh $KIBANA_USER -c "$KIBANA_EXEC > /dev/null 2>&1&"
+	                else
+		                $KIBANA_EXEC > /dev/null 2>&1&
+	                fi
+
+	                if [ $? == 0 ]
+        	        then
+				echo "started."
+	                else
+        	                echo "failed."
+			fi
+		fi
+		;;
+	stop)
+		if [ -n "$_pid" ]
+		then
+			echo -en  "Shutting Down Kibana Server..."
+			kill $_pid
+
+        	        if [ $? == 0 ]
+	                then
+	                        echo "stopped."
+	                else
+	                        echo "failed."
+        	        fi
+		else
+			echo "Kibana is not running"
+		fi
+		;;
+	restart)
+		$0 stop
+		sleep 5
+		$0 start
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+esac
+
+exit 0
+```
+$$ chmod 755 /apps/kibana/kibana
+
+$$ /apps/kibana/kibana start
