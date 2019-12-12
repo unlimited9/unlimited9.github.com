@@ -59,6 +59,7 @@ $ docker run -d \
   -v /apps/docker-registry/certs:/certs \
   -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/STAR.mobon.net.crt \
   -e REGISTRY_HTTP_TLS_KEY=/certs/STAR.mobon.net.key \
+  -e REGISTRY_STORAGE_DELETE_ENABLED=true \
   registry
 
 >$ vi docker-compose.yml
