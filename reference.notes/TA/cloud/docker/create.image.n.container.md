@@ -533,6 +533,10 @@ RUN curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7
 RUN tar -zxvf /apps/install/elasticsearch-7.5.0-linux-x86_64.tar.gz
 RUN mv /apps/install/elasticsearch-7.5.0 /apps/elasticsearch/7.5.0
 
+# install plugin analysis-nori
+RUN /apps/elasticsearch/7.5.0/bin/elasticsearch-plugin install analysis-nori
+RUN touch /apps/elasticsearch/7.5.0/config/userdic_ko.txt
+
 ADD config /apps/elasticsearch/7.5.0/config
 
 ADD elasticsearch /apps/elasticsearch/elasticsearch
@@ -540,12 +544,6 @@ ADD elasticsearch /apps/elasticsearch/elasticsearch
 USER root
 
 RUN chown -R app.app /apps/elasticsearch
-
-USER app
-
-# install plugin analysis-nori
-RUN /apps/elasticsearch/7.5.0/bin/elasticsearch-plugin install analysis-nori
-RUN touch /apps/elasticsearch/7.5.0/config/userdic_ko.txt
 
 # Set environment
 #ENV DISCOVERY_SERVICE elasticsearch-discovery
@@ -593,6 +591,10 @@ $$ cd /apps/install
 $$ curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.5.0-linux-x86_64.tar.gz  
 $$ tar -zxvf /apps/install/elasticsearch-7.5.0-linux-x86_64.tar.gz  
 $$ cp -R elasticsearch-7.5.0 /apps/elasticsearch/7.5.0
+
+`Elasticsearch 기본 한글 형태소 분석기 노리 (nori) 설치`  
+$$ /apps/elasticsearch/7.5.0/bin/elasticsearch-plugin install analysis-nori  
+$$ touch /apps/elasticsearch/7.5.0/config/userdic_ko.txt
 
 $$ cd /apps/elasticsearch/7.5.0/config  
 $$ cp /apps/elasticsearch/7.5.0/config/elasticsearch.yml /apps/elasticsearch/7.5.0/config/elasticsearch.yml.default  
@@ -726,10 +728,6 @@ esac
 exit 0
 ```
 $$ chmod 755 /apps/elasticsearch/elasticsearch  
-
-`Elasticsearch 기본 한글 형태소 분석기 노리 (nori) 설치`  
-$$ /apps/elasticsearch/7.5.0/bin/elasticsearch-plugin install analysis-nori  
-$$ touch /apps/elasticsearch/7.5.0/config/userdic_ko.txt
 
 `develepment env`  
 $$ export CLUSTER_NAME=es-cluster  
