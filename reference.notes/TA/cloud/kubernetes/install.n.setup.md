@@ -767,4 +767,5 @@ http://www.kwangsiklee.com/2019/02/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4
 - Docker with Kubernetes #9 - Master Node의 HA 구성 
 https://crystalcube.co.kr/203
 
-
+- Elastic Cluster 구성 2 : 메모리, 네트워크 설정 및 플러그인 설치  
+http://kimjmin.net/2018/01/2018-01-build-es-cluster-2/
