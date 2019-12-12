@@ -7,7 +7,7 @@
 $ mkdir -p /apps/docker/images
 
 `create dockerize file`  
-$ vi /apps/docker/images/Dockerfile.centos.7.base 
+$ vi /apps/docker/images/centos.7.base/Dockerfile 
 ```
 FROM docker.io/centos:7
 
@@ -45,8 +45,8 @@ CMD /bin/bash
 ```
 
 `build/create docker image`  
-$ docker build -t mobon/centos.7.base:latest -f /apps/docker/images/Dockerfile.centos.7.base .  
->$ docker build -t mobon/centos.7.base:1.1 -t mobon/centos.7.base:latest -f /apps/docker/images/Dockerfile.centos.7.base .  
+$ docker build -t mobon/centos.7.base:latest -f /apps/docker/images/centos.7.base/Dockerfile .  
+>$ docker build -t mobon/centos.7.base:1.1 -t mobon/centos.7.base:latest -f /apps/docker/images/centos.7.base/Dockerfile .  
 >$ docker image tag mobon/centos.7.base:1.1 mobon/centos.7.base:latest
 
 >`push image to docker private registry`  
@@ -124,10 +124,10 @@ $ docker run --net mobon.subnet --ip 192.168.104.43 --name mobon.mongodb.03 -d -
 #### 01. build image mobon/java.app.env:1.1(mobon/java.app.env:latest) based mobon/centos.7.base:latest
 
 `create dockerize file`  
-$ vi /apps/docker/images/Dockerfile.java.app.env
+$ vi /apps/docker/images/java.app.env/Dockerfile
 ```
-FROM mobon/centos.7.base:latest
-# FROM docker-registry.mobon.net:5000/mobon/centos.7.base:latest
+FROM docker-registry.mobon.net:5000/mobon/centos.7.base:latest
+# FROM mobon/centos.7.base:latest
 
 USER root
 
@@ -172,8 +172,8 @@ CMD /bin/bash
 ```
 
 `build/create docker image`  
-$ docker build -t mobon/java.app.env:latest -f /apps/docker/images/Dockerfile.java.app.env .
->$ docker build -t mobon/java.app.env:1.1 -t mobon/java.app.env:latest -f /apps/docker/images/Dockerfile.java.app.env .
+$ docker build -t mobon/java.app.env:latest -f /apps/docker/images/java.app.env/Dockerfile .
+>$ docker build -t mobon/java.app.env:1.1 -t mobon/java.app.env:latest -f /apps/docker/images/java.app.env/Dockerfile .
 >$ docker image tag mobon/java.app.env:1.1 mobon/java.app.env:latest
 
 >`create docker service container`  
@@ -193,10 +193,10 @@ $ docker build -t mobon/java.app.env:latest -f /apps/docker/images/Dockerfile.ja
 #### 01. build image mobon/java.app.ext:1.1(mobon/java.app.ext:latest) based mobon/java.app.env:latest
 
 `create dockerize file`  
-$ vi /apps/docker/images/Dockerfile.java.app.ext
+$ vi /apps/docker/images/java.app.ext/Dockerfile
 ```
-FROM mobon/java.app.env:latest
-# FROM docker-registry.mobon.net:5000/mobon/java.app.env:latest 
+FROM docker-registry.mobon.net:5000/mobon/java.app.env:latest 
+# FROM mobon/java.app.env:latest
 
 # install and setup application
 WORKDIR /apps/install
@@ -264,8 +264,8 @@ RUN mv /apps/install/scouter /apps/scouter/2.7.0
 >```
 
 `build/create docker image`  
-$ docker build -t mobon/java.app.ext:latest -f /apps/docker/images/Dockerfile.java.app.ext .
->$ docker build -t mobon/java.app.ext:1.1 -t mobon/java.app.ext:latest -f /apps/docker/images/Dockerfile.java.app.ext .
+$ docker build -t mobon/java.app.ext:latest -f /apps/docker/images/java.app.ext/Dockerfile .
+>$ docker build -t mobon/java.app.ext:1.1 -t mobon/java.app.ext:latest -f /apps/docker/images/java.app.ext/Dockerfile .
 >$ docker image tag mobon/java.app.ext:1.1 mobon/java.app.ext:latest
 
 >`create docker service container`  
@@ -288,7 +288,7 @@ $ docker build -t mobon/java.app.ext:latest -f /apps/docker/images/Dockerfile.ja
 $ mkdir -p /apps/docker/images
 
 `create dockerize file`  
-$ vi /apps/docker/images/Dockerfile.node.app.env 
+$ vi /apps/docker/images/node.app.env/Dockerfile
 ```
 FROM docker.io/node
 
@@ -311,8 +311,8 @@ CMD /bin/bash
 ```
 
 `build/create docker image`  
-$ docker build -t mobon/node.app.env:latest -f /apps/docker/images/Dockerfile.node.app.env .  
->$ docker build -t mobon/node.app.env:1.1 -t mobon/node.app.env:latest -f /apps/docker/images/Dockerfile.node.app.env .  
+$ docker build -t mobon/node.app.env:latest -f /apps/docker/images/node.app.env/Dockerfile .  
+>$ docker build -t mobon/node.app.env:1.1 -t mobon/node.app.env:latest -f /apps/docker/images/node.app.env/Dockerfile .  
 >$ docker image tag mobon/node.app.env:1.1 mobon/node.app.env:latest
 
 >`push image to docker private registry`  
@@ -326,10 +326,10 @@ $ docker build -t mobon/node.app.env:latest -f /apps/docker/images/Dockerfile.no
 #### 01. build image mobon/node.app.ext:1.1(mobon/node.app.ext:latest) based mobon/node.app.env:latest
 
 `create dockerize file`  
-$ vi /apps/docker/images/Dockerfile.node.app.ext
+$ vi /apps/docker/images/node.app.ext/Dockerfile
 ```
-FROM mobon/node.app.env:latest
-# FROM docker-registry.mobon.net:5000/mobon/node.app.env:latest 
+FROM docker-registry.mobon.net:5000/mobon/node.app.env:latest 
+# FROM mobon/node.app.env:latest
 
 # install and setup application
 WORKDIR /apps/install
@@ -358,9 +358,9 @@ RUN apt-get update && apt-get install -y telegraf
 ```
 
 `build/create docker image`  
-$ docker build -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.node.app.ext .  
->$ docker build --no-cache -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.node.app.ext .  
->$ docker build -t mobon/node.app.ext:1.1 -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.node.app.ext .  
+$ docker build -t mobon/node.app.ext:latest -f /apps/docker/images/node.app.ext/Dockerfile .  
+>$ docker build --no-cache -t mobon/node.app.ext:latest -f /apps/docker/images/node.app.ext/Dockerfile .  
+>$ docker build -t mobon/node.app.ext:1.1 -t mobon/node.app.ext:latest -f /apps/docker/images/node.app.ext/Dockerfile .  
 >$ docker image tag mobon/node.app.ext:1.1 mobon/node.app.ext:latest
 
 >`create docker service container`  
@@ -373,10 +373,207 @@ $ docker build -t mobon/node.app.ext:latest -f /apps/docker/images/Dockerfile.no
 >$ docker tag mobon/node.app.ext:latest docker-registry.mobon.net:5000/mobon/node.app.ext:latest  
 >$ docker push docker-registry.mobon.net:5000/mobon/node.app.ext:latest
 
-
 # elasticsearch
 
-## build image > create container
+## build image
+
+#### 01. build image mobon/elasticsearch.7:1.1(mobon/elasticsearch.7:latest) based mobon/centos.7.base:latest
+
+`create elasticsearch config files : elasticsearch.yml, log4j2.properties`  
+$ vi /apps/docker/images/elasticsearch.7/config/elasticsearch.yml
+```
+# ---------------------------------- Cluster -----------------------------------
+cluster.name: ${CLUSTER_NAME}
+cluster.remote.connect: false
+
+# ------------------------------------ Node ------------------------------------
+node.name: ${NODE_NAME:false}
+node.master: ${NODE_MASTER:false}
+node.data: ${NODE_DATA:false}
+node.ingest: ${NODE_INGEST:false}
+
+# coordinating/lb Node - node.master: false, node.data: false, node.ingest: false
+# master-eligible Node - node.master: true, node.data: false, node.ingest: false
+# data Node  - node.master: false, node.data: true, node.ingest: false
+# ingest Node  - node.master: false, node.data: false, node.ingest: true
+
+#node.attr.rack: rack_01
+
+#processors: ${PROCESSORS:1}
+
+# ----------------------------------- Memory -----------------------------------
+# Kubernetes requires swap is turned off, so memory lock is redundant. set false
+bootstrap.memory_lock: ${MEMORY_LOCK:true}
+bootstrap.system_call_filter : false
+
+# ---------------------------------- Network -----------------------------------
+network.host: ${NETWORK_HOST}
+#http.enabled: false (deprecated)
+http.port: 6530
+transport.tcp.port: 6540
+#http.port: 9200(default)
+#transport.tcp.port: 9300(default)
+
+# --------------------------------- Discovery ----------------------------------
+discovery.seed_hosts: ${DISCOVERY_SERVICE}
+cluster.initial_master_nodes: ${MASTER_NODES}
+#discovery.zen.minimum_master_nodes: 2(deprecated)
+
+# --------------------------------- Paths ----------------------------------
+path.data: ${PATH_DATA:/data/elasticsearch}
+path.logs: ${PATH_LOGS:/logs/elasticsearch}
+
+thread_pool.search.size: 50
+thread_pool.search.queue_size: 2000
+
+# CORS settings.
+http.cors.enabled: ${HTTP_CORS_ENABLE:true}
+http.cors.allow-origin: ${HTTP_CORS_ALLOW_ORIGIN:"*"}
+http.cors.allow-methods : OPTIONS, HEAD, GET, POST
+http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Length
+http.cors.allow-credentials: ${HTTP_CORS_ALLOW_CREDENTIALS:false}
+```
+$ vi /apps/docker/images/elasticsearch.7/config/log4j2.properties
+```
+status = error
+
+appender.console.type = Console
+appender.console.name = console
+appender.console.layout.type = PatternLayout
+appender.console.layout.pattern = [%d{ISO8601}][%-5p][%-25c{1.}] %marker%m%n
+
+rootLogger.level = info
+rootLogger.appenderRef.console.ref = console
+```
+$ chmod 640 /apps/docker/images/elasticsearch.7/config/*
+
+`create elasticsearch service control sh`  
+$ vi /apps/docker/images/elasticsearch.7/elasticsearch
+```
+#!/bin/sh
+# elasticsearch service control
+# chkconfig: 2345 90 90
+# description: elasticsearch
+# processname: elasticsearch
+# config: $ES_CONFIG_FILE
+# pidfile:
+
+UNAME=`id -u -n`
+
+# the user you used to run the elastic search
+ES_USER=app
+ES_HOME=/apps/elasticsearch/7.5.0
+
+ES_NAME=elasticsearch
+ES_PID_FILE=$ES_HOME/$ES_NAME.pid
+
+ES_EXEC=$ES_HOME/bin/elasticsearch
+ES_EXEC_OPTS="-d -p $ES_PID_FILE"
+
+case "$1" in
+        start)
+                echo -en "Starting Elastic Search Server..."
+                if [ e$UNAME = "eroot" ]
+                then
+                        /bin/su -p -s /bin/sh $ES_USER -c "$ES_EXEC $ES_EXEC_OPTS"
+                else
+                        $ES_EXEC $ES_EXEC_OPTS
+                fi
+
+                if [ $? == 0 ]
+                then
+                        echo "started."
+                else
+                        echo "failed."
+                fi
+                echo -e "\n"
+                ;;
+        stop)
+                echo -en "Shutting Down Elastic Search Server..."
+                kill `cat $ES_PID_FILE`
+                #rm $ES_PID_FILE
+
+                if [ $? == 0 ]
+                then
+                        echo "stopped."
+                else
+                        echo "failed."
+                fi
+                echo -e "\n"
+                ;;
+        restart)
+                $0 stop
+                sleep 5
+                $0 start
+                ;;
+        *)
+                echo "Usage: $0 {start|stop|restart}"
+                exit 1
+esac
+
+exit 0
+```
+$ chmod 755 /apps/docker/images/elasticsearch.7/elasticsearch  
+
+`create dockerize file`  
+$ vi /apps/docker/images/elasticsearch.7/Dockerfile
+```
+FROM docker-registry.mobon.net:5000/mobon/centos.7.base:latest
+# FROM mobon/centos.7.base:latest
+
+USER app
+
+# install and setup application
+WORKDIR /apps/install
+
+RUN mkdir -p /apps/elasticsearch /data/elasticsearch /logs/elasticsearch
+
+# install elasticsearch
+RUN curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.5.0-linux-x86_64.tar.gz
+RUN tar -zxvf /apps/install/elasticsearch-7.5.0-linux-x86_64.tar.gz
+RUN mv /apps/install/elasticsearch-7.5.0 /apps/elasticsearch/7.5.0
+
+ADD config /apps/elasticsearch/7.5.0/config
+
+ADD elasticsearch /apps/elasticsearch/elasticsearch
+
+USER root
+
+RUN chown -R app.app /apps/elasticsearch
+
+USER app
+
+# Set environment
+#ENV DISCOVERY_SERVICE elasticsearch-discovery
+
+# Kubernetes requires swap is turned off, so memory lock is redundant
+#ENV MEMORY_LOCK false
+
+USER app
+
+# 컨테이너 실행시 실행될 명령
+CMD /bin/bash
+```
+
+`build/create docker image`  
+$ docker build -t mobon/elasticsearch.7:latest -f /apps/docker/images/elasticsearch.7/Dockerfile .  
+>$ docker build --no-cache -t mobon/elasticsearch.7:latest -f /apps/docker/images/elasticsearch.7/Dockerfile .  
+>$ docker build -t mobon/elasticsearch.7:1.1 -t mobon/elasticsearch.7:latest -f /apps/docker/images/elasticsearch.7/Dockerfile .  
+>$ docker image tag mobon/elasticsearch.7:1.1 mobon/elasticsearch.7:latest
+
+>`create docker service container`  
+>$ docker run --net mobon.subnet --ip 192.168.104.51  --ulimit memlock=-1 --name mobon.elasticsearch.01 -d -p 6530:6530 -it mobon/elasticsearch.7:latest
+
+>$ docker exec -it mobon.elasticsearch.01 /bin/bash
+
+>`push image to docker private registry`  
+>$ docker tag mobon/elasticsearch.7:latest docker-registry.mobon.net:5000/mobon/elasticsearch.7:latest  
+>$ docker push docker-registry.mobon.net:5000/mobon/elasticsearch.7:latest
+
+
+<details>
+<summary>build image > create container</summary>
+<div markdown="1">
 
 #### create containers base mobon/centos.7.base:1.1
 $ docker run --net mobon.subnet --ip 192.168.104.51  --ulimit memlock=-1 --name elasticsearch.7 -d -it docker-registry.mobon.net:5000/mobon/centos.7.base:latest
@@ -402,10 +599,10 @@ cluster.name: ${CLUSTER_NAME}
 cluster.remote.connect: false
 
 # ------------------------------------ Node ------------------------------------
-node.name: ${NODE_NAME}
-node.master: ${NODE_MASTER}
-node.data: ${NODE_DATA}
-node.ingest: ${NODE_INGEST}
+node.name: ${NODE_NAME:false}
+node.master: ${NODE_MASTER:false}
+node.data: ${NODE_DATA:false}
+node.ingest: ${NODE_INGEST:false}
 
 # coordinating/lb Node - node.master: false, node.data: false, node.ingest: false
 # master-eligible Node - node.master: true, node.data: false, node.ingest: false
@@ -544,3 +741,7 @@ $ docker commit -a "sjlee@ruaniz.com" -m "create image from elasticsearch.7 cont
 >`push image to docker private registry`  
 >$ docker tag mobon/elasticsearch.7:latest docker-registry.mobon.net:5000/mobon/elasticsearch.7:latest  
 >$ docker push docker-registry.mobon.net:5000/mobon/elasticsearch.7:latest
+
+</div>
+</details>
+
