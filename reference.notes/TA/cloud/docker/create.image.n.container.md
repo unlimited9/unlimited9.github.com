@@ -753,7 +753,7 @@ $ docker commit -a "sjlee@ruaniz.com" -m "create image from elasticsearch.7 cont
 ## kibana 
 
 #### create containers base mobon/centos.7.base:1.1
-$ docker run --net mobon.subnet --ip 192.168.104.53 --name elasticsearch.7.kibana -d -it docker-registry.mobon.net:5000/mobon/centos.7.base:latest
+$ docker run --net mobon.subnet --ip 192.168.104.53 --name elasticsearch.7.kibana -d -p 6636:6636 -it docker-registry.mobon.net:5000/mobon/centos.7.base:latest
 
 $ docker exec -it elasticsearch.7.kibana /bin/bash
 
@@ -764,12 +764,12 @@ $$ mkdir -p /logs/kibana
 $$ cd /apps/install
 
 $$ curl -O https://artifacts.elastic.co/downloads/kibana/kibana-7.5.0-linux-x86_64.tar.gz  
-$$ tar -zxvf /apps/install/kibana-7.5.0-linux-x86_64.tar.gz    
+$$ tar -zxvf /apps/install/kibana-7.5.0-linux-x86_64.tar.gz  
 $$ cp -R kibana-7.5.0 /apps/kibana/7.5.0
 
 $$ cd /apps/kibana/7.5.0/config
 
-$$ cp /apps/kibana/7.5.0/config/kibana.yml /apps/kibana/7.5.0/config/kibana.yml.default
+$$ cp /apps/kibana/7.5.0/config/kibana.yml /apps/kibana/7.5.0/config/kibana.yml.default  
 $$ vi /apps/kibana/7.5.0/config/kibana.yml
 ```
 # Kibana is served by a back end server. This setting specifies the port to use.
@@ -778,7 +778,7 @@ server.port: 6636
 # Specifies the address to which the Kibana server will bind. IP addresses and host names are both valid values.
 # The default is 'localhost', which usually means remote machines will not be able to connect.
 # To allow connections from remote users, set this parameter to a non-loopback address.
-server.host: "192.168.104.51"
+server.host: "192.168.104.53"
 
 # The URLs of the Elasticsearch instances to use for all your queries.
 elasticsearch.hosts: ["http://192.168.104.51:6530"]
@@ -797,7 +797,7 @@ $$ vi /apps/kibana/kibana
 UNAME=`id -u -n`
 
 KIBANA_USER=app
-KIBANA_HOME=/apps/kibana/7.1.1
+KIBANA_HOME=/apps/kibana/7.5.0
 KIBANA_EXEC=$KIBANA_HOME/bin/kibana
 
 kibana_pid() {
