@@ -275,6 +275,10 @@ Deleted: sha256:359f84fca603062a5115202f6ab06874c40de46c8c6c56ac11b3d82cb5faa4dd
 >##### 컨테이너 삭제
 >$ docker rm 5f021e7ab9b1
 
+`Remove unused images`  
+$ docker image prune -a  
+> $ docker image rm -f $(docker image ls -aq)
+
 #### Docker Image 
 
 ##### 로그인
