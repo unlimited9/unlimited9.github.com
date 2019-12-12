@@ -543,6 +543,7 @@ RUN chown -R app.app /apps/elasticsearch
 
 USER app
 
+# install plugin analysis-nori
 RUN /apps/elasticsearch/7.5.0/bin/elasticsearch-plugin install analysis-nori
 RUN touch /apps/elasticsearch/7.5.0/config/userdic_ko.txt
 
