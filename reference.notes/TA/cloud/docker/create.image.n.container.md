@@ -779,7 +779,7 @@ server.port: 6636
 server.host: "192.168.104.53"
 
 # The URLs of the Elasticsearch instances to use for all your queries.
-elasticsearch.hosts: ["http://192.168.104.51:6530"]
+elasticsearch.hosts: ["http://10.251.0.188:6530"]
 ```
 
 $$ vi /apps/kibana/kibana  
