@@ -786,6 +786,8 @@ spec:
               valueFrom:
                 resourceFieldRef:
                   resource: limits.cpu
+            - name: MEMORY_LOCK
+              value: "false"
           command: ["/bin/bash", "-c", /apps/elasticsearch/elasticsearch start; tail -f /dev/null;]
           volumeMounts:
 #            - name: app-elasticsearch-config
@@ -935,6 +937,8 @@ spec:
               valueFrom:
                 resourceFieldRef:
                   resource: limits.cpu
+            - name: MEMORY_LOCK
+              value: "false"
           command: ["/bin/bash", "-c", /apps/elasticsearch/elasticsearch start; tail -f /dev/null;]
           volumeMounts:
 #            - name: app-elasticsearch-config
@@ -1070,6 +1074,8 @@ spec:
               valueFrom:
                 resourceFieldRef:
                   resource: limits.cpu
+            - name: MEMORY_LOCK
+              value: "false"
           command: ["/bin/bash", "-c", /apps/elasticsearch/elasticsearch start; tail -f /dev/null;]
           volumeMounts:
 #            - name: app-elasticsearch-config
@@ -1139,6 +1145,13 @@ spec:
   - 10.251.0.188
 ```
 
+> memory locking requested for elasticsearch process but memory is not locked
+>```
+>...
+>            - name: MEMORY_LOCK
+>              value: "false"
+>...
+>```
 
 
 
