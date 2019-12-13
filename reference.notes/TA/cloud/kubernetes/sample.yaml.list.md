@@ -154,7 +154,7 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mobon-gateway-api-common-deployment
+  name: mobon-gateway-api-common
   namespace: mobon
   labels:
     app: mobon-gateway-api-common
@@ -338,7 +338,7 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mobon-gateway-service-aggregation-deployment
+  name: mobon-gateway-service-aggregation
   namespace: mobon
   labels:
     app: mobon-gateway-service-aggregation
@@ -522,7 +522,7 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mobon-service-product-deployment
+  name: mobon-service-product
   namespace: mobon
   labels:
     app: mobon-service-product
