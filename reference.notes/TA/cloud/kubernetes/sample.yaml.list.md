@@ -251,7 +251,7 @@ spec:
               echo "########################################";
               echo "run springboot application with scouter agent.java...";
               echo "########################################";
-              java $JAVA_OPTS -jar /pgms/mobon/gateway/api.git/gateway.api.common/build/libs/gateway.api.common-1.0.jar;
+              java $JAVA_OPTS -Dspring.profiles.active=prod -jar /pgms/mobon/gateway/api.git/gateway.api.common/build/libs/gateway.api.common-1.0.jar;
 #              tail -f /dev/null;
 #          lifecycle:
 #            postStart:
@@ -435,7 +435,7 @@ spec:
               echo "########################################";
               echo "run springboot application with scouter agent.java...";
               echo "########################################";
-              java $JAVA_OPTS -jar /pgms/mobon/gateway/service.git/gateway.service.aggregation/build/libs/gateway.service.aggregation-1.0.jar;
+              java $JAVA_OPTS -Dspring.profiles.active=prod -jar /pgms/mobon/gateway/service.git/gateway.service.aggregation/build/libs/gateway.service.aggregation-1.0.jar;
 #              tail -f /dev/null;
 #          lifecycle:
 #            postStart:
@@ -618,7 +618,7 @@ spec:
               echo "########################################";
               echo "run springboot application with scouter agent.java...";
               echo "########################################";
-              java $JAVA_OPTS -jar /pgms/mobon/product.service/mobon.service.product/build/libs/mobon.service.product-1.0.jar;
+              java $JAVA_OPTS -Dspring.profiles.active=prod -jar /pgms/mobon/product.service/mobon.service.product/build/libs/mobon.service.product-1.0.jar;
 #              tail -f /dev/null;
 #          lifecycle:
 #            postStart:
