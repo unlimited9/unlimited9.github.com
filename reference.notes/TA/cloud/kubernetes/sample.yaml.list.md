@@ -788,7 +788,7 @@ spec:
                   resource: limits.cpu
             - name: MEMORY_LOCK
               value: "false"
-          command: ["/bin/bash", "-c", /apps/elasticsearch/elasticsearch start; tail -f /dev/null;]
+          command: ["/bin/bash", "-c", "/apps/elasticsearch/7.5.0/bin/elasticsearch"]
           volumeMounts:
 #            - name: app-elasticsearch-config
 #              mountPath: /app/elasticsearch/7.5.0/config/elasticsearch.yml
@@ -945,7 +945,7 @@ spec:
                   resource: limits.cpu
             - name: MEMORY_LOCK
               value: "false"
-          command: ["/bin/bash", "-c", /apps/elasticsearch/elasticsearch start; tail -f /dev/null;]
+          command: ["/bin/bash", "-c", "/apps/elasticsearch/7.5.0/bin/elasticsearch"]
           volumeMounts:
 #            - name: app-elasticsearch-config
 #              mountPath: /app/elasticsearch/7.5.0/config/elasticsearch.yml
@@ -1082,7 +1082,7 @@ spec:
                   resource: limits.cpu
             - name: MEMORY_LOCK
               value: "false"
-          command: ["/bin/bash", "-c", /apps/elasticsearch/elasticsearch start; tail -f /dev/null;]
+          command: ["/bin/bash", "-c", "/apps/elasticsearch/7.5.0/bin/elasticsearch"]
           volumeMounts:
 #            - name: app-elasticsearch-config
 #              mountPath: /app/elasticsearch/7.5.0/config/elasticsearch.yml
