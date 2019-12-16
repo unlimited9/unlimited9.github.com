@@ -185,7 +185,7 @@ $ helm delete my-maria
 
 #### node "NotReady" : kube-flannel-ds-amd64-gxwnm cpu 100%
 $ kubectl describe nodes  
-> modify the memory limit   
+`modify the memory limit`   
 $ kubectl patch ds -n=kube-system kube-flannel-ds-amd64 -p '{"spec": {"template":{"spec":{"containers": [{"name":"kube-flannel", "resources": {"limits": {"cpu": "250m","memory": "550Mi"},"requests": {"cpu": "100m","memory": "100Mi"}}}]}}}}'
 
 ## 9. Appendix
