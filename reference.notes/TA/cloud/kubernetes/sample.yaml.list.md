@@ -614,11 +614,13 @@ spec:
               echo "########################################";
               mkdir -p /pgms/mobon/product.service;
               cp -R /repository/git/mobon/product.git/* /pgms/mobon/product.service;
-              gradle --build-file /pgms/mobon/product.service/build.gradle :mobon.service.product:bootJar;
-              echo "########################################";
-              echo "run springboot application with scouter agent.java...";
-              echo "########################################";
-              java $JAVA_OPTS -Dspring.profiles.active=prod -jar /pgms/mobon/product.service/mobon.service.product/build/libs/mobon.service.product-1.0.jar;
+              echo 'org.gradle.jvmargs='$JAVA_OPTS -Dspring.profiles.active=prod > /pgms/mobon/product.service/gradle.properties;
+              gradle --build-file /pgms/mobon/product.service/build.gradle :mobon.service.product:bootRun;
+#              gradle --build-file /pgms/mobon/product.service/build.gradle :mobon.service.product:bootJar;
+#              echo "########################################";
+#              echo "run springboot application with scouter agent.java...";
+#              echo "########################################";
+#              java $JAVA_OPTS -Dspring.profiles.active=prod -jar /pgms/mobon/product.service/mobon.service.product/build/libs/mobon.service.product-1.0.jar;
 #              tail -f /dev/null;
 #          lifecycle:
 #            postStart:
