@@ -893,6 +893,12 @@ spec:
                 operator: In
                 values:
                   - data
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - mpk-cluster-09
+                  - mpk-cluster-10
+                  - mpk-cluster-11
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
