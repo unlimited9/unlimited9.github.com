@@ -30,16 +30,10 @@ $ passwd kafka~~
 
 #### 디렉토리 생성
 ~~$ mkdir -p /apps~~
-$ mkdir -p /apps/install
-$ mkdir -p /pgms
-$ mkdir -p /data
-$ mkdir -p /logs
+$ mkdir -p /apps/install /pgms /data /logs
 
 #### 소유권 변경
-$ chown -R app:app /apps
-$ chown -R app:app /pgms
-$ chown -R app:app /data
-$ chown -R app:app /logs
+$ chown -R app:app /apps /pgms /data /logs
 
 ### D. firewall configuration
 
@@ -65,9 +59,7 @@ $ su - app
 ### B. creating application directory
 
 #### make directory
-$ mkdir -p /apps/kafka
-$ mkdir -p /data/kafka
-$ mkdir -p /logs/kafka
+$ mkdir -p /apps/kafka /data/kafka /logs/kafka
 
 ### C. download
 
