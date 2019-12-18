@@ -29,7 +29,6 @@ $ passwd kafka~~
 ### C. creating base directory
 
 #### 디렉토리 생성
-~~$ mkdir -p /apps~~
 $ mkdir -p /apps/install /pgms /data /logs
 
 #### 소유권 변경
