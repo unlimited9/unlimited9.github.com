@@ -12,7 +12,7 @@ distributed streaming platform : Server.setting - Failover and high availability
 #### create the os application group(typically, app)  
 $ groupadd -g 3000 app
 
-> 어플리케이션 단위 관리 주체가 다르지 않고 권한을 나눌 필요가 없어 통합 계정을 생성하여 관리
+> 어플리케이션 단위 관리 주체가 다르지 않고 권한을 나눌 필요가 없어 통합 계정을 생성하여 관리  
 > ~~어플리케이션 단위 관리 주체가 다르다면 어플리케이션별 계정을 생성하여 생성하여 관리~~
 
 #### create the software unified account (typically, app)
