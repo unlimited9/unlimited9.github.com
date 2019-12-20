@@ -275,11 +275,10 @@ $ docker build -t mobon/java.app.ext:latest -f /apps/docker/images/java.app.ext/
 >$ docker exec -it mobon.service.01 /bin/bash
 
 >`push image to docker private registry`  
->$ docker tag mobon/java.app.ext:latest docker-registry.mobon.net:5000/mobon/java.app.ext:latest
+>$ docker tag mobon/java.app.ext:latest docker-registry.mobon.net:5000/mobon/java.app.ext:latest  
 >$ docker push docker-registry.mobon.net:5000/mobon/java.app.ext:latest
 
-# node.app.env:1.1cluster.initial_master_nodes: ${MASTER_NODES:["${NODE_NAME"}]}
-
+# node.app.env:1.1
 
 ## build image
 
