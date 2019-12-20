@@ -312,6 +312,10 @@ $ sudo docker image tag xxx:0.2 mobon/xxx:0.2
 ##### docker hub에서 image 확인
 https://hub.docker.com/r/mobon/xxx/
 
+##### docker 다른 계정(root) 으로 컨테이너 접근
+$ docker exec -it -u root -w /root redis.5 /bin/bash  
+> starting container process caused "chdir to cwd (\"/apps\") set in config.json failed: permission denied": unknown
+
 ## 9. Appendix
 
 #### reference site
