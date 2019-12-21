@@ -373,4 +373,7 @@ $ docker build -t mobon/node.app.ext:latest -f /apps/docker/images/node.app.ext/
 >$ docker push docker-registry.mobon.net:5000/mobon/node.app.ext:latest
 
 # elasticsearch
-[elasticsearch cluster](../create.image.n.container/elasticsearch.md)
+[elasticsearch cluster](create.image.n.container/elasticsearch.md)
+
+# redis
+[redis cluster](create.image.n.container/redis.md)
