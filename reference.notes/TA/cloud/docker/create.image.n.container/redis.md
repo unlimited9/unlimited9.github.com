@@ -138,43 +138,36 @@ $ vi /apps/docker/images/redis.5/Dockerfile
 ```
 FROM docker-registry.mobon.net:5000/mobon/centos.7.base:latest
 # FROM mobon/centos.7.base:latest
+#
+USER root
+
+RUN yum install -y gcc-c++ make
 
 USER app
 
 # install and setup application
 WORKDIR /apps/install
 
-RUN mkdir -p /apps/redis /data/redis /logs/redis
+RUN mkdir -p /apps/redis /data/redis/db /logs/redis
 
 # install redis
-RUN curl -O http://download.redis.io/releases/redis-5.0.7.tar.gz  
-RUN tar -zxvf /apps/installredis-5.0.7.tar.gz
+RUN curl -O http://download.redis.io/releases/redis-5.0.7.tar.gz
+RUN tar -zxvf /apps/install/redis-5.0.7.tar.gz
+#RUN mv /apps/install/redis-5.0.7 /apps/redis/5.0.7
 
 WORKDIR /apps/install/redis-5.0.7
-
-RUN make  
-RUN make test  
-RUN make PREFIX=/apps/redis/5.0.7 install  
+RUN make
+RUN make PREFIX=/apps/redis/5.0.7 install
 
 ADD config /apps/redis/5.0.7/config
-
-# install redis
-RUN curl -O https://artifacts.elastic.co/downloads/redis/redis-5.0.7-linux-x86_64.tar.gz
-RUN tar -zxvf /apps/install/redis-5.0.7-linux-x86_64.tar.gz
-RUN mv /apps/install/redis-5.0.7 /apps/redis/5.0.7
-
-# install plugin analysis-nori
-RUN /apps/redis/5.0.7/bin/redis-plugin install analysis-nori
-RUN touch /apps/redis/5.0.7/config/userdic_ko.txt
-
-ADD config /apps/redis/5.0.7/config
-ADD redis /apps/redis/redis
 
 USER root
 
 RUN chown -R app.app /apps/redis
 
 USER app
+
+WORKDIR /apps/reids
 
 # 컨테이너 실행시 실행될 명령
 CMD /bin/bash
