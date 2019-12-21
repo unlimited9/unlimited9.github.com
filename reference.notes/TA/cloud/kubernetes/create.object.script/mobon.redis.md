@@ -76,7 +76,6 @@ spec:
           command: ["/bin/bash", "-c"]
           args:
             - mkdir -p /data/redis/db_master;
-              /apps/redis/5.0.7/bin/redis-server /apps/redis/5.0.7/config/redis.conf;
               sed -i -e 's/^dir \/data\/redis\/db$/dir \/data\/redis\/db_master/' /apps/redis/instances/esdb01/config/redis.conf
               /apps/redis/5.0.7/bin/redis-server /apps/redis/5.0.7/config/redis.conf;
 #              tail -f /dev/null;
@@ -249,7 +248,6 @@ spec:
           command: ["/bin/bash", "-c"]
           args:
             - mkdir -p /data/redis/db_slave;
-              /apps/redis/5.0.7/bin/redis-server /apps/redis/5.0.7/config/redis.conf;
               sed -i -e 's/^dir \/data\/redis\/db$/dir \/data\/redis\/db_slave/' /apps/redis/instances/esdb01/config/redis.conf
               /apps/redis/5.0.7/bin/redis-server /apps/redis/5.0.7/config/redis.conf;
 #              tail -f /dev/null;
