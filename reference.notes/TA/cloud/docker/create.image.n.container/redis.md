@@ -167,7 +167,7 @@ RUN chown -R app.app /apps/redis
 
 USER app
 
-WORKDIR /apps/reids
+WORKDIR /apps/redis
 
 # 컨테이너 실행시 실행될 명령
 CMD /bin/bash
