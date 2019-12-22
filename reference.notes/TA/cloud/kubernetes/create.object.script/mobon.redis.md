@@ -156,7 +156,6 @@ metadata:
   namespace: mobon
   labels:
     app: mobon-data-redis
-    role: client
 spec:
   type: ClusterIP
   selector:
@@ -330,6 +329,31 @@ $ for x in $(seq 0 5); do echo "mobon-data-redis-master-$x"; kubectl exec mobon-
 > $ for x in $(seq 0 5); do echo "mobon-data-redis-master-$x"; kubectl exec mobon-data-redis-master-$x -- /apps/redis/5.0.7/bin/redis-cli -p 2816 -a passwd info; echo; done
 
 $ for x in $(seq 0 5); do echo "mobon-data-redis-slave-$x"; kubectl exec mobon-data-redis-slave-$x -- /apps/redis/5.0.7/bin/redis-cli -p 2816 -a passwd role; echo; done
+
+#### mobon.redis.client.service
+$ mobon.redis.client.service.yaml
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: mobon-data-redis-client-svc
+  namespace: mobon
+  labels:
+    app: mobon-data-redis
+    role: client
+spec:
+  type: ClusterIP
+  selector:
+    app: mobon-data-redis
+  ports:
+    - name: client
+      port: 2816
+      targetPort: 2816
+    - name: gossip
+      port: 12816
+      targetPort: 12816
+
+```
 
 ## 9. Appendix
 
