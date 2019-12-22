@@ -335,6 +335,9 @@ $ for x in $(seq 0 5); do echo "mobon-data-redis-slave-$x"; kubectl exec mobon-d
 
 #### reference site
 
+* Deploying Redis Cluster on Top of Kubernetes  
+https://rancher.com/blog/2019/deploying-redis-cluster/
+
 * Redis CLUSTER Configuration by Redis-cli  
 http://redisgate.kr/redis/cluster/cluster_configuration_redis-cli.php
 
