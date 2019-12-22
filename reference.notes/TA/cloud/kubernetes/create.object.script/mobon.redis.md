@@ -342,16 +342,17 @@ metadata:
     app: mobon-data-redis
     role: client
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: mobon-data-redis
+    role: master
   ports:
     - name: client
       port: 2816
+      protocol: TCP
       targetPort: 2816
-    - name: gossip
-      port: 12816
-      targetPort: 12816
+  externalIPs:
+  - 10.251.0.187
 
 ```
 
