@@ -158,6 +158,7 @@ metadata:
     app: mobon-data-redis
     role: client
 spec:
+  type: ClusterIP
   selector:
     app: mobon-data-redis
   ports:
@@ -167,9 +168,7 @@ spec:
     - name: gossip
       port: 12816
       targetPort: 12816
-  type: LoadBalancer
-  externalIPs:
-    - 10.251.0.187
+
 ```
 
 #### mobon.redis.slave
