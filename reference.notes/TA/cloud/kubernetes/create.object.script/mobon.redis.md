@@ -320,26 +320,16 @@ spec:
 #        resources:
 #          requests:
 #            storage: 10Gi
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mobon-data-redis-svc
-  namespace: mobon
-  labels:
-    app: mobon-data-redis
-    role: client
-spec:
-  selector:
-    app: mobon-data-redis
-  ports:
-    - name: client
-      port: 2816
-      targetPort: 2816
-    - name: gossip
-      port: 12816
-      targetPort: 12816
-  type: LoadBalancer
-  externalIPs:
-    - 10.251.0.187
+
 ```
+
+#### Redis CLUSTER Configuration by Redis-cli
+$ kubectl exec -it mobon-data-redis-master-0 -- /apps/redis/5.0.7/bin/redis-cli -p 2816 -a passwd --cluster create --cluster-replicas 1 $(kubectl get pods -l app=mobon-data-redis -o jsonpath='{range.items[*]}{.status.podIP}:2816 ')
+
+#### Check the cluster details and the role for each member.
+$ for x in $(seq 0 5); do echo "mobon-data-redis-master-$x"; kubectl exec mobon-data-redis-master-$x -- /apps/redis/5.0.7/bin/redis-cli -p 2816 -a passwd role; echo; done  
+> $ for x in $(seq 0 5); do echo "mobon-data-redis-master-$x"; kubectl exec mobon-data-redis-master-$x -- /apps/redis/5.0.7/bin/redis-cli -p 2816 -a passwd info; echo; done
+
+$ for x in $(seq 0 5); do echo "mobon-data-redis-slave-$x"; kubectl exec mobon-data-redis-slave-$x -- /apps/redis/5.0.7/bin/redis-cli -p 2816 -a passwd role; echo; done
+
+
