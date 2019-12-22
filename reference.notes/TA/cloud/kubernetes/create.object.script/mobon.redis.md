@@ -332,4 +332,9 @@ $ for x in $(seq 0 5); do echo "mobon-data-redis-master-$x"; kubectl exec mobon-
 
 $ for x in $(seq 0 5); do echo "mobon-data-redis-slave-$x"; kubectl exec mobon-data-redis-slave-$x -- /apps/redis/5.0.7/bin/redis-cli -p 2816 -a passwd role; echo; done
 
+## 9. Appendix
 
+#### reference site
+
+* Redis CLUSTER Configuration by Redis-cli  
+http://redisgate.kr/redis/cluster/cluster_configuration_redis-cli.php
