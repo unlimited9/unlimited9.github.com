@@ -325,10 +325,10 @@ spec:
 $ kubectl exec -it mobon-data-redis-master-0 -- /apps/redis/5.0.7/bin/redis-cli -p 2816 -a passwd --cluster create --cluster-replicas 1 $(kubectl get pods -l app=mobon-data-redis -o jsonpath='{range.items[*]}{.status.podIP}:2816 ')
 
 #### Check the cluster details and the role for each member.
-$ for x in $(seq 0 5); do echo "mobon-data-redis-master-$x"; kubectl exec mobon-data-redis-master-$x -- /apps/redis/5.0.7/bin/redis-cli -p 2816 -a passwd role; echo; done  
-> $ for x in $(seq 0 5); do echo "mobon-data-redis-master-$x"; kubectl exec mobon-data-redis-master-$x -- /apps/redis/5.0.7/bin/redis-cli -p 2816 -a passwd info; echo; done
+$ for x in $(seq 0 2); do echo "mobon-data-redis-master-$x"; kubectl exec mobon-data-redis-master-$x -- /apps/redis/5.0.7/bin/redis-cli -p 2816 -a passwd role; echo; done  
+> $ for x in $(seq 0 2); do echo "mobon-data-redis-master-$x"; kubectl exec mobon-data-redis-master-$x -- /apps/redis/5.0.7/bin/redis-cli -p 2816 -a passwd info; echo; done
 
-$ for x in $(seq 0 5); do echo "mobon-data-redis-slave-$x"; kubectl exec mobon-data-redis-slave-$x -- /apps/redis/5.0.7/bin/redis-cli -p 2816 -a passwd role; echo; done
+$ for x in $(seq 0 2); do echo "mobon-data-redis-slave-$x"; kubectl exec mobon-data-redis-slave-$x -- /apps/redis/5.0.7/bin/redis-cli -p 2816 -a passwd role; echo; done
 
 #### mobon.redis.client.service
 $ mobon.redis.client.service.yaml
