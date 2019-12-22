@@ -338,3 +338,6 @@ $ for x in $(seq 0 5); do echo "mobon-data-redis-slave-$x"; kubectl exec mobon-d
 
 * Redis CLUSTER Configuration by Redis-cli  
 http://redisgate.kr/redis/cluster/cluster_configuration_redis-cli.php
+
+* Redis CLUSTER Redis-cli 사용법  
+http://redisgate.kr/redis/cluster/redis-cli-cluster.php
