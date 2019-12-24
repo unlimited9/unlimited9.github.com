@@ -34,7 +34,7 @@ data:
     trace_http_client_ip_header_key=X-Forwarded-For
     profile_http_parameter_enabled=true
     profile_http_header_enabled=true
-    xlog_lower_bound_time_ms=100
+    xlog_lower_bound_time_ms=10
 
 ```
 
