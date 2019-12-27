@@ -1,4 +1,4 @@
-## application
+## mobon.gateway.api
 
 #### mobon.gateway.api.common
 $ vi mobon.gateway.api.common.yaml
