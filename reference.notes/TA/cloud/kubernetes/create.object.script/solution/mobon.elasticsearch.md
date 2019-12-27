@@ -1,7 +1,7 @@
 ## mobon.elasticsearch
 
 #### mobon.elasticsearch.master
-$ mobon.elasticsearch.master.yaml
+$ vi solution/mobon.elasticsearch.master.yaml
 ```
 apiVersion: v1
 kind: Namespace
@@ -159,7 +159,7 @@ spec:
 ```
 
 #### mobon.elasticsearch.data
-$ mobon.elasticsearch.data.yaml
+$ vi solution/mobon.elasticsearch.data.yaml
 ```
 apiVersion: apps/v1
 kind: StatefulSet
@@ -302,7 +302,7 @@ spec:
 ```
 
 #### mobon.elasticsearch.client
-$ mobon.elasticsearch.client.yaml
+$ vi solution/mobon.elasticsearch.client.yaml
 ```
 apiVersion: apps/v1
 kind: StatefulSet
