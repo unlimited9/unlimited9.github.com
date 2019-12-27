@@ -1,0 +1,10 @@
+## namespace
+
+#### mobon
+$ vi mobon.yaml
+```
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mobon
+```
