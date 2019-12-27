@@ -1,7 +1,7 @@
 ## configuration
 
 #### mobon.telegraf
-$ vi mobon.telegraf.yaml
+$ vi configuration/mobon.telegraf.yaml
 ```
 apiVersion: v1
 kind: ConfigMap
