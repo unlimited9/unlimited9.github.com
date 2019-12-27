@@ -195,7 +195,7 @@ $ env JMX_PORT=29999 /apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /a
 
 ## 9. Appendix
 
-### reference site
+#### reference site
 
 * Kafka Manager
 https://github.com/yahoo/kafka-manager#deployment
