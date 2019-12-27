@@ -1,7 +1,7 @@
 ## mobon.service.conversion
 
 #### mobon.service.conversion
-$ vi mobon.service.conversion.yaml
+$ vi application/mobon.service.conversion.yaml
 ```
 apiVersion: v1
 kind: Namespace
