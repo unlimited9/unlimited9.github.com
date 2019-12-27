@@ -1,7 +1,7 @@
 ## mobon.service.product
 
 #### mobon.service.product
-$ vi mobon.service.product.yaml
+$ vi application/mobon.service.product.yaml
 ```
 apiVersion: v1
 kind: Namespace
