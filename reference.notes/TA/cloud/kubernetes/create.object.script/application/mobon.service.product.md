@@ -182,3 +182,6 @@ spec:
       targetPort: 8080
 
 ```
+
+> ping mobon-service-product-svc.default.svc.mobon.stage  
+> curl http://mobon-service-product-svc/default/dspt/product/conf/developer/KR
