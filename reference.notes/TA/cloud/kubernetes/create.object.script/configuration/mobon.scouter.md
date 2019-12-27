@@ -1,7 +1,7 @@
 ## configuration
 
 #### mobon.scouter
-$ vi mobon.scouter.yaml
+$ vi configuration/mobon.scouter.yaml
 ```
 apiVersion: v1
 kind: Namespace
