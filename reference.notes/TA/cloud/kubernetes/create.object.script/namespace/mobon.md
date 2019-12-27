@@ -1,7 +1,7 @@
 ## namespace
 
 #### mobon
-$ vi mobon.yaml
+$ vi namespace/mobon.yaml
 ```
 apiVersion: v1
 kind: Namespace
