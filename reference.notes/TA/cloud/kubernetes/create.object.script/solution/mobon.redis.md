@@ -1,7 +1,7 @@
 ## mobon.redis
 
 #### mobon.redis.master
-$ mobon.redis.master.yaml
+$ vi solution/mobon.redis.master.yaml
 ```
 apiVersion: v1
 kind: Namespace
@@ -171,7 +171,7 @@ spec:
 ```
 
 #### mobon.redis.slave
-$ mobon.redis.slave.yaml
+$ vi solution/mobon.redis.slave.yaml
 ```
 apiVersion: v1
 kind: Namespace
@@ -331,7 +331,7 @@ $ for x in $(seq 0 2); do echo "mobon-data-redis-master-$x"; kubectl exec mobon-
 $ for x in $(seq 0 2); do echo "mobon-data-redis-slave-$x"; kubectl exec mobon-data-redis-slave-$x -- /apps/redis/5.0.7/bin/redis-cli -p 2816 -a passwd role; echo; done
 
 #### mobon.redis.client.service
-$ mobon.redis.client.service.yaml
+$ vi solution/mobon.redis.client.service.yaml
 ```
 apiVersion: v1
 kind: Service
