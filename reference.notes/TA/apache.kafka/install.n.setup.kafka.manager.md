@@ -197,8 +197,12 @@ $ env JMX_PORT=29999 /apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /a
 
 ### reference site
 
-#### Kafka Manager
+* Kafka Manager
 https://github.com/yahoo/kafka-manager#deployment
 
-#### Kafka Manager 설치 및 연동하기
+* Kafka Manager 설치 및 연동하기
 https://blog.naver.com/PostView.nhn?blogId=occidere&logNo=221395731049&categoryNo=0&parentCategoryNo=0&viewDate=&currentPage=1&postListTopCurrentPage=1&from=postView
+
+* KAFKA/EXACTLYONCE  
+https://www.joinc.co.kr/w/man/12/Kafka/exactlyonce
+
