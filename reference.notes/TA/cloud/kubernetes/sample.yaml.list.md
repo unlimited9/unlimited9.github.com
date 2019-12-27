@@ -3,6 +3,11 @@
 #### mobon
 [mobon](create.object.script/namespace/mobon.md)
 
+## management
+
+#### mobon.container.limit.range
+[mobon.container.limit.range](create.object.script/management/mobon.container.limit.range.md)
+
 ## configuration
 
 #### mobon.scouter.config
