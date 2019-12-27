@@ -2,7 +2,7 @@
 ## mobon.service.inclination
 
 #### mobon.service.inclination
-$ vi mobon.service.inclination.yaml
+$ vi application/mobon.service.inclination.yaml
 ```
 apiVersion: v1
 kind: Namespace
