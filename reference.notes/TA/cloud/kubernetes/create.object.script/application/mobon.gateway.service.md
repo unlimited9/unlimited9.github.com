@@ -1,7 +1,7 @@
 ## mobon.gateway.service
 
 #### mobon.gateway.service.aggregation
-$ vi mobon.gateway.service.aggregation.yaml 
+$ vi application/mobon.gateway.service.aggregation.yaml 
 ```
 apiVersion: v1
 kind: Namespace
