@@ -1,7 +1,7 @@
 ## mobon.gateway.api
 
 #### mobon.gateway.api.common
-$ vi mobon.gateway.api.common.yaml
+$ vi application/mobon.gateway.api.common.yaml
 ```
 apiVersion: v1
 kind: Namespace
