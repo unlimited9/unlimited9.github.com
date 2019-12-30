@@ -55,6 +55,7 @@ $ apt-get update
 
 #### reference site
 
-* referer...
+* Gradle build tool : Installation  
+https://gradle.org/install/
 
 
