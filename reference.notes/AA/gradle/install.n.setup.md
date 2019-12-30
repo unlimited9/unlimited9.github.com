@@ -51,7 +51,7 @@ Reading state information... Done
 E: Unable to locate package software-properties-common  
 $ apt-get update  
 
-## 9. AppendixDistributed Coordination Service
+## Appendix
 
 #### reference site
 
