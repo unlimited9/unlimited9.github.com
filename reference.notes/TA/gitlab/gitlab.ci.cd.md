@@ -194,12 +194,12 @@ shell
 >gitlab-runner unregister --url http://172.20.0.7:9000/ --token a5549aee3ea5eee36c39b4f70c2197
 
 #### JDK 설치
->requires Java to compile
+>requires Java to compile  
 >[requires Java to compile](../../AA/JDK/install.n.setup.md)
 
 #### Gradle 설치
->requires Gradle to build
->ref. 30.architecture/30.technical/30.solution/y2.gradle/10.install.n setup
+>requires Gradle to build  
+>[requires Gradle to build](../../AA/gradle/install.n.setup.md)
 
 ## 9. Appendix
 
