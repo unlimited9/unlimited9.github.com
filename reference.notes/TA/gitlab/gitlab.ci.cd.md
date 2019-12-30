@@ -134,7 +134,7 @@ deploy-to-development:
 >
 >#### Upload Nexus
 >$ curl --upload-file mobonUtils/mobon.ad.utils/build/libs/enliple-utils-0.1.0.jar -u admin:P@ssw0rd -v http://172.20.0.7:8081/repository/maven-releases/com/mobon/mobon.ad.utils/0.1.0/mobon.ad.utils-0.1.0.jar
->>curl -v -F r=releases -F hasPom=false -F e=jar -F g=com.mobon -F a=mobon.ad.utils -F v=0.1.0 -F p=jar -F file=@"./mobonUtils/mobon.ad.utils/build/libs/enliple-utils-0.1.0.jar" -u admin:P@ssword http://172.20.0.7:8081/repositories/maven-releases/com/mobon/mobon.ad.utils/0.1.0/enliple-utils-0.1.0.jar
+>>$ curl -v -F r=releases -F hasPom=false -F e=jar -F g=com.mobon -F a=mobon.ad.utils -F v=0.1.0 -F p=jar -F file=@"./mobonUtils/mobon.ad.utils/build/libs/enliple-utils-0.1.0.jar" -u admin:P@ssword http://172.20.0.7:8081/repositories/maven-releases/com/mobon/mobon.ad.utils/0.1.0/enliple-utils-0.1.0.jar
 >#### Error
 >```
 >...`
