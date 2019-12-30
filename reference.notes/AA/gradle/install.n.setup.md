@@ -23,7 +23,17 @@ $ su - app
 #### creating application directory
 $ mkdir -p /apps/gradle
 
-#### download
+$ cd /apps/install
+
+#### decompress manual
+`download`  
+>https://gradle.org/releases/
+
+`unpack the distribution`  
+$ unzip -d /apps/gradle /apps/install/gradle-6.0.1-bin.zip  
+
+`configure your system environment`  
+$ export PATH=$PATH:/opt/gradle/gradle-6.0.1/bin
 
 #### package install : case of ubuntu
 `저장소 추가`  
@@ -33,6 +43,7 @@ $ sudo apt-get update
 `gradle  설치`  
 $ apt-get install gradle
 
+#### Verify your installation
 `gradle  version`  
 $ gradle -v
 
