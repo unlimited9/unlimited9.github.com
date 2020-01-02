@@ -130,6 +130,10 @@ server.3=192.168.104.53:7224:7234
 
 $$ sed -i -e 's/^zookeeper.log.dir=.$/zookeeper.log.dir=\/logs\/zookeeper/' /apps/zookeeper/3.5.6/conf/log4j.properties
 
+$$ echo 1 > /data/zookeeper/myid  
+$$ echo 2 > /data/zookeeper/myid  
+$$ echo 3 > /data/zookeeper/myid
+
 $$ vi /apps/zookeeper/zookeeper
 ```
 #!/bin/sh  
