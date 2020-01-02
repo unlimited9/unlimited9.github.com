@@ -137,6 +137,19 @@ spec:
     - name: client
       port: 7214
       targetPort: 7214
-
+    - name: follow-leader
+      port: 7224
+      targetPort: 7224
+    - name: leader-election
+      port: 7234
+      targetPort: 7234
+  clusterIP: None
+  
 ```
 
+## 9. Appendix
+
+#### reference site
+
+* 분산 시스템 코디네이터 ZooKeeper 실행하기
+https://kubernetes.io/ko/docs/tutorials/stateful-application/zookeeper/
