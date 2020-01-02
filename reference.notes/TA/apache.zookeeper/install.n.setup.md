@@ -42,7 +42,7 @@ $ su - app
 ### B. creating application directory
 
 #### make directory
-$ mkdir -p /apps/zookeeper /data/zookeeper /logs/zookeeper
+$ mkdir -p /apps/apache.zookeeper /data/apache.zookeeper /logs/apache.zookeeper
 
 ### C. download
 
@@ -53,17 +53,17 @@ $ curl -O http://apache.tt.co.kr/zookeeper/zookeeper-3.5.6/apache-zookeeper-3.5.
 ### D. install
 
 #### decompress tarball
-$ tar -zxvf /apps/install/zookeeper-3.4.14.tar.gz
+$ tar -zxvf /apps/install/apache-zookeeper-3.5.6.tar.gz
 
 #### copy application directory  
-$ cp -R /apps/install/zookeeper-3.4.14 /apps/zookeeper/3.4.14
+$ cp -R /apps/install/apache-zookeeper-3.5.6 /apps/apache.zookeeper/3.5.6
 
 ### E. configure
 
 #### create a new zoo.cnf file by copying an existing template. 
-$ cp -rfp /apps/zookeeper/3.4.14/conf/zoo_sample.cfg /apps/zookeeper/3.4.14/conf/zoo.cfg
+$ cp -rfp /apps/apache.zookeeper/3.5.6/conf/zoo_sample.cfg /apps/apache.zookeeper/3.5.6/conf/zoo.cfg
 
-$ vi /apps/zookeeper/3.4.14/conf/zoo.cfg  
+$ vi /apps/apache.zookeeper/3.5.6/conf/zoo.cfg  
 ```
 # The number of milliseconds of each tick  
 tickTime=2000  
@@ -72,7 +72,7 @@ initLimit=10
 # The number of ticks that can pass between sending a request and getting an acknowledgement  
 syncLimit=5  
 # the directory where the snapshot is stored. do not use /tmp for storage, /tmp here is just example sakes.  
-dataDir=/data/zookeeper
+dataDir=/data/apache.zookeeper
 # the port at which the clients will connect  
 clientPort=7214  
 # the port address at which the clients will connect
@@ -105,7 +105,7 @@ server.3=10.10.10.27:7224:7234
 
 
 #### logging  
-$ vi /apps/zookeeper/3.4.14/conf/log4j.properties  
+$ vi /apps/apache.zookeeper/3.5.6/conf/log4j.properties  
 ```
 # Define some default values that can be overridden by system properties  
 zookeeper.root.logger=INFO, CONSOLE  
@@ -119,31 +119,31 @@ zookeeper.tracelog.file=zookeeper_trace.log
 ```
 
 #### create myid : 10.10.10.25, 10.10.10.26, 10.10.10.27
-$ echo 1 > /data/zookeeper/myid  
-$ echo 2 > /data/zookeeper/myid  
-$ echo 3 > /data/zookeeper/myid
+$ echo 1 > /data/apache.zookeeper/myid  
+$ echo 2 > /data/apache.zookeeper/myid  
+$ echo 3 > /data/apache.zookeeper/myid
 
 ### F. run application
 
 #### start process
 
-$ /apps/zookeeper/3.4.14/bin/zkServer.sh start
+$ /apps/apache.zookeeper/3.5.6/bin/zkServer.sh start
 
 >하나의 node에 여러 인스턴스를 띄워야 할 경우 아래와 같이 설정파일을 분리해서 기동한다.
->/apps/zookeeper/3.4.14/bin/zkServer.sh start /apps/zookeeper/instances/01/conf/zoo.cfg
+>/apps/apache.zookeeper/3.5.6/bin/zkServer.sh start /apps/apache.zookeeper/instances/01/conf/zoo.cfg
 
 #### check status
 
-$ /apps/zookeeper/3.4.14/bin/zkServer.sh status
+$ /apps/apache.zookeeper/3.5.6/bin/zkServer.sh status
 
 >기본 경로 밖의 설정파일을 지정한 경우 상태 확인도 설정파일을 지정해 확인한다.
->/apps/zookeeper/3.4.14/bin/zkServer.sh status /apps/zookeeper/instances/01/conf/zoo.cfg
+>/apps/apache.zookeeper/3.5.6/bin/zkServer.sh status /apps/apache.zookeeper/instances/01/conf/zoo.cfg
 
 #### check process and port
 
 $ ps -ef | grep zkServer  
 > ...  
-/apps/zookeeper/3.4.14/bin/zkServer.sh start  
+/apps/apache.zookeeper/3.5.6/bin/zkServer.sh start  
 ...
 
 $ netstat -na | grep LISTEN  
@@ -153,10 +153,10 @@ tcp 0 0 0.0.0.0:7214 0.0.0.0:* LISTEN
 
 #### stop process
 
-$ /apps/zookeeper/3.4.14/bin/zkServer.sh stop
+$ /apps/apache.zookeeper/3.5.6/bin/zkServer.sh stop
 
 >기본 경로 밖의 설정파일을 지정한 경우 설정파일을 지정해 중지한다.
->/apps/zookeeper/3.4.14/bin/zkServer.sh stop /apps/zookeeper/instances/01/conf/zoo.cfg
+>/apps/apache.zookeeper/3.5.6/bin/zkServer.sh stop /apps/apache.zookeeper/instances/01/conf/zoo.cfg
 
 ## 3. post-installation setup
 
@@ -164,7 +164,7 @@ $ /apps/zookeeper/3.4.14/bin/zkServer.sh stop
 
 #### zookeeper
 
-$ vi /apps/zookeeper/zookeeper  
+$ vi /apps/apache.zookeeper/zookeeper  
 ```
 #!/bin/sh  
 # zookeeper zookeeper service shell  
@@ -174,7 +174,7 @@ $ vi /apps/zookeeper/zookeeper
 # config: $ZOOKEEPER_CONF  
 # pidfile:
 
-ZOOKEEPER_HOME='/apps/zookeeper/3.4.14'
+ZOOKEEPER_HOME='/apps/apache.zookeeper/3.5.6'
 
 ZOOKEEPER_EXEC=$ZOOKEEPER_HOME/bin/zkServer.sh
 
@@ -249,7 +249,7 @@ $ service zookeeper stop
 #### a. JAVA ipv4,ipv6 설정 방법
 > Ipv4/Ipv6 system properties stack 우선 순위를 변경한다.
 
-$ vi /apps/zookeeper/3.4.14/bin/zkServer.sh
+$ vi /apps/apache.zookeeper/3.5.6/bin/zkServer.sh
 ```
 ...
     nohup "$JAVA" "-Djava.net.preferIPv4Stack=true" "-Dzookeeper.log.dir=${ZOO_LOG_DIR}" "-Dzookeeper.root.logger=${ZOO_LOG4J_PROP}" \
