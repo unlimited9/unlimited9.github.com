@@ -47,8 +47,8 @@ $ mkdir -p /apps/zookeeper /data/zookeeper /logs/zookeeper
 ### C. download
 
 #### http://zookeeper.apache.org
-$ curl -O http://apache.tt.co.kr/zookeeper/zookeeper-3.4.14/zookeeper-3.4.14.tar.gz -P /apps/install
-~~$ wget http://apache.tt.co.kr/zookeeper/zookeeper-3.4.14/zookeeper-3.4.14.tar.gz -P /apps/install~~
+$ curl -O http://apache.tt.co.kr/zookeeper/zookeeper-3.5.6/apache-zookeeper-3.5.6.tar.gz -P /apps/install
+~~$ wget http://apache.tt.co.kr/zookeeper/zookeeper-3.5.6/apache-zookeeper-3.5.6.tar.gz -P /apps/install~~
 
 ### D. install
 
