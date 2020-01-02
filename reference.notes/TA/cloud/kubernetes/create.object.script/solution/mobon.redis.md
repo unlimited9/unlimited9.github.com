@@ -1,5 +1,10 @@
 ## mobon.redis
 
+#### add node label
+$ kubectl label nodes mpk-cluster-06 redis=  
+$ kubectl label nodes mpk-cluster-07 redis=  
+$ kubectl label nodes mpk-cluster-08 redis=  
+
 #### mobon.redis.master
 $ vi solution/mobon.redis.master.yaml
 ```
