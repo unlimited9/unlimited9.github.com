@@ -21,7 +21,7 @@ metadata:
   labels:
     app: mobon-data-zookeeper
 spec:
-  serviceName: mobon-data-zookeeper
+  serviceName: mobon-data-zookeeper-svc
   selector:
     matchLabels:
       app: mobon-data-zookeeper
@@ -75,13 +75,16 @@ spec:
           args:
             - |
               set -ex
+              source /etc/profile
               # pod ordinal index.
               [[ `hostname` =~ -([0-9]+)$ ]] || exit 1
               ordinal=${BASH_REMATCH[1]}
               # ordinal=${HOSTNAME##*-}  
-              echo $ordinal > /data/zookeeper/myid
-              /apps/zookeeper/3.5.6/bin/zkServer.sh start-foreground
-#              tail -f /dev/null;
+              echo $((1 + $ordinal)) > /data/zookeeper/myid
+              tail -f /dev/null
+#              /apps/zookeeper/3.5.6/bin/zkServer.sh start-foreground
+#              /apps/zookeeper/3.5.6/bin/zkServer.sh print-cmd
+#              tail -f /dev/null
           volumeMounts:
 #            - name: app-zookeeper-config
 #              mountPath: /app/zookeeper/3.5.6/config
@@ -130,7 +133,6 @@ metadata:
   labels:
     app: mobon-data-zookeeper
 spec:
-  type: ClusterIP
   selector:
     app: mobon-data-zookeeper
   ports:
@@ -144,7 +146,7 @@ spec:
       port: 7234
       targetPort: 7234
   clusterIP: None
-  
+
 ```
 
 ## 9. Appendix
