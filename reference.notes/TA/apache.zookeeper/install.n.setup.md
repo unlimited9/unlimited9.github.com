@@ -42,9 +42,7 @@ $ su - app
 ### B. creating application directory
 
 #### make directory
-$ mkdir -p /apps/zookeeper
-$ mkdir -p /data/zookeeper
-$ mkdir -p /logs/zookeeper
+$ mkdir -p /apps/zookeeper /data/zookeeper /logs/zookeeper
 
 ### C. download
 
