@@ -5,8 +5,8 @@ $ kubectl label nodes mpk-cluster-06 zookeeper=
 $ kubectl label nodes mpk-cluster-07 zookeeper=  
 $ kubectl label nodes mpk-cluster-08 zookeeper=  
 
-#### mobon.zookeeper.master
-$ vi solution/mobon.zookeeper.master.yaml
+#### mobon.zookeeper
+$ vi solution/mobon.zookeeper.yaml
 ```
 apiVersion: v1
 kind: Namespace
@@ -16,7 +16,7 @@ metadata:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mobon-data-zookeeper-master
+  name: mobon-data-zookeeper
   namespace: mobon
   labels:
     app: mobon-data-zookeeper
@@ -64,7 +64,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
         - name: mobon-data-zookeeper
-          image: docker-registry.mobon.net:5000/mobon/zookeeper.5:latest
+          image: docker-registry.mobon.net:5000/mobon/zookeeper.3:latest
           imagePullPolicy: Always
           env:
             - name: NODE_NAME
@@ -73,13 +73,18 @@ spec:
                   fieldPath: metadata.name
           command: ["/bin/bash", "-c"]
           args:
-            - mkdir -p /data/zookeeper/db_master;
-              sed -i -e 's/^dir \/data\/zookeeper\/db$/dir \/data\/zookeeper\/db_master/' /apps/zookeeper/5.0.7/config/zookeeper.conf;
-              /apps/zookeeper/5.0.7/bin/zookeeper-server /apps/zookeeper/5.0.7/config/zookeeper.conf;
+            - |
+              set -ex
+              # pod ordinal index.
+              [[ `hostname` =~ -([0-9]+)$ ]] || exit 1
+              ordinal=${BASH_REMATCH[1]}
+              # ordinal=${HOSTNAME##*-}  
+              echo $ordinal > /data/zookeeper/myid
+              /apps/zookeeper/3.5.6/bin/zkServer.sh start-foreground
 #              tail -f /dev/null;
           volumeMounts:
 #            - name: app-zookeeper-config
-#              mountPath: /app/zookeeper/5.0.7/config
+#              mountPath: /app/zookeeper/3.5.6/config
             - name: app-zookeeper-data
               mountPath: /data/zookeeper
           resources:
@@ -89,52 +94,22 @@ spec:
               cpu: 100m
           ports:
             - name: client
-              containerPort: 2816
-            - name: gossip
-              containerPort: 12816
-      initContainers:
-        - name: overcommit-memory
-          image: busybox
-          command: ["sysctl", "-w", "vm.overcommit_memory=1"]
-          securityContext:
-            privileged: true
-        - name: memory-swappiness
-          image: busybox
-          command: ["sysctl", "-w", "vm.swappiness=1"]
-          securityContext:
-            privileged: true
-        - name: tcp-backlog
-          image: busybox
-          command: ["sysctl", "-w", "net.core.somaxconn=65535"]
-          securityContext:
-            privileged: true
-        - name: transparent-huge-pages
-          image: busybox
-          volumeMounts:
-            - name: host-sys
-              mountPath: /host-sys
-          command: ["sh", "-c", "echo never > /host-sys/kernel/mm/transparent_hugepage/enabled"]
-          securityContext:
-            privileged: true
-        - name: increase-fd-ulimit
-          image: busybox
-          command: ["sh", "-c", "ulimit -n 65536"]
-          securityContext:
-            privileged: true
+              containerPort: 7214
+            - name: followLeader
+              containerPort: 7224
+            - name: leaderElection
+              containerPort: 7234
       imagePullSecrets:
         - name: docker-reg-cred
       volumes:
-#        - name: app-zookeeper-config
+#        - name: app-elasticsearch-config
 #          configMap:
-#            name: zookeeper-config 
+#            name: elasticsearch-config 
 #            defaultMode: 420
         - name : app-zookeeper-data
           hostPath:
             path: /data/zookeeper
             type: Directory
-        - name: host-sys
-          hostPath:
-            path: /sys
 #  volumeClaimTemplates:
 #    - metadata:
 #        name: storage
@@ -160,11 +135,8 @@ spec:
     app: mobon-data-zookeeper
   ports:
     - name: client
-      port: 2816
-      targetPort: 2816
-    - name: gossip
-      port: 12816
-      targetPort: 12816
+      port: 7214
+      targetPort: 7214
 
 ```
 
