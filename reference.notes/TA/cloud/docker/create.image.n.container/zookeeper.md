@@ -4,7 +4,7 @@
 
 #### 01. build image mobon/zookeeper.3.5.6(mobon/zookeeper.3:latest) based mobon/java.app.env:latest
 
-`create zookeeper config files : zoo.conf`  
+`create zookeeper config files : zoo.cfg`  
 $ vi /apps/docker/images/zookeeper.3/config/zoo.cfg
 ```
 # The number of milliseconds of each tick  
