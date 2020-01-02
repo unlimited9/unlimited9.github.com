@@ -95,9 +95,9 @@ spec:
           ports:
             - name: client
               containerPort: 7214
-            - name: followLeader
+            - name: follow-leader
               containerPort: 7224
-            - name: leaderElection
+            - name: leader-election
               containerPort: 7234
       imagePullSecrets:
         - name: docker-reg-cred
