@@ -52,9 +52,9 @@ WORKDIR /apps/install
 RUN mkdir -p /apps/zookeeper /data/zookeeper/db /logs/zookeeper
 
 # install zookeeper
-RUN curl -O http://apache.tt.co.kr/zookeeper/zookeeper-3.5.6/apache-zookeeper-3.5.6.tar.gz  
-RUN tar -zxvf /apps/install/apache-zookeeper-3.5.6.tar.gz
-RUN mv /apps/install/apache-zookeeper-3.5.6 /apps/zookeeper/3.5.6
+RUN curl -O http://apache.tt.co.kr/zookeeper/zookeeper-3.5.6/apache-zookeeper-3.5.6-bin.tar.gz  
+RUN tar -zxvf /apps/install/apache-zookeeper-3.5.6-bin.tar.gz
+RUN mv /apps/install/apache-zookeeper-3.5.6-bin /apps/zookeeper/3.5.6
 
 ADD config /apps/zookeeper/3.5.6/config
 
