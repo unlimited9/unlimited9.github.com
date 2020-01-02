@@ -29,9 +29,10 @@ clientPortAddress=0.0.0.0
 
 # Set ensemble(cluster) as  
 # server.{server id[1-255]} = {hostname}:{port to connect followers to the leader}:{port for leader election}  
-server.1=mobon-data-zookeeper-0:7224:7234  
-server.2=mobon-data-zookeeper-1:7224:7234  
-server.3=mobon-data-zookeeper-2:7224:7234
+server.1=mobon-data-zookeeper-0.mobon-data-zookeeper-svc:7224:7234  
+server.2=mobon-data-zookeeper-1.mobon-data-zookeeper-svc:7224:7234  
+server.3=mobon-data-zookeeper-2.mobon-data-zookeeper-svc:7224:7234
+
 ```
 
 `create dockerize file`  
