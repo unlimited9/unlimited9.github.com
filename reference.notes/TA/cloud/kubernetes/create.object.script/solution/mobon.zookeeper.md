@@ -152,5 +152,5 @@ spec:
 
 #### reference site
 
-* 분산 시스템 코디네이터 ZooKeeper 실행하기
+* 분산 시스템 코디네이터 ZooKeeper 실행하기  
 https://kubernetes.io/ko/docs/tutorials/stateful-application/zookeeper/
