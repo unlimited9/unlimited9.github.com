@@ -41,9 +41,6 @@ $ vi /apps/docker/images/zookeeper.3/Dockerfile
 FROM docker-registry.mobon.net:5000/mobon/java.app.env:latest
 # FROM mobon/java.app.ext:latest
 #
-USER root
-
-RUN yum install -y gcc-c++ make
 
 USER app
 
