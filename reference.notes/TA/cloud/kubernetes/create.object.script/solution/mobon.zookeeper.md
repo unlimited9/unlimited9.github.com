@@ -81,8 +81,7 @@ spec:
               ordinal=${BASH_REMATCH[1]}
               # ordinal=${HOSTNAME##*-}  
               echo $((1 + $ordinal)) > /data/zookeeper/myid
-              tail -f /dev/null
-#              /apps/zookeeper/3.5.6/bin/zkServer.sh start-foreground
+              /apps/zookeeper/3.5.6/bin/zkServer.sh start-foreground
 #              /apps/zookeeper/3.5.6/bin/zkServer.sh print-cmd
 #              tail -f /dev/null
           volumeMounts:
