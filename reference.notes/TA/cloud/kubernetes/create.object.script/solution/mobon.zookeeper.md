@@ -135,9 +135,6 @@ spec:
   selector:
     app: mobon-data-zookeeper
   ports:
-    - name: client
-      port: 7214
-      targetPort: 7214
     - name: follow-leader
       port: 7224
       targetPort: 7224
@@ -145,6 +142,22 @@ spec:
       port: 7234
       targetPort: 7234
   clusterIP: None
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mobon-data-zookeeper-client-svc
+  namespace: mobon
+  labels:
+    app: mobon-data-zookeeper
+spec:
+  type: ClusterIP
+  selector:
+    app: mobon-data-zookeeper
+  ports:
+    - name: client
+      port: 7214
+      targetPort: 7214
 
 ```
 
