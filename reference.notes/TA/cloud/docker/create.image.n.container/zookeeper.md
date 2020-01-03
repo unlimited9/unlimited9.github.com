@@ -61,6 +61,12 @@ ADD config /apps/zookeeper/3.5.6/config
 
 RUN sed -i -e 's/^zookeeper.log.dir=.$/zookeeper.log.dir=\/logs\/zookeeper/' /apps/zookeeper/3.5.6/conf/log4j.properties
 
+USER root
+
+RUN chown -R app.app /apps/zookeeper
+
+USER app
+
 WORKDIR /apps/zookeeper
 
 # 컨테이너 실행시 실행될 명령
