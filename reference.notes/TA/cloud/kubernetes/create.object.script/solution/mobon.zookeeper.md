@@ -158,6 +158,19 @@ spec:
     - name: client
       port: 7214
       targetPort: 7214
+#---
+#apiVersion: policy/v1beta1
+#kind: PodDisruptionBudget
+#metadata:
+#  name: mobon-data-zookeeper-pdb
+#  namespace: mobon
+#  labels:
+#    app: mobon-data-zookeeper
+#spec:
+#  selector:
+#    matchLabels:
+#      app: mobon-data-zookeeper
+#  maxUnavailable: 1
 
 ```
 
