@@ -81,10 +81,10 @@ spec:
               ordinal=${BASH_REMATCH[1]}
               # ordinal=${HOSTNAME##*-}
               
-              sed -i -e 's/^broker.id=0$/broker.id=$ordinal/' /apps/kafka/2.13-2.4.0/config/server.properties
+              sed -i -e 's/^broker.id=0$/broker.id=${{ordinal}}/' /apps/kafka/2.13-2.4.0/config/server.properties
               sed -i -e 's/^#listeners=PLAINTEXT:\/\/:9092$/listeners=PLAINTEXT:\/\/:7642/' /apps/kafka/2.13-2.4.0/config/server.properties
-              sed -i -e 's/^#advertised.listeners=PLAINTEXT:\/\/your.host.name:9092$/advertised.listeners=PLAINTEXT:\/\/${HOSTNAME}:7642/' /apps/kafka/2.13-2.4.0/config/server.properties
-              sed -i -e 's/^zookeeper.connect=localhost:2181$/zookeeper.connect=10.10.10.25:7214,10.10.10.26:7214,10.10.10.27:7214/' /apps/kafka/2.13-2.4.0/config/server.properties
+              sed -i -e 's/^#advertised.listeners=PLAINTEXT:\/\/your.host.name:9092$/advertised.listeners=PLAINTEXT:\/\/${{HOSTNAME}}:7642/' /apps/kafka/2.13-2.4.0/config/server.properties
+              sed -i -e 's/^zookeeper.connect=localhost:2181$/zookeeper.connect=mobon-data-zookeeper-client-svc:7214/' /apps/kafka/2.13-2.4.0/config/server.properties
 
               /apps/kafka/2.13-2.4.0/bin/kafka-server-start.sh /apps/kafka/2.13-2.4.0/config/server.properties
 #              tail -f /dev/null
@@ -126,13 +126,13 @@ metadata:
   labels:
     app: mobon-data-kafka
 spec:
+  type: ClusterIP
   selector:
     app: mobon-data-kafka
   ports:
     - name: client
       port: 7642
       targetPort: 7642
-  clusterIP: None
 
 ```
 
