@@ -42,11 +42,11 @@ $ sudo iptables -t nat -A PREROUTING -d localhost -p tcp --dport 443 -j REDIRECT
 
 #### 삭제
 `port : 80`  
-$ sudo iptables -t nat -A OUTPUT -d localhost -p tcp --dport 80 -j REDIRECT --to-ports 8080  
-$ sudo iptables -t nat -A PREROUTING -d localhost -p tcp --dport 80 -j REDIRECT --to-ports 8080  
+$ sudo iptables -t nat -D OUTPUT -d localhost -p tcp --dport 80 -j REDIRECT --to-ports 8080  
+$ sudo iptables -t nat -D PREROUTING -d localhost -p tcp --dport 80 -j REDIRECT --to-ports 8080  
 `port : 443`  
-$ sudo iptables -t nat -A OUTPUT -d localhost -p tcp --dport 443 -j REDIRECT --to-ports 843  
-$ sudo iptables -t nat -A PREROUTING -d localhost -p tcp --dport 443 -j REDIRECT --to-ports 8443  
+$ sudo iptables -t nat -D OUTPUT -d localhost -p tcp --dport 443 -j REDIRECT --to-ports 843  
+$ sudo iptables -t nat -D PREROUTING -d localhost -p tcp --dport 443 -j REDIRECT --to-ports 8443  
 
 >$ sudo iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE  
 >$ sudo iptables -t nat -D PREROUTING  -p tcp --dport 80   -j REDIRECT --to-ports 8080  
