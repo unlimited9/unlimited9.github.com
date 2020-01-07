@@ -56,8 +56,10 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
         - [Administration : management](TA/cloud/kubernetes/administration.management.md) : 쿠버네티스 관리
         - [Kubernetes deployment](TA/cloud/kubernetes/how.to.deployment.md) : 쿠버네티스 서비스 디플로이(tutorial)
         - [Kubernetes ConfigMap and Secret](TA/cloud/kubernetes/configMap.n.secret.md) : 어플리케이션 설정 분리
-    * Hardware Sizing : 규모산정
+    * Hardware Sizing : 규모산정  
       + [hardware sizing](TA/system/hardware.sizing.md) : 정보시스템 하드웨어 규모산정 지침
+    * Development Environment  
+      + [gitlab ci/cd](TA/gitlab/gitlab.ci.cd.md) : Gitlab Runner
      
 4. DA(technical architecture)
 
