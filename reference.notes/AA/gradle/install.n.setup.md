@@ -55,7 +55,7 @@ $ sudo add-apt-repository ppa:cwchien/gradle
 ```
 bash: add-apt-repository: command not found
 ```
-
+$ sudo apt-get update
 $ sudo apt-get install software-properties-common  
 >Reading package lists... Done  
 Building dependency tree  
