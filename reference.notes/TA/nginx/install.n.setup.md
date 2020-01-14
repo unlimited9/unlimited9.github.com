@@ -71,6 +71,7 @@ $ cd /apps/install/nginx-1.14.2
 $ ./configure --prefix=/apps/nginx/1.14.2 --user=app --group=app \
 --with-pcre --with-http_ssl_module --with-http_realip_module --with-http_stub_status_module --with-debug 
 ```
+> HTTP2 support  
 $ ./configure --prefix=/apps/nginx/1.14.2 --user=app --group=app \
 --with-pcre --with-http_ssl_module --with-http_v2_module --with-http_realip_module --with-http_stub_status_module --with-debug 
 
