@@ -6,7 +6,7 @@ $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0
 > $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
 
 #### kubernetes-dashboard pod
-> v2 부터는 namespace가 kube-system에서 kubernetes-dashboard로 변경
+> v2 부터는 namespace가 kube-system에서 kubernetes-dashboard로 변경  
 $ kubectl get pods --all-namespaces
 ```
 NAMESPACE              NAME                                       READY   STATUS    RESTARTS   AGE
@@ -15,7 +15,7 @@ kubernetes-dashboard   kubernetes-dashboard-5f7b999d65-67xz4      1/1     Runnin
 ...
 ```
 
-> `접속을 위한 바인딩 정보 확인`
+> `접속을 위한 바인딩 정보 확인`  
 >$ kubectl -n kubernetes-dashboard get service kubernetes-dashboard
 >```
 >NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
@@ -23,8 +23,7 @@ kubernetes-dashboard   kubernetes-dashboard-5f7b999d65-67xz4      1/1     Runnin
 >```
 
 #### NodePort
-
-`Dashboard 서비스 설정 변경`
+`Dashboard 서비스 설정 변경`  
 $ kubectl -n kubernetes-dashboard edit service kubernetes-dashboard
 ```
 # Please edit the object below. Lines beginning with a '#' will be ignored,
@@ -56,13 +55,13 @@ spec:
 status:
   loadBalancer: {}
 ```
->요부분만 변경
+>요부분만 변경  
 >```
 >#  type: ClusterIP
 >type: NodePort
 >```
 
-`접속을 위한 바인딩 정보 확인`
+`접속을 위한 바인딩 정보 확인`  
 $ kubectl -n kubernetes-dashboard get service kubernetes-dashboard
 ```
 NAME                   TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)         AGE
@@ -70,14 +69,14 @@ kubernetes-dashboard   NodePort   10.98.252.101   <none>        443:30444/TCP   
 ```
 
 `Access URL`  
-https://172.20.0.104:32066/
+https://10.251.0.191:30444/
 
 #### Kubernetes  Dashboard 접속
-1. kubeconfig
+1. kubeconfig  
 2. **Token**
 
 `Create service account`  
-$ kubectl -n kubernetes-dashboard create serviceaccount admin-user
+$ kubectl -n kubernetes-dashboard create serviceaccount admin-user  
 > -n : namespace 지정을 안하면 namespace를 'default'로 생성한다.  
 >$ kubectl create serviceaccount admin-user  
 >or  
@@ -92,10 +91,10 @@ $ kubectl -n kubernetes-dashboard create serviceaccount admin-user
 >```
 serviceaccount/admin-user created
 
-`Create cluster role binding`
+`Create cluster role binding`  
 $ kubectl create clusterrolebinding admin-user --clusterrole=cluster-admin --serviceaccount=kubernetes-dashboard:admin-user  
->$ kubectl create clusterrolebinding admin-user --clusterrole=cluster-admin --serviceaccount=default:admin-user
->or
+>$ kubectl create clusterrolebinding admin-user --clusterrole=cluster-admin --serviceaccount=default:admin-user  
+>or  
 >```
 >$ cat <<EOF | kubectl create -f -
 >apiVersion: rbac.authorization.k8s.io/v1
@@ -112,16 +111,16 @@ $ kubectl create clusterrolebinding admin-user --clusterrole=cluster-admin --ser
 >  namespace: kubernetes-dashboard
 >EOF
 >```
->return
+>return  
 clusterrolebinding.rbac.authorization.k8s.io/admin-user created
 
-`사용자 계정 토큰으로 대시보드 로그인`
+`사용자 계정 토큰으로 대시보드 로그인`  
 >namespace를 지정안하면 'default' namespace를 사용한다.
 
-$ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
->$ kubectl describe secret $(kubectl get secret | grep admin-user | awk '{print $1}')
->or
-$ kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get serviceaccount admin-user -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode
+$ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')  
+>$ kubectl describe secret $(kubectl get secret | grep admin-user | awk '{print $1}')  
+>or  
+$ kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get serviceaccount admin-user -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode  
 ```
 Name:         admin-user-token-4fxnw
 Namespace:    kube-system
@@ -139,25 +138,23 @@ token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2V
 ```
 
 >#### Proxy
->접속IP를 127.0.0.1에서 외부에서도 접속할 수 있도록 변경하면 아래 토큰으로 인증이 안된다.
->토큰 생성을 위와 같이 생성해서 하면 될 수도 있을 것 같다.
+>접속IP를 127.0.0.1에서 외부에서도 접속할 수 있도록 변경하면 아래 토큰으로 인증이 안된다.  
+>토큰 생성을 위와 같이 생성해서 하면 될 수도 있을 것 같다.  
 >
->`외부 접속 프록시 데몬 실행`
->$ kubectl proxy --port=8001 --address=127.0.0.1 --accept-hosts='^*$' &
->> $ kubectl proxy --port=8001 --address=172.20.104 --accept-hosts='^*$' &
+>`외부 접속 프록시 데몬 실행`  
+>$ kubectl proxy --port=8001 --address=127.0.0.1 --accept-hosts='^*$' &  
+>> $ kubectl proxy --port=8001 --address=172.20.104 --accept-hosts='^*$' &  
 >
->`Access URL`
->>
->>usage : https://도메인/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
->
->http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+>`Access URL`  
+>>usage : https://도메인/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/  
+>>http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 >
 >#### Kubernetes  Dashboard 접속
->1. kubeconfig
+>1. kubeconfig  
 >2. **Token**
 >
->`토큰을 대시보드에 입력`
->$ kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep token
+>`토큰을 대시보드에 입력`  
+>$ kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep token  
 >```
 >Name:         namespace-controller-token-2dc64
 >Type:  kubernetes.io/service-account-token
