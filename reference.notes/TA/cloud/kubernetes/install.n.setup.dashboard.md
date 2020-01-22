@@ -2,19 +2,21 @@
 
 Master node에서 실행 
 
-$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-rc2/aio/deploy/recommended.yaml  
+> $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
 
 #### kubernetes-dashboard pod
+> v2 부터는 namespace가 kube-system에서 kubernetes-dashboard로 변경
 $ kubectl get pods --all-namespaces
 ```
-NAMESPACE     NAME                                       READY   STATUS    RESTARTS   AGE
+NAMESPACE              NAME                                       READY   STATUS    RESTARTS   AGE
 ...
-kube-system   kubernetes-dashboard-5f7b999d65-67xz4      1/1     Running   0          23s
+kubernetes-dashboard   kubernetes-dashboard-5f7b999d65-67xz4      1/1     Running   0          23s
 ...
 ```
 
 > `접속을 위한 바인딩 정보 확인`
->$ kubectl -n kube-system get service kubernetes-dashboard
+>$ kubectl -n kubernetes-dashboard get service kubernetes-dashboard
 >```
 >NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
 >kubernetes-dashboard   ClusterIP   10.102.183.54   <none>        443/TCP   3m49s
@@ -23,7 +25,7 @@ kube-system   kubernetes-dashboard-5f7b999d65-67xz4      1/1     Running   0    
 #### NodePort
 
 `Dashboard 서비스 설정 변경`
-$ kubectl -n kube-system edit service kubernetes-dashboard
+$ kubectl -n kubernetes-dashboard edit service kubernetes-dashboard
 ```
 # Please edit the object below. Lines beginning with a '#' will be ignored,
 # and an empty file will abort the edit. If an error occurs while saving this file will be
@@ -61,39 +63,38 @@ status:
 >```
 
 `접속을 위한 바인딩 정보 확인`
-$ kubectl -n kube-system get service kubernetes-dashboard
+$ kubectl -n kubernetes-dashboard get service kubernetes-dashboard
 ```
 NAME                   TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)         AGE
-kubernetes-dashboard   NodePort   10.98.252.101   <none>        443:32066/TCP   22h
+kubernetes-dashboard   NodePort   10.98.252.101   <none>        443:30444/TCP   22h
 ```
 
-`Access URL`
+`Access URL`  
 https://172.20.0.104:32066/
 
 #### Kubernetes  Dashboard 접속
 1. kubeconfig
 2. **Token**
 
-`Create service account`
-
-$ kubectl create serviceaccount admin-user
-> -n : namespace 지정을 안하면 namespace를 'default'로 생성한다.
->$ kubectl -n kube-system create serviceaccount admin-user
->or
+`Create service account`  
+$ kubectl -n kubernetes-dashboard create serviceaccount admin-user
+> -n : namespace 지정을 안하면 namespace를 'default'로 생성한다.  
+>$ kubectl create serviceaccount admin-user  
+>or  
 >```
 >$ cat  <<EOF | kubectl create -f -
 >apiVersion: v1
 >kind: ServiceAccount
 >metadata:
 >  name: admin-user
->  namespace: kube-system
+>  namespace: kubernetes-dashboard
 >EOF
 >```
 serviceaccount/admin-user created
 
 `Create cluster role binding`
-$ kubectl create clusterrolebinding admin-user --clusterrole=cluster-admin --serviceaccount=default:admin-user
->$ kubectl create clusterrolebinding admin-user --clusterrole=cluster-admin --serviceaccount=kube-system:admin-user
+$ kubectl create clusterrolebinding admin-user --clusterrole=cluster-admin --serviceaccount=kubernetes-dashboard:admin-user  
+>$ kubectl create clusterrolebinding admin-user --clusterrole=cluster-admin --serviceaccount=default:admin-user
 >or
 >```
 >$ cat <<EOF | kubectl create -f -
@@ -108,7 +109,7 @@ $ kubectl create clusterrolebinding admin-user --clusterrole=cluster-admin --ser
 >subjects:
 >- kind: ServiceAccount
 >  name: admin-user
->  namespace: kube-system
+>  namespace: kubernetes-dashboard
 >EOF
 >```
 >return
@@ -117,10 +118,10 @@ clusterrolebinding.rbac.authorization.k8s.io/admin-user created
 `사용자 계정 토큰으로 대시보드 로그인`
 >namespace를 지정안하면 'default' namespace를 사용한다.
 
-$ kubectl describe secret $(kubectl get secret | grep admin-user | awk '{print $1}')
->$ kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
+$ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
+>$ kubectl describe secret $(kubectl get secret | grep admin-user | awk '{print $1}')
 >or
-$ kubectl get secret $(kubectl get serviceaccount admin-user -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode
+$ kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get serviceaccount admin-user -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode
 ```
 Name:         admin-user-token-4fxnw
 Namespace:    kube-system
