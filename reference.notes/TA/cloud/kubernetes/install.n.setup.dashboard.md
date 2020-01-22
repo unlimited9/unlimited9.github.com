@@ -7,6 +7,7 @@ $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0
 
 #### kubernetes-dashboard pod
 > v2 부터는 namespace가 kube-system에서 kubernetes-dashboard로 변경  
+
 $ kubectl get pods --all-namespaces
 ```
 NAMESPACE              NAME                                       READY   STATUS    RESTARTS   AGE
@@ -15,7 +16,7 @@ kubernetes-dashboard   kubernetes-dashboard-5f7b999d65-67xz4      1/1     Runnin
 ...
 ```
 
-> `접속을 위한 바인딩 정보 확인`  
+>`접속을 위한 바인딩 정보 확인`  
 >$ kubectl -n kubernetes-dashboard get service kubernetes-dashboard
 >```
 >NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
