@@ -32,7 +32,7 @@ Linux/Unix에 보안적인 문제로 1024 이하의 포트(well-known port)들�
 $ sudo iptables -t nat -A OUTPUT -d localhost -p tcp --dport 80 -j REDIRECT --to-ports 8080  
 $ sudo iptables -t nat -A PREROUTING -d localhost -p tcp --dport 80 -j REDIRECT --to-ports 8080  
 `port : 443`  
-$ sudo iptables -t nat -A OUTPUT -d localhost -p tcp --dport 443 -j REDIRECT --to-ports 843  
+$ sudo iptables -t nat -A OUTPUT -d localhost -p tcp --dport 443 -j REDIRECT --to-ports 8443  
 $ sudo iptables -t nat -A PREROUTING -d localhost -p tcp --dport 443 -j REDIRECT --to-ports 8443  
 
 >$ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
