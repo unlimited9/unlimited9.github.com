@@ -3,6 +3,25 @@
 #### 인증서 변환(to keystore)
 $ openssl pkcs12 -export -in STAR.mediacategory.com.pem -inkey STAR.mediacategory.com.key -out keystore.p12 -name "mediacategory.com"
 
+## Instructions for Generating Repository SSL Keystores
+
+#### spring boot
+> 운영환경에서는 proxy에 nginx에서 처리  
+$ vi application-local.properties  
+```
+...
+server.port=8443
+server.ssl.enabled=true
+server.ssl.key-store=keystore.p12
+server.ssl.key-store-type=PKCS12
+#server.ssl.key-store-type=JKS
+server.ssl.key-store-password=P@ssw0rd
+server.ssl.key-alias=mediacategory.com
+#server.ssl.key-password=P@ssw0rd
+#server.ssl.trust-store=
+#server.ssl.trust-store-password=
+...
+```
 
 ## Appendix
 
