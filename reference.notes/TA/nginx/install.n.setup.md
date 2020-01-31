@@ -54,28 +54,29 @@ $ mkdir -p /data/nginx
 $ mkdir -p /logs/nginx
 
 #### C. download
+$ cd /apps/install
 
 `Nginx(http://nginx.org/)`  
-$ curl -O http://nginx.org/download/nginx-1.14.2.tar.gz -P /apps/install  
-~~$ wget http://nginx.org/download/nginx-1.14.2.tar.gz -P /apps/install~~
+$ curl -O http://nginx.org/download/nginx-1.17.8.tar.gz
+~~$ wget http://nginx.org/download/nginx-1.17.8.tar.gz~~
 
 #### D. install
 
 #### decompress tarball
-$ tar -zxvf /apps/install/nginx-1.14.2.tar.gz
+$ tar -zxvf /apps/install/nginx-1.17.8.tar.gz
 
-$ cd /apps/install/nginx-1.14.2
+$ cd /apps/install/nginx-1.17.8
 
 #### configure 
 ```bash
-$ ./configure --prefix=/apps/nginx/1.14.2 --user=app --group=app \
+$ ./configure --prefix=/apps/nginx/1.17.8 --user=app --group=app \
 --with-pcre --with-http_ssl_module --with-http_realip_module --with-http_stub_status_module --with-debug 
 ```
 > HTTP2 support  
-$ ./configure --prefix=/apps/nginx/1.14.2 --user=app --group=app \
+$ ./configure --prefix=/apps/nginx/1.17.8 --user=app --group=app \
 --with-pcre --with-http_ssl_module --with-http_v2_module --with-http_realip_module --with-http_stub_status_module --with-debug 
 
-~~$ ./configure --prefix=/apps/nginx/1.14.2 --user=nginx --group=app \
+~~$ ./configure --prefix=/apps/nginx/1.17.8 --user=nginx --group=app \
 --with-pcre --with-http_ssl_module --with-http_realip_module --with-http_stub_status_module --with-debug~~
 ```
 Configuration summary
@@ -83,14 +84,14 @@ Configuration summary
   + using system OpenSSL library
   + using system zlib library
 
-  nginx path prefix: "/apps/nginx/1.14.2"
-  nginx binary file: "/apps/nginx/1.14.2/sbin/nginx"
-  nginx modules path: "/apps/nginx/1.14.2/modules"
-  nginx configuration prefix: "/apps/nginx/1.14.2/conf"
-  nginx configuration file: "/apps/nginx/1.14.2/conf/nginx.conf"
-  nginx pid file: "/apps/nginx/1.14.2/logs/nginx.pid"
-  nginx error log file: "/apps/nginx/1.14.2/logs/error.log"
-  nginx http access log file: "/apps/nginx/1.14.2/logs/access.log"
+  nginx path prefix: "/apps/nginx/1.17.8"
+  nginx binary file: "/apps/nginx/1.17.8/sbin/nginx"
+  nginx modules path: "/apps/nginx/1.17.8/modules"
+  nginx configuration prefix: "/apps/nginx/1.17.8/conf"
+  nginx configuration file: "/apps/nginx/1.17.8/conf/nginx.conf"
+  nginx pid file: "/apps/nginx/1.17.8/logs/nginx.pid"
+  nginx error log file: "/apps/nginx/1.17.8/logs/error.log"
+  nginx http access log file: "/apps/nginx/1.17.8/logs/access.log"
   nginx http client request body temporary files: "client_body_temp"
   nginx http proxy temporary files: "proxy_temp"
   nginx http fastcgi temporary files: "fastcgi_temp"
@@ -166,7 +167,7 @@ $ make
 
 $ make install
 
-$ ls /apps/nginx/1.14.2/  
+$ ls /apps/nginx/1.17.8/  
 >conf : 설정파일  
 html : 기본 document_root  
 logs : 로그 파일  
@@ -203,11 +204,11 @@ $ vi /apps/nginx/nginx
 [ "$NETWORKING" = "no" ] && exit 0
 
 #nginx="/usr/sbin/nginx"
-nginx="/apps/nginx/1.14.2/sbin/nginx"  
+nginx="/apps/nginx/1.17.8/sbin/nginx"  
 prog=$(basename $nginx)
 
 #NGINX_CONF_FILE="/etc/nginx/nginx.conf"
-NGINX_CONF_FILE="/apps/nginx/1.14.2/conf/nginx.conf"  
+NGINX_CONF_FILE="/apps/nginx/1.17.8/conf/nginx.conf"  
 
 [ -f /etc/sysconfig/nginx ] && . /etc/sysconfig/nginx
 
@@ -334,11 +335,11 @@ nginx 0:off 1:off 2:off 3:on 4:off 5:on 6:off
 $ sudo update-rc.d -f nginx defaults
 
 #### C. configure
-$ mkdir /apps/nginx/1.14.2/conf/sites-available  
-$ mkdir /apps/nginx/1.14.2/conf/sites-enabled  
+$ mkdir /apps/nginx/1.17.8/conf/sites-available  
+$ mkdir /apps/nginx/1.17.8/conf/sites-enabled  
 
-$ cp /apps/nginx/1.14.2/conf/nginx.conf /apps/nginx/1.14.2/conf/nginx.conf.default  
-$ vi /apps/nginx/1.14.2/conf/nginx.conf
+$ cp /apps/nginx/1.17.8/conf/nginx.conf /apps/nginx/1.17.8/conf/nginx.conf.default  
+$ vi /apps/nginx/1.17.8/conf/nginx.conf
 ```
 #user nginx app;
 user app app;
@@ -348,11 +349,12 @@ worker_processes 1;
 #error_log logs/error.log notice;
 #error_log logs/error.log info;
 
-pid logs/nginx.pid;
+#pid logs/nginx.pid;
+pid /var/run/nginx.pid;
 
 events {
     use epoll;
-    worker_connections  1024;
+    worker_connections 4096;
 }
 
 http {  
@@ -375,6 +377,10 @@ http {
     ####################  
     # Logging Settings  
     ####################  
+    log_format tracking '$remote_addr - $remote_user [$time_local] "$request" '
+                        '$status $body_bytes_sent "$http_referer" '
+                        '"$http_user_agent" "$http_x_forwarded_for" "$request_body"';
+
     access_log /logs/nginx/access.log;  
     error_log /logs/nginx/error.log;
     
@@ -412,49 +418,43 @@ http {
 ```
 
 ##### load-balancing was(tomcat) instances
-$ vi /apps/nginx/1.14.2/conf/sites-available/api.mobon.net.conf  
+$ vi /apps/nginx/1.17.8/conf/sites-available/tk.mediacategory.com.conf  
 ```
-#map $http_upgrade $connection_upgrade {
-#    default     "upgrade";
-#}
+#upstream tk {
+#    #LB method : least_conn, ip_hash  
+#    ip_hash;
+#    
+#    ## proxy server  
+#    server 10.251.0.183;
+#    server 10.251.0.184;
+#
+#    keepalive 4096;
+#}  
+server {
+    listen 80;
+    server_name tk.mediacategory.com;
+    server_tokens off;
 
-upstream tomcat {
-    #LB method : least_conn, ip_hash  
-    ip_hash;
-    
-    ## proxy server  
-    server 127.0.0.1:8080;
+#    return 301 https://tk.mediacategory.com$request_uri;
+#
+    access_log /logs/nginx/tk.mediacategory.com_access.log tracking buffer=32k;
+    error_log /logs/nginx/tk.mediacategory.com_error.log warn;
 
-    keepalive 1024;
-}  
+#    location / {  
+#        root /pgms/www;  
+#        index index.html index.htm;  
+#    }
 
-server {  
-    listen 80;  
-    server_name api.mobon.net;
-    
-    access_log /logs/nginx/tomcat_access.log;
-    
-    keepalive_timeout 10;
-    
-    location / {  
-        root /pgms/www;  
-        index index.html index.htm;  
-    }
-    
     # redirect server error pages to the static page /50x.html  
-    error_page 500 502 503 504 /50x.html;  
+    error_page 500 502 503 504 /50x.html;
     location = /50x.html {
         root html;
+        internal;
     }
-    
-    location /api {
-        #proxy_pass http://127.0.0.1:8080;
-        proxy_pass http://tomcat;
-        proxy_redirect off;
 
-        proxy_http_version  1.1;
-#        proxy_set_header    Connection          $connection_upgrade;
-#        proxy_set_header    Upgrade             $http_upgrade;
+    location / {
+#       rewrite ^/tk/(.*)$ /$1 break;
+#       rewrite ^/(.*)$ /tk/$1 break;
 
         proxy_set_header Host $http_host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -462,35 +462,193 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-NginX-Proxy true;
 
+        proxy_cookie_path ~*^/.* /;
+
+        proxy_pass http://10.251.0.184/tk$uri$is_args$args;
+        #proxy_pass http://tk;
+        proxy_redirect off;
+
+        proxy_buffer_size 128k;
+        proxy_buffers 4 256k;
+        proxy_busy_buffers_size 256k;
+
         charset utf-8;
-        
+
         index index.jsp index.html;
-        
-        if ($request_filename ~* ^.*?/([^/]*?)$) {
-            set $filename $1;
+
+        # setting CORS
+        if ($request_method = 'OPTIONS') {
+            add_header Access-Control-Allow-Origin $http_origin always;
+            add_header Access-Control-Allow-Credentials true always;
+
+#            add_header 'Access-Control-Allow-Origin' '*';
+#            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            # Custom headers and headers various browsers *should* be OK with but aren't
+            add_header 'Access-Control-Allow-Headers' 'Content-Type,Enp-Referrer,*';
+
+            # Tell client that this pre-flight info is valid for 20 days
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
         }
-        
-        if ($filename ~* ^.*?\.(eot)|(ttf)|(woff)$) {
-            add_header Access-Control-Allow-Origin *;
+        if ($request_method = 'POST') {
+            add_header Access-Control-Allow-Origin $http_origin always;
+            add_header Access-Control-Allow-Credentials true always;
+
+#            add_header 'Access-Control-Allow-Origin' '*';
+#            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' '*';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
         }
-    
+        if ($request_method = 'GET') {
+            add_header Access-Control-Allow-Origin $http_origin always;
+            add_header Access-Control-Allow-Credentials true always;
+
+#            add_header 'Access-Control-Allow-Origin' '*';
+#            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+        }
+
+#        if ($request_filename ~* ^.*?/([^/]*?)$) {
+#            set $filename $1;
+#        }
+
+#        if ($filename ~* ^.*?\.(eot)|(ttf)|(woff)$) {
+#            add_header Access-Control-Allow-Origin *;
+#        }
+
     }
-    
+
+    location ~ ^/tk/(.*)$ {
+#        return 301 /$1;
+#        rewrite ^/tk/(.*)$ /$1 break;
+        return 308 /$1$is_args$args;
+    }
+
 }
+
+server {  
+    listen 443 ssl http2;
+    server_name tk.mediacategory.com;
+    server_tokens off;
+
+    ssl_certificate /apps/pki/tls/certs/STAR.mediacategory.com.pem;
+    ssl_certificate_key /apps/pki/tls/private/STAR.mediacategory.com.key;
+    
+    access_log /logs/nginx/tk.mediacategory.com_access.log tracking buffer=32k;
+    error_log /logs/nginx/tk.mediacategory.com_error.log warn;
+    
+#    location / {  
+#        root /pgms/www;  
+#        index index.html index.htm;  
+#    }
+    
+    # redirect server error pages to the static page /50x.html  
+    error_page 500 502 503 504 /50x.html;  
+    location = /50x.html {
+        root html;
+        internal;
+    }
+
+    location / {
+#   rewrite ^/tk/(.*)$ /$1 break;
+#   rewrite ^/(.*)$ /tk/$1 break;
+
+        proxy_set_header Host $http_host;  
+        proxy_set_header X-Real-IP $remote_addr;  
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  
+        proxy_set_header X-Forwarded-Proto $scheme;  
+        proxy_set_header X-NginX-Proxy true;
+
+        proxy_cookie_path ~*^/.* /;
+        
+        proxy_pass http://10.251.0.184/tk$uri$is_args$args;
+        #proxy_pass http://tk;
+        proxy_redirect off;  
+
+        proxy_buffer_size 128k;
+        proxy_buffers 4 256k;
+        proxy_busy_buffers_size 256k;
+
+        charset utf-8;
+
+        index index.jsp index.html;
+
+        # setting CORS
+        if ($request_method = 'OPTIONS') {
+            add_header Access-Control-Allow-Origin $http_origin always;
+            add_header Access-Control-Allow-Credentials true always;
+
+#            add_header 'Access-Control-Allow-Origin' '*';
+#            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            # Custom headers and headers various browsers *should* be OK with but aren't
+            add_header 'Access-Control-Allow-Headers' 'Content-Type,Enp-Referrer,*';
+
+            # Tell client that this pre-flight info is valid for 20 days
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
+        }
+        if ($request_method = 'POST') {
+            add_header Access-Control-Allow-Origin $http_origin always;
+            add_header Access-Control-Allow-Credentials true always;
+
+#            add_header 'Access-Control-Allow-Origin' '*';
+#            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' '*';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+        }
+        if ($request_method = 'GET') {
+            add_header Access-Control-Allow-Origin $http_origin always;
+            add_header Access-Control-Allow-Credentials true always;
+
+#            add_header 'Access-Control-Allow-Origin' '*';
+#            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+        }
+
+#        if ($request_filename ~* ^.*?/([^/]*?)$) {
+#            set $filename $1;
+#        }
+
+#        if ($filename ~* ^.*?\.(eot)|(ttf)|(woff)$) {
+#            add_header Access-Control-Allow-Origin *;
+#        }
+
+    }
+
+    location ~ ^/tk/(.*)$ {
+#        return 301 /$1;
+#        rewrite ^/tk/(.*)$ /$1 break;
+        return 308 /$1$is_args$args;
+    }
+
+}
+
 ```
 
-$ ln -s /apps/nginx/1.14.2/conf/sites-available/api.mobon.net.conf /apps/nginx/1.14.2/conf/sites-enabled/api.mobon.net.conf
+$ ln -s /apps/nginx/1.17.8/conf/sites-available/tk.mediacategory.com.conf /apps/nginx/1.17.8/conf/sites-enabled/tk.mediacategory.com.conf
 
 ## 4. execution(starting and stopping daemon services)
 
 #### A. start service
-$ service nginx start
+$ sudo service nginx start
 
 #### B. reload configuration
-$ service nginx reload
+$ sudo service nginx reload
 
 #### C. stop service
-$ service nginx stop
+$ sudo service nginx stop
 
 ## 8. trouble-shooting
 
