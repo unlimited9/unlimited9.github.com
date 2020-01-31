@@ -323,7 +323,7 @@ $ cp /apps/nginx/nginx /etc/rc.d/init.d/nginx
 
 #### B. add service
 
-##### case of redhat
+`case of redhat`  
 $ chkconfig --add nginx  
 $ chkconfig --level 35 nginx on  
 $ chkconfig --list | grep nginx  
@@ -331,7 +331,7 @@ $ chkconfig --list | grep nginx
 nginx 0:off 1:off 2:off 3:on 4:off 5:on 6:off
 ```
 
-##### case of debian
+`case of debian`  
 $ sudo update-rc.d -f nginx defaults
 
 #### C. configure
@@ -417,7 +417,8 @@ http {
 }
 ```
 
-##### load-balancing was(tomcat) instances
+#### load-balancing backend service instances
+`tk.mediacategory.com`  
 $ vi /apps/nginx/1.17.8/conf/sites-available/tk.mediacategory.com.conf  
 ```
 #upstream tk {
@@ -638,6 +639,103 @@ server {
 ```
 
 $ ln -s /apps/nginx/1.17.8/conf/sites-available/tk.mediacategory.com.conf /apps/nginx/1.17.8/conf/sites-enabled/tk.mediacategory.com.conf
+
+`api.mediacategory.com`  
+$ vi /apps/nginx/1.17.8/conf/sites-available/api.mediacategory.com.conf  
+```
+#upstream api {
+#    #LB method : least_conn, ip_hash  
+#    ip_hash;
+#    
+#    ## proxy server  
+#    server 10.251.0.183;
+#    server 10.251.0.184;
+#
+#    keepalive 4096;
+#}  
+
+server {
+    listen 80;
+    server_name api.mediacategory.com;
+
+    access_log /logs/nginx/api.mediacategory.com_access.log tracking;
+    error_log /logs/nginx/api.mediacategory.com_error.log warn;
+
+#    location / {  
+#        root /pgms/www;  
+#        index index.html index.htm;  
+#    }
+
+    # redirect server error pages to the static page /50x.html  
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+        root html;
+    }
+
+    location / {
+#       rewrite ^/api/(.*)$ /$1 break;
+#       rewrite ^/(.*)$ /api/$1 break;
+#
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-NginX-Proxy true;
+
+        proxy_pass http://10.251.0.183/api$uri$is_args$args;
+#        proxy_pass http://api;
+        proxy_redirect off;
+        charset utf-8;
+
+        index index.jsp index.html;
+
+        # setting CORS
+        if ($request_method = 'OPTIONS') {
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            # Custom headers and headers various browsers *should* be OK with but aren't
+            add_header 'Access-Control-Allow-Headers' '*';
+
+            # Tell client that this pre-flight info is valid for 20 days
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
+        }
+        if ($request_method = 'POST') {
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' '*';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+        }
+        if ($request_method = 'GET') {
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+        }
+
+#        if ($request_filename ~* ^.*?/([^/]*?)$) {
+#            set $filename $1;
+#        }
+
+#        if ($filename ~* ^.*?\.(eot)|(ttf)|(woff)$) {
+#            add_header Access-Control-Allow-Origin *;
+#        }
+
+    }
+
+    location ~ ^/api/(.*)$ {
+#        return 301 /$1;
+#        rewrite ^/api/(.*)$ /$1 break;
+        return 308 /$1$is_args$args;
+    }
+
+}
+
+```
+
+$ ln -s /apps/nginx/1.17.8/conf/sites-available/api.mediacategory.com.conf /apps/nginx/1.17.8/conf/sites-enabled/api.mediacategory.com.conf
 
 ## 4. execution(starting and stopping daemon services)
 
