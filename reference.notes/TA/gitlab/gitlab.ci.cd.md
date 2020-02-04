@@ -14,57 +14,79 @@ stages:
   - build
   - test
   - deploy
+  - restart
 
 before_script:
   # set java environment path
-  - source /etc/profile.d/java11.sh
+  - source /etc/profile.d/jdk.12.sh
   #- pwd
 
 cache:
   paths:
-    - mobon.ad.tracker/mobon.tracker.application/build
+    - gateway.service.aggregation/build
 
-# build to development server
-build-to-development:
+build-to-aggregation:
   stage: build
   environment:
-    name: development deploy server
+    name: aggregation build server
   only:
     - master
   script:
     - gradle -v
-    - gradle --build-file mobon.ad.tracker/build.gradle :mobon.tracker.application:build
+    # gradle bootJar task
+    - gradle --build-file build.gradle :gateway.service.aggregation:bootJar;
+#    - gradle --build-file gateway.service.aggregation/build.gradle :build
   tags:
-    - development
-    
-# test to development server
-test-to-development:
+    - aggregation
+
+test-to-aggregation:
   stage: test
   environment:
-    name: development deploy server
+    name: aggregation test server
   only:
     - master
   script:
-    - echo 'test to development server'
+    - echo 'test to aggregation server'
   tags:
-    - development
-    
-# deploy to development server
-deploy-to-development:
+    - aggregation
+
+# deploy to aggregation server
+deploy-to-aggregation:
   stage: deploy
   environment:
-    name: development deploy server
+    name: aggregation deploy server
   only:
     - master
   script:
-    # war(package) file transfer to devlepment server
-    - scp -i ~/.ssh/app -P 7722 mobon.ad.tracker/mobon.tracker.application/build/libs/*.war app@172.20.0.103:/pgms/tomcat/wars/mobon.tracker
     # development server backup/deploy/restart over ssh
-    - ssh -i ~/.ssh/app -t -p 7722 app@172.20.0.103 "sh /pgms/tomcat/ctrl.sh mobon.tracker backup && sh /pgms/tomcat/ctrl.sh mobon.tracker deploy && sh /pgms/tomcat/ctrl.sh mobon.tracker restart"
+    - ssh -i ~/.ssh/app2 -t -p 7722 app@10.251.0.194 "mv /pgms/gateway.service.aggregation/*.jar /pgms/gateway.service.aggregation/backup/$(date +"%Y%m%d%H%M%S").jar || :"
+    # jar(package) file transfer to devlepment server
+    - scp -i ~/.ssh/app2 -P 7722 gateway.service.aggregation/build/libs/*.jar app@10.251.0.194:/pgms/gateway.service.aggregation
   after_script:
     - echo 'deploy completed'
+#  when: manual
   tags:
-    - development
+    - aggregation
+
+restart-to-aggregation-development:
+  stage: restart
+  environment:
+    name: aggregation development server
+  only:
+    - master
+  when : manual
+  script:
+    # development server backup/deploy/restart over ssh
+    - ssh -i ~/.ssh/app -t -p 7722 app@172.20.0.103 "mv /pgms/mobon.platform/gateway.service.aggregation/*.jar /pgms/mobon.platform/gateway.service.aggregation/backup/$(date +"%Y%m%d%H%M%S").jar || :"
+    # jar(package) file transfer to devlepment server
+    - scp -i ~/.ssh/app -P 7722 gateway.service.aggregation/build/libs/*.jar app@172.20.0.103:/pgms/mobon.platform/gateway.service.aggregation
+    # restart service
+    - ssh -i ~/.ssh/app -t -p 7722 app@172.20.0.103 "ps -ef | grep gateway.service.aggregation | grep -v grep | awk '{ print $2 }' | xargs kill -9  || :" 
+    - ssh -i ~/.ssh/app -T -p 7722 app@172.20.0.103 "find /pgms/mobon.platform/gateway.service.aggregation -maxdepth 1 -type f -name '*.jar' | sort | tail -1 | xargs -I MPGS_JAR nohup /apps/jdk/12.0.2/bin/java -Dspring.profiles.active=dev -jar MPGS_JAR 1> /dev/null 2>&1 &"
+  after_script:
+    - echo 'restart completed'
+  tags:
+    - aggregation
 
 ```
 
