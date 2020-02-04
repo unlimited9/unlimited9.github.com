@@ -90,25 +90,21 @@ restart-to-aggregation-development:
 
 ```
 
-#### java build and manual deploy
-> when: manual
-
+#### java library build and deploy
 $ vi .gitlab-ci.yml
 ```yaml
 # Define stages in a pipeline
 stages:
   - build
   - test
-  - deploy
+  - deploy_utils
+  - deploy_da_utils
+  - deploy_tracker_common
 
 before_script:
   # set java environment path
-  - source /etc/profile.d/java11.sh
-  #- pwd
-
-cache:
-  paths:
-    - mobon.ad.utils/build
+  - source /etc/profile.d/java12.sh
+  - pwd
 
 # build to development server
 build-to-development:
@@ -119,7 +115,8 @@ build-to-development:
     - master
   script:
     - gradle -v
-    - gradle --build-file mobon.ad.utils/build.gradle :build
+    - gradle --build-file mobon.utils/build.gradle :build
+    - gradle --build-file mobon.da.utils/build.gradle :build
   tags:
     - development
     
@@ -132,25 +129,74 @@ test-to-development:
     - master
   script:
     - echo 'test to development server'
+    - gradle -v
+    - gradle --build-file mobon.utils/build.gradle :mobon.utils:test
+    - gradle --build-file mobon.da.utils/build.gradle :mobon.da:test
   tags:
     - development
     
 # deploy to development server
-deploy-to-development:
-  stage: deploy
+deploy_utils-to-development:
+  stage: deploy_utils
   environment:
     name: development deploy server
   only:
     - master
-  script:
-    # upload to nexus
-    - curl --upload-file mobon.ad.utils/build/libs/enliple-utils-0.1.0.jar -u admin:P@ssw0rd -v http://172.20.0.7:8081/repository/maven-releases/com/mobon/mobon.ad.utils/0.1.0/mobon.ad.utils-0.1.0.jar
-  after_script:
-    - echo 'deploy completed'
   when: manual
+  script:
+    - gradle -v
+    - gradle --build-file mobon.utils/build.gradle :mobon.utils:uploadArchives
   tags:
     - development
 
+deploy_da_utils-to-development:
+  stage: deploy_da_utils
+  environment:
+    name: development deploy server
+  only:
+    - master
+  when: manual
+  script:
+    - gradle -v
+    - gradle --build-file mobon.da.utils/build.gradle :mobon.da:uploadArchives
+  tags:
+    - development
+
+deploy_tracker_common-to-development:
+  stage: deploy_tracker_common
+  environment:
+    name: development deploy server
+  only:
+    - master
+  when: manual
+  script:
+    - gradle -v
+    - gradle --build-file mobon.tracker.common/build.gradle :mobon.tracker.common:uploadArchives
+  tags:
+    - development
+#deploy-to-development:
+#  stage: deploy
+#  environment:
+#    name: development deploy server
+#  only:
+#    - master
+#  script:
+#    - pwd
+#    # upload to nexus
+#    - curl --upload-file mobon.utils/build/libs/enliple-utils-0.1.0.jar -u admin:P@ssw0rd -v http://172.20.0.7:8081/repository/maven-releases/com/mobon/mobon.utils/0.1.0/mobon.utils-0.1.0.jar
+#  after_script:
+#    - echo 'deploy completed'
+#  when: manual
+#  tags:
+#    - development
+    
+# upload to nexus
+
+cache:
+  paths:
+    - mobon.utils/build
+    - mobon.da.utils/build
+    
 ```
 
 >
