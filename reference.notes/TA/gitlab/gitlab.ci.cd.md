@@ -12,7 +12,7 @@ $ vi .gitlab-ci.yml
 # Define stages in a pipeline
 stages:
   - build
-  - test
+  #- test
   - deploy
   - restart
 
@@ -33,11 +33,10 @@ build-to-aggregation:
     - master
   script:
     - gradle -v
-    # gradle bootJar task
     - gradle --build-file build.gradle :gateway.service.aggregation:bootJar;
 #    - gradle --build-file gateway.service.aggregation/build.gradle :build
   tags:
-    - aggregation
+    - build
 
 test-to-aggregation:
   stage: test
@@ -46,11 +45,10 @@ test-to-aggregation:
   only:
     - master
   script:
-    - echo 'test to aggregation server'
+    - echo 'test to aggregation'
   tags:
-    - aggregation
+    - test
 
-# deploy to aggregation server
 deploy-to-aggregation:
   stage: deploy
   environment:
@@ -58,35 +56,35 @@ deploy-to-aggregation:
   only:
     - master
   script:
-    # development server backup/deploy/restart over ssh
-    - ssh -i ~/.ssh/app2 -t -p 7722 app@10.251.0.194 "mv /pgms/gateway.service.aggregation/*.jar /pgms/gateway.service.aggregation/backup/$(date +"%Y%m%d%H%M%S").jar || :"
-    # jar(package) file transfer to devlepment server
-    - scp -i ~/.ssh/app2 -P 7722 gateway.service.aggregation/build/libs/*.jar app@10.251.0.194:/pgms/gateway.service.aggregation
+    # source backup over ssh
+    - ssh -i ~/.ssh/app2 -t -p 7722 app@10.251.0.194 "mv /pgms/mobon.platform/gateway.service.aggregation*.jar /pgms/mobon.platform/backup/gateway.service.aggregation_$(date +"%Y%m%d_%H%M%S").jar || :"
+    # jar(package) file transfer to deploy server
+    - scp -i ~/.ssh/app2 -P 7722 gateway.service.aggregation/build/libs/gateway.service.aggregation*.jar app@10.251.0.194:/pgms/mobon.platform
   after_script:
     - echo 'deploy completed'
 #  when: manual
   tags:
-    - aggregation
+    - deploy
 
 restart-to-aggregation-development:
   stage: restart
   environment:
-    name: aggregation development server
+    name: aggregation development service restart
   only:
     - master
   when : manual
   script:
-    # development server backup/deploy/restart over ssh
-    - ssh -i ~/.ssh/app -t -p 7722 app@172.20.0.103 "mv /pgms/mobon.platform/gateway.service.aggregation/*.jar /pgms/mobon.platform/gateway.service.aggregation/backup/$(date +"%Y%m%d%H%M%S").jar || :"
+    # development source backup over ssh
+    - ssh -i ~/.ssh/app -t -p 7722 app@172.20.0.103 "mv /pgms/mobon.platform/gateway.service.aggregation*.jar /pgms/mobon.platform/backup/gateway.service.aggregation_$(date +"%Y%m%d_%H%M%S").jar || :"
     # jar(package) file transfer to devlepment server
-    - scp -i ~/.ssh/app -P 7722 gateway.service.aggregation/build/libs/*.jar app@172.20.0.103:/pgms/mobon.platform/gateway.service.aggregation
+    - scp -i ~/.ssh/app -P 7722 gateway.service.aggregation/build/libs/gateway.service.aggregation*.jar app@172.20.0.103:/pgms/mobon.platform
     # restart service
     - ssh -i ~/.ssh/app -t -p 7722 app@172.20.0.103 "ps -ef | grep gateway.service.aggregation | grep -v grep | awk '{ print $2 }' | xargs kill -9  || :" 
-    - ssh -i ~/.ssh/app -T -p 7722 app@172.20.0.103 "find /pgms/mobon.platform/gateway.service.aggregation -maxdepth 1 -type f -name '*.jar' | sort | tail -1 | xargs -I MPGS_JAR nohup /apps/jdk/12.0.2/bin/java -Dspring.profiles.active=dev -jar MPGS_JAR 1> /dev/null 2>&1 &"
+    - ssh -i ~/.ssh/app -T -p 7722 app@172.20.0.103 "find /pgms/mobon.platform -maxdepth 1 -type f -name 'gateway.service.aggregation*.jar' | sort | tail -1 | xargs -I MPGS_JAR nohup /apps/jdk/12.0.2/bin/java -Dspring.profiles.active=dev -jar MPGS_JAR 1> /dev/null 2>&1 &"
   after_script:
     - echo 'restart completed'
   tags:
-    - aggregation
+    - development.restart
 
 ```
 
@@ -242,10 +240,10 @@ Please enter the gitlab-ci token for this runner:
 xxxxxxxxxxxxx
 
 Please enter the gitlab-ci description for this runner:
-deploy runner for development
+deploy runner for gateway.service.aggregation
 
 Please enter the gitlab-ci tags for this runner (comma separated):
-development
+build, test, deploy, development.restart
 
 Please enter the executor: docker-ssh, ssh, virtualbox, docker, parallels, shell, docker+machine, docker-ssh+machine, kubernetes:
 shell
