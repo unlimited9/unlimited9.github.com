@@ -12,7 +12,7 @@ $ vi .gitlab-ci.yml
 # Define stages in a pipeline
 stages:
   - build
-  #- test
+  - test
   - deploy
   - restart
 
