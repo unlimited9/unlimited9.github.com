@@ -91,8 +91,10 @@ PUT /product
     }
   }
 }
+```
 
-## 상품 수집 정책 Index
+#### 상품 수집 정책 Index
+```
 PUT /config
 {
   "settings" : {
