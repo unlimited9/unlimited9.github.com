@@ -215,6 +215,8 @@ public class AuthorizationController {
 #### access_token 발급
 >http://dev.hajimaro.com:18070/auth/oauth/authorize?client_id=mobon.service.product.server&redirect_uri=http://dev.hajimaro.com:18070/auth/autho/callback&response_type=code&scope=read
 
+#### access_token 발급
+>http://dev.hajimaro.com:18070/auth/autho/token/refresh?refreshToken=
 
 ## 9. Appendix
 
