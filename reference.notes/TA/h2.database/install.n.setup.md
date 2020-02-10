@@ -102,6 +102,7 @@ export H2_OPTS="-webDaemon -tcpDaemon -webAllowOthers -tcpAllowOthers -baseDir /
 
 java -cp $H2_HOME/bin/h2*.jar org.h2.tools.Server $H2_OPTS &
 ```
+$ chmod 755 /apps/h2/startNetworkServer.sh
 
 ### B. H2 console
 http://172.20.0.103:8082/
