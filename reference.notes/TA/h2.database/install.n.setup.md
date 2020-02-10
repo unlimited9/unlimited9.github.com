@@ -42,21 +42,21 @@ $ mkdir -p /data/nexus
 ### C. download
 
 #### H2 Downloads
-$ curl -O http://www.h2database.com/h2-2019-03-13.zip -P /apps/install
-~~$ wget http://www.h2database.com/h2-2019-03-13.zip -P /apps/install~~
+$ curl -O http://h2database.com/h2-2019-10-14.zip  
+~~$ wget http://h2database.com/h2-2019-10-14.zip
 
 ### D. install
 
-$ unzip h2-2019-03-13.zip
+$ unzip h2-2019-10-14.zip
 
-$ cp -R h2 /apps/h2/1.4.199
+$ cp -R h2 /apps/h2/1.4.200
 
 
 ### E. configure
 
 ### F. run application
 
-$ java -cp /apps/h2/1.4.196/bin/h2*.jar org.h2.tools.Server -?
+$ java -cp /apps/h2/1.4.200/bin/h2*.jar org.h2.tools.Server -?
 ```
 Starts the H2 Console (web-) server, TCP, and PG server.
 Usage: java org.h2.tools.Server <options>
@@ -97,7 +97,7 @@ See also http://h2database.com/javadoc/org/h2/tools/Server.html
 
 $ vi /apps/h2/startNetworkServer.sh
 ```
-export H2_HOME="/apps/h2/1.4.196"
+export H2_HOME="/apps/h2/1.4.200"
 export H2_OPTS="-webDaemon -tcpDaemon -webAllowOthers -tcpAllowOthers -baseDir /data/database.h2/mobon -ifExists"
 
 java -cp $H2_HOME/bin/h2*.jar org.h2.tools.Server $H2_OPTS &
