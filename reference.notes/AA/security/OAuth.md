@@ -15,27 +15,33 @@ implementation 'org.springframework.security:spring-security-jwt:1.1.0.RELEASE'
 #### spring oauth2 configuration
 `AuthorizationServerConfigurator extends AuthorizationServerConfigurerAdapter`  
 ```
-package com.mobon.context.config;
+package com.mobon.context.config.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableAuthorizationServer
+@RequiredArgsConstructor
 public class AuthorizationServerConfigurator extends AuthorizationServerConfigurerAdapter {
 
-	@Autowired
-	private DataSource jdbcDataSource;
+	private final DataSource jdbcDataSource;
+	private final PasswordEncoder passwordEncoder;
+	private final UserDetailsService userDetailService;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	//@Value("${security.oauth2.jwt.signkey}")
+	private String signKey = "mobon2.0";
 
+	//clients
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.jdbc(jdbcDataSource).passwordEncoder(passwordEncoder);
 //		insert into oauth_client_details(client_id, resource_ids,client_secret,scope,authorized_grant_types,web_server_redirect_uri,authorities,access_token_validity,refresh_token_validity,additional_information,autoapprove)
@@ -51,6 +57,34 @@ public class AuthorizationServerConfigurator extends AuthorizationServerConfigur
 				.accessTokenValiditySeconds(30000);
 */
 	}
+
+	//tokens
+	@Override
+	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		endpoints.tokenStore(new JdbcTokenStore(jdbcDataSource)).userDetailsService(userDetailService);
+	}
+/*
+	//jwt access token
+	@Override
+	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		super.configure(endpoints);
+		endpoints.accessTokenConverter(jwtAccessTokenConverter()).userDetailsService(userDetailService);
+	}
+
+	@Bean
+	public JwtAccessTokenConverter jwtAccessTokenConverter() {
+		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+		converter.setSigningKey(signKey);
+		return converter;
+	}
+*/
+
+	@Override
+	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+		security.tokenKeyAccess("permitAll()")
+				.checkTokenAccess("isAuthenticated()"); //allow check token
+//				.allowFormAuthenticationForClients();
+	}
 }
 ```
 
@@ -63,16 +97,16 @@ public class AuthorizationServerConfigurator extends AuthorizationServerConfigur
 >2.클라이언트가 요청하는 리소스 접근 요청을 승인  
 >3.redirect_uri로 code를 전달  
 >4.access_token을 발급
->- Implicit
+>- Implicit  
 >1.Service Provider가 제공하는 인증 화면에 로그인  
 >2.클라이언트가 요청하는 리소스 접근 요청을 승인  
 >3.redirect_uri로 access_token을 직접 전달 (Authorization Code Type과 다른점)
->- password credential  
->1. Resource Owner가 직접 Client에 아이디와 패스워드를 입력(Client에 아이디 패스워드가 노출)  
->2. Authorization 서버에 해당 정보로 인증
->3. access_token을 직접 획득
->- client credential : server to server에 주로 사용  
->1. 인증 key(secret)로 요청해 access_token을 획득
+>- Password Credential  
+>1.Resource Owner가 직접 Client에 아이디와 패스워드를 입력(Client에 아이디 패스워드가 노출)  
+>2.Authorization 서버에 해당 정보로 인증
+>3.access_token을 직접 획득
+>- client credential : server to server에 주로 사용   
+>1.인증 key(secret)로 요청해 access_token을 획득
 >
 >`scopes` : 인증된 accessToken으로 접근할 수 있는 리소스의 범위 resource서버(api서버)에서는 scope 정보로 클라이언트에게 제공할 리소스를 제한하거나 노출
 >
