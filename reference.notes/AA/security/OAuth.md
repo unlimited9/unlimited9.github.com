@@ -87,7 +87,6 @@ public class AuthorizationServerConfigurator extends AuthorizationServerConfigur
 	}
 }
 ```
-
 >#### client details
 >`redirectUri` : 인증 완료 후 이동할 클라이언트 웹 페이지 주소(with code parameter)
 >
@@ -113,6 +112,33 @@ public class AuthorizationServerConfigurator extends AuthorizationServerConfigur
 >`accessTokenValiditySeconds` : 발급된 accessToken의 유효시간(sec)
 >
 
+`UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService`  
+```
+package com.mobon.context.config.security;
+
+import com.mobon.service.security.jpa.entity.Account;
+import com.mobon.service.security.jpa.repository.AccountJpaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+    private final AccountJpaRepository accountJpaRepository;
+    private final AccountStatusUserDetailsChecker detailsChecker = new AccountStatusUserDetailsChecker();
+
+    @Override
+    public UserDetails loadUserByUsername(String name) {
+        Account account = accountJpaRepository.findByUid(name).orElseThrow(() -> new UsernameNotFoundException("user is not exists"));
+        detailsChecker.check(account);
+        return account;
+    }
+}
+```
+
 #### spring security configuration
 
 `WebSecurityConfigurator extends WebSecurityConfigurerAdapter`  
@@ -120,6 +146,7 @@ public class AuthorizationServerConfigurator extends AuthorizationServerConfigur
 package com.mobon.context.config.security;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -135,6 +162,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @Slf4j
 public class WebSecurityConfigurator extends org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter {
+
+	@Autowired
+	private com.mobon.context.config.security.AuthenticationProvider authenticationProvider;
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -163,7 +193,9 @@ public class WebSecurityConfigurator extends org.springframework.security.config
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		auth.authenticationProvider(authenticationProvider);
+/*
+		PasswordEncoder encoder = passwordEncoder();
 		auth.inMemoryAuthentication()
 				.withUser("user")
 				.password(encoder.encode("password"))
@@ -172,9 +204,10 @@ public class WebSecurityConfigurator extends org.springframework.security.config
 				.withUser("admin")
 				.password(encoder.encode("admin"))
 				.roles("USER", "ADMIN");
+*/
 	}
 
-  @Bean
+	@Bean
 	public PasswordEncoder passwordEncoder(){
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder(); //default : "bcrypt" : new BCryptPasswordEncoder();
 		//return org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance(); // "noop"
@@ -183,18 +216,165 @@ public class WebSecurityConfigurator extends org.springframework.security.config
 }
 ```
 
+`AuthenticationProvider implements org.springframework.security.authentication.AuthenticationProvider`  
+```
+package com.mobon.context.config.security;
+
+import com.mobon.service.security.jpa.entity.Account;
+import com.mobon.service.security.jpa.repository.AccountJpaRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
+@Component
+@Slf4j
+public class AuthenticationProvider implements org.springframework.security.authentication.AuthenticationProvider {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AccountJpaRepository accountJpaRepository;
+
+    @Override
+    public Authentication authenticate(Authentication authentication) {
+
+        String name = authentication.getName();
+        String password = authentication.getCredentials().toString();
+
+        Account user = accountJpaRepository.findByUid(name).orElseThrow(() -> new UsernameNotFoundException("user is not exists"));
+
+        if (!passwordEncoder.matches(password, user.getPassword()))
+            throw new BadCredentialsException("password is not valid");
+
+        return new UsernamePasswordAuthenticationToken(name, password, user.getAuthorities());
+    }
+
+    @Override
+    public boolean supports(Class<?> authentication) {
+        return authentication.equals(UsernamePasswordAuthenticationToken.class);
+    }
+
+}
+```
+
+#### UserDetails JPA
+
+`Account implements UserDetails`  
+```
+package com.mobon.service.security.jpa.entity;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Builder
+@Entity //jpa entity
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "t_account") // 't_account' 테이블과 매핑됨을 명시
+public class Account implements UserDetails {
+    @Id // pk
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long msrl;
+    @Column(nullable = false, unique = true, length = 50)
+    private String uid;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(length = 100)
+    private String password;
+    @Column(nullable = false, length = 100)
+    private String name;
+    @Column(length = 100)
+    private String provider;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> groups = new ArrayList<>();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.groups.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+    }
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Override
+    public String getUsername() {
+        return this.uid;
+    }
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+}
+```
+
+`AccountJpaRepository extends JpaRepository`  
+```
+package com.mobon.service.security.jpa.repository;
+
+import com.mobon.service.security.jpa.entity.Account;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface AccountJpaRepository extends JpaRepository<Account, Long> {
+    Optional<Account> findByUid(String email);
+}
+```
+
 #### spring oauth2 controller
 `AuthorizationController`  
 ```
-package com.mobon.service.application.controller;
+package com.mobon.service.security.controller;
 
+import com.mobon.context.constant.ContextConfiguration;
+import com.mobon.service.security.jpa.entity.Account;
+import com.mobon.service.security.jpa.repository.AccountJpaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
@@ -208,6 +388,12 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collections;
+import java.util.Map;
+
+/**
+ * @author hajimaro
+ */
 
 @Controller()
 @RequestMapping(value = "/autho")
@@ -218,39 +404,241 @@ public class AuthorizationController {
     private RestTemplate restTemplate;
 
     @Autowired
+    private AccountJpaRepository accountJpaRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @RequestMapping(value = "/callback", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
-    public @ResponseBody Object callback(HttpServletRequest request, HttpServletResponse response, @RequestParam String code) {
-        String credentials = "mobon.service.product.server:P@ssw0rd";
-
-        String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
-
+    @RequestMapping(value = "/authorize", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
+    public @ResponseBody Object authorize(@RequestParam Map<String, String> parameters) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.add("Authorization", "Basic " + encodedCredentials);
+        headers.add("Authorization", "Basic " + encodedCredentials(parameters.get("client_id"), parameters.get("client_secret")));
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("code", code);
-        params.add("grant_type", "authorization_code");
-        params.add("redirect_uri", "http://dev.hajimaro.com:18070/auth/autho/callback");
+        params.add("client_id", parameters.get("client_id"));
+        params.add("redirect_uri", String.format("%s/auth/autho/callback", ContextConfiguration.getProperty("security.authorization.oauth.server")));
+        params.add("response_type", "code");
+        params.add("scope", "read");
         HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(params, headers);
-        return restTemplate.postForEntity("http://dev.hajimaro.com:18070/auth/oauth/token", httpEntity, String.class);
+        return restTemplate.postForEntity(String.format("%s/auth/oauth/authorize", ContextConfiguration.getProperty("security.authorization.oauth.server")), httpEntity, String.class);
     }
 
+    @RequestMapping(value = "/callback", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
+    public @ResponseBody Object callback(@RequestParam Map<String, String> parameters) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.add("Authorization", "Basic " + encodedCredentials(parameters.get("client_id"), parameters.get("client_secret")));
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("code", parameters.get("code"));
+        params.add("grant_type", "authorization_code");
+        params.add("redirect_uri", String.format("%s/auth/autho/callback", ContextConfiguration.getProperty("security.authorization.oauth.server")));
+        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(params, headers);
+        return restTemplate.postForEntity(String.format("%s/auth/oauth/token", ContextConfiguration.getProperty("security.authorization.oauth.server")), httpEntity, String.class);
+    }
+
+    @RequestMapping(value = "/token/refresh", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
+    public @ResponseBody Object refreshToken(@RequestParam Map<String, String> parameters) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.add("Authorization", "Basic " + encodedCredentials(parameters.get("client_id"), parameters.get("client_secret")));
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("refresh_token", parameters.get("refreshToken"));
+        params.add("grant_type", "refresh_token");
+        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(params, headers);
+        return restTemplate.postForEntity(String.format("%s/auth/oauth/token", ContextConfiguration.getProperty("security.authorization.oauth.server")), httpEntity, String.class);
+    }
+    /*
+        @RequestMapping(value = "/addAccount", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
+        public @ResponseBody Object addAccount(@RequestParam Map<String, String> parameters) {
+            accountJpaRepository.save(Account.builder()
+                    .uid(parameters.get("uid"))
+                    .password(passwordEncoder.encode(parameters.get("password")))
+                    .name(parameters.get("name"))
+                    .groups(Collections.singletonList("ROLE_USER"))
+                    .build());
+            return "success";
+        }
+    */
     @RequestMapping(value = "/encode", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
     public @ResponseBody Object passwordEncode(HttpServletRequest request, HttpServletResponse response, @RequestParam String plainText) {
         return passwordEncoder.encode(plainText);
     }
 
+    public String encodedCredentials(String clientId, String clientSecret) {
+        return new String(Base64.encodeBase64(String.format("%s:%s", clientId, clientSecret).getBytes()));
+    }
+
 }
 ```
 
-#### access_token 발급
+#### authorize code
 >http://dev.hajimaro.com:18070/auth/oauth/authorize?client_id=mobon.service.product.server&redirect_uri=http://dev.hajimaro.com:18070/auth/autho/callback&response_type=code&scope=read
 
-#### access_token 발급
+#### access_token
+>http://dev.hajimaro.com:18070/auth/oauth/callback?code=Dq4WfT&client_id=mobon.service.product.server&client_secret=password
+```
+{"access_token":"d5d1d9df-5615-4894-97fc-88a9603f34ad","token_type":"bearer","refresh_token":"28096409-efa5-488f-93b1-22bb515f0fd9","expires_in":32690,"scope":"read"}
+```
+
+#### refresh token
 >http://dev.hajimaro.com:18070/auth/autho/token/refresh?refreshToken=
+
+
+## resource server
+
+#### add dependencies : gradle
+```
+...
+implementation 'org.springframework.boot:spring-boot-starter-security'
+...
+implementation 'org.springframework.security.oauth:spring-security-oauth2:2.4.0.RELEASE'
+implementation 'org.springframework.security:spring-security-jwt:1.1.0.RELEASE'
+...
+```
+
+#### spring oauth2 configuration
+`AuthorizationServerConfigurator extends ResourceServerConfigurerAdapter`  
+```
+package com.mobon.context.config.security;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.sql.DataSource;
+
+@Configuration
+@EnableResourceServer
+public class AuthorizationServerConfigurator extends ResourceServerConfigurerAdapter {
+
+	@Value("${spring.security.oauth2.client.registration.api.client-id}")
+	private String clientId;
+	@Value("${spring.security.oauth2.client.registration.api.client-secret}")
+	private String clientSecret;
+	@Value("${spring.security.oauth2.client.registration.api.provider}")
+	private String checkTokenEndpointUrl;
+
+	@Override
+	public void configure(HttpSecurity http) throws Exception {
+		http.headers().frameOptions().disable();
+		http.authorizeRequests()
+				.antMatchers("/product/**","/inclination/**").access("#oauth2.hasScope('read')")
+				.anyRequest().authenticated();
+	}
+
+	@Override
+	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+		resources.tokenServices(tokenServices()).resourceId("gateway.api.common");
+	}
+
+	@Primary
+	@Bean
+	public RemoteTokenServices tokenServices() {
+		RemoteTokenServices tokenService = new RemoteTokenServices();
+		tokenService.setCheckTokenEndpointUrl(checkTokenEndpointUrl);
+		tokenService.setClientId(clientId);
+		tokenService.setClientSecret(clientSecret);
+		return tokenService;
+	}
+
+/*
+	@Bean
+	@Primary
+	public DefaultTokenServices tokenServices() {
+		DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+		defaultTokenServices.setTokenStore(tokenStore());
+		return defaultTokenServices;
+	}
+	@Bean
+	public TokenStore tokenStore() {
+		return new JdbcTokenStore(dataSource());
+	}
+*/
+
+}
+```
+
+#### spring security configuration
+
+`WebSecurityConfigurator extends WebSecurityConfigurerAdapter`  
+```
+package com.mobon.context.config.security;
+
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@EnableWebSecurity
+@Slf4j
+public class WebSecurityConfigurator extends org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter {
+
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/resource/**","/static/**","/h2console/**");
+		//web.ignoring().antMatchers("/resource/**","/static/**","/h2console/**","/dspt/admin/**","/dspt/securtiy/group/**");
+	}
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		//http.csrf().ignoringAntMatchers("/h2console/**"); // h2 console 사용을 위한 설정
+		http.headers()
+				.frameOptions().sameOrigin();
+//		http.anonymous()
+//				.principal("guest").authorities("ROLE_GUEST");
+		http.authorizeRequests()
+				//.antMatchers("/resources/**","/static/**","/h2console/**", "**"+AUTHE_PATH+"/**").permitAll() //해당 url을 허용한다.
+				//.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN") //admin 폴더에 경우 admin 권한이 있는 사용자에게만 허용
+				.antMatchers("/status/**").authenticated(); // /dspt/status
+//				.anyRequest().authenticated();
+		http.formLogin()
+				.permitAll();
+		http.logout()
+				.permitAll();
+		http.csrf().disable();
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder(){
+		return NoOpPasswordEncoder.getInstance();
+		//return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		//return new BCryptPasswordEncoder();
+	}
+
+}
+```
 
 ## 9. Appendix
 
