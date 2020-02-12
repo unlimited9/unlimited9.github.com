@@ -661,3 +661,6 @@ http://jeonghwan-kim.github.io/oauth2-0-in-rest-api/
 
 + SpringBoot2로 Oauth2 서버 만들기  
 https://daddyprogrammer.org/post/series/spring-boot-oauth2/
+
++ Spring Boot 2 – OAuth2 Auth and Resource Server  
+https://howtodoinjava.com/spring-boot2/oauth2-auth-server/
