@@ -11,6 +11,14 @@ Search Engine
 
 ## 8. trouble-shooting
 
+#### Kibana server is not ready yet
+```
+...
+FATAL Error: Index .kibana belongs to a version of Kibana that cannot be automatically migrated. Reset it or use the X-Pack upgrade assistant
+...
+```
+$ curl -X DELETE http://elasticsearch_client_server:9200/.kibana
+
 ## 9. Appendix
 
 #### reference site
