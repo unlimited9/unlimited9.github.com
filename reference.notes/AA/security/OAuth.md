@@ -644,6 +644,15 @@ public class WebSecurityConfigurator extends org.springframework.security.config
 
 #### reference site
 
+* OAuth 2 Developers Guide  
+https://projects.spring.io/spring-security-oauth/docs/oauth2.html
+
+* Using JWT with Spring Security OAuth  
+https://www.baeldung.com/spring-security-oauth-jwt
+
+* Microsoft id 플랫폼 및 OAuth 2.0 클라이언트 자격 증명 흐름  
+https://docs.microsoft.com/ko-kr/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow
+
 + Spring Security OAuth2구현  
 https://minwan1.github.io/2018/02/24/2018-03-11-Spring-OAuth%EA%B5%AC%ED%98%84/
 
@@ -671,9 +680,17 @@ https://freedeveloper.tistory.com/24
 + Spring MSA (4) - 인증서비스  
 https://taes-k.github.io/2019/06/20/spring-msa-4/
 
-
 + aop를 이용한 oauth2 캐시 적용하기  
 https://woowabros.github.io/experience/2019/03/05/aop-oauth2-redis.html
 
 + SpringSecurity - Kakao OAuth2 Client 사용하기  
 https://galid1.tistory.com/582
+
++ OAuth2 Authentication  
+https://mailchimp.com/developer/guides/how-to-use-oauth2/
+
++ Spring Boot + OAuth 2 Password Grant - Hello World Example  
+https://www.javainuse.com/spring/springboot-oauth2-password-grant
+
++ Using Spring Security 5 to integrate with OAuth 2-secured services such as Facebook and GitHub  
+https://spring.io/blog/2018/03/06/using-spring-security-5-to-integrate-with-oauth-2-secured-services-such-as-facebook-and-github
