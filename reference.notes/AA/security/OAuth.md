@@ -664,3 +664,7 @@ https://daddyprogrammer.org/post/series/spring-boot-oauth2/
 
 + Spring Boot 2 – OAuth2 Auth and Resource Server  
 https://howtodoinjava.com/spring-boot2/oauth2-auth-server/
+
++ [처음 배우는 스프링 부트2] 5. 스프링 부트 시큐리티 + OAuth2  
+https://freedeveloper.tistory.com/24
+
