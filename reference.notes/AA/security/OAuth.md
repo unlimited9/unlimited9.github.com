@@ -668,3 +668,12 @@ https://howtodoinjava.com/spring-boot2/oauth2-auth-server/
 + [처음 배우는 스프링 부트2] 5. 스프링 부트 시큐리티 + OAuth2  
 https://freedeveloper.tistory.com/24
 
++ Spring MSA (4) - 인증서비스  
+https://taes-k.github.io/2019/06/20/spring-msa-4/
+
+
++ aop를 이용한 oauth2 캐시 적용하기  
+https://woowabros.github.io/experience/2019/03/05/aop-oauth2-redis.html
+
++ SpringSecurity - Kakao OAuth2 Client 사용하기  
+https://galid1.tistory.com/582
