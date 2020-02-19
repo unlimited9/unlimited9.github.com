@@ -131,7 +131,8 @@ SVM은 얕은 학습 방법이기 때문에 지각에 관련된 문제에 SVM을
 
 #### 1.2.5 다시 신경망으로
 
-
+심층 신경망(deep neural network)
+심층 합성곱 신경망(deep convolutional neural network, ConvNet)
 
 
 
