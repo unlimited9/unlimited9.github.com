@@ -235,7 +235,6 @@ transport.tcp.port: 6540
 # --------------------------------- Discovery ----------------------------------
 discovery.seed_hosts: ["192.168.104.51:6540", "192.168.104.52:6540", "192.168.104.53:6540", "192.168.104.54:6540"]
 cluster.initial_master_nodes: ["essrch01", "essrch02"]
-log4j2.properties
 #discovery.zen.ping.unicast.hosts: ["192.168.104.51:6540", "192.168.104.52:6540", "192.168.104.53:6540", "192.168.104.54:6540"](deprecated)
 #discovery.zen.minimum_master_nodes: 2(deprecated)
 
