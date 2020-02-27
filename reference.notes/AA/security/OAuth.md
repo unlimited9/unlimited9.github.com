@@ -694,3 +694,6 @@ https://www.javainuse.com/spring/springboot-oauth2-password-grant
 
 + Using Spring Security 5 to integrate with OAuth 2-secured services such as Facebook and GitHub  
 https://spring.io/blog/2018/03/06/using-spring-security-5-to-integrate-with-oauth-2-secured-services-such-as-facebook-and-github
+
++ OAUTH - Client Credentials  
+https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/
