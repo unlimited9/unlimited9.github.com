@@ -473,7 +473,7 @@ public class AuthorizationController {
 >http://dev.hajimaro.com:18070/auth/oauth/authorize?client_id=mobon.service.product.server&redirect_uri=http://dev.hajimaro.com:18070/auth/autho/callback&response_type=code&scope=read
 
 #### access_token
->http://dev.hajimaro.com:18070/auth/oauth/callback?code=Dq4WfT&client_id=mobon.service.product.server&client_secret=password
+>http://dev.hajimaro.com:18070/auth/autho/callback?code=Dq4WfT&client_id=mobon.service.product.server&client_secret=password
 ```
 {"access_token":"d5d1d9df-5615-4894-97fc-88a9603f34ad","token_type":"bearer","refresh_token":"28096409-efa5-488f-93b1-22bb515f0fd9","expires_in":32690,"scope":"read"}
 ```
