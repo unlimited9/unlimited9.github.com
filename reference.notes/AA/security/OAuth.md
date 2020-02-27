@@ -694,3 +694,6 @@ https://spring.io/blog/2018/03/06/using-spring-security-5-to-integrate-with-oaut
 
 + OAUTH - Client Credentials  
 https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/
+
++ OAuth2 인증 방식 정리  
+https://cheese10yun.github.io/oauth2/
