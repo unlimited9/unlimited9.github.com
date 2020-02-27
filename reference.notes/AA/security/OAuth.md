@@ -697,3 +697,6 @@ https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/
 
 + OAuth2 인증 방식 정리  
 https://cheese10yun.github.io/oauth2/
+
++ [oAuth_이론] 5. oAuth가 작동되는 과정_API_Refresh token [5/5]  
+https://velog.io/@rohkorea86/oAuth%EC%9D%B4%EB%A1%A0-5.-oAuth%EA%B0%80-%EC%9E%91%EB%8F%99%EB%90%98%EB%8A%94-%EA%B3%BC%EC%A0%95APIRefresh-token-55
