@@ -375,6 +375,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
@@ -423,7 +424,6 @@ public class AuthorizationController {
         HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(params, headers);
         return restTemplate.postForEntity(String.format("%s/auth/oauth/authorize", ContextConfiguration.getProperty("security.authorization.oauth.server")), httpEntity, String.class);
     }
-
     @RequestMapping(value = "/callback", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
     public @ResponseBody Object callback(@RequestParam Map<String, String> parameters) {
         HttpHeaders headers = new HttpHeaders();
@@ -438,31 +438,24 @@ public class AuthorizationController {
         return restTemplate.postForEntity(String.format("%s/auth/oauth/token", ContextConfiguration.getProperty("security.authorization.oauth.server")), httpEntity, String.class);
     }
 
-    @RequestMapping(value = "/token/refresh", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
-    public @ResponseBody Object refreshToken(@RequestParam Map<String, String> parameters) {
+    @RequestMapping(value = "/token", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
+    public @ResponseBody Object grantToken(@RequestParam Map<String, String> parameters) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
         headers.add("Authorization", "Basic " + encodedCredentials(parameters.get("client_id"), parameters.get("client_secret")));
 
+        //grant_type(client_credentials/refresh_token), refresh_token(optional)
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("refresh_token", parameters.get("refreshToken"));
-        params.add("grant_type", "refresh_token");
-        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(params, headers);
-        return restTemplate.postForEntity(String.format("%s/auth/oauth/token", ContextConfiguration.getProperty("security.authorization.oauth.server")), httpEntity, String.class);
-    }
-    /*
-        @RequestMapping(value = "/addAccount", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
-        public @ResponseBody Object addAccount(@RequestParam Map<String, String> parameters) {
-            accountJpaRepository.save(Account.builder()
-                    .uid(parameters.get("uid"))
-                    .password(passwordEncoder.encode(parameters.get("password")))
-                    .name(parameters.get("name"))
-                    .groups(Collections.singletonList("ROLE_USER"))
-                    .build());
-            return "success";
+        for(String key : parameters.keySet()) {
+            params.add(key, parameters.get(key));
         }
-    */
+        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(params, headers);
+        ResponseEntity<String> responseEntity =  restTemplate.postForEntity(String.format("%s/auth/oauth/token", ContextConfiguration.getProperty("security.authorization.oauth.server")), httpEntity, String.class);
+        log.info(responseEntity.getBody());
+        return responseEntity;
+    }
+
     @RequestMapping(value = "/encode", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
     public @ResponseBody Object passwordEncode(HttpServletRequest request, HttpServletResponse response, @RequestParam String plainText) {
         return passwordEncoder.encode(plainText);
@@ -473,9 +466,10 @@ public class AuthorizationController {
     }
 
 }
+
 ```
 
-#### authorize code
+#### grant_type : authorize code
 >http://dev.hajimaro.com:18070/auth/oauth/authorize?client_id=mobon.service.product.server&redirect_uri=http://dev.hajimaro.com:18070/auth/autho/callback&response_type=code&scope=read
 
 #### access_token
@@ -484,8 +478,11 @@ public class AuthorizationController {
 {"access_token":"d5d1d9df-5615-4894-97fc-88a9603f34ad","token_type":"bearer","refresh_token":"28096409-efa5-488f-93b1-22bb515f0fd9","expires_in":32690,"scope":"read"}
 ```
 
-#### refresh token
->http://dev.hajimaro.com:18070/auth/autho/token/refresh?refreshToken=
+#### grant_type : client credentials
+>http://dev.hajimaro.com:18070/auth/autho/token?grant_type=client_credentials&client_id=mobon.service.product.server&client_secret=password
+
+#### grant_type : refresh token
+>http://127.0.0.1:18070/auth/autho/token?grant_type=refresh_token&refresh_token=a-b-c-d&client_id=mobon.service.product.server&client_secret=password  
 
 
 ## resource server
