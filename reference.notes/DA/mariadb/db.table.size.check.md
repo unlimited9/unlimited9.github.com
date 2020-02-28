@@ -2,6 +2,7 @@
 > 쿼리 시점에 정확한 사이즈는 아니지만, 참고할 만한 데이터
 
 #### 테이블별 사이즈 확인
+```
 SELECT
     table_name,
     table_rows,
@@ -12,8 +13,10 @@ where table_schema = 'dreamsearch'
 GROUP BY table_name
 ORDER BY data_length DESC
 LIMIT 10;
+```
 
 #### Database 별 사이즈 확인
+```
 SELECT
 	count(*) NUM_OF_TABLE,
 	table_schema, concat(round(sum(table_rows)/1000000,2),'M') rowss,
@@ -24,7 +27,7 @@ SELECT
 FROM information_schema.TABLES
 GROUP BY table_schema
 ORDER BY sum(data_length+index_length) DESC LIMIT 10;
-
+```
 
 ## 9. Appendix
 
