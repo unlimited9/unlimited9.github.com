@@ -161,3 +161,6 @@ https://bcho.tistory.com/1256?category=731548
 
 + Kubernetes Architecture 101  
 https://www.aquasec.com/wiki/display/containers/Kubernetes+Architecture+101
+
++ Docker와 쿠버네티스의 이해  
+https://zzsza.github.io/development/2018/04/17/docker-kubernetes/
