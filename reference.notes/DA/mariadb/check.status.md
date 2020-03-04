@@ -1,7 +1,11 @@
 
+#### 프로세스 개수  
+mysql> show processlist;  
 
+#### 쓰레드 개수  
+mysql> show status like 'Threads_connected';
 
-
+#### 상태 조회
 $ /usr/local/mysql/bin/mysqladmin status -p
 >> mysql> show status;
 
