@@ -23,7 +23,7 @@ $ su - app
 #### B. creating application directory
 $ mkdir -p /data/docker
 
->$ mkdir -p /apps/docker
+>$ mkdir -p /apps/docker  
 $ mkdir -p /logs/docker
 
 #### C. download
