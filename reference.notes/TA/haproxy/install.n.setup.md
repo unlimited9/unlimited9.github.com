@@ -229,6 +229,8 @@ $ systemctl start haproxy.service
 >[ALERT] 339/174702 (19308) : Starting frontend GLOBAL: cannot bind UNIX socket [/var/lib/haproxy/stats]
 >...
 >```
+>
+>관련 디렉토리 확인 및 생성 : /var/lib/haproxy
 
 #### configure haproxy to start at boot
 $ systemctl enable haproxy
