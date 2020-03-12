@@ -23,7 +23,7 @@ $ passwd app
 >#### nologin 메세지 수정
 >$ vi /etc/nologin.txt
 >
-> FTP 접속 제한 : login shell 등록/삭제(터미널 접속 로그인은 되지만 FTP 접속은 제한)
+> FTP 접속 제한 : login shell 등록/삭제(터미널 접속 로그인은 되지만 FTP 접속은 제한)  
 >$ vi /etc/shells
 >```
 >/bin/sh
@@ -37,6 +37,9 @@ $ usermod --append --groups app nginx
 
 #### service status
 $ sudo /sbin/service --status-all
+
+>#### enlipe useradd like this  
+>$ useradd -d /home/users/sjlee -g develop sjlee
 
 ## Appendix
 
