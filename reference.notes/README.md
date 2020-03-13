@@ -7,7 +7,7 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
 
 2. AA(Application Architecture)
     * Development Environment
-      + [Install and setup Java](architecture.application/java/install.n.setup.jdk.md) ([install script](architecture.application/java/install.n.setup.jdk.script.md)) : JDK(Java™ Platform, Development Kit) 설치
+      + [Install and setup Java](architecture.application/java/install.n.setup.jdk.md) ([install script](architecture.application/java/install.n.setup.script.jdk.md)) : JDK(Java™ Platform, Development Kit) 설치
       + [Eclipse IDE Setup](eclipse.ide.setup.md) : J2EE 개발을 위한 통합개발환경 도구 Eclipse IDE 설치
     * Language
       + JAVA
