@@ -50,12 +50,12 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
         - [Docker Change Port Mapping for an Existing Container](TA/cloud/docker/change.port.mapping.md) : 도커 포트 변경
         - [Docker private registry](TA/cloud/docker/private.registry.md) : 도커 사설 레지스트리 구성
       + [Kubernetes(k8s) : Concept and theorem](architecture.solution/kubernetes/concept.theorem.md) : 쿠버네티스 개요
-        - [Install and setup](TA/cloud/kubernetes/install.n.setup.md) ([install script](TA/cloud/kubernetes/install.n.setup.script.md)) : Kubernetes(Docker orchestration and clustering) 설치
-        - [Install and setup HA, multi-master](TA/cloud/kubernetes/master.node.cluster.ha.md) : 작성중... Marster HA 구성
-        - [Web UI (Dashboard) : Install and setup](TA/cloud/kubernetes/install.n.setup.dashboard.md) : 웹 관리 모듈 설치
-        - [Administration : management](TA/cloud/kubernetes/administration.management.md) : 쿠버네티스 관리
-        - [Kubernetes deployment](TA/cloud/kubernetes/how.to.deployment.md) : 쿠버네티스 서비스 디플로이(tutorial)
-        - [Kubernetes ConfigMap and Secret](TA/cloud/kubernetes/configMap.n.secret.md) : 어플리케이션 설정 분리
+        - [Install and setup](architecture.solution/kubernetes/install.n.setup.md) ([install script](architecture.solution/kubernetes/install.n.setup.script.md)) : Kubernetes(Docker orchestration and clustering) 설치
+        - [Install and setup HA, multi-master](architecture.solution/kubernetes/master.node.cluster.ha.md) : 작성중... Marster HA 구성
+        - [Web UI (Dashboard) : Install and setup](architecture.solution/kubernetes/install.n.setup.dashboard.md) : 웹 관리 모듈 설치
+        - [Administration : management](architecture.solution/kubernetes/administration.management.md) : 쿠버네티스 관리
+        - [Kubernetes deployment](architecture.solution/kubernetes/how.to.deployment.md) : 쿠버네티스 서비스 디플로이(tutorial)
+        - [Kubernetes ConfigMap and Secret](architecture.solution/kubernetes/configMap.n.secret.md) : 어플리케이션 설정 분리
     * Hardware Sizing : 규모산정  
       + [hardware sizing](TA/system/hardware.sizing.md) : 정보시스템 하드웨어 규모산정 지침
     * Development Environment  
