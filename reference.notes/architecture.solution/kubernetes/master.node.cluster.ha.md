@@ -78,10 +78,10 @@ sudo swapoff -a
 ```
 
 ## loadbalancer : haproxy 설치
-[haproxy](../../haproxy/install.n.setup.md)
+[haproxy](../haproxy/install.n.setup.md)
 
 ## etcd 설치
-[etcd cluster](../../etcd/install.n.setup.md)
+[etcd cluster](../etcd/install.n.setup.md)
 
 > 여기까지 master/worker node 모두 수행
 --
