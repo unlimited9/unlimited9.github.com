@@ -29,7 +29,7 @@ Definitions:
   -? -h --help  Prints this help message.
   -help         Prints this help message.
 ```
-$ jstat -gcutil <pid> 1000
+$ jstat -gcutil [pid] 1000
 
 항목 | 설명
 -- | --
