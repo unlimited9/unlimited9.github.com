@@ -31,6 +31,22 @@ Definitions:
 ```
 $ jstat -gcutil <pid> 1000
 
+항목 | 설명
+-- | --
+S0 | Survivor 0 영역의 사용량
+S1 | Survivor 1 영역의 사용량
+E | Eden 영역의 사용량
+O | Old 영역의 사용량
+M | Metaspace 영역의 사용량
+CCS | Compressed Class 영역의 사용량
+YGC | Young 영역의 GC 횟수
+YGCT | Young 영역의 GC 누적시간
+FGC | Full GC 횟수
+FGCT | Full GC 누적시간
+GCT | 전체 GC 누적시간
+
+
+
 
 ## jmap
 $ jmap -h
