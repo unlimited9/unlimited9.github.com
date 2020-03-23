@@ -92,7 +92,7 @@ Usage: jcmd <pid | main class> <command ...|PerfCounter.print|-f file>
   -l  list JVM processes on the local machine                     
   -? -h --help print this help message                            
 ```
-> add jvm option : -XX:NativeMemoryTracking=summary  
+> add jvm NMT(NativeMemoryTracking) option : -XX:NativeMemoryTracking=summary  
 > jcmd <pid> VM.native_memory baseline  
 > jcmd <pid> VM.native_memory summary.diff
 
