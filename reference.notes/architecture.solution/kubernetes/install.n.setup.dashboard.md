@@ -83,7 +83,7 @@ https://10.251.0.191:30444/
 $ kubectl -n kubernetes-dashboard create serviceaccount admin-user  
 > -n : namespace 지정을 안하면 namespace를 'default'로 생성한다.  
 >$ kubectl create serviceaccount admin-user  
->or  
+>or   
 >```
 >$ cat  <<EOF | kubectl create -f -
 >apiVersion: v1
