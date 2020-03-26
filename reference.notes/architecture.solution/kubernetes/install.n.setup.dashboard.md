@@ -193,7 +193,18 @@ $ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashbo
 ./kubecfg.token
 
 $ certutil -addstore "Root" ca.crt  
+```
+Root "신뢰할 수 있는 루트 인증 기관"
+서명이 공개 키와 일치합니다.
+"kubernetes" 인증서가 저장소에 추가되었습니다.
+CertUtil: -addstore 명령이 성공적으로 완료되었습니다.
+```
 $ certutil -p password -user -importPFX kubecfg.p12  
+```
+"kubernetes-admin" 인증서가 저장소에 추가되었습니다.
+
+CertUtil: -importPFX 명령이 성공적으로 완료되었습니다.
+```
 
 `Access URL`  
 https://[master_ip]:6443/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login
