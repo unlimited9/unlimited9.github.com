@@ -126,6 +126,7 @@ $ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashbo
 >or  
 >$ kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get serviceaccount admin-user -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode  
 
+asdasdsadas
 ```
 Name:         admin-user-token-4fxnw
 Namespace:    kube-system
