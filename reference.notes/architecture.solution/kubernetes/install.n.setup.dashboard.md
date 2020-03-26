@@ -190,6 +190,9 @@ https://[master_ip]:6443/api/v1/namespaces/kubernetes-dashboard/services/https:k
 * kubernetes / dashboard
 https://github.com/kubernetes/dashboard/wiki
 
+* Access Clusters Using the Kubernetes API  
+https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/
+
 * [Container Management] Kubernetes Dashboard Install & Setting  
 https://waspro.tistory.com/516  
 
