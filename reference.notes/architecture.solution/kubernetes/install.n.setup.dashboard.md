@@ -1,6 +1,6 @@
 ## Web UI (Dashboard) 설치
 
-Master node에서 실행 
+Master node에서 실행
 
 $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-rc2/aio/deploy/recommended.yaml  
 > $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
@@ -16,7 +16,7 @@ kubernetes-dashboard   kubernetes-dashboard-5f7b999d65-67xz4      1/1     Runnin
 ...
 ```
 
-> NodePort, Proxy, API Server, Ingress 등으로 서비스에 접속이 가능하지만 API Server를 통해 접근하는것이 가장 합리적이라 생각됨
+NodePort, Proxy, API Server, Ingress 등으로 서비스에 접속이 가능하지만 API Server를 통해 접근하는것이 가장 합리적이라 생각됨
 
 #### NodePort
 >`접속을 위한 바인딩 정보 확인`  
