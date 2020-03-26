@@ -170,3 +170,26 @@ token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2V
 
 > NodePort와 Proxy 외에 API Server, Ingress 등으로 서비스 접속 가능
 
+
+
+#### API Server
+
+https://[master_ip]:6443/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login
+
+...
+
+
+
+
+
+
+## 9. Appendix
+
+#### reference site
+
+* kubernetes / dashboard
+https://github.com/kubernetes/dashboard/wiki
+
+* [Container Management] Kubernetes Dashboard Install & Setting  
+https://waspro.tistory.com/516  
+
