@@ -98,7 +98,7 @@ serviceaccount/admin-user created
 `Create cluster role binding`  
 $ kubectl create clusterrolebinding admin-user --clusterrole=cluster-admin --serviceaccount=kubernetes-dashboard:admin-user  
 >$ kubectl create clusterrolebinding admin-user --clusterrole=cluster-admin --serviceaccount=default:admin-user  
->or  
+>or
 >```
 >$ cat <<EOF | kubectl create -f -
 >apiVersion: rbac.authorization.k8s.io/v1
