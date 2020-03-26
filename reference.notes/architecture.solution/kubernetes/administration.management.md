@@ -129,6 +129,36 @@ mobon-service-product-svc.mobon.svc.mobon.platform
 #### switch namespace
 $ kubectl config set-context $(kubectl config current-context) --namespace=mobon
 
+#### remove cluster node
+`master node`  
+$ kubectl get nodes  
+$ kubectl drain [node_name]  
+$ kubectl delete [node_name]  
+
+`worker node`  
+$ kubeadm reset  
+
+>#### network initialize
+>>FailedCreatePodSandBox로 ContainerCreating 상태인  경우 
+>
+>$ sudo kubeadm reset
+>
+>$ sudo systemctl stop kubelet
+>$ sudo systemctl stop docker
+>
+>$ sudo rm -rf /var/lib/cni/
+>$ sudo rm -rf /var/lib/kubelet/*
+>$ sudo rm -rf /etc/cni/
+>
+>$ sudo ifconfig cni0 down
+>$ sudo ifconfig flannel.1 down4
+>$ sudo ifconfig docker0 down
+>
+>$ sudo ip link delete cni0
+>$ sudo ip link delete flannel.1
+>
+>$ sudo ifconfig -a
+
 ## Helm
 Helm is a tool for managing Charts. Charts are packages of pre-configured Kubernetes resources.
 
