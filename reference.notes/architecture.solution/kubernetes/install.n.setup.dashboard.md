@@ -16,6 +16,7 @@ kubernetes-dashboard   kubernetes-dashboard-5f7b999d65-67xz4      1/1     Runnin
 ...
 ```
 
+
 NodePort, Proxy, API Server, Ingress 등으로 서비스에 접속이 가능하지만 API Server를 통해 접근하는것이 가장 합리적이라 생각됨
 
 #### NodePort
