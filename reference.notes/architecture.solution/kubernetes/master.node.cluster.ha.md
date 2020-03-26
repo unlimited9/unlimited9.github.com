@@ -189,7 +189,7 @@ $ kubectl taint nodes --all node-role.kubernetes.io/master-
 $ sudo kubeadm join 10.251.0.194:6443 --token 6kbq9e.qirblr0o52gplk5l \  
     --discovery-token-ca-cert-hash sha256:ea609f534e6527f8d5ffb5b5cf2488fa79f9c231401386577872037a3338dc3e 
 
-#### token 확인
+#### token 확인(master node에서)
 $ kubeadm token list  
 
 $ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'  
