@@ -124,9 +124,8 @@ clusterrolebinding.rbac.authorization.k8s.io/admin-user created
 $ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')  
 >$ kubectl describe secret $(kubectl get secret | grep admin-user | awk '{print $1}')  
 >or  
->$ kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get serviceaccount admin-user -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode  
+>$ kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get serviceaccount admin-user -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode
 
-asdasdsadas
 ```
 Name:         admin-user-token-4fxnw
 Namespace:    kube-system
