@@ -40,6 +40,11 @@ SUID나 SGID가 설정된 바이너리에서 $ORIGIN이 expanding되지 않도�
 
 `libjli.so의 위치를 확인`  
 $ ls -l $(locate libjli.so)
+```
+-rwxr-xr-x 1 root root 102352 2016-09-23 13:20 /usr/local/jdk1.8/jre/lib/amd64/jli/libjli.so
+-rwxr-xr-x 1 root root 102990 2016-09-23 13:20 /usr/local/jdk1.8/lib/amd64/jli/libjli.so
+-rwxr-xr-x 1 root root  48335 2013-03-27 07:28 /wagent/java/jre1.6.0_45/lib/amd64/jli/libjli.so
+```
 
 >warning: locate: could not open database: /var/lib/slocate/slocate.db: No such file or directory  
 warning: You need to run the 'updatedb' command (as root) to create the database.  
@@ -49,11 +54,14 @@ Please have a look at /etc/updatedb.conf to enable the daily cron job.
 `추가 library 참조`  
 기본적으로 참조되는 /usr/lib이나 /lib에 위치하고 있지 않다면, 다음과 같이 global하게 참조되도록 해줄 수 있다.  
 $ vi /etc/ld.so.conf.d/java.conf  
+```
+/usr/local/jdk1.8/lib/amd64/jli
+```
 > libjli.so를 포함하는 디렉토리의 절대 경로를 추가  
 
 $ /sbin/ldconfig  
 
-`의존하고 있는 공유 라이브러리 (shared library)를 확인`
+`의존하고 있는 공유 라이브러리 (shared library)를 확인`  
 $ ldd /usr/local/java/bin/java
 ```
   linux-vdso.so.1 =>  (0x00007ffd98367000)
