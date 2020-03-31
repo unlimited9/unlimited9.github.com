@@ -31,7 +31,10 @@
 ## trouble-shooting
 
 #### 자바(Java) 실행 파일에 setuid 설정하기
-tom
+$ sudo chmod 4755 /usr/local/java/bin/java
+
+$ java
+`Error`   
 /usr/local/java/bin/java: error while loading shared libraries: libjli.so: cannot open shared object file: No such file or directory  
 
 >ELF specification은 SUID와 SGID 바이너리에 대해 $ORIGIN을 무시하도록 권장한다.  
