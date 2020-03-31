@@ -34,6 +34,7 @@
 $ sudo chmod 4755 /usr/local/java/bin/java
 
 $ java
+
 `Error`   
 /usr/local/java/bin/java: error while loading shared libraries: libjli.so: cannot open shared object file: No such file or directory  
 
