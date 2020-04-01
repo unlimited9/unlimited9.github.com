@@ -39,7 +39,7 @@ SCOUTER is an open source APM like new relic and appdynamics
 
 시스템에 증가하는 부하가 WAS까지 도달하지 못하는 경우 프록시 서버 로그를 확인한다.
 
-#### Nginx Error Log : upstream timed out
+#### 1. Nginx Error Log : upstream timed out
 $ vi /logs/nginx/error.log
 ```
 ...
@@ -138,7 +138,7 @@ server {
     ...
 ```
 
-#### Nginx Error Log : Too many open files
+#### 2. Nginx Error Log : Too many open files
 $ vi /logs/nginx/error.log
 ```
 ...
