@@ -1,5 +1,57 @@
 #### Optimize(performance tunning)
 
+#### Nginx TCP keepalive 
+$ vi /apps/nginx/1.14.2/conf/sites-enabled/product.mobon.net.conf
+```
+upstream tomcat {
+    #LB method : least_conn, ip_hash  
+    ip_hash;
+    
+    ## proxy server  
+    server 127.0.0.1:8080;
+
+    keepalive 1024;
+}  
+
+server {  
+    listen 80;  
+    server_name api.mobon.net;
+    
+    access_log /logs/nginx/tomcat_access.log;
+    
+    keepalive_timeout 10;
+    ...
+```
+
+#### Nginx worker processes and limit files
+$ vi /apps/nginx/1.14.2/conf/nginx.conf
+```
+...
+worker_processes auto;
+...
+worker_rlimit_nofile 16384;
+...
+events {
+    use epoll;
+    worker_connections 4096;
+}
+```
+
+`worker_processes`  
+nginx가 싱글스레드로 동작하기 때문에 core 수를 설정
+core수 보다 높은 숫자를 저정해도 문제는 없으며, auto로 지정하는 경우에는 자동으로 지정해준다.
+
+>`linux core 수`  
+>$ grep processor /proc/cpuinfo |wc
+
+`worker_rlimit_nofile` : 프로세스당 파일 디스크립터의  상한(上限)수  
+일반적으로 worker_connections 3~4배  
+
+>`linux file description`  
+>$ cat /proc/sys/fs/file-max
+
+`worker_connections` : 하나의 worker가 동시에 처리할수 있는 접속수
+
 ##### worker_processes
 > 프로세스 수  : CPU 혹은 CPU Core 수와 같이 설정한다. (보통은 4개 정도가 넘어가면 이미 최대 성능치일 경우가 많다.)  
 
