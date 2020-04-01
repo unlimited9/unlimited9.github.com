@@ -52,6 +52,8 @@ core수 보다 높은 숫자를 저정해도 문제는 없으며, auto로 지정
 
 `worker_connections` : 하나의 worker가 동시에 처리할수 있는 접속수
 
+---
+
 ##### worker_processes
 > 프로세스 수  : CPU 혹은 CPU Core 수와 같이 설정한다. (보통은 4개 정도가 넘어가면 이미 최대 성능치일 경우가 많다.)  
 
