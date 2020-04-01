@@ -134,6 +134,35 @@ server {
     ...
 ```
 
+#### Nginx worker processes and limit files
+$ vi /apps/nginx/1.14.2/conf/nginx.conf
+```
+...
+worker_processes auto;
+...
+worker_rlimit_nofile 16384;
+...
+events {
+    use epoll;
+    worker_connections 4096;
+}
+```
+
+`worker_processes`  
+nginx가 싱글스레드로 동작하기 때문에 core 수를 설정
+core수 보다 높은 숫자를 저정해도 문제는 없으며, auto로 지정하는 경우에는 자동으로 지정해준다.
+
+>`linux core 수`  
+>$ grep processor /proc/cpuinfo |wc
+
+`worker_rlimit_nofile` : 프로세스당 파일 디스크립터의  상한(上限)수  
+일반적으로 worker_connections 3~4배  
+
+>`linux file description`  
+>$ cat /proc/sys/fs/file-max
+
+`worker_connections` : 하나의 worker가 동시에 처리할수 있는 접속수
+
 ---
 ### Troubleshooting
 
