@@ -39,7 +39,7 @@ SCOUTER is an open source APM like new relic and appdynamics
 
 시스템에 증가하는 부하가 WAS까지 도달하지 못하는 경우 프록시 서버 로그를 확인한다.
 
-#### 1. Nginx Error Log : upstream timed out
+#### Nginx Error Log : upstream timed out
 $ vi /logs/nginx/error.log
 ```
 ...
@@ -48,9 +48,9 @@ $ vi /logs/nginx/error.log
 ...
 ```
 
-Local TCP Port 고갈에 따른 오류 확인
+Local TCP Port 고갈에 따른 오류 확인  
 
-#### Check Network Socket Status
+`Check Network Socket Status`  
 $ ss -s
 ```
 Total: 1925 (kernel 2483)
@@ -89,7 +89,7 @@ $ netstat -napo | grep -ic 172.20.0.103
 30931
 ```
 
-#### Increase TCP Port Range with net.ipv4.ip_local_port_range Kernel Parameter
+`Increase TCP Port Range with net.ipv4.ip_local_port_range Kernel Parameter`  
 $ cat /proc/sys/net/ipv4/ip_local_port_range
 ```
 32768	60999
@@ -102,7 +102,7 @@ $ cat /proc/sys/net/ipv4/ip_local_port_range
 10240	65535
 ```
 
-#### Reuse TCP Port with Kernel Parameter
+`Reuse TCP Port with Kernel Parameter`  
 $ sysctl -a | grep "net.ipv4.tcp_tw_reuse"
 ```
 net.ipv4.tcp_tw_reuse = 0
@@ -115,7 +115,7 @@ $ sysctl -a | grep "net.ipv4.tcp_tw_reuse
 net.ipv4.tcp_tw_reuse = 1
 ```
 
-#### Nginx TCP keepalive 
+`Nginx TCP keepalive`  
 $ vi /apps/nginx/1.14.2/conf/sites-enabled/product.mobon.net.conf
 ```
 upstream tomcat {
@@ -138,7 +138,7 @@ server {
     ...
 ```
 
-#### 2. Nginx Error Log : Too many open files
+#### Nginx Error Log : Too many open files
 $ vi /logs/nginx/error.log
 ```
 ...
@@ -146,7 +146,7 @@ $ vi /logs/nginx/error.log
 ...
 ```
 
-#### Nginx worker processes and limit files
+`Nginx worker processes and limit files`  
 $ vi /apps/nginx/1.14.2/conf/nginx.conf
 ```
 ...
@@ -160,20 +160,17 @@ events {
 }
 ```
 
-`worker_processes`  
-nginx가 싱글스레드로 동작하기 때문에 core 수를 설정
++ worker_processes : nginx가 싱글스레드로 동작하기 때문에 core 수를 설정  
 core수 보다 높은 숫자를 저정해도 문제는 없으며, auto로 지정하는 경우에는 자동으로 지정해준다.
+  >`linux core 수`  
+  >$ grep processor /proc/cpuinfo |wc
 
->`linux core 수`  
->$ grep processor /proc/cpuinfo |wc
-
-`worker_rlimit_nofile` : 프로세스당 파일 디스크립터의  상한(上限)수  
++ worker_rlimit_nofile : 프로세스당 파일 디스크립터의  상한(上限)수  
 일반적으로 worker_connections 3~4배  
+  >`linux file description`  
+  >$ cat /proc/sys/fs/file-max
 
->`linux file description`  
->$ cat /proc/sys/fs/file-max
-
-`worker_connections` : 하나의 worker가 동시에 처리할수 있는 접속수
++ worker_connections : 하나의 worker가 동시에 처리할수 있는 접속수
 
 
 #### su: cannot set user id: Resource temporarily unavailable 에러
