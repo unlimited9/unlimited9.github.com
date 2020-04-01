@@ -1,10 +1,10 @@
-## 1. System Tuning
+# 1. System Tuning
 >- UT : Unit Testing
 >- **ST : System Testing**
 >- SIT : System integration testing
 >- UAT : User Acceptance Testing
 
-### System Testing
+## System Testing
 
 #### performance testing
 >Created 월요일 06 8월 2019
@@ -24,7 +24,7 @@
   짧은 시간에 부하 증가에 대한 처리 및 업무 부하(workload) 감소 시 안정화 확인
 * 피로(Fatigue) Test : 대역폭 용량을 뛰어넘는 부하에 대한 테스트
 
-### Environment Setup
+#### Environment Setup
 
 * nGrinder : [Install and setup nGrinder](install.n.setup.ngrinder.md)  
 Enterprise level performance testing solution based on The Grinder
@@ -33,9 +33,13 @@ SCOUTER is an open source APM like new relic and appdynamics
 
 ## Tuning
 
+---
+
+## Troubleshooting
+
 시스템에 증가하는 부하가 WAS까지 도달하지 못하는 경우 프록시 서버 로그를 확인한다.
 
-#### Nginx Error Log
+#### Nginx Error Log : upstream timed out
 $ vi /logs/nginx/error.log
 ```
 ...
@@ -134,6 +138,14 @@ server {
     ...
 ```
 
+#### Nginx Error Log : Too many open files
+$ vi /logs/nginx/error.log
+```
+...
+2020/04/01 10:37:47 [crit] 60336#0: *27361 open() "/apps/nginx/1.17.9/html/50x.html" failed (24: Too many open files), client: 61.253.101.72, server: tk.mediacategory.com, request: "POST /aggregate/mssg/common HTTP/1.1", upstream: "http://10.251.0.184:80/tk/aggregate/mssg/common", host: "tk.mediacategory.com", referrer: "http://www.sappun.co.kr/shop/shopbrand.html?xcode=045&type=P"
+...
+```
+
 #### Nginx worker processes and limit files
 $ vi /apps/nginx/1.14.2/conf/nginx.conf
 ```
@@ -163,8 +175,6 @@ core수 보다 높은 숫자를 저정해도 문제는 없으며, auto로 지정
 
 `worker_connections` : 하나의 worker가 동시에 처리할수 있는 접속수
 
----
-### Troubleshooting
 
 #### su: cannot set user id: Resource temporarily unavailable 에러
 $ ulimit -a
