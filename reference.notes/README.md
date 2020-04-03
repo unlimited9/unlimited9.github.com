@@ -43,11 +43,11 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
         - [Kafka Manager : Monitoring](architecture.solution/apache.kafka/install.n.setup.kafka.manager.md) : Kafka 모니터링 
       + [Haproxy : Install and setup](architecture.solution/haproxy/install.n.setup.md) : Haproxy TCP/HTTP Load Balancer 설치
     * Cloud Computing
-      + [Docker : Install and setup](TA/cloud/docker/install.n.setup.md) ([install script](TA/cloud/docker/install.n.setup.script.md)) : Docker(independent container platform) 설치
-        - [Administration : management and dockerize](TA/cloud/docker/administration.management.md) : 도커 관리
+      + [Docker : Install and setup](architecture.solution/docker/install.n.setup.md) ([install script](architecture.solution/docker/install.n.setup.script.md)) : Docker(independent container platform) 설치
+        - [Administration : management and dockerize](architecture.solution/docker/administration.management.md) : 도커 관리
         - [Create image and container](architecture.solution/docker/create.image.n.container.md) : 도커 이미지/컨테이너 생성
-        - [Container orchestration and clustering](TA/cloud/docker/orchestration.n.clustering.md) : 분산 클러스터링
-        - [Docker Change Port Mapping for an Existing Container](TA/cloud/docker/change.port.mapping.md) : 도커 포트 변경
+        - [Container orchestration and clustering](architecture.solution/docker/orchestration.n.clustering.md) : 분산 클러스터링
+        - [Docker Change Port Mapping for an Existing Container](architecture.solution/docker/change.port.mapping.md) : 도커 포트 변경
         - [Docker private registry](architecture.solution/docker/private.registry.md) : 도커 사설 레지스트리 구성
       + [Kubernetes(k8s) : Concept and theorem](architecture.solution/kubernetes/concept.theorem.md) : 쿠버네티스 개요
         - [Install and setup](architecture.solution/kubernetes/install.n.setup.md) ([install script](architecture.solution/kubernetes/install.n.setup.script.md)) : Kubernetes(Docker orchestration and clustering) 설치
