@@ -57,19 +57,19 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
         - [Kubernetes deployment](architecture.solution/kubernetes/how.to.deployment.md) : 쿠버네티스 서비스 디플로이(tutorial)
         - [Kubernetes ConfigMap and Secret](architecture.solution/kubernetes/configMap.n.secret.md) : 어플리케이션 설정 분리
     * Hardware Sizing : 규모산정  
-      + [hardware sizing](TA/system/hardware.sizing.md) : 정보시스템 하드웨어 규모산정 지침
+      + [hardware sizing](operating.system/hardware.sizing.md) : 정보시스템 하드웨어 규모산정 지침
     * Development Environment  
-      + [gitlab ci/cd](TA/gitlab/gitlab.ci.cd.md) : Gitlab Runner
+      + [gitlab ci/cd](architecture.solution/gitlab/gitlab.ci.cd.md) : Gitlab Runner
      
 4. DA(technical architecture)
 
 5. QA(Quality Assurance)
     * Testing and Tuning
-      + [Performance testing and tuning](QA/performance.testing.and.tuning.md) : 성능 테스트 및 환경 구성
-        - [Install and setup nGrinder](QA/install.n.setup.ngrinder.md) : 성능 및 스트레이스 테스트를 위한 nGrinder 설치 ([Groovy Script](QA/ngrinder.groovy.script.md))
-        - [Install and setup Scouter](QA/install.n.setup.scouter.md) : APM(Application Performance Management) Scouter 설치
+      + [Performance testing and tuning](architecture.quality.assurance/performance.testing.and.tuning.md) : 성능 테스트 및 환경 구성
+        - [Install and setup nGrinder](architecture.quality.assurance/install.n.setup.ngrinder.md) : 성능 및 스트레이스 테스트를 위한 nGrinder 설치 ([Groovy Script](QA/ngrinder.groovy.script.md))
+        - [Install and setup Scouter](architecture.quality.assurance/install.n.setup.scouter.md) : APM(Application Performance Management) Scouter 설치
     * Monitoring
-      + [Install and setup Telegraf](QA/install.n.setup.telegraf.md) : 시스템 모니터링 및 지표 수집 에이전트
+      + [Install and setup Telegraf](architecture.quality.assurance/install.n.setup.telegraf.md) : 시스템 모니터링 및 지표 수집 에이전트
 
 #### Architecture style(pattern, model)
 
