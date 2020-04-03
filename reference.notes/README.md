@@ -21,8 +21,8 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
       + Gradle
     * Framework
       + Spring
-        - [Spring Boot : Management and Operations](AA/Framework/springboot.management.n.operations.md)
-        - [Overriding Dependency Versions with Spring Boot](AA/Framework/springboot.transitive.dependency.md)
+        - [Spring Boot : Management and Operations](architecture.application/Framework/springboot.management.n.operations.md)
+        - [Overriding Dependency Versions with Spring Boot](architecture.application/Framework/springboot.transitive.dependency.md)
 
 3. TA(technical architecture)
     * Operating System
