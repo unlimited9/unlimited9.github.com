@@ -11,9 +11,9 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
       + [Eclipse IDE Setup](eclipse.ide.setup.md) : J2EE 개발을 위한 통합개발환경 도구 Eclipse IDE 설치
     * Language
       + JAVA
-        - [Collections.sort with multiple fields](AA/Java/collections.sort.sample.md)
-        - [JAXB on Java 9 and beyond](AA/Java/jaxb.on.java.9.n.beyond.md)
-        - [Netty network application framework](AA/Java/netty.nio.network.framework.md)
+        - [Collections.sort with multiple fields](architecture.application/java/collections.sort.sample.md)
+        - [JAXB on Java 9 and beyond](architecture.application/java/jaxb.on.java.9.n.beyond.md)
+        - [Netty network application framework](architecture.application/java/netty.nio.network.framework.md)
       + Groovy
       + Javascript
     * Build
