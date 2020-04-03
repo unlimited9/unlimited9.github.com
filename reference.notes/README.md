@@ -30,18 +30,18 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
       + [Ditectory management](operating.system/management.directory.md) : 시스템 디렉토리 정의/관리
       + [Openssl : self-signed certificate](operating.system/openssl.self.signed.certificate.md) : SSL 인증서 생성
     * Middle-ware
-      + [Nginx : Install and setup](TA/nginx/install.n.setup.md) : Nginx Web Server 설치
-        - [Optimize : performance tunning](TA/nginx/optimize.performance.tunning.md) : 성능 최적화
-        - [Install PHP](TA/nginx/install.n.setup.php.md) : PHP 연계 구성
-        - [Configuration Sample](TA/nginx/configuration.sample.md) : 설정 예
-      + [Apache Tomcat : Install and setup](TA/apache.tomcat/install.n.setup.md) ([install script](TA/apache.tomcat/install.n.setup.script.md)) : Tomcat Servlet Container - Multi Instances
-        - [Operation and Maintenance](TA/apache.tomcat/operation.n.maintenance.md) : 운영 관리
-      + [Node.js : Install and setup](TA/node.js/install.n.setup.md) : Node.js 설치
-        - [Dockerizing](TA/node.js/dockerizing.md) : 도커 이미지 만들기
-      + [Hadoop ecosystem : Introduction](TA/hadoop/introduction.md) : Hadoop이란
-      + [Apache Kafka : Install and setup](TA/apache.kafka/install.n.setup.md) : Kafka Message Queue 서버 설치
-        - [Kafka Manager : Monitoring](TA/apache.kafka/install.n.setup.kafka.manager.md) : Kafka 모니터링 
-      + [Haproxy : Install and setup](TA/haproxy/install.n.setup.md) : Haproxy TCP/HTTP Load Balancer 설치
+      + [Nginx : Install and setup](architecture.solution/nginx/install.n.setup.md) : Nginx Web Server 설치
+        - [Optimize : performance tunning](architecture.solution/nginx/optimize.performance.tunning.md) : 성능 최적화
+        - [Install PHP](architecture.solution/nginx/install.n.setup.php.md) : PHP 연계 구성
+        - [Configuration Sample](architecture.solution/nginx/configuration.sample.md) : 설정 예
+      + [Apache Tomcat : Install and setup](architecture.solution/apache.tomcat/install.n.setup.md) ([install script](architecture.solution/apache.tomcat/install.n.setup.script.md)) : Tomcat Servlet Container - Multi Instances
+        - [Operation and Maintenance](architecture.solution/apache.tomcat/operation.n.maintenance.md) : 운영 관리
+      + [Node.js : Install and setup](architecture.solution/node.js/install.n.setup.md) : Node.js 설치
+        - [Dockerizing](architecture.solution/node.js/dockerizing.md) : 도커 이미지 만들기
+      + [Hadoop ecosystem : Introduction](architecture.solution/hadoop/introduction.md) : Hadoop이란
+      + [Apache Kafka : Install and setup](architecture.solution/apache.kafka/install.n.setup.md) : Kafka Message Queue 서버 설치
+        - [Kafka Manager : Monitoring](architecture.solution/apache.kafka/install.n.setup.kafka.manager.md) : Kafka 모니터링 
+      + [Haproxy : Install and setup](architecture.solution/haproxy/install.n.setup.md) : Haproxy TCP/HTTP Load Balancer 설치
     * Cloud Computing
       + [Docker : Install and setup](TA/cloud/docker/install.n.setup.md) ([install script](TA/cloud/docker/install.n.setup.script.md)) : Docker(independent container platform) 설치
         - [Administration : management and dockerize](TA/cloud/docker/administration.management.md) : 도커 관리
