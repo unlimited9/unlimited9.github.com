@@ -10,6 +10,13 @@
 + [Quartz-1] Quartz Job Scheduler란?  
 https://blog.advenoh.pe.kr/spring/Quartz-Job-Scheduler%EB%9E%80/
 
++ [Quartz-3] Multi WAS 환경을 위한 Cluster 환경의 Quartz Job Scheduler 구현  
+https://blog.advenoh.pe.kr/spring/Multi-WAS-%ED%99%98%EA%B2%BD%EC%9D%84-%EC%9C%84%ED%95%9C-Cluster-%ED%99%98%EA%B2%BD%EC%9D%98-Quartz-Job-Scheduler-%EA%B5%AC%ED%98%84/
+
++ kenshin579 / tutorials-java  
+https://github.com/kenshin579/tutorials-java/tree/master/springboot-quartz-cluster
+
+
 + [Spring fw] Spring Batch + Quartz (스프링 배치+쿼츠) 정리필요  
 https://developyo.tistory.com/205
 
