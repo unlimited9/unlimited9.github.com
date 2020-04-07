@@ -1,6 +1,13 @@
 
 # spring quartz batch
 
+scheduler.scheduleJob(jobDetail, trigger);
+
+jobDetail에는 Job의 실제 구현 내용과 Job 실행에 필요한 제반 상세 정보가 담겨 있다.
+trigger에는 Job을 언제, 어떤 주기로, 언제부터 언제까지 실행할지에 대한 정보가 담겨 있다.
+scheduler는 jobDetail과 trigger에 담긴 정보를 이용해서 실제 Job의 실행 스케줄링을 담당한다.
+
+
 
 
 ## 9. Appendix
