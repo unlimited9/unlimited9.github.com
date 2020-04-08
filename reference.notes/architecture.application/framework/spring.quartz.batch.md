@@ -1,14 +1,19 @@
 
 # spring quartz batch
 
+## @Scheduled 
+단순 Scheduled Trigger를 위해서라면 Spring @Scheduled로도 대부분의 기능구현이 가능  
+서비스 영속성을 위한 이중화/HA 환경에서는 중복수행 문제 발생
+- ShedLock 등을 사용하여 서비스 수행 제어를 하거나 
+- quartz clustering을 적용
+
+## Quartz
+
 scheduler.scheduleJob(jobDetail, trigger);
 
 jobDetail에는 Job의 실제 구현 내용과 Job 실행에 필요한 제반 상세 정보가 담겨 있다.
 trigger에는 Job을 언제, 어떤 주기로, 언제부터 언제까지 실행할지에 대한 정보가 담겨 있다.
 scheduler는 jobDetail과 trigger에 담긴 정보를 이용해서 실제 Job의 실행 스케줄링을 담당한다.
-
-
-
 
 ## 9. Appendix
 
