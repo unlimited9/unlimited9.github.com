@@ -161,3 +161,7 @@ db.ad.parameters.dropIndexes() //_id index 제외
 * The MongoDB 4.2 Manual  
 https://docs.mongodb.com/manual/
 
++ [MongoDB] 강좌 목록  
+https://velopert.com/mongodb-tutorial-list
+
+
