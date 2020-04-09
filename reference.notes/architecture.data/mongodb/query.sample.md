@@ -2,14 +2,13 @@
 
 ## database/collection/document
 
-
 use statistics;  
 
 db;  
 
 show dbs;  
 
-db.ad.parameters.insert({"adType": "iCw", "device": "Mobile", "parameters":1, "registDate": ""});  
+db.ad.parameters.insert({"adType": "iCw", "device": "Mobile", "parameters":1, "created": new Date()});  
 >없으면 자동으로 collection 생성  
 >db.createCollection("ad.parameters");
 >>db.createCollection("articles", {  
@@ -24,8 +23,8 @@ show collections;
 > db.ad.parameters.drop()  
 
 db.ad.parameters.insert([  
-    {"adType": "iCw", "device": "Mobile", "parameters":2, "registDate": new Date()},  
-    {"adType": "iCw", "device": "Pc", "parameters":3, "registDate": new Date()}  
+    {"adType": "iCw", "device": "Mobile", "parameters":2, "created": new Date()},  
+    {"adType": "iCw", "device": "Pc", "parameters":3, "created": new Date()}  
 ]);  
 
 db.ad.parameters.remove({"adType": "iCw", "device": "Mobile"})  
@@ -61,7 +60,11 @@ db.ad.parameters.find({$where: "this.adType == 'iCw'" })
 
 
 #### projection
-db.ad.parameters.find({}, {"_id": false, "adType": true, "device": true, "parameters": true, "registDate": true});  
+db.ad.parameters.find({}, {"_id": false, "adType": true, "device": true, "parameters": true, "created": true, "lastModified": true});  
+>db.getCollection('ad.parameters').aggregate([
+    {$match:{}},
+    {$project:{"_id": false, "adType": true, "device": true, "parameters": true, "created": {$dateToString: {format: "%Y-%m-%d", date: "$created"}}, "lastModified": {$dateToString: {format: "%Y-%m-%d", date: "$lastModified"}}}}
+]);
 
 db.ad.parameters.find({}).sort({"_id": 1}) //asc: 1, desc: -1  
 db.ad.parameters.find({}).limit(1)  
@@ -81,15 +84,10 @@ db.ad.parameters.update({"adType": "iCw", "device": "Mobile"}, {$unset: {"parame
 `document with upsert/multi`  
 db.ad.parameters.update({"adType": "iCw", "device": "Mobile"}, {$set: {"adType": "iCw", "device": "Mobile", "parameters": 1}, $currentDate: {lastModified: true}}, {upsert: true, multi: true})
 
->db.getCollection('ad.parameters').aggregate([
-    {$match:{}},
-    {$project:{"_id": false, "adType": true, "device": true, "parameters": true, "registDate": {$dateToString: {format: "%Y-%m-%d", date: "$lastModified"}}}}
-]);
-
 
 `push/pull`  
 >add sample data  
-db.ad.parameters.update({"adType": "iCw", "device": "TV"}, {"adType": "iCw", "device": "TV", "parameters": 1, "registDate": new Date(), "manufacturer":[{"name": "samsung", "value": 1}, {"name": "lg": "value": 1}]}, { upsert: true })
+db.ad.parameters.update({"adType": "iCw", "device": "TV"}, {"adType": "iCw", "device": "TV", "parameters": 1, "created": new Date(), "manufacturer":[{"name": "samsung", "value": 1}, {"name": "lg": "value": 1}]}, { upsert: true })
 
 db.ad.parameters.update({"adType": "iCw", "device": "TV", "modifyDate": new Date()}, {$push: {"manufacturer": {"name": "apple", "value": 1}}}, {multi: true})
 db.ad.parameters.update({"adType": "iCw", "device": "TV", "modifyDate": new Date()}, {$pull: {"manufacturer": {"name": "apple"}}})
@@ -199,21 +197,6 @@ db.getCollection('CIData_00').aggregate(
 db.getCollection('CIData_00').count({'iUm.data.domain': /.*livingpick.com.*/})
 db.getCollection('CIData_00').count({'iUm.data.domain': /.*dabagirl.co.kr.*/})
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
