@@ -16,8 +16,8 @@ trigger에는 Job을 언제, 어떤 주기로, 언제부터 언제까지 실행�
 scheduler는 jobDetail과 trigger에 담긴 정보를 이용해서 실제 Job의 실행 스케줄링을 담당한다.
 
 ## Batch
-
-
+Tasklet, ItemReader, ItemWriter, ItemProcessor  
+stepcontribution contribution chunkcontext chunkcontext  
 
 ## 9. Appendix
 
