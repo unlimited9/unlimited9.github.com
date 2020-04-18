@@ -15,6 +15,12 @@ jobDetail에는 Job의 실제 구현 내용과 Job 실행에 필요한 제반 �
 trigger에는 Job을 언제, 어떤 주기로, 언제부터 언제까지 실행할지에 대한 정보가 담겨 있다.
 scheduler는 jobDetail과 trigger에 담긴 정보를 이용해서 실제 Job의 실행 스케줄링을 담당한다.
 
+#### Quartz Cron Expression  
+`Expression Meaning : 초분시일월주(년)`  
+> 일자를 나타내는 필드와 요일을 나타내는 필드는 동시에 설정 할 수 없고, 둘 중 하나의 필드는 "?"로 설정  
+
+ex) 0/5 * * * * ? or 0/5 * * ? * *  
+
 ## Batch
 Tasklet, ItemReader, ItemWriter, ItemProcessor  
 stepcontribution contribution chunkcontext chunkcontext  
@@ -47,6 +53,9 @@ https://homoefficio.github.io/2018/08/12/Java-Quartz-Scheduler-Job-Chaining-%EA%
 
 + Quartz 스케줄러 적용 아키텍처 개선 - 1  
 https://homoefficio.github.io/2019/09/28/Quartz-%EC%8A%A4%EC%BC%80%EC%A4%84%EB%9F%AC-%EC%A0%81%EC%9A%A9-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EA%B0%9C%EC%84%A0-1/
+
++ Quartz Cron Expression 정리
+http://blog.naver.com/PostView.nhn?blogId=estern&logNo=110010101624&redirect=Dlog&widgetTypeCall=true
 
 ---
 + Spring Batch / 5. Spring Batch 가이드 - Spring Batch Scope & Job Parameter  
