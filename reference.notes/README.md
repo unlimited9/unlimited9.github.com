@@ -26,6 +26,7 @@ AA/TA, Java/Framework, Design/Prototyping/Optimization
 
 3. TA(technical architecture)
     * Operating System
+      + [System monitoring](architecture.quality.assurance/system.monitoring.md) : 시스템 상태 조회
       + [Account/Group management](operating.system/management.account.n.group.md) : 시스템 계정/그룹 관리
       + [Ditectory management](operating.system/management.directory.md) : 시스템 디렉토리 정의/관리
       + [Openssl : self-signed certificate](operating.system/openssl.self.signed.certificate.md) : SSL 인증서 생성
