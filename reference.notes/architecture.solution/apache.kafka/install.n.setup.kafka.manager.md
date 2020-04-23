@@ -103,6 +103,23 @@ $ mv cmak-3.0.0.4 /apps/kafka-manager/3.0.0.4
 >
 >#### compile/build
 >$ cd CMAK-master  
+>
+>>error: SBT Assembly about MergeStrategy
+>>$ vi build.sbt
+>>```
+>>...
+>>assemblyMergeStrategy in assembly := {
+>>  case PathList("javax", "servlet", xs @ _*)         => MergeStrategy.first
+>>  case PathList(ps @ _*) if ps.last endsWith ".html" => MergeStrategy.first
+>>  case "application.conf"                            => MergeStrategy.concat
+>>  case "unwanted.txt"                                => MergeStrategy.discard
+>>  case x =>
+>>    val oldStrategy = (assemblyMergeStrategy in assembly).value
+>>    oldStrategy(x)
+>>}
+>>...
+>>```
+>
 >$ ./sbt clean dist  
 >
 >$ cd /apps/install/CMAK-master/target/universal  
