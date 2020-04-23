@@ -122,11 +122,11 @@ $ mv cmak-3.0.0.4 /apps/kafka-manager/3.0.0.4
 ### F. run application
 
 #### start process
-$ nohup /apps/kafka-manager/3.0.0.4/bin/cmak -Dkafka-manager.zkhosts=”172.20.0.102:17214,172.20.0.102:27214,172.20.0.102:37214″ 1>/dev/null 2>&1 &  
->$ /apps/kafka-manager/3.0.0.4/bin/cmak -Dkafka-manager.zkhosts=”172.20.0.102:17214,172.20.0.102:27214,172.20.0.102:37214″ &
+$ nohup /apps/kafka-manager/3.0.0.4/bin/cmak -DZK_HOSTS=”172.20.0.102:17214,172.20.0.102:27214,172.20.0.102:37214″ 1>/dev/null 2>&1 &  
+>$ /apps/kafka-manager/3.0.0.4/bin/cmak -DZK_HOSTS=”172.20.0.102:17214,172.20.0.102:27214,172.20.0.102:37214″ &  
 
 >$ nohup /apps/kafka-manager/3.0.0.4/bin/cmak 1>/dev/null 2>&1 &  
->>$ /apps/kafka-manager/3.0.0.4/bin/cmak &
+>>$ /apps/kafka-manager/3.0.0.4/bin/cmak &  
 
 #### check process and port
 $ ps -ef | grep kafka-manager  
