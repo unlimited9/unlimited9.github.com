@@ -79,24 +79,35 @@ $ mkdir -p /apps/kafka-manager
 $ mkdir -p /logs/kafka-manager
 
 ### C. download
->Kafka Manager(https://github.com/yahoo/kafka-manager)  
-> : https://github.com/yahoo/CMAK.git  
+>Kafka Manager(https://github.com/yahoo/CMAK/releases)  
+
 $ cd /apps/install  
-$ curl -O https://github.com/yahoo/CMAK/archive/master.zip  
-~~$ wget https://github.com/yahoo/CMAK/archive/master.zip~~  
+$ curl -o https://github.com/yahoo/CMAK/releases/download/3.0.0.4/cmak-3.0.0.4.zip
 
 ### D. install
 
 #### unzip archive  
-$ unzip master.zip  
-
-#### compile/build
-$ cd CMAK-master  
-$ ./sbt clean dist  
-
-$ cd /apps/install/CMAK-master/target/universal  
 $ unzip cmak-3.0.0.4.zip  
 $ mv cmak-3.0.0.4 /apps/kafka-manager/3.0.0.4
+
+>### C. download
+>>Kafka Manager(https://github.com/yahoo/kafka-manager)  
+>> : https://github.com/yahoo/CMAK.git  
+>$ curl -O https://github.com/yahoo/CMAK/archive/master.zip  
+>~~$ wget https://github.com/yahoo/CMAK/archive/master.zip~~  
+>
+>### D. install
+>
+>#### unzip archive  
+>$ unzip master.zip  
+>
+>#### compile/build
+>$ cd CMAK-master  
+>$ ./sbt clean dist  
+>
+>$ cd /apps/install/CMAK-master/target/universal  
+>$ unzip cmak-3.0.0.4.zip  
+>$ mv cmak-3.0.0.4 /apps/kafka-manager/3.0.0.4
 
 ### E. configure
 >$ cd /apps/kafka-manager/3.0.0.4/conf  
