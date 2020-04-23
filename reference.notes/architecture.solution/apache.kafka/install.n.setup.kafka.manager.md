@@ -150,12 +150,14 @@ $ mv cmak-3.0.0.4 /apps/kafka-manager/3.0.0.4
 ### F. run application
 
 #### start process
-$ nohup /apps/kafka-manager/3.0.0.4/bin/cmak -DZK_HOSTS=”172.20.0.102:17214,172.20.0.102:27214,172.20.0.102:37214″ 1>/dev/null 2>&1 &  
->$ /apps/kafka-manager/3.0.0.4/bin/cmak -DZK_HOSTS=”172.20.0.102:17214,172.20.0.102:27214,172.20.0.102:37214″ &  
+$ nohup /apps/kafka-manager/3.0.0.4/bin/cmak -DZK_HOSTS="172.20.0.102:17214,172.20.0.102:27214,172.20.0.102:37214" 1>/dev/null 2>&1 &  
+>$ /apps/kafka-manager/3.0.0.4/bin/cmak -DZK_HOSTS="172.20.0.102:17214,172.20.0.102:27214,172.20.0.102:37214″ &  
 
 >설정파일을 수정했다면...  
 >$ nohup /apps/kafka-manager/3.0.0.4/bin/cmak 1>/dev/null 2>&1 &  
 >>$ /apps/kafka-manager/3.0.0.4/bin/cmak &  
+
+>~~$ nohup /apps/kafka-manager/2.0.0.2/bin/kafka-manager -DZK_HOSTS="172.20.0.102:17214,172.20.0.102:27214,172.20.0.102:37214" 1>/dev/null 2>&1 &~~  
 
 #### check process and port
 $ ps -ef | grep kafka-manager  
@@ -177,7 +179,8 @@ Metrics / Consumers consuming from this topic jmx 설정
 
 > kafka 기동 시 JMX_PORT를 설정해 줘야 한다.  
 $ env JMX_PORT=19999 /apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /apps/kafka/instances/01/config/server.properties  
-$ env JMX_PORT=29999 /apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /apps/kafka/instances/02/config/server.properties
+$ env JMX_PORT=29999 /apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /apps/kafka/instances/02/config/server.properties  
+$ env JMX_PORT=39999 /apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /apps/kafka/instances/03/config/server.properties  
 
 ## trouble-shooting
 
