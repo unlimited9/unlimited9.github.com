@@ -179,6 +179,17 @@ Metrics / Consumers consuming from this topic jmx 설정
 $ env JMX_PORT=19999 /apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /apps/kafka/instances/01/config/server.properties  
 $ env JMX_PORT=29999 /apps/kafka/2.12-2.2.0/bin/kafka-server-start.sh -daemon /apps/kafka/instances/02/config/server.properties
 
+## trouble-shooting
+
+#### Will not attempt to authenticate using SASL (unknown error)
+Kubernetes Service로 zookeeper cluster client를 설정해서 연계구성했다. 위와 같은 개발환경에서는 문제가 없는데  
+다음과 같이 CMAK를 기동 시  
+```
+$ nohup /apps/kafka-manager/3.0.0.4/bin/cmak -DZK_HOSTS="mobon-data-zookeeper-client-svc:7214" 1>/dev/null 2>&1 &
+```
+'Will not attempt to authenticate using SASL (unknown error)' 메세지와 함께 클러스터가 빠져서 CMAK 화면에 클러스터가 보이지 않는다.  
+화면에 `Add Cluster`로 추가하면 잘 나오기는 하는데... 하니까 다음에 보자. ㅋ  
+
 ## 9. Appendix
 
 #### reference site
