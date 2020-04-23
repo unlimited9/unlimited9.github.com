@@ -187,7 +187,8 @@ Kubernetes Service로 zookeeper cluster client를 설정해서 연계구성했�
 ```
 $ nohup /apps/kafka-manager/3.0.0.4/bin/cmak -DZK_HOSTS="mobon-data-zookeeper-client-svc:7214" 1>/dev/null 2>&1 &
 ```
-'Will not attempt to authenticate using SASL (unknown error)' 메세지와 함께 클러스터가 빠져서 CMAK 화면에 클러스터가 보이지 않는다.  
+'Will not attempt to authenticate using SASL (unknown error)' 메세지와 함께 클러스터가 빠져서  
+CMAK 화면에 클러스터가 보이지 않는다.  
 화면에 `Add Cluster`로 추가하면 잘 나오기는 하는데... 하니까 다음에 보자. ㅋ  
 
 ## 9. Appendix
