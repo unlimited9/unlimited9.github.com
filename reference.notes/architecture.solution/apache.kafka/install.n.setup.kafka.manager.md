@@ -99,9 +99,9 @@ $ unzip cmak-3.0.0.4.zip
 $ mv cmak-3.0.0.4 /apps/kafka-manager/3.0.0.4
 
 ### E. configure
->$ cd /apps/kafka-manager/3.0.0.4/conf
->$ cp application.conf application.conf.default
->$ vi application.conf
+>$ cd /apps/kafka-manager/3.0.0.4/conf  
+>$ cp application.conf application.conf.default  
+>$ vi application.conf  
 >```
 >...
 >kafka-manager.zkhosts="172.20.0.102:17214,172.20.0.102:27214,172.20.0.102:37214"
@@ -111,8 +111,8 @@ $ mv cmak-3.0.0.4 /apps/kafka-manager/3.0.0.4
 >...
 >```
 >
->$ cp logback.xml logback.xml.default
->$ vi logback.xml
+>$ cp logback.xml logback.xml.default  
+>$ vi logback.xml  
 >```
 >...
 >    <logger name="kafka.manager" level="WARN" />
@@ -122,10 +122,10 @@ $ mv cmak-3.0.0.4 /apps/kafka-manager/3.0.0.4
 ### F. run application
 
 #### start process
-$ nohup /apps/kafka-manager/3.0.0.4/bin/cmak -Dkafka-manager.zkhosts=”172.20.0.102:17214,172.20.0.102:27214,172.20.0.102:37214″ 1>/dev/null 2>&1 &
+$ nohup /apps/kafka-manager/3.0.0.4/bin/cmak -Dkafka-manager.zkhosts=”172.20.0.102:17214,172.20.0.102:27214,172.20.0.102:37214″ 1>/dev/null 2>&1 &  
 >$ /apps/kafka-manager/3.0.0.4/bin/cmak -Dkafka-manager.zkhosts=”172.20.0.102:17214,172.20.0.102:27214,172.20.0.102:37214″ &
 
->$ nohup /apps/kafka-manager/3.0.0.4/bin/cmak 1>/dev/null 2>&1 &
+>$ nohup /apps/kafka-manager/3.0.0.4/bin/cmak 1>/dev/null 2>&1 &  
 >>$ /apps/kafka-manager/3.0.0.4/bin/cmak &
 
 #### check process and port
