@@ -136,6 +136,7 @@ $ mv cmak-3.0.0.4 /apps/kafka-manager/3.0.0.4
 $ nohup /apps/kafka-manager/3.0.0.4/bin/cmak -DZK_HOSTS=”172.20.0.102:17214,172.20.0.102:27214,172.20.0.102:37214″ 1>/dev/null 2>&1 &  
 >$ /apps/kafka-manager/3.0.0.4/bin/cmak -DZK_HOSTS=”172.20.0.102:17214,172.20.0.102:27214,172.20.0.102:37214″ &  
 
+>설정파일을 수정했다면...
 >$ nohup /apps/kafka-manager/3.0.0.4/bin/cmak 1>/dev/null 2>&1 &  
 >>$ /apps/kafka-manager/3.0.0.4/bin/cmak &  
 
