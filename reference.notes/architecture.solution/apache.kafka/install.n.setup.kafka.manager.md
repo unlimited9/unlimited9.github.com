@@ -139,7 +139,7 @@ tcp        0      0 :::9000                     :::*                        LIST
 
 #### stop process
 ```
-$ kill -9 `cat /apps/kafka-manager/2.0.0.2/RUNNING_PID`
+$ kill -9 `cat /apps/kafka-manager/3.0.0.4/RUNNING_PID`
 ```
 ## Kafka Monitoring
 
