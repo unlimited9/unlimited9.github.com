@@ -27,11 +27,7 @@ $ telnet 119.205.238.46 23
 <summary>upload binary source</summary>
 <div markdown="1">
 
-$ sftp -P 7722 sjlee@10.251.0.3:/home/dreamsearch/public_html
-```
-# put
-
-```
+$ rsync -az /home/dreamsearch/public_html/WEB-INF rsync://10.251.0.3:/home/dreamsearch/public_html/
 
 </div>
 </details>
