@@ -89,5 +89,5 @@ $ sh /root/shell/was_sync.sh
 
 #### reference site
 
-+ 모비온 배포 프로세스
++ 모비온 배포 프로세스  
 https://www.evernote.com/l/AjiBQhIHCPJNVoirWe6F4edgqmuQV1tyr5s/
