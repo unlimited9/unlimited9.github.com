@@ -133,7 +133,7 @@ Index pattern : logstash-*
 
 Step 2 of 2: Configure settings  
 Time Filter field name  
-Select : @timestamp  
+select : @timestamp  
 
 `Create index pattern`  
 
@@ -144,6 +144,6 @@ Kibana > Discover
 
 #### reference site
 
-* Fluentd Daemonset for Kubernetes
+* Fluentd Daemonset for Kubernetes  
 https://github.com/fluent/fluentd-kubernetes-daemonset
 
