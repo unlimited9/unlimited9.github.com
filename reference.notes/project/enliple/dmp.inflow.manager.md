@@ -42,24 +42,25 @@ CREATE TABLE [IF NOT EXISTS] [db.]table_name [ON CLUSTER cluster]
 
 _>example_  
 ```
-CREATE TABLE IF NOT EXISTS MOBON_ANALYSIS.DOMAIN_LOG (
-	seqno		UInt64 default (select plus(max(seqno), 1) from MOBON_ANALYSIS.DOMAIN_LOG),
-	type 		String,
-	id		String,
-	url		String,
-	referrer	String,
-	solution 	String,
+CREATE TABLE IF NOT EXISTS MOBON_ANALYSIS.ADVER_DOMAIN_LOG (
+	adverId		String,
+	domain		String,
+	solutionType	String,
 	auid 		String,
-	remoteip	String,
+	remoteIp	String,
 	device		String,
+	userAgent	String,
 	charset 	String,
+	siteCode	String,
+	dsck		String,
+	refferDomain	String,
 	createdDate	Datetime default now()
 )
 ENGINE = MergeTree()
 PARTITION BY toYYYYMMDD(createdDate)
-ORDER BY (type, id, auid)
-PRIMARY KEY (type, id, auid)
-SAMPLE BY id
+ORDER BY (adverId, auid)
+PRIMARY KEY (adverId, auid)
+SAMPLE BY adverId
 TTL createdDate + INTERVAL 8 DAY
 SETTINGS index_granularity=8192
 
