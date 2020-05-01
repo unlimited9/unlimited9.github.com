@@ -1,3 +1,5 @@
+
+
 ```
 ---
 apiVersion: v1
@@ -74,6 +76,8 @@ spec:
             value: "http"
           - name: FLUENT_UID
             value: "0"
+          - name: FLUENTD_SYSTEMD_CONF
+            value: "disable"
 #          # Option to configure elasticsearch plugin with self signed certs
 #          # ================================================================
 #          - name: FLUENT_ELASTICSEARCH_SSL_VERIFY
@@ -112,6 +116,10 @@ spec:
 
 ```
 
+## 9. Appendix
 
-* fluent / fluentd-kubernetes-daemonset
+#### reference site
+
+* Fluentd Daemonset for Kubernetes
 https://github.com/fluent/fluentd-kubernetes-daemonset
+
