@@ -68,3 +68,22 @@ SETTINGS index_granularity=8192
 
 
 
+_>MV_ADVER_DOMAIN_LOG_HOURLY  
+```
+CREATE MATERIALIZED VIEW IF NOT EXISTS MOBON_ANALYSIS.MV_ADVER_DOMAIN_LOG_HOURLY
+ENGINE = SummingMergeTree()
+PARTITION BY (year, month)
+ORDER BY (year, month, day, hour, adverId)
+AS
+SELECT toYear(createdDate) AS year, toMonth(createdDate) AS month, toDayOfMonth(createdDate) AS day, toHour(createdDate) as hour, adverId, count(auid) as hits, uniqExact(auid) as visitors
+FROM MOBON_ANALYSIS.ADVER_DOMAIN_LOG
+GROUP BY year, month, day, hour, adverId;
+```
+
+```
+SELECT toYear(createdDate) AS year, toMonth(createdDate) AS month, toDayOfMonth(createdDate) AS day, toHour(createdDate) as hour, adverId, count(auid) as hits, uniqExact(auid) as visitors
+FROM MOBON_ANALYSIS.ADVER_DOMAIN_LOG
+WHERE createdDate > toDateTime('2020-05-01 11:30:00')
+GROUP BY year, month, day, hour, adverId;
+```
+
