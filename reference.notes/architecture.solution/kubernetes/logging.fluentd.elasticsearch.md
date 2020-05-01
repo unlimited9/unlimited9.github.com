@@ -1,5 +1,11 @@
+# kubernetes logging with fluentd, elasticsearch
 
+#### create fluentd kubernetest container
 
+[install elasticsearch](../elasticsearch/install.n.setup.0.md)  
+[install kibana](../elasticsearch/install.n.setup.2.kibana.md)
+
+#### create fluentd kubernetest container
 ```
 ---
 apiVersion: v1
