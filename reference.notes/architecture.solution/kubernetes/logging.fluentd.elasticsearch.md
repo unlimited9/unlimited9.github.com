@@ -6,6 +6,7 @@
 [install kibana](../elasticsearch/install.n.setup.2.kibana.md)
 
 #### create fluentd kubernetest container
+$ vi kubernetes/resources/solution/mobon.fluentd.yaml
 ```
 ---
 apiVersion: v1
@@ -119,8 +120,25 @@ spec:
         hostPath:
           #path: /var/lib/docker/containers
           path: /data/docker/containers
-
 ```
+$ kubectl create -f kubernetes/resources/solution/mobon.fluentd.yaml  
+
+$ kubectl logs -f -lk8s-app=fluentd-logging --max-log-requests 100 -n kube-system  
+
+#### create kibana index patterns
+Kibana > Management > Index patterns > `Create index pattern`  
+
+Step 1 of 2: Define index pattern  
+Index pattern : logstash-*  
+
+Step 2 of 2: Configure settings  
+Time Filter field name  
+Select : @timestamp  
+
+`Create index pattern`  
+
+#### search data
+Kibana > Discover  
 
 ## 9. Appendix
 
