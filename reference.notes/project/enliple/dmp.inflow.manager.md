@@ -74,6 +74,7 @@ SELECT toYear(createdDate)       AS year
      , toHour(createdDate)       as hour
      , adverId
      , count(auid)               as hits
+     , count(distinct concat(auid, toString(toYYYYMMDDhhmmss(createdDate)))) AS hits_afs1
      , count(distinct concat(auid, toString(toYYYYMMDD(createdDate)), toString(toHour(createdDate)), toString(toMinute(createdDate)), toString(toInt8(toSecond(createdDate)/3)))) AS hits_afs3
      , count(distinct auid)      as visitors
 FROM MOBON_ANALYSIS.ADVER_DOMAIN_LOG
@@ -81,22 +82,41 @@ GROUP BY year, month, day, hour, adverId
 ORDER BY year, month, day, hour, adverId;
 ```
 
-_>MV_ADVER_DOMAIN_LOG_HOURLY  
-```
-CREATE MATERIALIZED VIEW IF NOT EXISTS MOBON_ANALYSIS.MV_ADVER_DOMAIN_LOG_HOURLY
-ENGINE = SummingMergeTree()
-PARTITION BY (year, month)
-ORDER BY (year, month, day, hour, adverId)
-AS
-SELECT toYear(createdDate) AS year, toMonth(createdDate) AS month, toDayOfMonth(createdDate) AS day, toHour(createdDate) as hour, adverId, count(auid) as hits, uniqExact(auid) as visitors
-FROM MOBON_ANALYSIS.ADVER_DOMAIN_LOG
-GROUP BY year, month, day, hour, adverId;
-```
+>_>MV_ADVER_DOMAIN_LOG_HOURLY  
+>```
+>CREATE MATERIALIZED VIEW IF NOT EXISTS MOBON_ANALYSIS.MV_ADVER_DOMAIN_LOG_HOURLY
+>ENGINE = SummingMergeTree()
+>PARTITION BY (year, month)
+>ORDER BY (year, month, day, hour, adverId)
+>AS
+>SELECT toYear(createdDate)       AS year
+>     , toMonth(createdDate)      AS month
+>     , toDayOfMonth(createdDate) AS day   --, toYYYYMMDD(createdDate) AS date
+>     , toHour(createdDate)       as hour
+>     , adverId
+>     , count(auid)               as hits
+>     , count(distinct concat(auid, toString(toYYYYMMDDhhmmss(createdDate)))) AS hits_afs1
+>     , count(distinct concat(auid, toString(toYYYYMMDD(createdDate)), toString(toHour(createdDate)), toString(toMinute(createdDate)), toString(toInt8(toSecond(createdDate)/3)))) AS hits_afs3
+>     , count(distinct auid)      as visitors
+>FROM MOBON_ANALYSIS.ADVER_DOMAIN_LOG
+>GROUP BY year, month, day, hour, adverId
+>ORDER BY year, month, day, hour, adverId;
+>```
+
 
 ```
-SELECT toYear(createdDate) AS year, toMonth(createdDate) AS month, toDayOfMonth(createdDate) AS day, toHour(createdDate) as hour, adverId, count(auid) as hits, uniqExact(auid) as visitors
+SELECT toYear(createdDate)       AS year
+     , toMonth(createdDate)      AS month
+     , toDayOfMonth(createdDate) AS day   --, toYYYYMMDD(createdDate) AS date
+     , toHour(createdDate)       as hour
+     , adverId
+     , count(auid)               as hits
+     , uniqExact(concat(auid, toString(toYYYYMMDDhhmmss(createdDate)))) AS hits_afs1
+     , uniqExact(concat(auid, toString(toYYYYMMDD(createdDate)), toString(toHour(createdDate)), toString(toMinute(createdDate)), toString(toInt8(toSecond(createdDate)/3)))) AS hits_afs3
+     , uniqExact(auid)           as visitors
 FROM MOBON_ANALYSIS.ADVER_DOMAIN_LOG
-WHERE createdDate > toDateTime('2020-05-01 11:30:00')
-GROUP BY year, month, day, hour, adverId;
+WHERE createdDate >= parseDateTimeBestEffort('2020-05-04 17:00:00')
+GROUP BY year, month, day, hour, adverId
+ORDER BY year, month, day, hour, adverId;
 ```
 
