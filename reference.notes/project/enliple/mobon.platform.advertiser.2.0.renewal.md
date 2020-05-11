@@ -51,15 +51,6 @@ graph LR
 - 서비스 연속성을 위해 구간별 이중화, 고가용성(HA, High Availability) 시스템을 구성하여 일부에서 결함(fault) 또는 고장(failure)이 발생하여도 정상적 혹은 부분적으로 기능을 수행할 수 있는 결함 감내 시스템(Fault tolerant system)을 구현
 - 인프라 네트워크의 보안영역으로 내/외부망 사이에 DMZ를 구성하고 Proxy 서버를 통해 서비스 제공
 
-#### service/data flow
-
-#### 
-
-
-#### L4 > Proxy(Nginx) > Kubernetes(Ingress/Service) >> Kubernetes(Containers)
-- 서비스 연속성을 위해 구간별 이중화, 고가용성(HA, High Availability) 시스템을 구성하여 일부에서 결함(fault) 또는 고장(failure)이 발생하여도 정상적 혹은 부분적으로 기능을 수행할 수 있는 결함 감내 시스템(Fault tolerant system)을 구현
-- 인프라 네트워크의 보안영역으로 내/외부망 사이에 DMZ를 구성하고 Proxy 서버를 통해 서비스 제공
-
 #### Kubernetes/Docker
 - 컨테이너 실행(Container Runtime) 환경  
   Docker Client/Server Engine - Community  
@@ -74,6 +65,11 @@ graph LR
   GoVersion:        go1.12.12   
   Platform:         linux/amd64  
   
+#### service/data flow
+
+#### 
+
+
   
 
 
