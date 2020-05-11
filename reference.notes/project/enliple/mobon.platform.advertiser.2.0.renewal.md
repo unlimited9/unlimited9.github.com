@@ -62,7 +62,17 @@ graph LR
 
 #### Kubernetes/Docker
 - 컨테이너 실행(Container Runtime) 환경  
-  Client: Docker Engine - Community (Version: 19.03.5)
+  Docker Client/Server Engine - Community
+  Version:          19.03.5
+  API version:      1.40 (minimum version 1.12)
+  Go version:       go1.12.12
+  Git commit:       633a0ea
+  Built:            Wed Nov 13 07:24:18 2019
+  OS/Arch:          linux/amd64
+- 컨테이너화된 애플리케이션 통합 관리(Container Orchestration)
+  Client/Server Version: v1.16.3
+  GoVersion:        go1.12.12 
+  Platform:         linux/amd64
 
 
 
