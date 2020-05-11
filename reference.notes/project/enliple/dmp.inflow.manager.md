@@ -120,3 +120,17 @@ GROUP BY year, month, day, hour, adverId
 ORDER BY year, month, day, hour, adverId;
 ```
 
+## 8. trouble-shooting
+
+#### DB::Exception: Memory limit (for query) exceeded: would use 9.31 GiB (attempt to allocate chunk of 4390664 bytes), maximum: 9.31 GiB (version 19.16.12.49)
+
+```
+set max_bytes_before_external_group_by=20000000000;  --20 GB for external group by
+set max_memory_usage=40000000000; --40GB for memory limit
+```
+
+## 9. Appendix
+
+#### reference site
+
+
