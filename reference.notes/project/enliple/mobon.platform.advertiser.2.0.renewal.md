@@ -1,6 +1,6 @@
-# 모비온 광고주 2.0
+# Mobon Advertiser 2.0 (Rebuild)
 
-## 시스템 구성
+## System
 
 #### inbound
 
