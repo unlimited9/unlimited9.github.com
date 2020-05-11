@@ -11,6 +11,7 @@
 <details>
 <summary>view mermaid source</summary>
 <div markdown="1">
+  
 ```
 graph LR
   %% define object
@@ -42,6 +43,7 @@ graph LR
   Proxy01 --> Gateway
   Proxy02 --> Gateway
 ```
+
 </div>
 </details>
 
