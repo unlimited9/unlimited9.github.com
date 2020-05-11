@@ -18,6 +18,8 @@ A --> C(Round Rect)
 B --> D{Rhombus}
 C --> D
 ```
+[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggTFJcbkFbU3F1YXJlIFJlY3RdIC0tIExpbmsgdGV4dCAtLT4gQigoQ2lyY2xlKSlcbkEgLS0-IEMoUm91bmQgUmVjdClcbkIgLS0-IER7UmhvbWJ1c31cbkMgLS0-IERcbiIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoiZ3JhcGggTFJcbkFbU3F1YXJlIFJlY3RdIC0tIExpbmsgdGV4dCAtLT4gQigoQ2lyY2xlKSlcbkEgLS0-IEMoUm91bmQgUmVjdClcbkIgLS0-IER7UmhvbWJ1c31cbkMgLS0-IERcbiIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)
+
 ```mermaid
 graph TD;
     A-->B;
