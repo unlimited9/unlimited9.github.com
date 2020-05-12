@@ -107,6 +107,11 @@ ORDER BY year, month, day, hour, adverId;
 >ORDER BY year, month, day, hour, adverId;
 >```
 
+`delete data/rows`  
+
+```
+ALTER TABLE MOBON_ANALYSIS_DEV.ADVER_DOMAIN_LOG DELETE WHERE 1=1;
+```
 
 ## 8. trouble-shooting
 
