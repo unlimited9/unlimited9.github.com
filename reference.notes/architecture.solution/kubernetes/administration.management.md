@@ -218,6 +218,9 @@ $ kubectl describe nodes
 `modify the memory limit`   
 $ kubectl patch ds -n=kube-system kube-flannel-ds-amd64 -p '{"spec": {"template":{"spec":{"containers": [{"name":"kube-flannel", "resources": {"limits": {"cpu": "250m","memory": "550Mi"},"requests": {"cpu": "100m","memory": "100Mi"}}}]}}}}'
 
+#### su: failed to execute /bin/bash: 자원이 일시적으로 사용 불가능함
+원인파악 필요 : 우선 해당 노드 재기동 후 몰려있는 컨테이너들을 다시 스케줄링하여 배치
+
 ## 9. Appendix
 
 
