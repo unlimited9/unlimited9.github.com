@@ -121,4 +121,6 @@ advertiser.common.prod
 advertiser.conversion.inclination
 ```
 
+#### consumer group offset : delete
+
 $ /apps/kafka/2.13-2.4.0/bin/kafka-consumer-groups.sh --bootstrap-server mobon-data-kafka-0.mobon-data-kafka-svc:7642,mobon-data-kafka-1.mobon-data-kafka-svc:7642,mobon-data-kafka-2.mobon-data-kafka-svc:7642 --delete-offsets --group dmp.inflow.manager.local --topic RfData --topic advertiser.common
