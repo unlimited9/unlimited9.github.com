@@ -113,6 +113,14 @@ ORDER BY year, month, day, hour, adverId;
 ALTER TABLE MOBON_ANALYSIS_DEV.ADVER_DOMAIN_LOG DELETE WHERE 1=1;
 ```
 
+#### kafka topic list
+
+- RfData, advertiser.common :  광고주/도메인
+- ShopInfoData, advertiser.product : 상품
+- ConversionData, advertiser.conversion : 매출/전환
+- ClickViewData : 노출/클릭
+
+
 ## 8. trouble-shooting
 
 #### DB::Exception: Memory limit (for query) exceeded: would use 9.31 GiB (attempt to allocate chunk of 4390664 bytes), maximum: 9.31 GiB (version 19.16.12.49)
