@@ -67,4 +67,56 @@ $ /apps/kafka/2.12-2.2.0/bin/kafka-console-consumer.sh --bootstrap-server 10.10.
 >kafka-console-consumer.sh는 실행된 시점 이후에 생산되는 메시지만 소비
 >from-beginning 옵션을 주면 해당 topic의 맨 처음 메시지부터 소비
 
-  
+#### consumer group : delete
+
+$ /apps/kafka/2.12-2.2.0/bin/kafka-consumer-groups.sh --bootstrap-server=mobon-data-kafka-0.mobon-data-kafka-svc:7642,mobon-data-kafka-1.mobon-data-kafka-svc:7642,mobon-data-kafka-2.mobon-data-kafka-svc:7642 --list
+```
+adver.cart
+adver.conversion
+advertiser.duration.inclination
+advertiser.adid.usermapping
+advertiser.trace.batch.prod
+advertiser.sdk.external
+adver.product
+advertiser.product.prod
+adver.postback
+advertiser.cart.inclination.postback
+dmp.inflow.manager.prod
+advertiser.common.inclination
+adver.review
+advertiser.product.inclination.postback
+advertiser.cart.inclination
+KMOffsetCache-mobon-kafka-manager-67b7889896-th8rm
+advertiser.conversion.prod
+advertiser.product.inclination
+advertiser.conversion.inclination
+advertiser.common.prod
+```
+
+$ /apps/kafka/2.12-2.2.0/bin/kafka-consumer-groups.sh --bootstrap-server=mobon-data-kafka-0.mobon-data-kafka-svc:7642,mobon-data-kafka-1.mobon-data-kafka-svc:7642,mobon-data-kafka-2.mobon-data-kafka-svc:7642 --delete --group advertiser.sdk.external
+```
+Deletion of requested consumer groups ('advertiser.sdk.external') was successful.
+```
+
+$ /apps/kafka/2.12-2.2.0/bin/kafka-consumer-groups.sh --bootstrap-server=mobon-data-kafka-0.mobon-data-kafka-svc:7642,mobon-data-kafka-1.mobon-data-kafka-svc:7642,mobon-data-kafka-2.mobon-data-kafka-svc:7642 --list
+```
+adver.conversion
+adver.cart
+advertiser.duration.inclination
+advertiser.adid.usermapping
+advertiser.trace.batch.prod
+adver.product
+advertiser.product.prod
+adver.postback
+advertiser.cart.inclination.postback
+dmp.inflow.manager.prod
+advertiser.common.inclination
+adver.review
+advertiser.product.inclination.postback
+advertiser.cart.inclination
+KMOffsetCache-mobon-kafka-manager-67b7889896-th8rm
+advertiser.conversion.prod
+advertiser.product.inclination
+advertiser.common.prod
+advertiser.conversion.inclination
+```
