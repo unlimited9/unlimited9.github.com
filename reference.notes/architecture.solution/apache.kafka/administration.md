@@ -69,7 +69,7 @@ $ /apps/kafka/2.12-2.2.0/bin/kafka-console-consumer.sh --bootstrap-server 10.10.
 
 #### consumer group : delete
 
-$ /apps/kafka/2.12-2.2.0/bin/kafka-consumer-groups.sh --bootstrap-server=mobon-data-kafka-0.mobon-data-kafka-svc:7642,mobon-data-kafka-1.mobon-data-kafka-svc:7642,mobon-data-kafka-2.mobon-data-kafka-svc:7642 --list
+$ /apps/kafka/2.12-2.2.0/bin/kafka-consumer-groups.sh --bootstrap-server mobon-data-kafka-0.mobon-data-kafka-svc:7642,mobon-data-kafka-1.mobon-data-kafka-svc:7642,mobon-data-kafka-2.mobon-data-kafka-svc:7642 --list
 ```
 adver.cart
 adver.conversion
@@ -93,12 +93,12 @@ advertiser.conversion.inclination
 advertiser.common.prod
 ```
 
-$ /apps/kafka/2.12-2.2.0/bin/kafka-consumer-groups.sh --bootstrap-server=mobon-data-kafka-0.mobon-data-kafka-svc:7642,mobon-data-kafka-1.mobon-data-kafka-svc:7642,mobon-data-kafka-2.mobon-data-kafka-svc:7642 --delete --group advertiser.sdk.external
+$ /apps/kafka/2.12-2.2.0/bin/kafka-consumer-groups.sh --bootstrap-server mobon-data-kafka-0.mobon-data-kafka-svc:7642,mobon-data-kafka-1.mobon-data-kafka-svc:7642,mobon-data-kafka-2.mobon-data-kafka-svc:7642 --delete --group advertiser.sdk.external
 ```
 Deletion of requested consumer groups ('advertiser.sdk.external') was successful.
 ```
 
-$ /apps/kafka/2.12-2.2.0/bin/kafka-consumer-groups.sh --bootstrap-server=mobon-data-kafka-0.mobon-data-kafka-svc:7642,mobon-data-kafka-1.mobon-data-kafka-svc:7642,mobon-data-kafka-2.mobon-data-kafka-svc:7642 --list
+$ /apps/kafka/2.12-2.2.0/bin/kafka-consumer-groups.sh --bootstrap-server mobon-data-kafka-0.mobon-data-kafka-svc:7642,mobon-data-kafka-1.mobon-data-kafka-svc:7642,mobon-data-kafka-2.mobon-data-kafka-svc:7642 --list
 ```
 adver.conversion
 adver.cart
@@ -120,3 +120,5 @@ advertiser.product.inclination
 advertiser.common.prod
 advertiser.conversion.inclination
 ```
+
+$ /apps/kafka/2.13-2.4.0/bin/kafka-consumer-groups.sh --bootstrap-server mobon-data-kafka-0.mobon-data-kafka-svc:7642,mobon-data-kafka-1.mobon-data-kafka-svc:7642,mobon-data-kafka-2.mobon-data-kafka-svc:7642 --delete-offsets --group dmp.inflow.manager.local --topic RfData --topic advertiser.common
