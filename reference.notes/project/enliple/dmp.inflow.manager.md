@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS MOBON_ANALYSIS.ADVER_DOMAIN_LOG (
 	adverId		String,
 	domain		String,
 	url		String,
+	referrer	String,
 	solutionType	String,
 	auid 		String,
 	remoteIp	String,
