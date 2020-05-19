@@ -41,7 +41,7 @@ CREATE TABLE [IF NOT EXISTS] [db.]table_name [ON CLUSTER cluster]
 ```
 
 _`example`_  
-```
+```sql
 CREATE TABLE IF NOT EXISTS MOBON_ANALYSIS.ADVER_DOMAIN_LOG (
 	adverId		String,
 	domain		String,
@@ -67,7 +67,7 @@ TTL createdDate + INTERVAL 8 DAY
 SETTINGS index_granularity=8192
 
 ```
-```
+```sql
 CREATE TABLE IF NOT EXISTS MOBON_ANALYSIS.ADVER_CONV_LOG (
 	adverId		String,
 	domain		String,
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS MOBON_ANALYSIS.ADVER_CONV_LOG (
 	orderCode	String,
 	totalPrice	Int16,
 	totalQty	Int16,
-	productArr	Array(String),
+	productArr	Array(String), -- productArr	Array(String),
 	paymentType	String,
 	siteCode	String,
 	dsck		String,
