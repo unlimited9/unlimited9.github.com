@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS MOBON_ANALYSIS.ADVER_DOMAIN_LOG (
 	charset 	String,
 	siteCode	String,
 	dsck		String,
-	refferDomain	String,
+	inflowRoute	String,
 	createdDate	Datetime default now()
 )
 ENGINE = MergeTree()
@@ -66,6 +66,34 @@ SAMPLE BY adverId
 TTL createdDate + INTERVAL 8 DAY
 SETTINGS index_granularity=8192
 
+```
+```
+CREATE TABLE IF NOT EXISTS MOBON_ANALYSIS.ADVER_CONV_LOG (
+	adverId String,
+	domain String,
+	url String,
+	referrer String,
+	auid String,
+	remoteIp String,
+	device String,
+	userAgent String,
+	charset String,
+	orderCode String,
+	totalPrice Int16,
+	totalQty Int16,
+	productArr Array(String),
+	siteCode String,
+	dsck String,
+	inflowRoute String,
+	createdDate DateTime default now()
+)
+ENGINE = MergeTree()
+PARTITION BY toYYYYMMDD(createdDate)
+ORDER BY (adverId, auid)
+PRIMARY KEY (adverId, auid)
+SAMPLE BY adverId
+TTL createdDate + INTERVAL 8 DAY
+SETTINGS index_granularity=8192;
 ```
 
 #### queries
