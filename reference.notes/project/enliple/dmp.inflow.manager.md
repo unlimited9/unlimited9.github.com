@@ -69,23 +69,23 @@ SETTINGS index_granularity=8192
 ```
 ```
 CREATE TABLE IF NOT EXISTS MOBON_ANALYSIS.ADVER_CONV_LOG (
-	adverId String,
-	domain String,
-	url String,
-	referrer String,
-	auid String,
-	remoteIp String,
-	device String,
-	userAgent String,
-	charset String,
-	orderCode String,
-	totalPrice Int16,
-	totalQty Int16,
-	productArr Array(String),
-	siteCode String,
-	dsck String,
-	inflowRoute String,
-	createdDate DateTime default now()
+	adverId		String,
+	domain		String,
+	url		String,
+	referrer	String,
+	auid 		String,
+	remoteIp	String,
+	device		String,
+	userAgent	String,
+	charset 	String,
+	orderCode	String,
+	totalPrice	Int16,
+	totalQty	Int16,
+	productArr	Array(String),
+	siteCode	String,
+	dsck		String,
+	inflowRoute 	String,
+	createdDate	DateTime default now()
 )
 ENGINE = MergeTree()
 PARTITION BY toYYYYMMDD(createdDate)
