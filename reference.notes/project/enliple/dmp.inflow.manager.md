@@ -109,6 +109,7 @@ SELECT toYear(createdDate)       AS year
      , count(auid)               as hits
      , uniqExact(concat(auid, toString(toYYYYMMDDhhmmss(createdDate)))) AS hits_afs1
      , uniqExact(concat(auid, toString(toYYYYMMDD(createdDate)), toString(toHour(createdDate)), toString(toMinute(createdDate)), toString(toInt8(toSecond(createdDate)/3)))) AS hits_afs3
+     , uniqExact(concat(auid, toString(toYYYYMMDD(createdDate)), toString(toHour(createdDate)), toString(toMinute(createdDate)), toString(toInt8(toSecond(createdDate)/5)))) AS hits_afs5
      , uniqExact(auid)           as visitors
 FROM MOBON_ANALYSIS.ADVER_DOMAIN_LOG
 WHERE createdDate >= parseDateTimeBestEffort('2020-05-11 10:00:00') AND createdDate < parseDateTimeBestEffort('2020-05-11 11:00:00')
