@@ -132,6 +132,7 @@ ORDER BY year, month, day, hour, adverId;
 >     , count(auid)               as hits
 >     , count(distinct concat(auid, toString(toYYYYMMDDhhmmss(createdDate)))) AS hits_afs1
 >     , count(distinct concat(auid, toString(toYYYYMMDD(createdDate)), toString(toHour(createdDate)), toString(toMinute(createdDate)), toString(toInt8(toSecond(createdDate)/3)))) AS hits_afs3
+>     , count(distinct concat(auid, toString(toYYYYMMDD(createdDate)), toString(toHour(createdDate)), toString(toMinute(createdDate)), toString(toInt8(toSecond(createdDate)/5)))) AS hits_afs5
 >     , count(distinct auid)      as visitors
 >FROM MOBON_ANALYSIS.ADVER_DOMAIN_LOG
 >GROUP BY year, month, day, hour, adverId
