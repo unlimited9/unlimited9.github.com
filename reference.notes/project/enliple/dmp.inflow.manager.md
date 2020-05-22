@@ -117,6 +117,44 @@ GROUP BY year, month, day, hour, adverId
 ORDER BY year, month, day, hour, adverId;
 ```
 
+`create table with kafka engine`  
+
+_`usage`_  
+```
+CREATE TABLE [IF NOT EXISTS] [db.]table_name [ON CLUSTER cluster]
+(
+    name1 [type1] [DEFAULT|MATERIALIZED|ALIAS expr1],
+    name2 [type2] [DEFAULT|MATERIALIZED|ALIAS expr2],
+    ...
+) ENGINE = Kafka()
+SETTINGS
+    kafka_broker_list = 'host:port',
+    kafka_topic_list = 'topic1,topic2,...',
+    kafka_group_name = 'group_name',
+    kafka_format = 'data_format'[,]
+    [kafka_row_delimiter = 'delimiter_symbol',]
+    [kafka_schema = '',]
+    [kafka_num_consumers = N,]
+    [kafka_max_block_size = 0,]
+    [kafka_skip_broken_messages = N,]
+    [kafka_commit_every_batch = 0]
+```
+
+_`example`_  
+```sql
+  CREATE TABLE MOBON_ANALYSIS.ADVER_DOMAIN_LOG2 (
+	adverId		String,
+	domain		String,
+	url		String,
+	referrer	String
+  ) ENGINE = Kafka SETTINGS kafka_broker_list = '10.251.0.75:9092,10.251.0.76:9092,10.251.0.77:9092,10.251.0.78:9092,10.251.0.79:9092',
+                            kafka_topic_list = 'advertiser.common',
+                            kafka_group_name = 'clickhouse.inflow.table',
+                            kafka_format = 'JSONEachRow',
+                            kafka_num_consumers = 6,
+			    kafka_max_block_size = 1000;
+```
+
 >`create materialized view`  
 >```
 >CREATE MATERIALIZED VIEW IF NOT EXISTS MOBON_ANALYSIS.MV_ADVER_DOMAIN_LOG_HOURLY
@@ -165,5 +203,8 @@ set max_memory_usage=40000000000; --40GB for memory limit
 ## 9. Appendix
 
 #### reference site
+* Clickhouse documents : Overview  
+https://clickhouse.tech/docs/en/  
 
-
+* Engines / Table Engines / Integrations / Kafka  
+https://clickhouse.tech/docs/en/engines/table-engines/integrations/kafka/  
