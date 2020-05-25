@@ -104,22 +104,22 @@ CREATE TABLE IF NOT EXISTS MOBON_ANALYSIS.MEDIA_CLICKVIEW_LOG (
 
 	logType		String,
 
-	adType 			String,
-	adProduct		String,
-	adCampain		String,
+	adType 		String,
+	adProduct	String,
+	adCampain	String,
 
-	adverId 		String,
+	adverId 	String,
 	productCode	String,
 
-	cpoint			Decimal(13, 2),
-	mpoint			Decimal(13, 2),
+	cpoint		Decimal(13, 2),
+	mpoint		Decimal(13, 2),
 
-	auid 			String,
-	remoteIp		String,
+	auid 		String,
+	remoteIp	String,
 
-	platform		String,
-	device  		String,
-	browser 		String,
+	platform	String,
+	device  	String,
+	browser 	String,
 
 	createdDate	Datetime default now()
 )
