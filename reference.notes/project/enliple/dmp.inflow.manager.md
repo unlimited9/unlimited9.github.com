@@ -152,6 +152,27 @@ GROUP BY year, month, day, hour, adverId
 ORDER BY year, month, day, hour, adverId;
 ```
 
+`매체 시간대별 호출수 및 정산비용 조회`  
+```sql
+SELECT toYear(createdDate)       AS year
+     , toMonth(createdDate)      AS month
+     , toDayOfMonth(createdDate) AS day   --, toYYYYMMDD(createdDate) AS date
+     , toHour(createdDate)       AS hour
+     , mediaId
+     , count(*)                  AS HITS
+     , uniqExact(concat(mediaId, toString(toYYYYMMDDhhmmss(createdDate)))) AS hits_afs1
+     , uniqExact(concat(mediaId, toString(toYYYYMMDD(createdDate)), toString(toHour(createdDate)), toString(toMinute(createdDate)), toString(toInt8(toSecond(createdDate)/3)))) AS hits_afs3
+     , uniqExact(concat(mediaId, toString(toYYYYMMDD(createdDate)), toString(toHour(createdDate)), toString(toMinute(createdDate)), toString(toInt8(toSecond(createdDate)/5)))) AS hits_afs5
+     , sum(mpoint)               AS MEDIA_SETT_SUM
+     , avg(mpoint)               AS MEDIA_SETT_AVG
+FROM MOBON_ANALYSIS.MEDIA_CLICKVIEW_LOG
+WHERE createdDate >= parseDateTimeBestEffort('2020-05-25 17:00:00') AND createdDate < parseDateTimeBestEffort('2020-05-25 18:00:00')
+GROUP BY year, month, day, hour, mediaId
+ORDER BY MEDIA_SETT DESC, year, month, day, hour, mediaId;
+```
+
+
+
 `create table with kafka engine`  
 The delivered messages are tracked automatically, so each message in a group is only counted once. If you want to get the data twice, then create a copy of the table with another group name.
 
