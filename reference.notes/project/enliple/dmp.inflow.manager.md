@@ -96,6 +96,41 @@ SAMPLE BY adverId
 TTL createdDate + INTERVAL 8 DAY
 SETTINGS index_granularity=8192;
 ```
+```sql
+CREATE TABLE IF NOT EXISTS MOBON_ANALYSIS.MEDIA_CLICKVIEW_LOG (
+	mediaId 	String,
+	inventoryId	String,
+	frameId		String,
+
+	logType		String,
+
+	adType 			String,
+	adProduct		String,
+	adCampain		String,
+
+	adverId 		String,
+	productCode	String,
+
+	cpoint			Decimal(13, 2),
+	mpoint			Decimal(13, 2),
+
+	auid 			String,
+	remoteIp		String,
+
+	platform		String,
+	device  		String,
+	browser 		String,
+
+	createdDate	Datetime default now()
+)
+ENGINE = MergeTree()
+PARTITION BY toYYYYMMDD(createdDate)
+ORDER BY (mediaId, inventoryId, adverId)
+PRIMARY KEY (mediaId, inventoryId, adverId)
+SAMPLE BY mediaId
+TTL createdDate + INTERVAL 8 DAY
+SETTINGS index_granularity=8192;
+```
 
 #### queries
 
