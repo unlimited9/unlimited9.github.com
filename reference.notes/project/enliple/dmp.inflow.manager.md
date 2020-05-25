@@ -118,6 +118,7 @@ ORDER BY year, month, day, hour, adverId;
 ```
 
 `create table with kafka engine`  
+The delivered messages are tracked automatically, so each message in a group is only counted once. If you want to get the data twice, then create a copy of the table with another group name.
 
 _`usage`_  
 ```
