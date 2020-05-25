@@ -8,12 +8,12 @@ Installation/Setup/Configuration Java Development Kit
 ## 1. Pre-installation setup
 
 #### A. creating required operating system group and user
-[Create operating system group and user](../../TA/system/management.account.n.group.md)
+[Create operating system group and user](../../operating.system/management.account.n.group.md)
 
 #### B. install dependency packages
 
 #### C. creating base directory
-[Create operating system drectory](../../TA/system/management.directory.md)
+[Create operating system drectory](../../operating.system/management.directory.md)
 
 #### D. firewall configuration
 
