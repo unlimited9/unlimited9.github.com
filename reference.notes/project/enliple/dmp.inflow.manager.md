@@ -168,7 +168,7 @@ SELECT toYear(createdDate)       AS year
 FROM MOBON_ANALYSIS.MEDIA_CLICKVIEW_LOG
 WHERE createdDate >= parseDateTimeBestEffort('2020-05-25 17:00:00') AND createdDate < parseDateTimeBestEffort('2020-05-25 18:00:00')
 GROUP BY year, month, day, hour, mediaId
-ORDER BY MEDIA_SETT DESC, year, month, day, hour, mediaId;
+ORDER BY MEDIA_SETT_SUM DESC, year, month, day, hour, mediaId;
 ```
 
 
