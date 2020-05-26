@@ -1,13 +1,14 @@
-# kubernetes metrics-server
+# Kubernetes Metrics Server
 
-#### node / pod monitoring  
+## Cluster-wide aggregator of resource usage data.
+Metrics Server is a scalable, efficient source of container resource metrics for Kubernetes built-in autoscaling pipelines.
 
 $ kubectl top pod
 ```
 Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
 ```
 
-#### Deployment
+#### deployment
 $ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.6/components.yaml  
 
 $ kubectl top node  
