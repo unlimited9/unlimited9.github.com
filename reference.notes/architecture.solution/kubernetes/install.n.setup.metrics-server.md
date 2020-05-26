@@ -3,7 +3,9 @@
 ## Cluster-wide aggregator of resource usage data.
 Metrics Server is a scalable, efficient source of container resource metrics for Kubernetes built-in autoscaling pipelines.
 
-$ kubectl top pod
+
+#### the resource consumption : node
+$ kubectl top node
 ```
 Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
 ```
@@ -11,6 +13,7 @@ Error from server (NotFound): the server could not find the requested resource (
 #### deployment
 $ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.6/components.yaml  
 
+#### the resource consumption : node
 $ kubectl top node  
 ```
 error: metrics not available yet
@@ -18,13 +21,13 @@ error: metrics not available yet
 
 #### configuration
 - --kubelet-preferred-address-types  
-The priority of node address types used when determining an address for connecting to a particular node (default [Hostname,InternalDNS,InternalIP,ExternalDNS,ExternalIP])
+The priority of node address types used when determining an address for connecting to a particular node (default [Hostname,InternalDNS,InternalIP,ExternalDNS,ExternalIP])  
 - --kubelet-insecure-tls  
-Do not verify the CA of serving certificates presented by Kubelets. For testing purposes only.
+Do not verify the CA of serving certificates presented by Kubelets. For testing purposes only.  
 - --requestheader-client-ca-file  
-Specify a root certificate bundle for verifying client certificates on incoming requests.
+Specify a root certificate bundle for verifying client certificates on incoming requests.  
 
-
+#### edit deployment
 $ kubectl edit deployment metrics-server -n kube-system
 ```
 ...
@@ -37,6 +40,14 @@ $ kubectl edit deployment metrics-server -n kube-system
         image: k8s.gcr.io/metrics-server-amd64:v0.3.6
         imagePullPolicy: IfNotPresent
         name: metrics-server
+...
+```
+
+#### check container
+$ kubectl get pod -n kube-system
+```
+...
+metrics-server-6ffdb54684-q759q          1/1     Running   0          15m
 ...
 ```
 
