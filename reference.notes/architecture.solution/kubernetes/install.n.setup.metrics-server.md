@@ -6,6 +6,8 @@ $ kubectl top pod
 ```
 Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
 ```
+
+#### Deployment
 $ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.6/components.yaml  
 
 $ kubectl top node  
