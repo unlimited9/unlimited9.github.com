@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS MOBON_ANALYSIS.ADVER_CONV_LOG (
 	userAgent	String,
 	charset 	String,
 	orderCode	String,
-	totalPrice	Int16,
+	totalPrice	Int32,
 	totalQty	Int16,
 	product		String, -- productArr	Array(String),
 	paymentType	String,
