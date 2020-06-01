@@ -7,9 +7,12 @@ $ dmesg > dmesg.txt
 $ cat /proc/cpuinfo
 
 #### memory
-$ cat /proc/meminfo
+$ cat /proc/meminfo  
 
-$ free -m
+$ free -m  
+
+$ sudo dmidecode -t memory  
+$ sudo dmidecode | grep DDR
 
 #### disk
 $ df -h
