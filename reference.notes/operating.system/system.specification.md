@@ -32,11 +32,12 @@ $ cat /etc/issue.net
 $ getconf LONG_BIT
 
 #### disk type : 1 - hdd, 0 - ssd
-$ lsblk -d -o name,rota
+$ lsblk -d -o name,rota  
+```
 NAME ROTA
 sda     1
 sdb     0
-
+```
 --
 
 1. CPU 정보 확인  
