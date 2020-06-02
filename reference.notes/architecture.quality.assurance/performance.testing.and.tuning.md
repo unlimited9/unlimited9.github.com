@@ -174,6 +174,9 @@ core수 보다 높은 숫자를 저정해도 문제는 없으며, auto로 지정
 
 
 #### su: cannot set user id: Resource temporarily unavailable 에러
+`사용 프로세스 수 확인`  
+$ ps -ef -L -u app | wc -l  
+
 $ ulimit -a
 
 $ vi /etc/security/limits.conf
@@ -189,6 +192,8 @@ $ vi /etc/security/limits.conf
 >* soft nofile 65536
 >...
 >```
+
+
 
 ## 9. Appendix
 
