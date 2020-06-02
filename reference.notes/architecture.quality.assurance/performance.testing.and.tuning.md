@@ -174,6 +174,20 @@ core수 보다 높은 숫자를 저정해도 문제는 없으며, auto로 지정
 
 
 #### su: cannot set user id: Resource temporarily unavailable 에러
+#### su: failed to execute /bin/bash: Resource temporarily unavailable
+
+`kernel log`  
+$ dmesg -T | tail -2  
+
+`system log`  
+$ vi /var/log/messages  
+$ vi /var/log/secure  
+```
+...
+Jun  2 09:31:35 mpk-cluster-02 sshd[14445]: error: do_exec_pty: fork: Resource temporarily unavailable
+...
+```
+
 `사용 프로세스 수 확인`  
 $ ps -ef -L -u app | wc -l  
 
@@ -199,33 +213,13 @@ $ vi /etc/security/limits.d/90-nproc.conf
 # accidental fork bombs.
 # See rhbz #432903 for reasoning.
 
-*          soft    nproc     4096
+*          soft    nproc     65536
 root       soft    nproc     unlimited
 ```
 
-#### su: failed to execute /bin/bash: Resource temporarily unavailable
-
-`kernel log`  
-$ dmesg -T | tail -2  
-
-`system log`  
-$ vi /var/log/messages  
-$ vi /var/log/secure  
-```
-...
-Jun  2 09:31:35 mpk-cluster-02 sshd[14445]: error: do_exec_pty: fork: Resource temporarily unavailable
-...
-```
-
-
-####
-
-
-`NIC 2가지 모드`  
-1. Normal mode : 인터페이스로 들어오는 패킷의 목적지 주소를 확인하고 목적지가 자신인 패킷과 브로드캐스트 패킷만 받아들인다.  
-2. promiscuos mode : 인터페이스로 들어오는 패킷들을 MAC주소와 상관없이 모든 패킷을 받는다.  
-
-
+>`NIC 2가지 모드`  
+>1. Normal mode : 인터페이스로 들어오는 패킷의 목적지 주소를 확인하고 목적지가 자신인 패킷과 브로드캐스트 패킷만 받아들인다.  
+>2. promiscuos mode : 인터페이스로 들어오는 패킷들을 MAC주소와 상관없이 모든 패킷을 받는다.  
 
 
 ## 9. Appendix
