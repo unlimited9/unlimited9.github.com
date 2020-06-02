@@ -197,8 +197,8 @@ When the system runs into a limitation in the number of processes, increase the 
 $ vi /etc/security/limits.conf
 ```
 '''
-* hard nproc 10240
-* soft nproc 10240
+* hard nproc 65536
+* soft nproc 65536
 '''
 ```
 > ```
