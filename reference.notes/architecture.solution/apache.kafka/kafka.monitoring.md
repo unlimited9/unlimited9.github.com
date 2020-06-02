@@ -14,3 +14,5 @@ https://medium.com/@giorgosmyrianthous/overview-of-ui-monitoring-tools-for-apach
 + Kafka Monitoring | Methods & Tools for Kafka Monitoring  
 https://data-flair.training/blogs/kafka-monitoring/
 
+- [카프카(Kafka)] 성능 관련 고찰  
+https://team-platform.tistory.com/6  
