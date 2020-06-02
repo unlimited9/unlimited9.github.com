@@ -191,8 +191,9 @@ Jun  2 09:31:35 mpk-cluster-02 sshd[14445]: error: do_exec_pty: fork: Resource t
 `사용 프로세스 수 확인`  
 $ ps -ef -L -u app | wc -l  
 
-$ ulimit -a
+$ ulimit -a  
 
+When the system runs into a limitation in the number of processes, increase the nproc value in /etc/security/limits.conf or /etc/security/limits.d/90-nproc.conf depending on RHEL version. The limit can be increased for a specific user or all users.  
 $ vi /etc/security/limits.conf
 ```
 '''
