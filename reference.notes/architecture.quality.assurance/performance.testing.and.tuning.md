@@ -193,6 +193,15 @@ $ vi /etc/security/limits.conf
 >...
 >```
 
+####
+`kern.log`  
+$ dmesg -T | tail -2  
+
+`NIC 2가지 모드`  
+1. Normal mode : 인터페이스로 들어오는 패킷의 목적지 주소를 확인하고 목적지가 자신인 패킷과 브로드캐스트 패킷만 받아들인다.  
+2. promiscuos mode : 인터페이스로 들어오는 패킷들을 MAC주소와 상관없이 모든 패킷을 받는다.  
+
+
 
 
 ## 9. Appendix
