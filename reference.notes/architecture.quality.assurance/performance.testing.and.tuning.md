@@ -193,9 +193,33 @@ $ vi /etc/security/limits.conf
 >...
 >```
 
-####
-`kern.log`  
+$ vi /etc/security/limits.d/90-nproc.conf  
+```
+# Default limit for number of user's processes to prevent
+# accidental fork bombs.
+# See rhbz #432903 for reasoning.
+
+*          soft    nproc     4096
+root       soft    nproc     unlimited
+```
+
+#### su: failed to execute /bin/bash: Resource temporarily unavailable
+
+`kernel log`  
 $ dmesg -T | tail -2  
+
+`system log`  
+$ vi /var/log/messages  
+$ vi /var/log/secure  
+```
+...
+Jun  2 09:31:35 mpk-cluster-02 sshd[14445]: error: do_exec_pty: fork: Resource temporarily unavailable
+...
+```
+
+
+####
+
 
 `NIC 2가지 모드`  
 1. Normal mode : 인터페이스로 들어오는 패킷의 목적지 주소를 확인하고 목적지가 자신인 패킷과 브로드캐스트 패킷만 받아들인다.  
