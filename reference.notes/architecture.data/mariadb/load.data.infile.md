@@ -51,5 +51,5 @@ LOAD DATA LOCAL INFILE 'file_name'
 
 #### reference site
 
-* [MySQL || MariaDB] 데이터 파일 IMPORT 하기(Feat.LOAD DATA INFILE)  
++ [MySQL || MariaDB] 데이터 파일 IMPORT 하기(Feat.LOAD DATA INFILE)  
 https://java119.tistory.com/55  
