@@ -47,7 +47,9 @@ LOAD DATA LOCAL INFILE 'file_name'
 
 ...
 
+## 9. Appendix
 
+#### reference site
 
 * [MySQL || MariaDB] 데이터 파일 IMPORT 하기(Feat.LOAD DATA INFILE)  
 https://java119.tistory.com/55  
