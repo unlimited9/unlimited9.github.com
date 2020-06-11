@@ -191,7 +191,7 @@ $ kubectl taint nodes --all node-role.kubernetes.io/master-
 $ sudo kubeadm join 10.251.0.194:6443 --token 6kbq9e.qirblr0o52gplk5l \  
     --discovery-token-ca-cert-hash sha256:ea609f534e6527f8d5ffb5b5cf2488fa79f9c231401386577872037a3338dc3e 
 
-> error  
+> `error`  
 The cluster-info ConfigMap does not yet contain a JWS signature for token ID  will try again kubeadm token list  
 : token 만료
 
