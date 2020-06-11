@@ -97,4 +97,4 @@ $ sudo systemctl restart kubelet
 #### reference site
 
 * Upgrading kubeadm clusters  
-https://v1-17.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/
+https://kubernetes.io/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/
