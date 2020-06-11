@@ -5,13 +5,11 @@
 
 #### install dependency packages
 [Docker Install and setup](../docker/install.n.setup.md)  
-[Kubernetes Install and setup](./install.n.setup.md)  
-
-`Docker/Kubernetes 설치`  
 $ curl -fsSL https://get.docker.com/ | sudo sh  
 $ sudo usermod -aG docker $USER  
 $ sudo systemctl start docker && systemctl restart docker  
 
+[Kubernetes Install and setup](./install.n.setup.md)  
 $ sudo vi /etc/yum.repos.d/kubernetes.repo  
 $ sudo yum update  
 $ sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes  
