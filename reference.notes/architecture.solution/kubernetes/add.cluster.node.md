@@ -27,7 +27,12 @@ $ sudo kubeadm join 192.168.100.12:6443 --token fpcq1q.nb2okgy5x2r6xlxz --discov
 
 #### delete node to kubernetes cluster  
 $ kubectl drain $NODE_NAME --delete-local-data --force --ignore-daemonsets  
-$ kubectl delete node <node name>  
+$ kubectl delete node $NODE_NAME  
+  
+>$ kubectl uncordon node $NODE_NAME  
+
+#### add labels to the node
+$ kubectl label nodes mpk-cluster-13 env=product servicetype=apps
 
 ## 9. Appendix
 
