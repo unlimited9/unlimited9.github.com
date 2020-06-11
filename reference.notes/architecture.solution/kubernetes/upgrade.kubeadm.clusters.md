@@ -82,9 +82,6 @@ instead of:
 sudo kubeadm upgrade apply
 ```
 
-
-
-
 $ sudo yum install -y kubelet kubectl --disableexcludes=kubernetes  
 
 $ sudo systemctl restart kubelet  
