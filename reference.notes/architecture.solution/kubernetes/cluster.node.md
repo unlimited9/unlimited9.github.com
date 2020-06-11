@@ -26,7 +26,7 @@ $ sudo kubeadm join 192.168.100.12:6443 --token fpcq1q.nb2okgy5x2r6xlxz --discov
 > add master node : --control-plane  
 
 #### delete cluster node
-$ kubectl drain [node name] --delete-local-data --force --ignore-daemonsets  
+$ kubectl drain $NODE_NAME --delete-local-data --force --ignore-daemonsets  
 $ kubectl delete node <node name>  
 
 ## 9. Appendix
