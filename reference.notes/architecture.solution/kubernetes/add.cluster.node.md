@@ -32,7 +32,8 @@ $ kubectl delete node $NODE_NAME
 >$ kubectl uncordon node $NODE_NAME  
 
 #### add labels to the node
-$ kubectl label nodes mpk-cluster-13 env=product servicetype=apps
+$ kubectl label nodes mpk-cluster-13 env=product servicetype=apps  
+>$ kubectl label node mpk-cluster-13 servicetype-  
 
 ## 9. Appendix
 
