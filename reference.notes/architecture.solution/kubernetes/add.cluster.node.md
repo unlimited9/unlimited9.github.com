@@ -21,11 +21,11 @@ $ sudo swapoff -a
 #### add pki
 $ cp [certificate and key files] /etc/kubernetes/pki  
 
-#### add cluster node
+#### add node to kubernetes cluster  
 $ sudo kubeadm join 192.168.100.12:6443 --token fpcq1q.nb2okgy5x2r6xlxz --discovery-token-ca-cert-hash sha256:4574c39be1691106f94bf18ff5d4e9c2c45f390ea53d3786dac4880320778203  
 > add master node : --control-plane  
 
-#### delete cluster node
+#### delete node to kubernetes cluster  
 $ kubectl drain $NODE_NAME --delete-local-data --force --ignore-daemonsets  
 $ kubectl delete node <node name>  
 
