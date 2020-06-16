@@ -82,7 +82,7 @@ vm.overcommit_memory = 1
 
 >#### > detail
 >#### elasticsearch message about resource 
->`> max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]`
+>`> max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]`  
 $ ulimit -n  
 1024  
 $ ulimit -Hn  
@@ -96,7 +96,7 @@ $ vi /etc/security/limits.conf
 >...
 >```
 >
->`> max number of threads [1024] for user [elasticsearch] is too low, increase to at least [4096]`
+>`> max number of threads [1024] for user [elasticsearch] is too low, increase to at least [4096]`  
 >$ ulimit -u  
 1024  
 ~~$ ulimit -u 4096~~  
