@@ -200,21 +200,7 @@ db.getCollection('CIData_00').count({'iUm.data.domain': /.*dabagirl.co.kr.*/})
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---
 
 >> 광고타겟팅별
 ```
@@ -254,5 +240,52 @@ db.getCollection('CIData_00').aggregate([
     {$match:{'iCw.data':{$exists:1}}},
     {$project:{id:true, adType:'iCw', device:'$saveCnt.device'}},
     {$group: {_id: {adType:'$adType', device:'$device'}, parameter: { $sum: 1 }}}
+]);
+```
+---
+
+
+
+>> 누적 TOTAL  
+`상품(iCw,iSr)`  
+```
+db.getCollection('CIData_00').aggregate([
+     {$project:{ 'iCw':{$cond:[{$and : [{$eq :[{$type:'$iCw.data'}, 'array']}, {$gte:[{$size:'$iCw.data'}, 1]}]},1,0]}
+          ,'device':{$switch:{ branches:[ {case:{$eq:['$saveCnt.device', 'P']} , then:'PC'}, {case:{$eq:['$saveCnt.device', 'M']} , then:'MOBILE'} ], default:'UNKNOWN'} }}}
+    ,{$group:{'iCw':{$sum:'$iCw'}, '_id':'$device', 'total':{$sum:1}}}
+]);
+```
+
+`도메인(iUm)`  
+```
+db.getCollection('CIData_00').aggregate([
+     {$project:{ 'iUm':{$cond:[{$and : [{$eq :[{$type:'$iUm.data'}, 'array']}, {$gte:[{$size:'$iUm.data'}, 1]}]},1,0]}
+          ,'device':{$switch:{ branches:[ {case:{$eq:['$saveCnt.device', 'P']} , then:'PC'}, {case:{$eq:['$saveCnt.device', 'M']} , then:'MOBILE'} ], default:'UNKNOWN'} }}}
+    ,{$group:{'iUm':{$sum:'$iUm'}, '_id':'$device', 'total':{$sum:1}}}
+]);
+```
+
+`해비유저(iHu)`  
+```
+db.getCollection('CIData_00').aggregate([
+     {$match:{'iHu.data.visitCnt':{$gte:3}}},
+     {$project:{ 'iHu':{$cond:[{$and : [{$eq :[{$type:'$iHu.data'}, 'array']}, {$gte:[{$size:'$iHu.data'}, 1]}]},1,0]}
+          ,'device':{$switch:{ branches:[ {case:{$eq:['$saveCnt.device', 'P']} , then:'PC'}, {case:{$eq:['$saveCnt.device', 'M']} , then:'MOBILE'} ], default:'UNKNOWN'} }}}
+    ,{$group:{'iHu':{$sum:'$iHu'}, '_id':'$device', 'total':{$sum:1}}}
+]);
+```
+
+>> 광고주별  
+`상품(iCw,iSr)`  
+```
+db.getCollection('CIData_00').aggregate([
+    {$match:{'iCw.data':{$exists:1}}},
+    {$project:{_id:true, device:'$saveCnt.device', data:{$setUnion:'$iCw.data.siteCode'}}},
+    {$unwind:'$data'},
+    {$project:{targetData:'$data',
+                'PC':{$cond:{if:{$eq:['$device', 'P']}, then:1, else:0}},
+                'MOBILE':{$cond:{if:{$eq:['$device', 'M']}, then:1, else:0}},
+                'UNKNOWN':{$cond:{if:{$eq:['$device', undefined]}, then:1, else:0}} }},
+    {$group:{_id:'$targetData', 'PC':{$sum:'$PC'}, 'MOBILE':{$sum:'$MOBILE'}, 'UNKNOWN':{$sum:'$UNKNOWN'}, 'TOTAL':{$sum:1}}}
 ]);
 ```
