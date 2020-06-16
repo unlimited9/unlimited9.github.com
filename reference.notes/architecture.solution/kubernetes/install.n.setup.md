@@ -660,8 +660,8 @@ token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2V
 ### G. uninstall kubernetes
 
 #### If the cluster is node, First delete it from master
-$ kubectl drain <node name> --delete-local-data --force --ignore-daemonsets  
-$ kubectl delete node <node name>
+$ kubectl drain $NODE_NAME --delete-local-data --force --ignore-daemonsets  
+$ kubectl delete node $NODE_NAME
 
 #### Then remove  kubeadm completely
 $ kubeadm reset
