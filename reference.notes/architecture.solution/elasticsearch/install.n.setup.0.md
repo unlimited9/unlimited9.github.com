@@ -16,27 +16,27 @@ $ groupadd -g 3000 app
 > ~~어플리케이션 단위 관리 주체가 다르다면 어플리케이션별 계정을 생성하여 생성하여 관리~~
 
 #### create the software unified account (typically, app)
-$ useradd -d /apps -g 3000 -m -u 3000 -s /bin/bash rerisb
-$ passwd app
+$ useradd -d /apps -g 3000 -m -u 3000 -s /bin/bash app    
+$ passwd app  
 
 #### create the elasticsearch software owner (typically, elasticsearch) 
-~~$ useradd -d /apps/r -g 3000 -m -u 3030 -s /bin/bash elasticsearch~~
-> ~~$ useradd -d /apps/elasticsearch -g 3000 -m -u 20 -s /bin/bash elasticsearch  -s /sbin/nologin~~
+~~$ useradd -d /apps/r -g 3000 -m -u 3030 -s /bin/bash elasticsearch~~  
+> ~~$ useradd -d /apps/elasticsearch -g 3000 -m -u 20 -s /bin/bash elasticsearch  -s /sbin/nologin~~  
 > 
-~~$ passwd elasticsearch~~
->#### usermod (append group) 
->$ usermod --append --groups app elasticsearch
->#### service status 
->$ sudo /sbin/service --status-all
+~~$ passwd elasticsearch~~  
+>#### usermod (append group)   
+>$ usermod --append --groups app elasticsearch  
+>#### service status  
+>$ sudo /sbin/service --status-all  
 
 ### B. install dependency packages
 
 ### C. system kernel setting
 
 #### elasticsearch accout limits setting  
-$ ulimit -a
+$ ulimit -a  
 
->$ vi /etc/security/limits.conf
+>$ vi /etc/security/limits.conf  
 >```
 >...
 >#elasticsearch
@@ -46,7 +46,7 @@ $ ulimit -a
 >...
 >```
 
-$ vi /etc/security/limits.d/20-nproc.conf 
+$ vi /etc/security/limits.d/20-nproc.conf  
 ```
 # Default limit for number of user's processes to prevent
 # accidental fork bombs.
@@ -56,23 +56,23 @@ app        soft    nproc     4096
 root       soft    nproc     unlimited
 ```
 
-$ vi /etc/security/limits.d/30-nofile.conf
+$ vi /etc/security/limits.d/30-nofile.conf  
 ```
 app        -    nofile     65536
 ```
 
-$ /etc/security/limits.d/40-memlock.conf
+$ /etc/security/limits.d/40-memlock.conf  
 ```
 app        -    memlock     unlimited
 ```
 
 #### system setting  
->docker container system kernel 설정은 host 설정이 같이 적용된다.
+>docker container system kernel 설정은 host 설정이 같이 적용된다.  
 
 $ cat /proc/sys/vm/max_map_count  
 
 $ sysctl -w vm.max_map_count=262144  
-$ vi /etc/sysctl.d/99-sysctl.conf
+$ vi /etc/sysctl.d/99-sysctl.conf  
 >$ vi /etc/sysctl.conf  
 ```
 ...
