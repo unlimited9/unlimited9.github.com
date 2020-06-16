@@ -147,6 +147,7 @@ mobon-service-product-79cdbc6565-wkx9z                417m         1019Mi
 
 #### Error from server (ServiceUnavailable): the server is currently unable to handle the request (get nodes.metrics.k8s.io)
 Added hostNetwork: true at container level in metrics-server-deployment.yml file  
+
 `edit deployment`  
 $ kubectl edit deployment metrics-server -n kube-system
 ```
