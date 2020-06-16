@@ -98,15 +98,15 @@ $ vi /etc/security/limits.conf
 >
 >`> max number of threads [1024] for user [elasticsearch] is too low, increase to at least [4096]`
 >$ ulimit -u  
-1024
-~~$ ulimit -u 4096~~
+1024  
+~~$ ulimit -u 4096~~  
 $ vi /etc/security/limits.conf  
-elasticsearch - nproc 4096
+elasticsearch - nproc 4096  
 >
->`> memory locking requested for elasticsearch process but memory is not locked`
+>`> memory locking requested for elasticsearch process but memory is not locked`  
 $ ulimit -l  
-64
-~~$ ulimit -l unlimited~~
+64  
+~~$ ulimit -l unlimited~~  
 $ vi /etc/security/limits.conf  
 >```
 >...
@@ -116,8 +116,8 @@ $ vi /etc/security/limits.conf
 >
 >`> max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]`
 $ cat /proc/sys/vm/max_map_count  
-65530
-$ sysctl -w vm.max_map_count=262144
+65530  
+$ sysctl -w vm.max_map_count=262144  
 $ vi /etc/sysctl.conf  
 >```
 >...
@@ -139,9 +139,9 @@ $ vi /etc/sysconfig/iptables
 ```
 
 #### restart iptalbes service 
-$ service iptables restart
+$ service iptables restart  
 
-$ iptables -nL
+$ iptables -nL  
 
 ## 2. installation setup : app
 
@@ -152,38 +152,36 @@ $ su - app
 ### B. creating application directory
 
 #### make directory
-$ mkdir -p /apps/elasticsearch
-$ mkdir -p /data/elasticsearch
-$ mkdir -p /logs/elasticsearch
+$ mkdir -p /apps/elasticsearch /data/elasticsearch /logs/elasticsearch  
 
 ### C. download
 
 #### Elastic(https://www.elastic.co/downloads)
-$ cd /apps/install
-$ curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.1.1-linux-x86_64.tar.gz
-~~$ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.1.1-linux-x86_64.tar.gz -P /apps/install~~
+$ cd /apps/install  
+$ curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.1.1-linux-x86_64.tar.gz  
+~~$ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.1.1-linux-x86_64.tar.gz -P /apps/install~~  
 
 ### D. install
 
 #### decompress tarball
-$ tar -zxvf /apps/install/elasticsearch-7.1.1-linux-x86_64.tar.gz
+$ tar -zxvf /apps/install/elasticsearch-7.1.1-linux-x86_64.tar.gz  
 
 #### copy application directory
-$ cp -R /apps/install/elasticsearch-7.1.1 /apps/elasticsearch/7.1.1	
+$ cp -R /apps/install/elasticsearch-7.1.1 /apps/elasticsearch/7.1.1  
 
 ### E. configure
-$ cd /apps/elasticsearch/7.1.1/config
+$ cd /apps/elasticsearch/7.1.1/config  
 
-$ cp elasticsearch.yml elasticsearch.yml.default
+$ cp elasticsearch.yml elasticsearch.yml.default  
 
-> 운영서버는 4기로 구성(예정)
-> essrch01 : 192.168.104.51(master-eligible/ingest Node)
-> essrch02 : 192.168.104.52(master-eligible/ingest Node)
-> essrch03 : 192.168.104.53(data Node)
-> essrch04 : 192.168.104.54(data Node)
-> jvm.options : -Xms16g -Xmx16g
+> 운영서버는 4기로 구성(예정)  
+> essrch01 : 192.168.104.51(master-eligible/ingest Node)  
+> essrch02 : 192.168.104.52(master-eligible/ingest Node)  
+> essrch03 : 192.168.104.53(data Node)  
+> essrch04 : 192.168.104.54(data Node)  
+> jvm.options : -Xms16g -Xmx16g  
 
-$ vi /apps/elasticsearch/7.1.1/config/elasticsearch.yml
+$ vi /apps/elasticsearch/7.1.1/config/elasticsearch.yml  
 ```
 # ---------------------------------- Cluster -----------------------------------
 cluster.name: essrch
@@ -254,9 +252,9 @@ http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Le
 http.cors.allow-credentials: true
 ```
 
-$ cp jvm.options jvm.options.default
+$ cp jvm.options jvm.options.default  
 
-$ vi /apps/elasticsearch/7.1.1/config/jvm.options
+$ vi /apps/elasticsearch/7.1.1/config/jvm.options  
 ```
 ...
 -Xms16g
@@ -264,31 +262,31 @@ $ vi /apps/elasticsearch/7.1.1/config/jvm.options
 ...
 ```
 
-> 개발서버는 2기로 구성
-> essrch01 : 192.168.104.51(master-eligible/ingest Node)
-> essrch02 : 192.168.104.52(data Node)
-> jvm.options는 default로 설정(-Xms1g -Xmx1g)
+> 개발서버는 2기로 구성  
+> essrch01 : 192.168.104.51(master-eligible/ingest Node)  
+> essrch02 : 192.168.104.52(data Node)  
+> jvm.options는 default로 설정(-Xms1g -Xmx1g)  
 
 ### F. excute
 
 #### start process
-$ /apps/elasticsearch/7.1.1/bin/elasticsearch -d
+$ /apps/elasticsearch/7.1.1/bin/elasticsearch -d  
 
 ### check process and port
 $ ps -ef | grep elasticsearch  
 ...  
 3350 4714 1 7 17:50 pts/3 00:00:18 /apps/jdk/1.8.0_152/bin/java -Xms1g -Xmx1g -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+AlwaysPreTouch -server -Xss1m -Djava.awt.headless=true -Dfile.encoding=UTF-8 -Djna.nosys=true -XX:-OmitStackTraceInFastThrow -Dio.netty.noUnsafe=true -Dio.netty.noKeySetOptimization=true -Dio.netty.recycler.maxCapacityPerThread=0 -Dlog4j.shutdownHookEnabled=false -Dlog4j2.disable.jmx=true -XX:+HeapDumpOnOutOfMemoryError -Des.path.home=/apps/elasticsearch/6.1.1 -Des.path.conf=/apps/elasticsearch/6.1.1/config -cp /apps/elasticsearch/6.1.1/lib/* org.elasticsearch.bootstrap.Elasticsearch -d  
-...
+...  
 
 $ netstat -na | grep LISTEN  
 ...  
 tcp 0 0 :::6530 :::* LISTEN  
 tcp 0 0 :::6540 :::* LISTEN  
-...
+...  
 
 #### stop process
 $ ps -ef | grep elasticsearch  
-$ kill -9 <pid>
+$ kill -9 <pid>  
 
 ## 3. post-installation setup
 
