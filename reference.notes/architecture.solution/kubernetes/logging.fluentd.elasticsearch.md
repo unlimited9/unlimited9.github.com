@@ -147,3 +147,9 @@ Kibana > Discover
 * Fluentd Daemonset for Kubernetes  
 https://github.com/fluent/fluentd-kubernetes-daemonset
 
+* 로깅 아키텍처  
+https://kubernetes.io/ko/docs/concepts/cluster-administration/logging/  
+
++ 분산 로그 & 데이타 수집기 Fluentd  
+https://bcho.tistory.com/1115  
+
