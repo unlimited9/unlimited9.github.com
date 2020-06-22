@@ -1,8 +1,5 @@
 ## How to Upgrade Ubuntu 18.04 LTS to Ubuntu 20.04 LTS
 
-$ sudo do-release-upgrade  
-> $ sudo do-release-upgrade -d  
-
 #### Ubuntu Version
 $ cat /etc/lsb-release
 
