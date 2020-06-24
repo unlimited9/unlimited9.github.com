@@ -1,9 +1,9 @@
 # Network
 
 
-## 8. trouble-shooting
+## trouble-shooting
 
-## 9. Appendix
+## Appendix
 
 #### reference
 
