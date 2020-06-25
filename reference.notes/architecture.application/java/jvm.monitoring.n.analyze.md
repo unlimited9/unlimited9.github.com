@@ -174,3 +174,22 @@ https://gist.github.com/JDatta/7f82db25ccef7772a0e73fe9ceb329d7
 + Java Memory Monitoring  
 http://homoefficio.github.io/2020/04/09/Java-Memory-Monitoring/  
 
+---
+
+- Garbage Collection 모니터링 방법  
+https://d2.naver.com/helloworld/6043  
+
+- JVM 메모리의 이해와 케이스 스터디  
+https://www.samsungsds.com/global/ko/support/insights/1209174_2284.html  
+
+- 하나의 메모리 누수를 잡기까지  
+https://d2.naver.com/helloworld/1326256  
+
+- 도움이 될수도 있는 JVM memory leak 이야기  
+https://woowabros.github.io/tools/2019/05/24/jvm_memory_leak.html  
+
+- Thread Dump 분석하기  
+https://brunch.co.kr/@springboot/126  
+
+- 스레드 덤프 분석하기
+https://d2.naver.com/helloworld/10963  
