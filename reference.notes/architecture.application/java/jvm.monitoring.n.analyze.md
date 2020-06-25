@@ -7,6 +7,10 @@ $ ps -ef | grep java
 > $ sudo netstat -ntlp
 
 #### jstat
+<details>
+<summary>Usage</summary>
+<div markdown="1">
+       
 $ jstat -h
 ```
 Usage: jstat --help|-options
@@ -32,6 +36,10 @@ Definitions:
   -? -h --help  Prints this help message.
   -help         Prints this help message.
 ```
+
+</div>
+</details>
+
 $ jstat -gcutil [pid] 1000
 
 항목 | 설명
@@ -49,6 +57,10 @@ FGCT | Full GC 누적시간
 GCT | 전체 GC 누적시간
 
 #### jmap
+<details>
+<summary>Usage</summary>
+<div markdown="1">
+       
 $ jmap -h
 ```
 Usage:
@@ -72,6 +84,10 @@ Usage:
 
     Example: jmap -dump:live,format=b,file=heap.bin <pid>
 ```
+
+</div>
+</details>
+
 `dump all objects`  
 $ jmap -dump:format=b,file=HEAP_DUMP_OUTPUT_FILE_NAME.hprof PID
 
@@ -80,6 +96,11 @@ $ jmap -dump:live,format=b,file=HEAP_DUMP_OUTPUT_FILE_NAME.hprof PID
 
 
 #### jcmd
+
+<details>
+<summary>Usage</summary>
+<div markdown="1">
+
 $ jcmd -h
 ```
 Usage: jcmd <pid | main class> <command ...|PerfCounter.print|-f file>
@@ -98,6 +119,9 @@ Usage: jcmd <pid | main class> <command ...|PerfCounter.print|-f file>
   -l  list JVM processes on the local machine                     
   -? -h --help print this help message                            
 ```
+</div>
+</details>
+
 > add jvm NMT(NativeMemoryTracking) option : -XX:NativeMemoryTracking=summary  
 > jcmd <pid> VM.native_memory baseline  
 > jcmd <pid> VM.native_memory summary.diff
@@ -105,6 +129,33 @@ Usage: jcmd <pid | main class> <command ...|PerfCounter.print|-f file>
 ## Thread Dump
 
 #### jstack
+
+<details>
+<summary>Usage</summary>
+<div markdown="1">
+
+$ jstack -h
+```
+Usage:
+    jstack [-l] <pid>
+        (to connect to running process)
+    jstack -F [-m] [-l] <pid>
+        (to connect to a hung process)
+    jstack [-m] [-l] <executable> <core>
+        (to connect to a core file)
+    jstack [-m] [-l] [server_id@]<remote server IP or hostname>
+        (to connect to a remote debug server)
+
+Options:
+    -F  to force a thread dump. Use when jstack <pid> does not respond (process is hung)
+    -m  to print both java and native frames (mixed mode)
+    -l  long listing. Prints additional information about locks
+    -h or -help to print this help message
+```
+
+</div>
+</details>
+
 $ jstack PID > THREAD_DUMP_OUTPUT_FILENAME
 
 ## analysis tools
