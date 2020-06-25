@@ -1,9 +1,12 @@
-# JVM Memory Analyze
+# JVM monitoring/analysis
+
+
+## JVM Memory Analyze
 
 $ ps -ef | grep java  
 > $ sudo netstat -ntlp
 
-## jstat
+#### jstat
 $ jstat -h
 ```
 Usage: jstat --help|-options
@@ -45,10 +48,7 @@ FGC | Full GC 횟수
 FGCT | Full GC 누적시간
 GCT | 전체 GC 누적시간
 
-
-
-
-## jmap
+#### jmap
 $ jmap -h
 ```
 Usage:
@@ -72,8 +72,14 @@ Usage:
 
     Example: jmap -dump:live,format=b,file=heap.bin <pid>
 ```
+`dump all objects`  
+$ jmap -dump:format=b,file=HEAP_DUMP_OUTPUT_FILE_NAME.hprof PID
 
-## jcmd
+`dump only live objects`  
+$ jmap -dump:live,format=b,file=HEAP_DUMP_OUTPUT_FILE_NAME.hprof PID
+
+
+#### jcmd
 $ jcmd -h
 ```
 Usage: jcmd <pid | main class> <command ...|PerfCounter.print|-f file>
@@ -96,6 +102,16 @@ Usage: jcmd <pid | main class> <command ...|PerfCounter.print|-f file>
 > jcmd <pid> VM.native_memory baseline  
 > jcmd <pid> VM.native_memory summary.diff
 
+## Thread Dump
+
+#### jstack
+$ jstack PID > THREAD_DUMP_OUTPUT_FILENAME
+
+## analysis tools
+- Eclipse MAT(https://www.eclipse.org/mat/)  
+- VisuamVM(https://visualvm.github.io/)
+- fastThread(https://fastthread.io)  
+
 
 ## 9. Appendix
 
@@ -103,3 +119,7 @@ Usage: jcmd <pid | main class> <command ...|PerfCounter.print|-f file>
 
 + JAVA: Debugging a permgen leak    
 https://gist.github.com/JDatta/7f82db25ccef7772a0e73fe9ceb329d7
+
++ Java Memory Monitoring  
+http://homoefficio.github.io/2020/04/09/Java-Memory-Monitoring/  
+
