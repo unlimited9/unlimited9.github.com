@@ -1,4 +1,4 @@
-# Have a nice day ^^
+# Have a nice day 
 
 ## Architecture
 
