@@ -73,13 +73,14 @@ docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOK
 docker exec nsuslab.ggcore.build.3.1-bionic sh -c "~/build.GGCore.Frontend.sh ggpokeruk"  
 
 #### deployment
-docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_backoffice:build-770 --build-arg DeployEnvironment=ggpokeruk --build-arg ServiceName=GGCore.Backoffice -f Dockerfile.ggcore.service .  
+
+docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_backoffice:build-770 --build-arg DeployEnvironment=ggpokeruk --build-arg ServiceName=GGCore.Backoffice -f Dockerfile.nsuslab.ggcore.service .  
 docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8013:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_backoffice:build-770  
 
-docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_widget:build-770 --build-arg DeployEnvironment=ggpokeruk --build-arg ServiceName=GGCore.Web.Widget -f Dockerfile.ggcore.service .  
+docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_widget:build-770 --build-arg DeployEnvironment=ggpokeruk --build-arg ServiceName=GGCore.Web.Widget -f Dockerfile.nsuslab.ggcore.service .  
 docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8014:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_widget:build-770  
 
-docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_promotion:build-770 --build-arg DeployEnvironment=ggpokeruk --build-arg ServiceName=GGCore.Web.Promotion -f Dockerfile.ggcore.service.promotion .  
+docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_promotion:build-770 --build-arg DeployEnvironment=ggpokeruk --build-arg ServiceName=GGCore.Web.Promotion -f Dockerfile.nsuslab.ggcore.service.agent .  
 docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8020:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_promotion:build-770  
 
 ## Appendix
