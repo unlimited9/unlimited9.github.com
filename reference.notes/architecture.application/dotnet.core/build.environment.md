@@ -8,8 +8,7 @@ docker run -d -it -v C:/ggcore/pgms/build:/app --name nsuslab.ggcore.build.3.1-b
 #### build container environment 
 docker exec -it nsuslab.ggcore.build.3.1-bionic /bin/bash
 
->>>>>>>>>>>>>>>>>>>>
-
+<<<<<<<<<<<<<<<<<<<<
 > install packages  
 apt update  
 apt-get install -y net-tools iproute2 vim  
@@ -81,9 +80,7 @@ echo "It takes $(($ENDTIME - $STARTTIME)) seconds to complete this task..."
 ```
 chmod +x ~/build.GGCore.Frontend.sh  
 ~/build.GGCore.Frontend.sh ggpokeruk  
-
 <<<<<<<<<<<<<<<<<<<<
-
 
 ## issue
 
