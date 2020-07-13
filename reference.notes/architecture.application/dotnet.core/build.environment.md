@@ -9,11 +9,11 @@ docker run -d -it -v C:/ggcore/pgms/build:/app --name nsuslab.ggcore.build.3.1-b
 docker exec -it nsuslab.ggcore.build.3.1-bionic /bin/bash
 
 <<<<<<<<<<<<<<<<<<<<
->install packages<  
+`install packages`  
 apt update  
 apt-get install -y net-tools iproute2 vim  
 
->install node.js<  
+`install node.js`  
 export NODE_VERSION=12.18.2  
 curl -SL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz" --output nodejs.tar.gz \  
     && tar -xzf "nodejs.tar.gz" -C /usr/local --strip-components=1 \  
@@ -22,13 +22,11 @@ curl -SL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x
 
 npm install -g npm  
 
-> create directory  
-
+`create directory`  
 mkdir -p /apps/install /pgms /data /logs  
 mkdir /pgms/ggcore  
 
-> checkout source  
-
+`checkout source`  
 cd  /pgms/ggcore  
 git init  
 git config credential.helper store  
@@ -36,8 +34,7 @@ git remote add origin https://github.com/pyloncloud/88agent.git
 git pull  
 git checkout origin/develop_ggcore  
 
-> create build script  
-
+`create build script`  
 vi ~/build.GGCore.Frontend.sh  
 ```
 #!/bin/sh
@@ -88,19 +85,17 @@ chmod +x ~/build.GGCore.Frontend.sh
 ## issue
 
 #### fatal: could not read Username for 'https://github.com': No such device or address
-sloved.
+`sloved.`  
 git config credential.helper store
 
 `ref.`  
->default : 15 minute<  
+_default : 15 minute_  
 git config credential.helper cache  
 
-_set 3600 sec  
-
+_set 3600 sec_  
 git config credential.helper 'cache --timeout=3600'  
 
-> 해당 git directory 이외 모든 git에 적용 : --global  
-
+_해당 git directory 이외 모든 git에 적용 : --global_  
 git config credential.helper store --global  
 
 ## Appendix
