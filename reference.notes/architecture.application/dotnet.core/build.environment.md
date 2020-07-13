@@ -82,6 +82,8 @@ chmod +x ~/build.GGCore.Frontend.sh
 ~/build.GGCore.Frontend.sh ggpokeruk  
 <<<<<<<<<<<<<<<<<<<<
 
+docker exec nsuslab.ggcore.build.3.1-bionic sh -c "~/build.GGCore.Frontend.sh ggpokeruk"  
+
 ## issue
 
 #### fatal: could not read Username for 'https://github.com': No such device or address
