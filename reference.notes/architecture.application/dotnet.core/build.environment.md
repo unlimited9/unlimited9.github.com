@@ -9,13 +9,11 @@ docker run -d -it -v C:/ggcore/pgms/build:/app --name nsuslab.ggcore.build.3.1-b
 docker exec -it nsuslab.ggcore.build.3.1-bionic /bin/bash
 
 <<<<<<<<<<<<<<<<<<<<
-> install packages  
-
+>install packages<  
 apt update  
 apt-get install -y net-tools iproute2 vim  
 
-> install node.js  
-
+>install node.js<  
 export NODE_VERSION=12.18.2  
 curl -SL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz" --output nodejs.tar.gz \  
     && tar -xzf "nodejs.tar.gz" -C /usr/local --strip-components=1 \  
