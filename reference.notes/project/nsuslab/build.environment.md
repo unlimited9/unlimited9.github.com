@@ -134,7 +134,7 @@ ARG ServiceName
 ENV ServiceName=$ServiceName
 
 COPY ${DeployEnvironment}/${ServiceName} .
-ENTRYPOINT ["dotnet", "$ServiceName.dll"]
+ENTRYPOINT ["sh", "-c", "dotnet $ServiceName.dll"]
 ```
 `GGCore.Backoffice`  
 docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_backoffice:build-770 --build-arg DeployEnvironment=ggpokeruk --build-arg ServiceName=GGCore.Backoffice -f Dockerfile.nsuslab.ggcore.service .  
