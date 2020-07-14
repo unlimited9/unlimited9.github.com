@@ -47,6 +47,13 @@ docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOK
 docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8020:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_promotion:build-%dep.GGCoreTest_Ggpokeruk_Build.build.number%
 ```
 
+## issue
+
+#### Exited (145) About a minute ago
+Entrypoint가 오류가 나서 컨테이너가 생성이 안되면 아래와 같이 해당 이미지로 컨테이너를 생성하여 확인해 볼 수 있다.  
+docker run -it --rm --entrypoint=/bin/bash -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 18013:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_backoffice:build-6  
+
+
 ## Appendix
 
 #### reference.site
