@@ -1,4 +1,4 @@
-# Docker remove unused resources
+# remove unused docker objects
 
 ## Prune unused Docker objects
 
