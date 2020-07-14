@@ -1,0 +1,22 @@
+# docker resource
+
+##
+
+사용하지 않는 이미지 삭제
+docker rmi $(docker images -f dangling=true -q)
+특정 이미지 전체 삭제
+docker rmi $(docker images 이미지이름 -q)
+docker rmi $(docker images 이미지이름앞부분/* -q)
+사용하지 않는 컨테이너 삭제
+docker rm $(docker ps -aq -f status=exited)
+
+
+
+
+
+## appendix
+
+#### reference.site
+
+- docker local image 정리  
+https://devnote.niceilm.net/docker-local-image/
