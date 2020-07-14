@@ -84,6 +84,41 @@ chmod +x ~/build.GGCore.Frontend.sh
 
 docker exec nsuslab.ggcore.build.3.1-bionic sh -c "~/build.GGCore.Frontend.sh ggpokeruk"  
 
+#### build script
+vi ~/build.GGCore.Frontend.sh  
+```
+#!/bin/sh
+STARTTIME=$(date +%s)
+
+cd ~/repo
+
+docker exec nsuslab.ggcore.build.3.1-bionic sh -c "~/build.GGCore.Frontend.sh $1"
+
+cat <<EOT > .dockerignore
+**
+!app/$1/GGCore.Backoffice/**
+EOT
+docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_backoffice:$2 --build-arg DeployEnvironment=$1 --build-arg ServiceName=GGCore.Backoffice -f docker/Dockerfile.nsuslab.ggcore.service .
+#docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8013:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_backoffice:$2
+
+cat <<EOT > .dockerignore
+**
+!app/$1/GGCore.Web.Widget/**
+EOT
+docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_widget:$2 --build-arg DeployEnvironment=$1 --build-arg ServiceName=GGCore.Web.Widget -f docker/Dockerfile.nsuslab.ggcore.service .
+#docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8014:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_widget:$2
+
+cat <<EOT > .dockerignore
+**
+!app/$1/GGCore.Web.Promotion/**
+EOT
+docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_promotion:$2 --build-arg DeployEnvironment=$1 --build-arg ServiceName=GGCore.Web.Promotion -f docker/Dockerfile.nsuslab.ggcore.service.agent .
+#docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8020:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_promotion:$2
+
+ENDTIME=$(date +%s)
+echo "It takes $(($ENDTIME - $STARTTIME)) seconds to complete this task..."
+```
+
 ## issue
 
 #### fatal: could not read Username for 'https://github.com': No such device or address
@@ -103,3 +138,6 @@ git config credential.helper store --global
 ## Appendix
 
 #### reference.site
+
+- 올바른 Dockerfile 작성을 위한 가이드라인  
+https://swalloow.github.io/dockerfile-ignore/  
