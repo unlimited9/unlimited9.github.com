@@ -99,6 +99,7 @@ cat <<EOT > .dockerignore
 !app/$1/GGCore.Backoffice/**
 EOT
 docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_backoffice:$2 --build-arg DeployEnvironment=$1 --build-arg ServiceName=GGCore.Backoffice -f docker/Dockerfile.nsuslab.ggcore.service .
+docker push 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_backoffice:$2
 #docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8013:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_backoffice:$2
 
 cat <<EOT > .dockerignore
@@ -106,6 +107,7 @@ cat <<EOT > .dockerignore
 !app/$1/GGCore.Web.Widget/**
 EOT
 docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_widget:$2 --build-arg DeployEnvironment=$1 --build-arg ServiceName=GGCore.Web.Widget -f docker/Dockerfile.nsuslab.ggcore.service .
+docker push 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_widget:$2
 #docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8014:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_widget:$2
 
 cat <<EOT > .dockerignore
@@ -113,6 +115,7 @@ cat <<EOT > .dockerignore
 !app/$1/GGCore.Web.Promotion/**
 EOT
 docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_promotion:$2 --build-arg DeployEnvironment=$1 --build-arg ServiceName=GGCore.Web.Promotion -f docker/Dockerfile.nsuslab.ggcore.service.agent .
+docker push 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_promotion:$2
 #docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8020:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_promotion:$2
 
 ENDTIME=$(date +%s)
