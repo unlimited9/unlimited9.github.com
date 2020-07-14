@@ -1,87 +1,51 @@
-# Nsuslab ggcore deployment 
+# Nsuslab ggcore deployment
 
-## create and delopy docker container
+## Dependency
 
-#### create dotnet.core.aspnet docker container : nsuslab.ggcore.aspnet.base:3.1-bionic
-vi Dockerfile.nsuslab.ggcore.aspnet.3.1-bionic  
+#### Dependent Build
+Build Configurations > Dependency :  On the Dependencies page, click Edit Artifact Dependency
+Depend on: GGCore-TEST / GGPOKERUK / Build  
+Get artifacts from: Latest successful build  
+Artifacts rules: NuGet.config  
+
+#### SSH Keys Management
+SSH private key into a project  
+
+`Uploading SSH Key to TeamCity Server`  
+Project Settings > SSH Keys : On the SSH Keys page, click Upload SSH Key.  
+
+#### teancity SSH Exec
+`Deployment Target`  
+Target: 13.230.138.165  
+
+`Deployment Credentials`  
+Authentication method: Uploaded key  
+Username: ubuntu  
+Select key: aws-ggcore-dev.pem  
+
+`SSH Commands`  
+Commands:  
 ```
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-bionic
+echo 'Logging in to AWS ECR...'
+$(~/.local/bin/aws --profile ggcore ecr get-login --no-include-email --region ap-northeast-1)
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends libgdiplus libc6-dev \
-    && rm -rf /var/lib/apt/lists/*
+echo 'Pulling image: build-%dep.GGCoreTest_Ggpokeruk_Build.build.number%'
+docker pull 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_backoffice:build-%dep.GGCoreTest_Ggpokeruk_Build.build.number%
+docker pull 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_widget:build-%dep.GGCoreTest_Ggpokeruk_Build.build.number%
+docker pull 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_promotion:build-%dep.GGCoreTest_Ggpokeruk_Build.build.number%
 
-ENV CORECLR_ENABLE_PROFILING=1 \
-CORECLR_PROFILER="{36032161-FFC0-4B61-B559-F6C5D41BAE5A}" \
-CORECLR_NEWRELIC_HOME="/app/newrelic" \
-CORECLR_PROFILER_PATH="/app/newrelic/libNewRelicProfiler.so" \
-NEWRELIC_HOME="/app/newrelic" \
-NEW_RELIC_LICENSE_KEY="6e4918d755b8d41eeeaccc0328c9f417de46073f"
+echo 'Stopping all containers...'
+docker ps --format '{{.Image}} {{.ID}}' | grep "ggpokeruk_" | awk '{print $2}' | xargs -I {} docker stop {}
+# docker stop $(docker ps -aq)
+
+echo 'Removing all containers...'
+docker rm $(docker ps -aq)
+
+echo 'Starting web services'
+docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8013:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_backoffice:build-%dep.GGCoreTest_Ggpokeruk_Build.build.number%
+docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8014:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_widget:build-%dep.GGCoreTest_Ggpokeruk_Build.build.number%
+docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8020:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_promotion:build-%dep.GGCoreTest_Ggpokeruk_Build.build.number%
 ```
-docker build -t nsuslab.ggcore.aspnet.base:3.1-bionic --pull -f Dockerfile.nsuslab.ggcore.aspnet.3.1-bionic .  
->docker rmi nsuslab.ggcore.aspnet.base:3.1-bionic  
-
-#### create nsuslab.ggcore.service docker container 
-vi Dockerfile.nsuslab.ggcore.service  
-```
-FROM nsuslab.ggcore.aspnet.base:3.1-bionic
-WORKDIR /app
-EXPOSE 80
-
-ARG DeployEnvironment
-ENV DeployEnvironment=$DeployEnvironment
-ARG ServiceName
-ENV ServiceName=$ServiceName
-
-COPY ${DeployEnvironment}/${ServiceName} .
-ENTRYPOINT ["dotnet", "${ServiceName}.dll"]
-```
-`GGCore.Backoffice`  
-docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_backoffice:build-770 --build-arg DeployEnvironment=ggpokeruk --build-arg ServiceName=GGCore.Backoffice -f Dockerfile.nsuslab.ggcore.service .  
-docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8013:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_backoffice:build-770  
-
-`GGCore.Web.Widget`  
-docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_widget:build-770 --build-arg DeployEnvironment=ggpokeruk --build-arg ServiceName=GGCore.Web.Widget -f Dockerfile.nsuslab.ggcore.service .  
-docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8014:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_widget:build-770  
-
-#### create nsuslab.ggcore.service.agent docker container 
-vi Dockerfile.nsuslab.ggcore.service.agent
-```
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.5-bionicdocker  AS base
-WORKDIR /app
-EXPOSE 80
-EXPOSE 443
-
-ARG DeployEnvironment
-ENV DeployEnvironment=$DeployEnvironment
-ARG ServiceName
-ENV ServiceName=$ServiceName
-
-COPY ${DeployEnvironment}/${ServiceName}/publish .
-ENTRYPOINT ["sh", "-c", "dotnet $ServiceName.dll"]
-```
-
-`GGCore.Web.Promotion`  
-docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_promotion:build-770 --build-arg DeployEnvironment=ggpokeruk --build-arg ServiceName=GGCore.Web.Promotion -f Dockerfile.nsuslab.ggcore.service.agent .  
-docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8020:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_promotion:build-770  
-
-## issue
-
-## Excute
-
-#### build
-docker exec nsuslab.ggcore.build.3.1-bionic sh -c "~/build.GGCore.Frontend.sh ggpokeruk"  
-
-#### deployment
-
-docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_backoffice:build-770 --build-arg DeployEnvironment=ggpokeruk --build-arg ServiceName=GGCore.Backoffice -f Dockerfile.nsuslab.ggcore.service .  
-docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8013:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_backoffice:build-770  
-
-docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_widget:build-770 --build-arg DeployEnvironment=ggpokeruk --build-arg ServiceName=GGCore.Web.Widget -f Dockerfile.nsuslab.ggcore.service .  
-docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8014:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_widget:build-770  
-
-docker build -t 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_promotion:build-770 --build-arg DeployEnvironment=ggpokeruk --build-arg ServiceName=GGCore.Web.Promotion -f Dockerfile.nsuslab.ggcore.service.agent .  
-docker run -d -e ASPNETCORE_ENVIRONMENT=Development -e GGCORE_SERVICE_MODE=GGPOKERUK -p 8020:80 809599471177.dkr.ecr.ap-northeast-1.amazonaws.com/ggcore_ggpokeruk_promotion:build-770  
 
 ## Appendix
 
