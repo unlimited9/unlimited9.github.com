@@ -21,8 +21,8 @@ docker rm $(docker ps -aq -f status=exited)
 
 #### reference.site
 
-- [docker] 도커 환경 정리 커맨드- docker prune 커맨드
-https://knight76.tistory.com/entry/docker-도커-환경-정리-커맨드-docker-prune-커맨드
+- [docker] 도커 환경 정리 커맨드- docker prune 커맨드  
+https://knight76.tistory.com/entry/docker-도커-환경-정리-커맨드-docker-prune-커맨드  
 
 - docker local image 정리  
 https://devnote.niceilm.net/docker-local-image/
