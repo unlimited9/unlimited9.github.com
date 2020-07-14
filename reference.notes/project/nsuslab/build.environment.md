@@ -119,6 +119,8 @@ ENDTIME=$(date +%s)
 echo "It takes $(($ENDTIME - $STARTTIME)) seconds to complete this task..."
 ```
 
+build.GGCore.Frontend.sh ggpokeruk build-test  
+
 ## issue
 
 #### fatal: could not read Username for 'https://github.com': No such device or address
