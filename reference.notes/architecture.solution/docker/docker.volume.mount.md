@@ -85,7 +85,5 @@ https://docs.docker.com/reference/
 * docker volume create  
 https://docs.docker.com/engine/reference/commandline/volume_create/  
 
-* 
-
-+ Docker 컨테이너에 데이터 저장 (볼륨/바인드 마운트)
++ Docker 컨테이너에 데이터 저장 (볼륨/바인드 마운트)  
 https://www.daleseo.com/docker-volumes-bind-mounts/
