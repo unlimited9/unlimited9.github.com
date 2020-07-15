@@ -20,6 +20,9 @@ docker run --name nsuslab.ggcore.mssql \
     microsoft/mssql-server-linux:latest
 ```
 
+docker run --name nsuslab.ggcore.mssql -p 1401:1433 -d -v C:/ggcore/data/mssql:/var/opt/mssql -e ACCEPT_EULA=Y -e MSSQL_SA_PASSWORD=P@ssw0rd --restart=unless-stopped microsoft/mssql-server-linux:latest
+
+
 ## appendix
 
 #### reference.site
