@@ -41,7 +41,7 @@ vi ~/build.GGCore.Frontend.sh
 STARTTIME=$(date +%s)
 
 cd  /pgms/ggcore
-git pull
+git pull origin develop_ggcore
 
 export DeployEnvironment=$1
 
