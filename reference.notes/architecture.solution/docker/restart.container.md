@@ -1,4 +1,4 @@
-# container start at daemon startup
+# container restart at daemon startup
 
 #### --restart option : container auto-start
 
