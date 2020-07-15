@@ -1,17 +1,9 @@
 # Development Environment
 
-## Docker install
-curl -fsSL https://get.docker.com/ | sudo sh  
-sudo usermod -aG docker $USER  
+## Docker install (windows)
 
-sudo vi /etc/docker/daemon.json  
-```
-{
-	"graph": "/data/docker"
-}
-```
-mv /var/lib/docker /data/docker  
-sudo systemctl restart docker  
+## 
+
 
 ## .NET Core SDK : version 3.1 install
 
