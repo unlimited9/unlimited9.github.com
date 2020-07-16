@@ -76,30 +76,8 @@
 
 #### create ASP.NET Core Web Application (Visual studio 2019)
 
-
-#### create ASP.NET Core Web Application (Visual studio 2019)
-
-
-<details>
-<summary>linux</summary>
-<div markdown="1">
-
-1. nodejs(npm)  
-   npm install -g npm  
-1. typescript  
-   npm install -g typescript  
-1. angular  
-   npm i @angular/cli -g  
-1. nodejs(npm)  
-   npm install -g npm  
-1. install vscode
-   npm install -g npm  
-
-</div>
-</details>
-
-
-
+> ref.
+[Dotnet Development Environment at linux](../../environment/personal/nsuslab.dotnet.development.env.md)
 
 
 
