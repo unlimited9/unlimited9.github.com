@@ -74,8 +74,29 @@
 
 ## Create .NET Core Project
 
-##### create ASP.NET Core Web Application (Visual studio 2019)
+#### create ASP.NET Core Web Application (Visual studio 2019)
 
+
+#### create ASP.NET Core Web Application (Visual studio 2019)
+
+
+<details>
+<summary>linux</summary>
+<div markdown="1">
+
+1. nodejs(npm)  
+   npm install -g npm  
+1. typescript  
+   npm install -g typescript  
+1. angular  
+   npm i @angular/cli -g  
+1. nodejs(npm)  
+   npm install -g npm  
+1. install vscode
+   npm install -g npm  
+
+</div>
+</details>
 
 
 
@@ -110,5 +131,12 @@ https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/net-core-net-
 
 * Home > Download > .NET Core > 3.1 > .NET Core 3.1 SDK (v3.1.301) - Linux x64 Binaries
 https://dotnet.microsoft.com/download/dotnet-core/thank-you/sdk-3.1.301-linux-x64-binaries
+
+* Introduction to the Angular Docs  
+https://angular.io/docs  
+
++ 앵귤러 튜토리얼 (Angular tutorial) - 1  
+https://lts0606.tistory.com/112?category=711929  
+
 
 
