@@ -181,9 +181,9 @@ vi ~/build.GGCore.Frontend.sh
 #!/bin/sh
 STARTTIME=$(date +%s)
 
-cd ~/repo
+#docker exec nsuslab.ggcore.build.3.1-bionic sh -c "~/build.GGCore.Frontend.sh $1"
 
-docker exec nsuslab.ggcore.build.3.1-bionic sh -c "~/build.GGCore.Frontend.sh $1"
+cd ~/repo
 
 cat <<EOT > .dockerignore
 **
