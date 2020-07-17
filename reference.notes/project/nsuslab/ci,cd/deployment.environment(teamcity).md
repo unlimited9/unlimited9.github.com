@@ -3,10 +3,13 @@
 ## Dependency
 
 #### Dependent Build
-Build Configurations > Dependency :  On the Dependencies page, click Edit Artifact Dependency
+~~Build Configurations > Dependency :  On the Dependencies page, click Add new artifact dependency  
 Depend on: GGCore-TEST / GGPOKERUK / Build  
 Get artifacts from: Latest successful build  
-Artifacts rules: NuGet.config  
+Artifacts rules: NuGet.config~~
+
+Build Configurations > Dependency :  On the Dependencies page, click Add new snapshot dependency  
+Depend on: GGCore-TEST / GGPOKERUK / Build  
 
 #### SSH Keys Management
 SSH private key into a project  
@@ -14,7 +17,7 @@ SSH private key into a project
 `Uploading SSH Key to TeamCity Server`  
 Project Settings > SSH Keys : On the SSH Keys page, click Upload SSH Key.  
 
-#### teancity SSH Exec
+#### teamcity SSH Exec
 `Deployment Target`  
 Target: 13.230.138.165  
 
