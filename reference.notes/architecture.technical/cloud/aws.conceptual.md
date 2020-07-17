@@ -1,5 +1,12 @@
 # AWS 
 
+Region
+
+VPC(Virtual Private Cloud)
+AZ(Available Zone)  
+
+vpc-ggcore-dev
+
 
 ## trouble-shooting
 
