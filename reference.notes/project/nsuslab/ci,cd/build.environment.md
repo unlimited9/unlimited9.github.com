@@ -54,25 +54,31 @@ dotnet restore "GGCore.Backoffice/GGCore.Backoffice.csproj" --configfile NuGet.c
 dotnet restore "GGCore.Web.Widget/GGCore.Web.Widget.csproj" --configfile NuGet.config
 dotnet restore "src/Services/GGCore.Web.Promotion/GGCore.Web.Promotion.csproj"
 
-dotnet restore "GGCore.Guardian/GGCore.Guardian.csproj"
+#dotnet restore "GGCore.Guardian/GGCore.Guardian.csproj"
 
 cd /pgms/ggcore/GGCore.Backoffice
 dotnet build "GGCore.Backoffice.csproj" -c Release -o /app/$DeployEnvironment/GGCore.Backoffice
+if [ $? -ne 0 ] ; then exit 1 ; fi
 dotnet publish "GGCore.Backoffice.csproj" -c Release -o /app/$DeployEnvironment/GGCore.Backoffice
+if [ $? -ne 0 ] ; then exit 1 ; fi
 
 cd /pgms/ggcore/GGCore.Web.Widget
 dotnet build "GGCore.Web.Widget.csproj" -c Release -o /app/$DeployEnvironment/GGCore.Web.Widget
+if [ $? -ne 0 ] ; then exit 1 ; fi
 dotnet publish "GGCore.Web.Widget.csproj" -c Release -o /app/$DeployEnvironment/GGCore.Web.Widget
+if [ $? -ne 0 ] ; then exit 1 ; fi
 cp -R Scripts /app/$DeployEnvironment/GGCore.Web.Widget/Scripts
 cp -R static /app/$DeployEnvironment/GGCore.Web.Widget/static
 
 cd /pgms/ggcore/src/Services/GGCore.Web.Promotion
 dotnet build "GGCore.Web.Promotion.csproj" -c Release -o /app/$DeployEnvironment/GGCore.Web.Promotion/build
+if [ $? -ne 0 ] ; then exit 1 ; fi
 dotnet publish "GGCore.Web.Promotion.csproj" -c Release -o /app/$DeployEnvironment/GGCore.Web.Promotion/publish
+if [ $? -ne 0 ] ; then exit 1 ; fi
 
-cd /pgms/ggcore/src/Services/GGCore.Guardian
-dotnet build "GGCore.Guardian.csproj" -c Release -o /app/$DeployEnvironment/GGCore.Guardian/build
-dotnet publish "GGCore.Guardian.csproj" -c Release -o /app/$DeployEnvironment/GGCore.Guardian/publish
+#cd /pgms/ggcore/GGCore.Guardian
+#dotnet build "GGCore.Guardian.csproj" -c Release -o /app/$DeployEnvironment/GGCore.Guardian/build
+#dotnet publish "GGCore.Guardian.csproj" -c Release -o /app/$DeployEnvironment/GGCore.Guardian/publish
 
 
 ENDTIME=$(date +%s)
