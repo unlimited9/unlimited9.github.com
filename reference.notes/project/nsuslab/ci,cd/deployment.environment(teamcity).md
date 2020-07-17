@@ -1,6 +1,6 @@
 # Nsuslab ggcore deployment
 
-## Dependency
+## teamcity config
 
 #### Dependent Build
 ~~Build Configurations > Dependency :  On the Dependencies page, click Add new artifact dependency  
@@ -17,7 +17,7 @@ SSH private key into a project
 `Uploading SSH Key to TeamCity Server`  
 Project Settings > SSH Keys : On the SSH Keys page, click Upload SSH Key.  
 
-#### teamcity SSH Exec
+#### SSH Exec
 `Deployment Target`  
 Target: 13.230.138.165  
 
