@@ -29,6 +29,9 @@ ng new --collection=@angular/bazel
 
 #### reference.site
 
+* Bazel 
+https://www.bazel.build/
+
 * Installing Bazel on Ubuntu  
 https://docs.bazel.build/versions/master/install-ubuntu.html  
 
