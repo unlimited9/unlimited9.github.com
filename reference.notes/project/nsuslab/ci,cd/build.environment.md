@@ -228,3 +228,7 @@ build.GGCore.Frontend.sh ggpokeruk build-test
 
 - 올바른 Dockerfile 작성을 위한 가이드라인  
 https://swalloow.github.io/dockerfile-ignore/  
+
+* Angular / ng 빌드  
+https://angular.io/cli/build  
+
