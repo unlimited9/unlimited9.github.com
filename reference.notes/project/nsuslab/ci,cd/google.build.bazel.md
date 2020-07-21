@@ -24,4 +24,4 @@ export PATH="$PATH:/apps/bazel/3.4.1/bin"
 #### reference.site
 
 * Installing Bazel on Ubuntu  
-https://docs.bazel.build/versions/3.4.0/install-ubuntu.html  
+https://docs.bazel.build/versions/master/install-ubuntu.html  
