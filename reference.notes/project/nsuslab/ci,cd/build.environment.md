@@ -16,6 +16,7 @@ apt-get install -y net-tools iproute2 vim
 
 `install node.js`  
 export NODE_VERSION=12.18.2  
+>export NODE_VERSION=10.16.0  
 curl -SL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz" --output nodejs.tar.gz \  
     && tar -xzf "nodejs.tar.gz" -C /usr/local --strip-components=1 \  
     && rm nodejs.tar.gz \  
