@@ -18,6 +18,13 @@ vi ~/.bashrc
 export PATH="$PATH:/apps/bazel/3.4.1/bin"
 ```
 
+# Bazel and Angular
+
+npm install -g @angular/bazel  
+ng new --collection=@angular/bazel
+
+## Build.bazel
+
 
 ## appendix
 
