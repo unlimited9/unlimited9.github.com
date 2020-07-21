@@ -4,7 +4,7 @@
 
 #### create container dotnet.core sdk : nsuslab.ggcore.build.3.1-bionic
 docker run -d -it -v /home/ubuntu/repo/app:/app -v /home/ubuntu/repo/pgms:/pgms --name nsuslab.ggcore.build.3.1-bionic --restart=unless-stopped mcr.microsoft.com/dotnet/core/sdk:3.1-bionic  
->docker run -d -it -v C:/repo/pgms/app:/app -v C:/repo/pgms:/pgms --name nsuslab.ggcore.build.3.1-bionic --restart=unless-stopped mcr.microsoft.com/dotnet/core/sdk:3.1-bionic  
+>docker run -d -it -v C:/repo/app:/app -v C:/repo/pgms:/pgms --name nsuslab.ggcore.build.3.1-bionic --restart=unless-stopped mcr.microsoft.com/dotnet/core/sdk:3.1-bionic  
 
 #### build container environment 
 docker exec -it nsuslab.ggcore.build.3.1-bionic /bin/bash
