@@ -20,8 +20,13 @@ export PATH="$PATH:/apps/bazel/3.4.1/bin"
 
 # Bazel and Angular
 
+npm install -g @angular/cli@next  
 npm install -g @angular/bazel  
-ng new --collection=@angular/bazel
+
+> ng new --collection=@angular/bazel  
+ng new bazel-angular  
+ng add @angular/bazel@next  
+
 
 ## Build.bazel
 
