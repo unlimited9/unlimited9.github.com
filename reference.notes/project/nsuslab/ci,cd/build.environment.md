@@ -5,6 +5,7 @@
 #### create container dotnet.core sdk : nsuslab.ggcore.build.3.1-bionic
 docker run -d -it -v /home/ubuntu/repo/app:/app -v /home/ubuntu/repo/pgms:/pgms --name nsuslab.ggcore.build.3.1-bionic --restart=unless-stopped mcr.microsoft.com/dotnet/core/sdk:3.1-bionic  
 >docker run -d -it -v C:/repo/app:/app -v C:/repo/pgms:/pgms --name nsuslab.ggcore.build.3.1-bionic --restart=unless-stopped mcr.microsoft.com/dotnet/core/sdk:3.1-bionic  
+>docker run -d -it -v C:/repo/app:/app -v C:/repo/pgms:/pgms --name nsuslab.ggcore.build.3.1-bionic -p 22:22--restart=unless-stopped mcr.microsoft.com/dotnet/core/sdk:3.1-bionic  
 
 #### build container environment 
 docker exec -it nsuslab.ggcore.build.3.1-bionic /bin/bash
@@ -218,7 +219,19 @@ echo "It takes $(($ENDTIME - $STARTTIME)) seconds to complete this task..."
 
 build.GGCore.Frontend.sh ggpokeruk build-test  
 
-##
+## others
+
+#### install openssh-server
+>apt update -y  
+apt-get install openssh-server  
+
+service ssh start  
+>systemctl start ssh  
+
+netstat -tnlp
+
+systemctl start openssh-server   또는   service openssh-server start
+
 
 
 
@@ -231,4 +244,8 @@ https://swalloow.github.io/dockerfile-ignore/
 
 * Angular / ng 빌드  
 https://angular.io/cli/build  
+
+* [Linux] Ubuntu 18.04 SSH서버 구축하기 및 SSH Root 계정 접속 설정 (Ubuntu OpenSSH Server)  
+https://antdev.tistory.com/48  
+
 
