@@ -219,31 +219,6 @@ echo "It takes $(($ENDTIME - $STARTTIME)) seconds to complete this task..."
 
 build.GGCore.Frontend.sh ggpokeruk build-test  
 
-## others
-
-#### install openssh-server
->apt update -y  
-
-apt-get install openssh-server  
-
-service ssh start  
->systemctl start ssh  
-
-netstat -tnlp  
-
-#### set configuration 
-vi /etc/ssh/sshd_config
-```
-#PermitRootLogin prohibit-password
-PermitRootLogin yes
-...
-#PasswordAuthentication yes
-PasswordAuthentication yes
-``` 
-service ssh restart  
->systemctl restart ssh  
-
-
 ## Appendix
 
 #### reference.site
@@ -253,8 +228,5 @@ https://swalloow.github.io/dockerfile-ignore/
 
 * Angular / ng 빌드  
 https://angular.io/cli/build  
-
-* [Linux] Ubuntu 18.04 SSH서버 구축하기 및 SSH Root 계정 접속 설정 (Ubuntu OpenSSH Server)  
-https://antdev.tistory.com/48  
 
 
