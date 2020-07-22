@@ -23,9 +23,34 @@ export PATH="$PATH:/apps/bazel/3.4.1/bin"
 npm install -g @angular/cli@next  
 npm install -g @angular/bazel  
 
-> ng new --collection=@angular/bazel  
+> ng new bazel-angular --collection=@angular/bazel  
 ng new bazel-angular  
-ng add @angular/bazel@next  
+ng add @angular/bazel  
+
+```
+Installing packages for tooling via npm.
+An unhandled exception occurred: npm WARN @angular/bazel@9.1.12 requires a peer of @angular/compiler-cli@9.1.12 but none is installed. You must install peer dependencies yourself.
+npm WARN @angular/bazel@9.1.12 requires a peer of @bazel/typescript@>=1.0.0 but none is installed. You must install peer dependencies yourself.
+npm WARN @angular/bazel@9.1.12 requires a peer of rollup-plugin-commonjs@>=9.0.0 but none is installed. You must install peer dependencies yourself.
+npm WARN @angular/bazel@9.1.12 requires a peer of rollup-plugin-node-resolve@>=4.2.0 but none is installed. You must install peer dependencies yourself.
+npm WARN @angular/bazel@9.1.12 requires a peer of rollup-plugin-sourcemaps@>=0.4.0 but none is installed. You must install peer dependencies yourself.
+npm WARN tsickle@0.38.1 requires a peer of typescript@~3.8.2 but none is installed. You must install peer dependencies yourself.
+
+npm ERR! code ENOENT
+npm ERR! syscall rename
+npm ERR! path /pgms/temp/GGCore.Backoffice/ClientApp/node_modules/ngx-bootstrap
+npm ERR! dest /pgms/temp/GGCore.Backoffice/ClientApp/node_modules/.ngx-bootstrap.DELETE
+npm ERR! errno -2
+npm ERR! enoent ENOENT: no such file or directory, rename '/pgms/temp/GGCore.Backoffice/ClientApp/node_modules/ngx-bootstrap' -> '/pgms/temp/GGCore.Backoffice/ClientApp/node_modules/.ngx-bootstrap.DELETE'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2020-07-22T07_55_56_070Z-debug.log
+Package install failed, see above.
+See "/tmp/ng-1VMXfF/angular-errors.log" for further details.
+```
+
 
 
 ## Build.bazel
