@@ -223,16 +223,25 @@ build.GGCore.Frontend.sh ggpokeruk build-test
 
 #### install openssh-server
 >apt update -y  
+
 apt-get install openssh-server  
 
 service ssh start  
 >systemctl start ssh  
 
-netstat -tnlp
+netstat -tnlp  
 
-systemctl start openssh-server   또는   service openssh-server start
-
-
+#### set configuration 
+vi /etc/ssh/sshd_config
+```
+#PermitRootLogin prohibit-password
+PermitRootLogin yes
+...
+#PasswordAuthentication yes
+PasswordAuthentication yes
+``` 
+service ssh restart  
+>systemctl restart ssh  
 
 
 ## Appendix
