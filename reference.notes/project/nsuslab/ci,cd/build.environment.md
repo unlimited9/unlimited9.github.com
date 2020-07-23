@@ -53,7 +53,9 @@ git pull
 git checkout origin/develop_ggcore  
 
 `create build script`  
-vi ~/build.GGCore.Frontend.sh  
+vi /pgms/script/build.GGCore.Frontend.sh  
+>vi ~/build.GGCore.Frontend.sh  
+
 ```
 #!/bin/sh
 STARTTIME=$(date +%s)
@@ -102,8 +104,13 @@ if [ $? -ne 0 ] ; then exit 1 ; fi
 ENDTIME=$(date +%s)
 echo "It takes $(($ENDTIME - $STARTTIME)) seconds to complete this task..."
 ```
-chmod +x ~/build.GGCore.Frontend.sh  
-~/build.GGCore.Frontend.sh ggpokeruk  
+
+chmod +x /pgms/script/build.GGCore.Frontend.sh  
+/pgms/script/build.GGCore.Frontend.sh ggpokeruk  
+
+>chmod +x ~/build.GGCore.Frontend.sh  
+>~/build.GGCore.Frontend.sh ggpokeruk  
+
 <<<<<<<<<<<<<<<<<<<<
 
 docker exec nsuslab.ggcore.build.3.1-bionic sh -c "~/build.GGCore.Frontend.sh ggpokeruk"  
