@@ -57,9 +57,28 @@ Package install failed, see above.
 See "/tmp/ng-1VMXfF/angular-errors.log" for further details.
 ```
 
-
-
 ## Build.bazel
+
+#### bazelbuild / rules_nodejs
+
+mkdir rules_nodejs.git  
+cd rules_nodejs.git/  
+
+git init  
+git remote add origin https://github.com/bazelbuild/rules_nodejs.git  
+git pull  
+git checkout origin/master  
+
+npm install --global yarn  
+
+yarn  
+yarn build  
+
+sudo apt install g++ unzip zip  
+
+ng serve  
+
+
 
 ## appendix
 
