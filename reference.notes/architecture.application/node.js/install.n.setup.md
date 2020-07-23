@@ -1,66 +1,70 @@
+# Node.js
 
 Node.js는 V8이라는 구글에서 개발한 고성능 자바스크립트 엔진으로 빌드된 서버 사이드 개발용 소프트웨어 플랫폼입니다.
-1. Installation(basic)
 
->> 
+## 1. Installation(basic)
 
-NVM(Node Version Manager) : https://github.com/creationix/nvm
-Install script
+#### NVM(Node Version Manager) : https://github.com/creationix/nvm
+`Install script`  
 To install or update nvm, you can use the install script using cURL
-     $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-or Wget:
-     $ wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-설치가 되면 ~/.bash_profile, ~/.zshrc, ~/.profile 등의 프로파일에 nvm.sh이 실행되도록 다음 스크립트가 추가됩니다.
+$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash  
+
+or Wget:  
+$ wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash  
+
+설치가 되면 ~/.bash_profile, ~/.zshrc, ~/.profile 등의 프로파일에 nvm.sh이 실행되도록 다음 스크립트가 추가됩니다.  
+```
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-Verify installation
+```
+
+`Verify installation`  
 $ command -v nvm
-Node.js : https://nodejs.org/en/
-Node 버전 설치
-$ nvm install <version> # ex> nvm install 8.11.4
 
-# 설치된 Node 버전 목록 확인
-$ nvm ls
+#### Node.js : https://nodejs.org/en/
+`Node 버전 설치`  
+$ nvm install <version> # ex> nvm install 8.11.4  
 
-# 사용할 Node 설정
-$ nvm use <version> # ex> nvm use 8.9.4
-$ nvm use <alias> # ex> nvm use default
+`설치된 Node 버전 목록 확인`  
+$ nvm ls  
 
-# 사용할 alias 설정
-$ nvm alias <alias> <version> # ex> nvm alias test-v 8.9.4
+`사용할 Node 설정`  
+$ nvm use <version> # ex> nvm use 8.9.4  
+$ nvm use <alias> # ex> nvm use default  
 
-# Node 삭제
-$ nvm uninstall <version> # ex> nvm uninstall 8.9.4 
+`사용할 alias 설정`  
+$ nvm alias <alias> <version> # ex> nvm alias test-v 8.9.4  
 
-Verify installation
-$ command -v nvm
-2. Development Environment (eclipse)
+`Node 삭제`  
+$ nvm uninstall <version> # ex> nvm uninstall 8.9.4  
 
->> 
+`Verify installation`  
+$ command -v nvm  
 
-Eclipse Install : http://www.eclipse.org/downloads/
-Package Install
--. Eclipse IDE for Java EE Developers (recommended)
-   or Eclipse IDE for JavaScript and Web Developers
-3. Create Project (JavaScript)
+## Development Environment (eclipse)
 
->> 
+#### Eclipse Install : http://www.eclipse.org/downloads/
+`Package Install`  
+Eclipse IDE for Java EE Developers (recommended)  
+>or Eclipse IDE for JavaScript and Web Developers  
 
-Create Project
-File > New > Project > JavaScript > JavaScript Project
-Project Name : prj.surface
-Encoding setup
+#### Create Project (JavaScript)
+
+`Create Project`  
+File > New > Project > JavaScript > JavaScript Project  
+Project Name : prj.surface  
+`Encoding setup`  
 Window > Preferences > General > Workspace > Text file encoding : UTF-8  
-NPM Initialize
-File > New > Other... > JavaScript > npm Init
-Node.js Module Install
-open terminal
-add/create eclipse external script : run a program
-Run > External Tools > External Tools Configurations
-   Project Name : terminalOpen
-   Location : /usr/bin/xfce4-terminal
-   Working Directory : ${resource_loc}
-Express Module 
+`NPM Initialize`  
+File > New > Other... > JavaScript > npm Init  
+`Node.js Module Install`  
+1. open terminal  
+  - add/create eclipse external script : run a program  
+    Run > External Tools > External Tools Configurations  
+      Project Name : terminalOpen  
+      Location : /usr/bin/xfce4-terminal  
+      Working Directory : ${resource_loc}  
+2. Express Module 
 # Express : 웹 요청을 처리
 # Realm : 데이터베이스 활용
 # EJS(Embedded JavaScript) : 템플릿 처리
