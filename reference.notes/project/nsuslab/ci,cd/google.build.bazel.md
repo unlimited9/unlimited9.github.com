@@ -20,12 +20,14 @@ export PATH="$PATH:/apps/bazel/3.4.1/bin"
 
 # Bazel and Angular
 
-npm install -g @angular/cli@next  
-npm install -g @angular/bazel  
+npm install -g @angular/cli  
+> error sh: 1: node: Permission denied  
+npm install --unsafe-perm -g @angular/cli  
 
+#### create angular project
 > ng new bazel-angular --collection=@angular/bazel  
-ng new bazel-angular  
-ng add @angular/bazel  
+ng new angular-bazel  
+ng add @angular/bazel   
 
 ```
 Installing packages for tooling via npm.
@@ -41,7 +43,11 @@ npm ERR! syscall rename
 npm ERR! path /pgms/temp/GGCore.Backoffice/ClientApp/node_modules/ngx-bootstrap
 npm ERR! dest /pgms/temp/GGCore.Backoffice/ClientApp/node_modules/.ngx-bootstrap.DELETE
 npm ERR! errno -2
-npm ERR! enoent ENOENT: no such file or directory, rename '/pgms/temp/GGCore.Backoffice/ClientApp/node_modules/ngx-bootstrap' -> '/pgms/temp/GGCore.Backoffice/ClientApp/node_modules/.ngx-bootstrap.DELETE'
+npm ERR! enoent ENOENT: no such file or directory, rena​
+32
+ng new bazel-angular  
+33
+ng add @angular/bazel  me '/pgms/temp/GGCore.Backoffice/ClientApp/node_modules/ngx-bootstrap' -> '/pgms/temp/GGCore.Backoffice/ClientApp/node_modules/.ngx-bootstrap.DELETE'
 npm ERR! enoent This is related to npm not being able to find a file.
 npm ERR! enoent 
 
