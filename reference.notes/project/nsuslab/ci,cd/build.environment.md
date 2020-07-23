@@ -16,14 +16,27 @@ docker exec -it nsuslab.ggcore.build.3.1-bionic /bin/bash
 apt update  
 apt-get install -y net-tools iproute2 vim  
 
-`install node.js`  
-export NODE_VERSION=12.18.2  
->export NODE_VERSION=10.16.0  
+`install NVM(Node Version Manager)`  
+https://github.com/creationix/nvm  
 
-curl -SL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz" --output nodejs.tar.gz \  
-    && tar -xzf "nodejs.tar.gz" -C /usr/local --strip-components=1 \  
-    && rm nodejs.tar.gz \  
-    && ln -s /usr/local/bin/node /usr/local/bin/nodejs  
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash  
+source ~/.bashrc  
+
+`install Node.js`  
+https://nodejs.org/en/  
+
+nvm install 10.16.0  
+> nvm install 12.18.2  
+
+$ nvm use 10.16.0
+
+>export NODE_VERSION=12.18.2  
+>>export NODE_VERSION=10.16.0  
+>
+>curl -SL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz" --output nodejs.tar.gz \  
+>    && tar -xzf "nodejs.tar.gz" -C /usr/local --strip-components=1 \  
+>    && rm nodejs.tar.gz \  
+>    && ln -s /usr/local/bin/node /usr/local/bin/nodejs  
 
 npm install -g npm  
 
