@@ -14,11 +14,13 @@ $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh 
 or Wget:  
 $ wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash  
 
-설치가 되면 ~/.bash_profile, ~/.zshrc, ~/.profile 등의 프로파일에 nvm.sh이 실행되도록 다음 스크립트가 추가됩니다.  
+설치가 되면 ~/.bashrc, ~/.bash_profile, ~/.zshrc, ~/.profile 등의 프로파일에 nvm.sh이 실행되도록 다음 스크립트가 추가됩니다.  
 ```
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 ```
+
+$ source ~/.bashrc  
 
 `Verify installation`  
 $ command -v nvm
