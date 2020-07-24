@@ -76,12 +76,8 @@ git checkout origin/master
 npm install --global yarn  
 
 yarn  
-yarn build  
-
-sudo apt install g++ unzip zip  
 
 ng serve  
-
 
 
 ## appendix
@@ -94,5 +90,8 @@ https://www.bazel.build/
 * Installing Bazel on Ubuntu  
 https://docs.bazel.build/versions/master/install-ubuntu.html  
 
-+ Angular + Bazel : 준비 중!
+* bazelbuild / rules_nodejs  
+https://github.com/bazelbuild/rules_nodejs  
+
++ Angular + Bazel : 준비 중!  
 https://dev.to/thisdotmedia/angular-bazel-getting-ready-4b0i
