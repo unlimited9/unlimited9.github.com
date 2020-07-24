@@ -9,14 +9,18 @@ sudo apt install g++ unzip zip
 #### Step 2: Run the installer
 'download the Bazel binary installer named bazel-<version>-installer-linux-x86_64.sh from the Bazel releases page on GitHub.' : https://github.com/bazelbuild/bazel/releases  
 
+cd /apps/install  
+wget https://github.com/bazelbuild/bazel/releases/download/3.4.1/bazel-3.4.1-installer-linux-x86_64.sh  
 chmod +x bazel-3.4.1-installer-linux-x86_64.sh  
 ./bazel-3.4.1-installer-linux-x86_64.sh --prefix=/apps/bazel/3.4.1  
 
-vi ~/.bashrc
+vi ~/.bashrc  
 ```
 ...
 export PATH="$PATH:/apps/bazel/3.4.1/bin"
 ```
+
+source ~/.bashrc  
 
 # Bazel and Angular
 
