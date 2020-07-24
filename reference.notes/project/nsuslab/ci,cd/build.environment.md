@@ -7,6 +7,7 @@ docker run -d -it -v /home/ubuntu/repo/app:/app -v /home/ubuntu/repo/pgms:/pgms 
 >docker run -d -it -v C:/repo/app:/app -v C:/repo/pgms:/pgms --name nsuslab.ggcore.build.3.1-bionic --restart=unless-stopped mcr.microsoft.com/dotnet/core/sdk:3.1-bionic  
 >docker run -d -it -v C:/repo/app:/app -v C:/repo/pgms:/pgms --name nsuslab.ggcore.build.3.1-bionic -p 22:22--restart=unless-stopped mcr.microsoft.com/dotnet/core/sdk:3.1-bionic  
 >docker run -d -it --name nsuslab.ggcore.build.3.1-bionic -p 22:22 -p 80:8080 --restart=unless-stopped mcr.microsoft.com/dotnet/core/sdk:3.1-bionic  
+>docker run -d -it --name nsuslab.ggcore.build.3.1-bionic -p 80:8080 --restart=unless-stopped mcr.microsoft.com/dotnet/core/sdk:3.1-bionic  
 
 #### build container environment 
 docker exec -it nsuslab.ggcore.build.3.1-bionic /bin/bash
