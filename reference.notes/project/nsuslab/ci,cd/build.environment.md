@@ -15,7 +15,7 @@ docker exec -it nsuslab.ggcore.build.3.1-bionic /bin/bash
 
 <<<<<<<<<<<<<<<<<<<<  
 `install packages`  
-apt update  
+apt update -y  
 apt-get install -y net-tools iproute2 vim  
 
 `install NVM(Node Version Manager)`  
