@@ -32,7 +32,6 @@ npm install --unsafe-perm -g @angular/cli
 > ng new bazel-angular --collection=@angular/bazel  
 ng new angular-bazel  
 ng add @angular/bazel   
-
 ```
 Installing packages for tooling via npm.
 An unhandled exception occurred: npm WARN @angular/bazel@9.1.12 requires a peer of @angular/compiler-cli@9.1.12 but none is installed. You must install peer dependencies yourself.
@@ -60,6 +59,7 @@ npm ERR!     /root/.npm/_logs/2020-07-22T07_55_56_070Z-debug.log
 Package install failed, see above.
 See "/tmp/ng-1VMXfF/angular-errors.log" for further details.
 ```
+ng build --leaveBazelFilesOnDisk  
 
 ## Build.bazel
 
