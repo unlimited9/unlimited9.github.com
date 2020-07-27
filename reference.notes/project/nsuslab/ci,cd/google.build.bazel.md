@@ -1,5 +1,7 @@
 # Installing Bazel on Ubuntu
 
+bazel is coordination tool!!!
+
 ## Using the binary installer
 
 #### Step 1: Install required packages
@@ -32,34 +34,24 @@ npm install --unsafe-perm -g @angular/cli
 > ng new bazel-angular --collection=@angular/bazel  
 ng new angular-bazel  
 ng add @angular/bazel   
-```
-Installing packages for tooling via npm.
-An unhandled exception occurred: npm WARN @angular/bazel@9.1.12 requires a peer of @angular/compiler-cli@9.1.12 but none is installed. You must install peer dependencies yourself.
-npm WARN @angular/bazel@9.1.12 requires a peer of @bazel/typescript@>=1.0.0 but none is installed. You must install peer dependencies yourself.
-npm WARN @angular/bazel@9.1.12 requires a peer of rollup-plugin-commonjs@>=9.0.0 but none is installed. You must install peer dependencies yourself.
-npm WARN @angular/bazel@9.1.12 requires a peer of rollup-plugin-node-resolve@>=4.2.0 but none is installed. You must install peer dependencies yourself.
-npm WARN @angular/bazel@9.1.12 requires a peer of rollup-plugin-sourcemaps@>=0.4.0 but none is installed. You must install peer dependencies yourself.
-npm WARN tsickle@0.38.1 requires a peer of typescript@~3.8.2 but none is installed. You must install peer dependencies yourself.
-
-npm ERR! code ENOENT
-npm ERR! syscall rename
-npm ERR! path /pgms/temp/GGCore.Backoffice/ClientApp/node_modules/ngx-bootstrap
-npm ERR! dest /pgms/temp/GGCore.Backoffice/ClientApp/node_modules/.ngx-bootstrap.DELETE
-npm ERR! errno -2
-npm ERR! enoent ENOENT: no such file or directory, rena​
-32
-ng new bazel-angular  
-33
-ng add @angular/bazel  me '/pgms/temp/GGCore.Backoffice/ClientApp/node_modules/ngx-bootstrap' -> '/pgms/temp/GGCore.Backoffice/ClientApp/node_modules/.ngx-bootstrap.DELETE'
-npm ERR! enoent This is related to npm not being able to find a file.
-npm ERR! enoent 
-
-npm ERR! A complete log of this run can be found in:
-npm ERR!     /root/.npm/_logs/2020-07-22T07_55_56_070Z-debug.log
-Package install failed, see above.
-See "/tmp/ng-1VMXfF/angular-errors.log" for further details.
-```
 ng build --leaveBazelFilesOnDisk  
+
+vi src/BUILD.bazel
+```
+...
+ng_module(
+    name = "src",
+    srcs = glob(
+    ...
+    ),
+    tsconfig = ":tsconfig.json",
+    assets = glob([
+    ...
+    ]) + ([":styles"] if len(glob(["**/*.scss"])) else []),
+    ...
+)
+...
+```
 
 ## Build.bazel
 
@@ -79,6 +71,49 @@ yarn
 
 ng serve  
 
+
+#### WORKSPACE : 환경 설정
+```
+# 이름과 npm directories
+workspace (
+    name = "bazel-sample"
+    managed_directories = { "@npm": "node_modules"]}
+)
+
+# ESModule imports (and TypeScript imports) can be absolute starting with the workspace name.
+# nodejs의 bazel rule을 다운로드한다. typescript, karma, protractor 등의 기본 규칙이 들어 있다.
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+RULES_NODEJS_VERSION = "1.6.0"
+RULES_NODEJS_SHA256 = "f9e7b9f42ae202cc2d2ce6d698ccb49a9f7f7ea572a78fd451696d03ef2ee116"
+http_archive(
+    name = "build_bazel_rules_nodejs",
+    sha256 = RULES_NODEJS_SHA256,
+    url = "https://github.com/bazelbuild/rules_nodejs/releases/download/%s/rules_nodejs-%s.tar.gz" % (RULES_NODEJS_VERSION, RULES_NODEJS_VERSION),
+)
+
+# Rules for compiling sass
+RULES_SASS_VERSION = "1.24.0"
+RULES_SASS_SHA256 = "77e241148f26d5dbb98f96fe0029d8f221c6cb75edbb83e781e08ac7f5322c5f"
+http_archive(
+    name = "io_bazel_rules_sass",
+    sha256 = RULES_SASS_SHA256,
+    strip_prefix = "rules_sass-%s" % RULES_SASS_VERSION,
+    urls = [
+        "https://github.com/bazelbuild/rules_sass/archive/%s.zip" % RULES_SASS_VERSION,
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_sass/archive/%s.zip" % RULES_SASS_VERSION,
+    ],
+)
+
+load ( "@ build_bazel_rules_nodejs // : index.bzl", "node_repositories", "yarn_install")
+
+node_repositories (...)
+yarn_install (...)
+여기서 node를 Isolate 환경에서 설치하여 yarn 설치를합니다. 이 단계 node의 버전 등 package.json 파일을 지정할 수도 있습니다.
+
+
+
+```
 
 ## appendix
 
