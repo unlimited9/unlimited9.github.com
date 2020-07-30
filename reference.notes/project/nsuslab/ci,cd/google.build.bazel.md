@@ -128,5 +128,8 @@ https://docs.bazel.build/versions/master/install-ubuntu.html
 * bazelbuild / rules_nodejs  
 https://github.com/bazelbuild/rules_nodejs  
 
+* angular / angular-bazel-example  
+https://github.com/angular/angular-bazel-example  
+
 + Angular + Bazel : 준비 중!  
 https://dev.to/thisdotmedia/angular-bazel-getting-ready-4b0i
