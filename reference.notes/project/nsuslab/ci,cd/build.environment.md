@@ -29,6 +29,7 @@ https://nodejs.org/en/
 
 nvm install 10.16.0  
 > nvm install 12.18.2  
+> nvm install --lts  
 
 $ nvm use 10.16.0
 
