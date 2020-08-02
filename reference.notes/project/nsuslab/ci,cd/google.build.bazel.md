@@ -131,5 +131,8 @@ https://github.com/bazelbuild/rules_nodejs
 * angular / angular-bazel-example  
 https://github.com/angular/angular-bazel-example  
 
++ BAZEL FOR WASSIM CHEGHAM PRESENTS ANGULAR DEVELOPERS  
+https://slides.com/wassimchegham/bazel-for-angular-developers-angular-in-depth-2019-ukraine/fullscreen  
+
 + Angular + Bazel : 준비 중!  
 https://dev.to/thisdotmedia/angular-bazel-getting-ready-4b0i
