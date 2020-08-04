@@ -150,4 +150,5 @@ https://velog.io/@tedigom/MSA-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%9D%B4%ED%95%B4%ED%
 + Service Mesh 란?  
 https://medium.com/dtevangelist/service-mesh-%EB%9E%80-8dfafb56fc07  
 
-
++ [MSA] Internal LoadBalancer Service Mesh  
+https://waspro.tistory.com/434  
