@@ -726,6 +726,8 @@ https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/
 * Installing Addons  
 https://kubernetes.io/docs/concepts/cluster-administration/addons/
 
+* Documentation  
+https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/  
 
 + kubernetes를 이용한 서비스 무중단 배포  
 http://tech.kakao.com/2018/12/24/kubernetes-deploy/
