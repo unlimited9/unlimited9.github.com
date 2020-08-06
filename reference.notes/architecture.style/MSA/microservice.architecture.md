@@ -138,11 +138,14 @@ CI/CD는 어플리케이션 개발 단계를 자동화하여, 어플리케이션
 
 #### reference site
 
+* What are microservices?  
+https://microservices.io/  
+
 + Building Microservices: Using an API Gateway  
-https://www.nginx.com/blog/building-microservices-using-an-api-gateway/
+https://www.nginx.com/blog/building-microservices-using-an-api-gateway/  
 
 +  마이크로서비스 Microservices (2) API 게이트웨이  
-https://futurecreator.github.io/2018/09/14/microservices-with-api-gateway/
+https://futurecreator.github.io/2018/09/14/microservices-with-api-gateway/  
 
 +  MSA 제대로 이해하기 -(4)Service Mesh  
 https://velog.io/@tedigom/MSA-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-4Service-Mesh-f8k317qn1b  
