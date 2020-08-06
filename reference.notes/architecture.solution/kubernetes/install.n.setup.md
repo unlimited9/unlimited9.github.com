@@ -111,6 +111,8 @@ $ sudo apt install kubelet kubeadm kubectl kubernetes-cni
 >```
 >E: The repository 'https://apt.kubernetes.io kubernetes-bionic Release' does not have a Release file
 >```
+>$ vi /etc/apt/sources.list
+>
 
 #### centos
 $ sudo vi /etc/yum.repos.d/kubernetes.repo
