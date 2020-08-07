@@ -5,6 +5,9 @@ kubectl apply -f https://download.elastic.co/downloads/eck/1.2.0/all-in-one.yaml
 
 kubectl -n elastic-system logs -f statefulset.apps/elastic-operator  
 
+`remove`  
+kubectl delete -f https://download.elastic.co/downloads/eck/1.2.0/all-in-one.yaml  
+
 #### Deploy an Elasticsearch cluster  
 ```
 cat <<EOF | kubectl apply -f -
