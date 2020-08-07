@@ -1,4 +1,4 @@
-# Configuring the kubernetes environment
+# Configuring environment : kubernetes 
 
 #### install kubernetes/docker  
 `on linux`  
