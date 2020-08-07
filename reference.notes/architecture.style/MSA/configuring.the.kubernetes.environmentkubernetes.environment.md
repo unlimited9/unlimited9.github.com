@@ -23,15 +23,15 @@ Start-process -NoNewWindow linkerd dashboard
 `on kubernetes cluster`  
   - [ECK 설치](/reference.notes/architecture.solution/elasticsearch/install.ECK_elastic.cloud.on.kubernetes_.md)  
 
-`Elasticsearch cluster`  
+`Elasticsearch cluster : ggid`  
 _> on linux_  
-kubectl port-forward service/quickstart-es-http 9200 &  
+kubectl port-forward service/ggid-es-http 9200 &  
 _> on windows_  
-Start-process -NoNewWindow powershell { kubectl port-forward service/quickstart-es-http 9200 }  
+Start-process -NoNewWindow powershell { kubectl port-forward service/ggid-es-http 9200 }  
 
 `Kibana`  
 _> on linux_  
-kubectl port-forward service/quickstart-kb-http 5601 &  
+kubectl port-forward service/ggid-kb-http 5601 &  
 _> on windows_  
-Start-process -NoNewWindow powershell { kubectl port-forward service/quickstart-kb-http 5601 }  
+Start-process -NoNewWindow powershell { kubectl port-forward service/ggid-kb-http 5601 }  
 
