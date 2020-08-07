@@ -1,6 +1,6 @@
 ## Add service to linkerd service mesh
 
-#### 
+#### linkerd inject
 cat service.yaml | linkerd inject - | kubectl apply -f -  
 
 >linkerd injected
