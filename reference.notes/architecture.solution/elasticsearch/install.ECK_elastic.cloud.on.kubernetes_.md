@@ -72,6 +72,53 @@ kubectl port-forward service/quickstart-es-http 9200
 
 curl -u "elastic:$PASSWORD" -k "https://localhost:9200"  
 
+`remove`  
+```
+cat <<EOF | kubectl delete -f -
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: quickstart
+spec:
+  version: 7.8.1
+  nodeSets:
+  - name: default
+    count: 1
+    config:
+      node.master: true
+      node.data: true
+      node.ingest: true
+      node.store.allow_mmap: false
+EOF
+```
+
+<details>
+<summary>create yaml file</summary>
+<div markdown="1">
+
+```
+cat <<EOF > elasticsearch.yaml
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: quickstart
+spec:
+  version: 7.8.1
+  nodeSets:
+  - name: default
+    count: 1
+    config:
+      node.master: true
+      node.data: true
+      node.ingest: true
+      node.store.allow_mmap: false
+EOF
+```
+kubectl delete -f elasticsearch.yaml  
+
+</div>
+</details>
+
 #### Deploy a Kibana instance  
 ```
 cat <<EOF | kubectl apply -f -
@@ -122,6 +169,42 @@ kubectl port-forward service/quickstart-kb-http 5601
 
 kubectl get secret quickstart-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo  
 >7G5tHn3J781Qc8x4d26rotkK  
+
+`remove`  
+```
+cat <<EOF | kubectl delete -f -
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: quickstart
+spec:
+  version: 7.8.1
+  count: 1
+  elasticsearchRef:
+    name: quickstart
+EOF
+```
+<details>
+<summary>create yaml file</summary>
+<div markdown="1">
+
+```
+cat <<EOF > kibana.yaml
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: quickstart
+spec:
+  version: 7.8.1
+  count: 1
+  elasticsearchRef:
+    name: quickstart
+EOF
+```
+kubectl delete -f kibana.yaml  
+
+</div>
+</details>
 
 #### Upgrade your deployment  
 ```
