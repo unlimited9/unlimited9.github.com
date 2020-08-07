@@ -2,8 +2,8 @@
 
 #### kubernetes/docker install
 `on linux`  
-- [Install and setup](/reference.notes/architecture.solution/kubernetes/install.n.setup.md) ([install script](architecture.solution/kubernetes/install.n.setup.script.md)) : Kubernetes(Docker orchestration and clustering) 설치  
-- [Install and setup HA, multi-master](architecture.solution/kubernetes/master.node.cluster.ha.md) : Marster HA 구성  
+- [Install and setup](/reference.notes/architecture.solution/kubernetes/install.n.setup.md) ([install script](/reference.notes/architecture.solution/kubernetes/install.n.setup.script.md)) : Kubernetes(Docker orchestration and clustering) 설치  
+- [Install and setup HA, multi-master](/reference.notes/architecture.solution/kubernetes/master.node.cluster.ha.md) : Marster HA 구성  
 
 `on windows`  
 
