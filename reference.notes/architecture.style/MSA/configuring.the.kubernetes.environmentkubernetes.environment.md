@@ -13,14 +13,16 @@
   - [Linkerd(service mesh for kubernetes) 설치](/reference.notes/architecture.solution/linkerd/install.and.setup.md)  
   - [Linkerd(service mesh)에 서비스 추가/주입](/reference.notes/architecture.solution/linkerd/add.service.to.linkerd.service.mesh.md)  
 
+`linkerd dashboard`  
+linkerd dashboard
 
 #### install ECK(elastic cloud on kubernetes)
 `on kubernetes cluster`  
   - [ECK 설치](/reference.notes/architecture.solution/elasticsearch/install.ECK_elastic.cloud.on.kubernetes_.md)  
 
+`Elasticsearch cluster`  
 kubectl port-forward service/quickstart-es-http 9200  
+
+`Kibana`  
 kubectl port-forward service/quickstart-kb-http 5601  
 
----
-2020.08.06
----
