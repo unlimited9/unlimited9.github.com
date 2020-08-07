@@ -53,5 +53,8 @@ Target :
 
 #### reference.site
 
++ 아마존 웹 서비스(AWS, Amazon Web Serivces)란?  
+https://www.44bits.io/ko/keyword/amazon-web-service  
+
 + 만들면서 배우는 아마존 버추얼 프라이빗 클라우드(Amazon VPC)  
 https://www.44bits.io/ko/post/understanding_aws_vpc  
