@@ -22,19 +22,3 @@ Start-process -NoNewWindow linkerd dashboard
 #### install ECK(elastic cloud on kubernetes)
 `on kubernetes cluster`  
   - [ECK 설치](/reference.notes/architecture.solution/elasticsearch/install.ECK_elastic.cloud.on.kubernetes_.md)  
-
-`Elasticsearch cluster : ggid`  
-_get password_  
-$(kubectl get secret ggid-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
-
-_> on linux_  
-kubectl port-forward service/ggid-es-http 9200 &  
-_> on windows_  
-Start-process -NoNewWindow powershell { kubectl port-forward service/ggid-es-http 9200 }  
-
-`Kibana`  
-_> on linux_  
-kubectl port-forward service/ggid-kb-http 5601 &  
-_> on windows_  
-Start-process -NoNewWindow powershell { kubectl port-forward service/ggid-kb-http 5601 }  
-
