@@ -14,9 +14,9 @@
   - [Linkerd(service mesh)에 서비스 추가/주입](/reference.notes/architecture.solution/linkerd/add.service.to.linkerd.service.mesh.md)  
 
 `linkerd dashboard`  
-_on linux_  
+_> on linux_  
 linkerd dashboard &  
-_on windows_  
+_> on windows_  
 Start-process -NoNewWindow linkerd dashboard
 
 #### install ECK(elastic cloud on kubernetes)
@@ -30,8 +30,8 @@ _> on windows_
 Start-process -NoNewWindow kubectl port-forward service/quickstart-es-http 9200
 
 `Kibana`  
-_on linux_  
+_> on linux_  
 kubectl port-forward service/quickstart-kb-http 5601  
-_on windows_  
+_> on windows_  
 Start-process -NoNewWindow kubectl kubectl port-forward service/quickstart-kb-http 5601  
 
