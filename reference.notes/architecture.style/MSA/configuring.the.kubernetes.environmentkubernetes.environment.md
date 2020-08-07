@@ -33,5 +33,5 @@ Start-process -NoNewWindow powershell { kubectl port-forward service/quickstart-
 _> on linux_  
 kubectl port-forward service/quickstart-kb-http 5601 &  
 _> on windows_  
-Start-process -NoNewWindow powershell { kubectl kubectl port-forward service/quickstart-kb-http 5601 }  
+Start-process -NoNewWindow powershell { kubectl port-forward service/quickstart-kb-http 5601 }  
 
