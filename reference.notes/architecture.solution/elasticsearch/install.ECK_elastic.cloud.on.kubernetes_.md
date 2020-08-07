@@ -24,6 +24,33 @@ spec:
       node.store.allow_mmap: false
 EOF
 ```
+<details>
+<summary>create yaml file</summary>
+<div markdown="1">
+
+```
+cat <<EOF > elasticsearch.yaml
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: quickstart
+spec:
+  version: 7.8.1
+  nodeSets:
+  - name: default
+    count: 1
+    config:
+      node.master: true
+      node.data: true
+      node.ingest: true
+      node.store.allow_mmap: false
+EOF
+```
+kubectl apply -f elasticsearch.yaml  
+
+</div>
+</details>
+
 >linkerd inject :  
 >‼ no supported objects found  
 >elasticsearch "quickstart" skipped  
@@ -59,6 +86,28 @@ spec:
     name: quickstart
 EOF
 ```
+<details>
+<summary>create yaml file</summary>
+<div markdown="1">
+
+```
+cat <<EOF > kibana.yaml
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: quickstart
+spec:
+  version: 7.8.1
+  count: 1
+  elasticsearchRef:
+    name: quickstart
+EOF
+```
+kubectl apply -f kibana.yaml  
+
+</div>
+</details>
+
 >linkerd inject :  
 >‼ no supported objects found  
 >kibana "quickstart" skipped  
