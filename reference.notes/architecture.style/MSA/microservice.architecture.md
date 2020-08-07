@@ -5,9 +5,9 @@ MSA is a style of architecture that defines and creates systems through the use 
 
 ## Introduction
 
-#### inner architecture
+#### Inner architecture
 
-#### outer architecture
+#### Outer architecture
 1. External Gateway  
 2. Service Mesh  
 3. Container Management  
