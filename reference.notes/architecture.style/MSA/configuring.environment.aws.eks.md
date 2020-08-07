@@ -36,8 +36,18 @@ subnet-ggid-dev-2b
 subnet-ggid-dev-2d
 10.0.4.0/24
 
+#### create internet gateway
+igw-ggid-dev  
 
+`Attach to VPC`  
+Status : detached  
+Actions/Attach to VPC > select VPC, Attach click  
 
+#### set route table
+
+select VPC > Routes Tab > Edit Routes > Add Route  
+Destination : 0.0.0.0/0
+Target : 
 
 ## appendix
 
