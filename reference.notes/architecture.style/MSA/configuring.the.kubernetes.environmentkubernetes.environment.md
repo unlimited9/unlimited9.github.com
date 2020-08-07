@@ -27,11 +27,11 @@ Start-process -NoNewWindow linkerd dashboard
 _> on linux_  
 kubectl port-forward service/quickstart-es-http 9200 &  
 _> on windows_  
-Start-process -NoNewWindow kubectl port-forward service/quickstart-es-http 9200
+Start-process -NoNewWindow powershell { kubectl port-forward service/quickstart-es-http 9200 }  
 
 `Kibana`  
 _> on linux_  
-kubectl port-forward service/quickstart-kb-http 5601  
+kubectl port-forward service/quickstart-kb-http 5601 &  
 _> on windows_  
-Start-process -NoNewWindow kubectl kubectl port-forward service/quickstart-kb-http 5601  
+Start-process -NoNewWindow powershell { kubectl kubectl port-forward service/quickstart-kb-http 5601 }  
 
