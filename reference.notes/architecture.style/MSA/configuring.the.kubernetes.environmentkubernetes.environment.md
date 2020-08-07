@@ -24,6 +24,9 @@ Start-process -NoNewWindow linkerd dashboard
   - [ECK 설치](/reference.notes/architecture.solution/elasticsearch/install.ECK_elastic.cloud.on.kubernetes_.md)  
 
 `Elasticsearch cluster : ggid`  
+_get password_  
+$(kubectl get secret ggid-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
+
 _> on linux_  
 kubectl port-forward service/ggid-es-http 9200 &  
 _> on windows_  
