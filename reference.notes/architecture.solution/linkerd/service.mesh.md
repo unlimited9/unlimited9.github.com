@@ -46,6 +46,9 @@ linkerd -n emojivoto stat deploy
 linkerd -n emojivoto top deploy  
 linkerd -n emojivoto tap deploy/web  
 
+#### remove linkerd
+linkerd install --ignore-cluster | kubectl delete -f -
+
 ## appendix
 
 #### reference.site
