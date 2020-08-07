@@ -1,6 +1,6 @@
-# configuring.environment : AWS EKS
+# configuring.environment : AWS VPC
 
-## Network
+## AWS VPC
 
 #### 기본 VPC의 구성 요소들  
 `VPC`  
