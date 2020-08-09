@@ -59,5 +59,4 @@ https://www.44bits.io/ko/keyword/amazon-web-service
 + 만들면서 배우는 아마존 버추얼 프라이빗 클라우드(Amazon VPC)  
 https://www.44bits.io/ko/post/understanding_aws_vpc  
 
-+EKS Cluster 구축 - 2. VPC, Subnet, IAM, EKS Cluster 생성  
-https://aws-diary.tistory.com/44?category=7  
+
