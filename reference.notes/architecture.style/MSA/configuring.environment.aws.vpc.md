@@ -24,17 +24,17 @@
 `사설망 대역` : 10.0.0.0/8, 172.16.0.0/12,  192.168.0.0/16  
 
 vpc-ggid-dev  
-10.0.0.0/16  
+10.251.0.0/16
 
 `set vpc`  
 select vpc host, Actions/Edit DNS Hostnames > DNS hostname enable check  
 
 #### create subnet  
 subnet-ggid-dev-2b
-10.0.2.0/24
+10.251.32.0/24
 
 subnet-ggid-dev-2d
-10.0.4.0/24
+10.251.96.0/24
 
 #### create internet gateway
 igw-ggid-dev  
@@ -47,7 +47,7 @@ Actions/Attach to VPC > select VPC, Attach click
 
 select VPC > Routes Tab > Edit Routes > Add Route  
 Destination : 0.0.0.0/0
-Target : 
+Target : Internet Gateway > igw-ggid-dev  
 
 ## appendix
 
@@ -58,3 +58,6 @@ https://www.44bits.io/ko/keyword/amazon-web-service
 
 + 만들면서 배우는 아마존 버추얼 프라이빗 클라우드(Amazon VPC)  
 https://www.44bits.io/ko/post/understanding_aws_vpc  
+
++EKS Cluster 구축 - 2. VPC, Subnet, IAM, EKS Cluster 생성  
+https://aws-diary.tistory.com/44?category=7  
