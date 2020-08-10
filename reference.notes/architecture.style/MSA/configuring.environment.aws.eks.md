@@ -180,7 +180,10 @@ eksctl-ggid-dev-nodegroup-ggid-dev-workers-b3:44:2c:73:8b:31:78:7c:e4:4a:d0:aa:a
 6. 원격 액세스 권한 허용 대상
 sg-0b162e7f6b62da13c
 7. Kubernetes 레이블 (0)
+owned
 8. 태그 (0)
+Key : kubernetes.io/cluster/<cluster-name>
+Value : owned
 
 `2단계: 컴퓨팅 구성 설정`  
 노드 컴퓨팅 구성  
@@ -198,7 +201,7 @@ t3.medium
 2. 최대 크기  
 4 노드  
 3. 원하는 크기  
-3 노드  
+2 노드  
 
 
 
