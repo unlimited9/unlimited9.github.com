@@ -70,7 +70,12 @@ https://www.44bits.io/ko/keyword/amazon-web-service
 + 만들면서 배우는 아마존 버추얼 프라이빗 클라우드(Amazon VPC)  
 https://www.44bits.io/ko/post/understanding_aws_vpc  
 
-+ + [AWS] EKS 세팅하기  
+
++ AWS Network 기본 구성 구축 - 2 (Subnet, NAT, Route Table)  
+https://aws-diary.tistory.com/8?category=753069  
+
++ [AWS] EKS 세팅하기  
 https://kscory.com/dev/aws/eks-setup  
+
 
 
