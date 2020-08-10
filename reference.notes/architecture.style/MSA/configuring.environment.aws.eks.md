@@ -41,6 +41,21 @@ You can now run: /usr/local/bin/aws --version
 
 <<<<<<<<<<<<<<<<<<<<
 
+#### EKS 권한 생성  
+`role-ggid-dev-eks-cluster`  
+```
+aws iam attach-role-policy --role-name eks-cluster-role --policy-arn arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
+aws iam attach-role-policy --role-name eks-cluster-role --policy-arn arn:aws:iam::aws:policy/AmazonEKSServicePolicy
+```
+
+`role-ggid-dev-eks-worker`  
+```
+aws iam attach-role-policy --role-name role-ggid-dev-eks-worker --policy-arn arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+aws iam attach-role-policy --role-name role-ggid-dev-eks-worker --policy-arn arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+aws iam attach-role-policy --role-name role-ggid-dev-eks-worker --policy-arn arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
+aws iam attach-role-policy --role-name role-ggid-dev-eks-worker --policy-arn arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+aws iam attach-role-policy --role-name role-ggid-dev-eks-worker --policy-arn arn:aws:iam::aws:policy/AmazonRoute53FullAccess
+```
 
 
 Service mesh : AWS App Mesh
