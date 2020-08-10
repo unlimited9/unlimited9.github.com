@@ -170,40 +170,24 @@ ggid-dev
 `1단계: 노드 그룹 구성`  
 1. Name : ggid-dev-worker-node  
 2. Node IAM Role : ggid-dev-eks-worker-role  
-3. Subnet : 
-subnet-0785faca258774d83  
-subnet-000329fe214537363  
-4. 노드에 대한 원격 액세스 허용: 
-활성화됨
-5. SSH 키 페어
-eksctl-ggid-dev-nodegroup-ggid-dev-workers-b3:44:2c:73:8b:31:78:7c:e4:4a:d0:aa:ae:55:59:23
-6. 원격 액세스 권한 허용 대상
-sg-0b162e7f6b62da13c
+3. Subnet : subnet-0785faca258774d83, subnet-000329fe214537363  
+4. 노드에 대한 원격 액세스 허용: 활성화됨  
+5. SSH 키 페어 : eksctl-ggid-dev-nodegroup-ggid-dev-workers-b3:44:2c:73:8b:31:78:7c:e4:4a:d0:aa:ae:55:59:23
+6. 원격 액세스 권한 허용 대상 : sg-0b162e7f6b62da13c
 7. Kubernetes 레이블 (0)
-owned
-8. 태그 (0)
-Key : kubernetes.io/cluster/<cluster-name>
-Value : owned
+8. 태그 (1) : kubernetes.io/cluster/ggid-dev : owned
 
 `2단계: 컴퓨팅 구성 설정`  
 노드 컴퓨팅 구성  
-1. AMI 유형  
-Amazon Linux 2 (AL2_x86_64)  
-2. 인스턴스 유형 
-t3.medium  
-3. 디스크 크기  
-20  
+1. AMI 유형 : Amazon Linux 2 (AL2_x86_64)  
+2. 인스턴스 유형 : t3.medium  
+3. 디스크 크기 : 20  
 
 `3단계: 조정 구성 설정`  
 그룹 크기  
-1. 최소 크기  
-1 노드  
-2. 최대 크기  
-4 노드  
-3. 원하는 크기  
-2 노드  
-
-
+1. 최소 크기 : 1 노드  
+2. 최대 크기 : 4 노드  
+3. 원하는 크기 : 2 노드  
 
 
 Service mesh : AWS App Mesh
