@@ -78,6 +78,10 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
 >Destination : 0.0.0.0/0
 >Target : Internet Gateway > igw-ggid-dev  
 
+#### EIP
+
+#### NAT Gateway
+
 #### ref. cloudformation 사용  
 `Amazon EKS 클러스터용 VPC 생성`  
 https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/create-public-private-vpc.html  
