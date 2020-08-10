@@ -64,7 +64,7 @@ VPC : vpc-ggid-dev
 1. Name : rtb-ggid-dev-public  
 VPC : vpc-ggid-dev  
 IPv4 CIDR : 10.251.0.0/24  
-Subnet Connect : subnet-ggid-dev-2a, subnet-ggid-dev-2b
+Subnet Connect : subnet-ggid-dev-2a, subnet-ggid-dev-2b  
 `select Routes Tab > Edit Routes > Add Route`  
 Destination : 0.0.0.0/0  
 Target : Internet Gateway > igw-ggid-dev  
@@ -72,7 +72,7 @@ Target : Internet Gateway > igw-ggid-dev
 2. Name : rtb-ggid-dev-private  
 VPC : vpc-ggid-dev  
 IPv4 CIDR : 10.251.0.0/24  
-Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
+Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d  
 
 >select VPC > Routes Tab > Edit Routes > Add Route  
 >Destination : 0.0.0.0/0
