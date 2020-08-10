@@ -32,18 +32,22 @@ select vpc host, Actions/Edit DNS Hostnames > DNS hostname enable check
 #### create subnet  
 
 1. Name : subnet-ggid-dev-2a  
+VPC : vpc-ggid-dev  
 IPv4 CIDR : 10.251.0.0/24  
 AZ : ap-northeast-2a  
 
 2. Name : subnet-ggid-dev-2b  
+VPC : vpc-ggid-dev  
 IPv4 CIDR : 10.251.32.0/24  
 AZ : ap-northeast-2b  
 
 3. Name : subnet-ggid-dev-2c  
+VPC : vpc-ggid-dev  
 IPv4 CIDR : 10.251.640/24  
 AZ : ap-northeast-2c  
 
 4. Name : subnet-ggid-dev-2d  
+VPC : vpc-ggid-dev  
 IPv4 CIDR : 10.251.96.0/24  
 AZ : ap-northeast-2d  
 
@@ -53,17 +57,22 @@ igw-ggid-dev
 `Attach to VPC`  
 Status : detached  
 Actions/Attach to VPC > select VPC, Attach click  
+VPC : vpc-ggid-dev  
 
 #### create route table
 
-1. Name : rt-ggid-dev-public  
+1. Name : rtb-ggid-dev-public  
+VPC : vpc-ggid-dev  
 IPv4 CIDR : 10.251.0.0/24  
+Subnet Connect : subnet-ggid-dev-2a, subnet-ggid-dev-2b
 `select Routes Tab > Edit Routes > Add Route`  
 Destination : 0.0.0.0/0  
 Target : Internet Gateway > igw-ggid-dev  
 
-2. Name : rt-ggid-dev-private  
+2. Name : rtb-ggid-dev-private  
+VPC : vpc-ggid-dev  
 IPv4 CIDR : 10.251.0.0/24  
+Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
 
 >select VPC > Routes Tab > Edit Routes > Add Route  
 >Destination : 0.0.0.0/0
