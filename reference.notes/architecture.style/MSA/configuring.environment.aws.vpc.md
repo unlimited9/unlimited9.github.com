@@ -30,11 +30,22 @@ vpc-ggid-dev
 select vpc host, Actions/Edit DNS Hostnames > DNS hostname enable check  
 
 #### create subnet  
-subnet-ggid-dev-2b
-10.251.32.0/24
 
-subnet-ggid-dev-2d
-10.251.96.0/24
+1. Name : subnet-ggid-dev-2a  
+IPv4 CIDR : 10.251.0.0/24  
+AZ : ap-northeast-2a  
+
+2. Name : subnet-ggid-dev-2b  
+IPv4 CIDR : 10.251.32.0/24  
+AZ : ap-northeast-2b  
+
+3. Name : subnet-ggid-dev-2c  
+IPv4 CIDR : 10.251.640/24  
+AZ : ap-northeast-2c  
+
+4. Name : subnet-ggid-dev-2d  
+IPv4 CIDR : 10.251.96.0/24  
+AZ : ap-northeast-2d  
 
 #### create internet gateway
 igw-ggid-dev  
@@ -43,11 +54,20 @@ igw-ggid-dev
 Status : detached  
 Actions/Attach to VPC > select VPC, Attach click  
 
-#### set route table
+#### create route table
 
-select VPC > Routes Tab > Edit Routes > Add Route  
-Destination : 0.0.0.0/0
+1. Name : rt-ggid-dev-public  
+IPv4 CIDR : 10.251.0.0/24  
+`select Routes Tab > Edit Routes > Add Route`  
+Destination : 0.0.0.0/0  
 Target : Internet Gateway > igw-ggid-dev  
+
+2. Name : rt-ggid-dev-private  
+IPv4 CIDR : 10.251.0.0/24  
+
+>select VPC > Routes Tab > Edit Routes > Add Route  
+>Destination : 0.0.0.0/0
+>Target : Internet Gateway > igw-ggid-dev  
 
 #### ref. cloudformation 사용  
 `Amazon EKS 클러스터용 VPC 생성`  
