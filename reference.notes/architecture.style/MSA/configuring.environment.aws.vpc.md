@@ -49,6 +49,17 @@ select VPC > Routes Tab > Edit Routes > Add Route
 Destination : 0.0.0.0/0
 Target : Internet Gateway > igw-ggid-dev  
 
+#### ref. cloudformation 사용  
+`Amazon EKS 클러스터용 VPC 생성`  
+https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/create-public-private-vpc.html  
+
+>https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-06-10/amazon-eks-vpc-private-subnets.yaml  
+>https://amazon-eks.s3-us-west-2.amazonaws.com/cloudformation/2019-09-27/amazon-eks-vpc-sample.yaml  
+
+`AWS CloudFormation`  
+https://console.aws.amazon.com/cloudformation/  
+
+
 ## appendix
 
 #### reference.site
@@ -58,5 +69,8 @@ https://www.44bits.io/ko/keyword/amazon-web-service
 
 + 만들면서 배우는 아마존 버추얼 프라이빗 클라우드(Amazon VPC)  
 https://www.44bits.io/ko/post/understanding_aws_vpc  
+
++ + [AWS] EKS 세팅하기  
+https://kscory.com/dev/aws/eks-setup  
 
 
