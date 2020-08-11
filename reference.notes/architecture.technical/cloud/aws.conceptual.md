@@ -14,6 +14,9 @@ vpc-ggcore-dev
 
 #### reference
 
++ 아마존 웹 서비스(AWS, Amazon Web Serivces)란?  
+https://www.44bits.io/ko/keyword/amazon-web-service  
+
 + AWS cloud / AWS 아키텍처 - ncloud24  
 https://www.ncloud24.com/aws/about/aws_architecture.php
 
