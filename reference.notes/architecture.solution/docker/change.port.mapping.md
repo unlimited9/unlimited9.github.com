@@ -28,6 +28,30 @@ Step 3: Edit the  _hostconfig.json_  file as shown below
 ...,"NetworkMode":"mobon.subnet","PortBindings":{"8080/tcp":[{"HostIp":"","HostPort":"8080"}],"8443/tcp":[{"HostIp":"","HostPort":"8443"}]},"RestartPolicy":...
 ```
 
+#### example  
+docker stop 0a9dd8ac57d0  
+
+>sudo systemctl stop docker  
+
+sudo vi /storage/data/docker/containers/0a9dd8ac57d037c887a415e4c626682b4c3bc1546afa410a2669f690061548b4/config.v2.json  
+```
+...
+,"ExposedPorts":{"8080/tcp":{},"8443/tcp":{},"50750/tcp":{}},
+...
+,"Ports":{"8080/tcp":[{"HostIp":"","HostPort":"8080"}],"8443/tcp":[{"HostIp":"","HostPort":"8443"}],"50750/tcp":[{"HostIp":"","HostPort":"50750"}]},
+...
+```
+sudo vi /storage/data/docker/containers/0a9dd8ac57d037c887a415e4c626682b4c3bc1546afa410a2669f690061548b4/hostconfig.json  
+```
+...
+,"PortBindings":{"8080/tcp":[{"HostIp":"","HostPort":"8080"}],"8443/tcp":[{"HostIp":"","HostPort":"8443"}],"50750/tcp":[{"HostIp":"","HostPort":"50750"}]},
+...
+```
+>sudo systemctl start docker  
+
+docker start 0a9dd8ac57d0  
+
+
 #### ref. How do I assign a port mapping to an existing Docker container?  
 https://stackoverflow.com/questions/19335444/how-do-i-assign-a-port-mapping-to-an-existing-docker-container  
 ```
