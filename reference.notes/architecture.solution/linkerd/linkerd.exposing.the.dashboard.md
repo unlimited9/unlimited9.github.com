@@ -30,7 +30,7 @@ metadata:
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
 spec:
   rules:
-    - host: dashboard.example.com
+    - host: dashboard.linkerd.hajimaro.com
       http:
         paths:
           - backend:
