@@ -28,6 +28,23 @@ Step 3: Edit the  _hostconfig.json_  file as shown below
 ...,"NetworkMode":"mobon.subnet","PortBindings":{"8080/tcp":[{"HostIp":"","HostPort":"8080"}],"8443/tcp":[{"HostIp":"","HostPort":"8443"}]},"RestartPolicy":...
 ```
 
+ref. How do I assign a port mapping to an existing Docker container?  
+https://stackoverflow.com/questions/19335444/how-do-i-assign-a-port-mapping-to-an-existing-docker-container  
+```
+You can change the port mapping by directly editing the hostconfig.json file at /var/lib/docker/containers/[hash_of_the_container]/hostconfig.json
+
+You can determine the [hash_of_the_container] via the docker inspect <container_name> command and the value of the "Id" field is the hash.
+
+1) stop the container 
+2) stop docker service (per Tacsiazuma's comment)
+3) change the file
+4) restart your docker engine (to flush/clear config caches)
+5) start the container
+So you don't need to create an image with this approach. You can also change the restart flag here.
+
+P.S. You may visit https://docs.docker.com/engine/admin/ to learn how to correctly restart your docker engine as per your host machine. I used sudo systemctl restart docker to restart my docker engine that is running on Ubuntu 16.04
+```
+
 ## 9. Appendix
 
 #### reference site
