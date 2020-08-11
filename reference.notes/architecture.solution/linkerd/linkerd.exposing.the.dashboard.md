@@ -2,7 +2,7 @@
 
 #### Nginx with basic auth
 
-vi linkerd.ingress.controller.yaml
+vi linkerd.web.ingress.yaml
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -37,6 +37,8 @@ spec:
               serviceName: linkerd-web
               servicePort: 8084
 ```
+kubectl apply -f linkerd.web.ingress  
+
 
 ## appendix
 
