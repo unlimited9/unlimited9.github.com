@@ -3,6 +3,47 @@ Linkerd adds critical security, observability, and reliability features to your 
 
 ##
 
+#### Step 0: Setup
+kubectl version --short  
+
+#### Step 1: Install the CLI
+curl -sL https://run.linkerd.io/install | sh  
+vi ~/.bashrc  
+```
+...
+# linkerd2 cli path
+export PATH=$PATH:$HOME/.linkerd2/bin
+```
+source ~/.bashrc
+
+linkerd version
+
+#### Step 2: Validate your Kubernetes cluster
+linkerd check --pre  
+
+#### Step 3: Install Linkerd onto the cluster
+linkerd install | kubectl apply -f -  
+linkerd check  
+kubectl -n linkerd get deploy  
+
+#### Step 4: Explore Linkerd  
+linkerd dashboard &  
+```
+Linkerd dashboard available at:
+http://localhost:50750
+Grafana dashboard available at:
+http://localhost:50750/grafana
+Opening Linkerd dashboard in the default browser
+Failed to open Linkerd dashboard automatically
+Visit http://localhost:50750 in your browser to view the dashboard
+```
+
+linkerd -n linkerd top deploy/linkerd-web  
+
+<details>
+<summary>on windows/ppwershell</summary>
+<div markdown="1">
+
 #### windows docker/kubernetes setup
 
 `download linkerd-cli`  
@@ -34,6 +75,8 @@ linkerd-web              1/1     1            1           102s
 linkerd dashboard &  
 linkerd -n linkerd top deploy/linkerd-web  
 
+</div>
+</details>
 
 #### install the demo app
 curl -sL https://run.linkerd.io/emojivoto.yml | kubectl apply -f -  
