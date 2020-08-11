@@ -198,33 +198,30 @@ ggid-dev
 2. 최대 크기 : 4 노드  
 3. 원하는 크기 : 2 노드  
 
-#### ref. cloudformation 사용
-`Amazon EKS Linux 작업자 노드 시작`  
-https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/launch-workers.html  
-
-> https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-06-10/amazon-eks-nodegroup.yaml
-> https://amazon-eks.s3-us-west-2.amazonaws.com/cloudformation/2019-09-27/amazon-eks-nodegroup.yaml
-
-`AWS CloudFormation`  
-https://console.aws.amazon.com/cloudformation/  
-
-
-Stack Name : ggid-dev-worker-node  
-#### 파라미터
-`EKS Cluster`  
-EKS Cluster : ggid-dev  
-ClusterControlPlaneSecurityGroup : select  
-
-`Worker Node Configuration`  
-NodeGroupName : ggid-dev-nodegroup  
-KeyName : select  
-
-`Worker Network Configuration`  
-VpcId : select  
-Subnets : select  
-
-
-
+>#### ref. cloudformation 사용
+>`Amazon EKS Linux 작업자 노드 시작`  
+>https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/launch-workers.html  
+>
+>> https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-06-10/amazon-eks-nodegroup.yaml  
+>> https://amazon-eks.s3-us-west-2.amazonaws.com/cloudformation/2019-09-27/amazon-eks-nodegroup.yaml  
+>
+>`AWS CloudFormation`  
+>https://console.aws.amazon.com/cloudformation/  
+>
+>
+>Stack Name : ggid-dev-worker-node  
+>#### 파라미터
+>`EKS Cluster`  
+>EKS Cluster : ggid-dev  
+>ClusterControlPlaneSecurityGroup : select  
+>
+>`Worker Node Configuration`  
+>NodeGroupName : ggid-dev-nodegroup  
+>KeyName : select  
+>
+>`Worker Network Configuration`  
+>VpcId : select  
+>Subnets : select  
 
 ## appendix
 
