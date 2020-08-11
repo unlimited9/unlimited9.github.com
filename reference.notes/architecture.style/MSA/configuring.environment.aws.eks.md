@@ -212,7 +212,7 @@ ssh-keygen -y -f ggid-dev-key-pair.pem > ggid-dev-public-key.pub
 
 `3단계: 조정 구성 설정`  
 그룹 크기  
-1. 최소 크기 : 2 노드  
+1. 최소 크기 : 1 노드  
 2. 최대 크기 : 4 노드  
 3. 원하는 크기 : 2 노드  
 
