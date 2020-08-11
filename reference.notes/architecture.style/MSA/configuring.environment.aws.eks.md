@@ -1,43 +1,5 @@
 # configuring.environment : AWS EKS
 
-
-## Amazon EKS 클러스터용 VPC 생성
-https://console.aws.amazon.com/cloudformation/
-
-## Amazon EKS 클러스터용 VPC 생성
-https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/create-public-private-vpc.html  
-
-https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-06-10/amazon-eks-vpc-private-subnets.yaml
-
-
-Amazon EKS 클러스터용 VPC 생성
-https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/create-public-private-vpc.html
-
-https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-06-10/amazon-eks-vpc-private-subnets.yaml
-https://amazon-eks.s3-us-west-2.amazonaws.com/cloudformation/2019-09-27/amazon-eks-vpc-sample.yaml
-
-AWS CloudFormation
-https://console.aws.amazon.com/cloudformation/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## AWS Network 기본 구성  
 
 [AWS Network 구성](configuring.environment.aws.vpc.md)
@@ -47,7 +9,6 @@ https://console.aws.amazon.com/cloudformation/
 <details>
 <summary>docker container : ubuntu:latest</summary>
 <div markdown="1">
-
 
 #### create container ubuntu:latest
 docker run -d -it --name aws.management.console --restart=unless-stopped ubuntu  
@@ -73,6 +34,7 @@ su - app
 mkdir /pgms/ggcore  
 
 cd /apps/install  
+
 #### AWS CLI 설치  
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"  
 unzip awscliv2.zip  
@@ -111,64 +73,41 @@ aws-iam-authenticator help
 
 aws-iam-authenticator token -i ggid-dev | python3 -m json.tool  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#### Creating, displaying, and deleting Amazon EC2 key pairs  
-`Create a key pair`  
-aws ec2 create-key-pair --key-name ggid-dev-key-pair --query 'KeyMaterial' --output text > ggid-dev-key-pair.pem  
-> on windows  
-> PS C:\>aws ec2 create-key-pair --key-name ggid-dev-key-pair --query 'KeyMaterial' --output text | out-file -encoding ascii -filepath ggid-dev-key-pair.pem  
-
-chmod 400 ggid-dev-key-pair.pem
-
-`Display your key pair`  
-aws ec2 describe-key-pairs --key-name ggid-dev-key-pair  
-
-`Delete your key pair`  
-aws ec2 delete-key-pair --key-name ggid-dev-key-pair  
-
-`Retrieving the public key for your key pair`  
-ssh-keygen -y -f ggid-dev-key-pair.pem > ggid-dev-public-key.pub  
->-bash: ssh-keygen: command not found  
->sudo apt-get install openssh-client  
-
-
-#### Create your Amazon EKS cluster and compute
-eksctl create cluster \
---name ggid-dev \
---version 1.17 \
---region ap-northeast-2 \
---nodegroup-name ggid-dev-workers \
---node-type t3.medium \
---nodes 3 \
---nodes-min 1 \
---nodes-max 4 \
---ssh-access \
---ssh-public-key ggid-dev-public-key.pub \
---managed
+>#### Creating, displaying, and deleting Amazon EC2 key pairs  
+>`Create a key pair`  
+>aws ec2 create-key-pair --key-name ggid-dev-key-pair --query 'KeyMaterial' --output text > ggid-dev-key-pair.pem  
+>> on windows  
+>> PS C:\>aws ec2 create-key-pair --key-name ggid-dev-key-pair --query 'KeyMaterial' --output text | out-file -encoding ascii -filepath ggid-dev-key-pair.pem  
+>
+>chmod 400 ggid-dev-key-pair.pem  
+>
+>`Display your key pair`  
+>aws ec2 describe-key-pairs --key-name ggid-dev-key-pair  
+>
+>`Delete your key pair`  
+>aws ec2 delete-key-pair --key-name ggid-dev-key-pair  
+>
+>`Retrieving the public key for your key pair`  
+>ssh-keygen -y -f ggid-dev-key-pair.pem > ggid-dev-public-key.pub  
+>>-bash: ssh-keygen: command not found  
+>>sudo apt-get install openssh-client  
+>
+>#### Create your Amazon EKS cluster and compute
+>eksctl create cluster \
+>--name ggid-dev \
+>--version 1.17 \
+>--region ap-northeast-2 \
+>--nodegroup-name ggid-dev-workers \
+>--node-type t3.medium \
+>--nodes 3 \
+>--nodes-min 1 \
+>--nodes-max 4 \
+>--ssh-access \
+>--ssh-public-key ggid-dev-public-key.pub \
+>--managed
+>
 
 <<<<<<<<<<<<<<<<<<<<
-
 
 </div>
 </details>
@@ -259,6 +198,7 @@ ggid-dev
 2. 최대 크기 : 4 노드  
 3. 원하는 크기 : 2 노드  
 
+#### ref. cloudformation 사용
 `Amazon EKS Linux 작업자 노드 시작`  
 https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/launch-workers.html  
 
@@ -269,7 +209,20 @@ https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/launch-workers.html
 https://console.aws.amazon.com/cloudformation/  
 
 
-Service mesh : AWS App Mesh
+Stack Name : ggid-dev-worker-node  
+#### 파라미터
+`EKS Cluster`  
+EKS Cluster : ggid-dev  
+ClusterControlPlaneSecurityGroup : select  
+
+`Worker Node Configuration`  
+NodeGroupName : ggid-dev-nodegroup  
+KeyName : select  
+
+`Worker Network Configuration`  
+VpcId : select  
+Subnets : select  
+
 
 
 
