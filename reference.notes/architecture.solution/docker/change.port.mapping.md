@@ -28,7 +28,7 @@ Step 3: Edit the  _hostconfig.json_  file as shown below
 ...,"NetworkMode":"mobon.subnet","PortBindings":{"8080/tcp":[{"HostIp":"","HostPort":"8080"}],"8443/tcp":[{"HostIp":"","HostPort":"8443"}]},"RestartPolicy":...
 ```
 
-ref. How do I assign a port mapping to an existing Docker container?  
+#### ref. How do I assign a port mapping to an existing Docker container?  
 https://stackoverflow.com/questions/19335444/how-do-i-assign-a-port-mapping-to-an-existing-docker-container  
 ```
 You can change the port mapping by directly editing the hostconfig.json file at /var/lib/docker/containers/[hash_of_the_container]/hostconfig.json
