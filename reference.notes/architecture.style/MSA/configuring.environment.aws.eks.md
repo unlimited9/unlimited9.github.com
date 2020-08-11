@@ -75,14 +75,14 @@ aws-iam-authenticator token -i ggid-dev | python3 -m json.tool
 
 >#### Creating, displaying, and deleting Amazon EC2 key pairs  
 >`Create a key pair`  
->aws ec2 create-key-pair --key-name ggid-dev-key-pair --query 'KeyMaterial' --output text > ggid-dev-key-pair.pem  
+>aws ec2 create-key-pair --key-name ggid-dev-eks-key-pair --query 'KeyMaterial' --output text > ggid-dev-eks-key-pair.pem  
 >> on windows  
->> PS C:\>aws ec2 create-key-pair --key-name ggid-dev-key-pair --query 'KeyMaterial' --output text | out-file -encoding ascii -filepath ggid-dev-key-pair.pem  
+>> PS C:\>aws ec2 create-key-pair --key-name ggid-dev-eks-key-pair --query 'KeyMaterial' --output text | out-file -encoding ascii -filepath ggid-dev-eks-key-pair.pem  
 >
->chmod 400 ggid-dev-key-pair.pem  
+>chmod 400 ggid-dev-eks-key-pair.pem  
 >
 >`Display your key pair`  
->aws ec2 describe-key-pairs --key-name ggid-dev-key-pair  
+>aws ec2 describe-key-pairs --key-name ggid-dev-eks-key-pair  
 >
 >`Delete your key pair`  
 >aws ec2 delete-key-pair --key-name ggid-dev-key-pair  
@@ -169,22 +169,40 @@ arn:aws:eks:ap-northeast-2:809599471177:cluster/ggid-dev
 `Cluster IAM Role ARN`  
 arn:aws:iam::809599471177:role/ggid-dev-eks-cluster-role  
 
-
 `EKS Cluster 생성`  
 ggid-dev
 
 
+#### create amazon EC2 key pair
+`Create a key pair`  
+aws ec2 create-key-pair --key-name ggid-dev-eks-key-pair --query 'KeyMaterial' --output text > ggid-dev-eks-key-pair.pem  
+> on windows  
+> PS C:\>aws ec2 create-key-pair --key-name ggid-dev-eks-key-pair --query 'KeyMaterial' --output text | out-file -encoding ascii -filepath ggid-dev-eks-key-pair.pem  
+
+chmod 400 ggid-dev-eks-key-pair.pem  
+
+`Display your key pair`  
+aws ec2 describe-key-pairs --key-name ggid-dev-eks-key-pair  
+
+`Delete your key pair`  
+aws ec2 delete-key-pair --key-name ggid-dev-key-pair  
+
+`Retrieving the public key for your key pair`  
+ssh-keygen -y -f ggid-dev-key-pair.pem > ggid-dev-public-key.pub  
+>-bash: ssh-keygen: command not found  
+>sudo apt-get install openssh-client  
+
 #### Node Group 추가
 
 `1단계: 노드 그룹 구성`  
-1. Name : ggid-dev-worker-node  
+1. Name : ggid-dev-nodegroup
 2. Node IAM Role : ggid-dev-eks-worker-role  
-3. Subnet : subnet-0785faca258774d83, subnet-000329fe214537363  
+3. Subnet : subnet-033ce6ce5ee9e062f, subnet-0464935417e60c7f5, subnet-02f02f65302ed6079, subnet-0d71259cadcd45e93  
 4. 노드에 대한 원격 액세스 허용: 활성화됨  
-5. SSH 키 페어 : eksctl-ggid-dev-nodegroup-ggid-dev-workers-b3:44:2c:73:8b:31:78:7c:e4:4a:d0:aa:ae:55:59:23
-6. 원격 액세스 권한 허용 대상 : sg-0b162e7f6b62da13c
+5. SSH 키 페어 : ggid-dev-eks-key-pair
+6. 원격 액세스 권한 허용 대상 : 모두
 7. Kubernetes 레이블 (0)
-8. 태그 (1) : kubernetes.io/cluster/ggid-dev : owned
+8. 태그 (0)
 
 `2단계: 컴퓨팅 구성 설정`  
 노드 컴퓨팅 구성  
@@ -194,7 +212,7 @@ ggid-dev
 
 `3단계: 조정 구성 설정`  
 그룹 크기  
-1. 최소 크기 : 1 노드  
+1. 최소 크기 : 2 노드  
 2. 최대 크기 : 4 노드  
 3. 원하는 크기 : 2 노드  
 
