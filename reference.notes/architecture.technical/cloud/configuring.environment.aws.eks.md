@@ -241,6 +241,13 @@ ssh-keygen -y -f ggid-dev-key-pair.pem > ggid-dev-public-key.pub
 >VpcId : select  
 >Subnets : select  
 
+
+#### Install(deploy) Nginx Ingress Controller
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.34.1/deploy/static/provider/aws/deploy.yaml
+
+
+
 ## appendix
 
 #### reference.site
@@ -253,3 +260,15 @@ https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/getting-started.html
 
 + [AWS] EKS 세팅하기  
 https://kscory.com/dev/aws/eks-setup  
+
+---
+
+* NGINX Ingress Controller  
+https://github.com/kubernetes/ingress-nginx  
+https://kubernetes.github.io/ingress-nginx/deploy/  
+
++ Amazon EKS에서 NGINX 인 그레스 컨트롤러와 함께 Network Load Balancer 사용  
+https://aws.amazon.com/ko/blogs/opensource/network-load-balancer-nginx-ingress-controller-eks/  
+
+
+
