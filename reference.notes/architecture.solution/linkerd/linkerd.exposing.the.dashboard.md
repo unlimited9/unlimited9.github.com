@@ -39,6 +39,8 @@ spec:
 ```
 kubectl apply -f linkerd.web.ingress  
 
+> This exposes the dashboard at linkerd-dashboard.ggid-dev.ggcore.net and protects it with basic auth using admin/admin. Take a look at the ingress-nginx documentation for details on how to change the username and password.  
+
 
 ## appendix
 
