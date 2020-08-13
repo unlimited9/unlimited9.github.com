@@ -128,6 +128,13 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   자동 할당 IPv6 주소 : 아니요  
   Outpost ID : -  
   소유자 : 809599471177  
+  Tags :  
+    - Name : ggid-dev-eks-public-01  
+    - aws:cloudformation:logical-id : PublicSubnet01  
+    - aws:cloudformation:stack-id : arn:aws:cloudformation:ap-northeast-2:809599471177:stack/ggid-dev-eks-vpc/490aeb40-daf0-11ea-99a4-02380a7bebca  
+    - aws:cloudformation:stack-name : ggid-dev-eks-vpc  
+    - kubernetes.io/cluster/ggid-dev : shared  
+    - kubernetes.io/role/elb : 1  
 
 2. `ggid-dev-eks-public-02`  
   서브넷 ID : subnet-0d71259cadcd45e93  
@@ -144,6 +151,13 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   자동 할당 IPv6 주소 : 아니요  
   Outpost ID : -  
   소유자 : 809599471177  
+  Tags :  
+    - Name : ggid-dev-eks-public-02  
+    - aws:cloudformation:logical-id : PublicSubnet02  
+    - aws:cloudformation:stack-id : arn:aws:cloudformation:ap-northeast-2:809599471177:stack/ggid-dev-eks-vpc/490aeb40-daf0-11ea-99a4-02380a7bebca  
+    - aws:cloudformation:stack-name : ggid-dev-eks-vpc  
+    - kubernetes.io/cluster/ggid-dev : shared  
+    - kubernetes.io/role/elb : 1  
 
 3. `ggid-dev-eks-private-01`  
   서브넷 ID : subnet-0464935417e60c7f5  
@@ -160,6 +174,13 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   자동 할당 IPv6 주소 : 아니요  
   Outpost ID : -  
   소유자 : 809599471177  
+  Tags :  
+    - Name : ggid-dev-eks-private-01  
+    - aws:cloudformation:logical-id : PrivateSubnet01  
+    - aws:cloudformation:stack-id : arn:aws:cloudformation:ap-northeast-2:809599471177:stack/ggid-dev-eks-vpc/490aeb40-daf0-11ea-99a4-02380a7bebca  
+    - aws:cloudformation:stack-name : ggid-dev-eks-vpc  
+    - kubernetes.io/cluster/ggid-dev : shared  
+    - kubernetes.io/role/elb : 1  
 
 4. `ggid-dev-eks-private-02`  
   서브넷 ID : subnet-033ce6ce5ee9e062f  
@@ -176,6 +197,13 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   자동 할당 IPv6 주소 : 아니요  
   Outpost ID : -  
   소유자 : 809599471177  
+  Tags :  
+    - Name : ggid-dev-eks-private-02  
+    - aws:cloudformation:logical-id : PrivateSubnet02  
+    - aws:cloudformation:stack-id : arn:aws:cloudformation:ap-northeast-2:809599471177:stack/ggid-dev-eks-vpc/490aeb40-daf0-11ea-99a4-02380a7bebca  
+    - aws:cloudformation:stack-name : ggid-dev-eks-vpc  
+    - kubernetes.io/cluster/ggid-dev : shared  
+    - kubernetes.io/role/elb : 1  
 
 #### Elastic IP  
 1. `eip-ggid-dev-eks-a`  
@@ -191,7 +219,12 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   퍼블릭 DNS : ec2-13-124-180-186.ap-northeast-2.compute.amazonaws.com  
   NAT 게이트웨이 ID : nat-0d9107e889e4a50b6 (nat-ggid-dev-eks-a)  
   주소 풀 : Amazon  
-
+  Tags :  
+    - aws:cloudformation:logical-id : NatGatewayEIP1  
+    - aws:cloudformation:stack-name : ggid-dev-eks-vpc  
+    - Name : eip-ggid-dev-eks-a  
+    - aws:cloudformation:stack-id : arn:aws:cloudformation:ap-northeast-2:809599471177:stack/ggid-dev-eks-vpc/490aeb40-daf0-11ea-99a4-02380a7bebca  
+    
 2. `eip-ggid-dev-eks-b`  
   할당된 IPv4 주소 : 52.79.136.45  
   유형 : 퍼블릭 IP  
@@ -205,6 +238,11 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   퍼블릭 DNS : ec2-52-79-136-45.ap-northeast-2.compute.amazonaws.com  
   NAT 게이트웨이 ID : nat-0501e6f2eca4a80e6 (nat-ggid-dev-eks-b)  
   주소 풀 : Amazon  
+  Tags :  
+    - aws:cloudformation:logical-id : NatGatewayEIP2  
+    - aws:cloudformation:stack-name : ggid-dev-eks-vpc  
+    - Name : eip-ggid-dev-eks-b  
+    - aws:cloudformation:stack-id : arn:aws:cloudformation:ap-northeast-2:809599471177:stack/ggid-dev-eks-vpc/490aeb40-daf0-11ea-99a4-02380a7bebca  
 
 #### Internet Gateway
 1. `igw-ggid-dev-eks`  
@@ -212,6 +250,11 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   상태 : Attached  
   VPC ID : vpc-084aaffcd29bd5f24 | vpc-ggid-dev-eks  
   소유자 : 809599471177  
+  Tags :  
+    - Name : igw-ggid-dev-eks  
+    - aws:cloudformation:stack-id : arn:aws:cloudformation:ap-northeast-2:809599471177:stack/ggid-dev-eks-vpc/490aeb40-daf0-11ea-99a4-02380a7bebca  
+    - aws:cloudformation:logical-id : InternetGateway  
+    - aws:cloudformation:stack-name : ggid-dev-eks-vpc  
 
 #### NAT Gateway
 1. `nat-ggid-dev-eks-a`  
@@ -225,6 +268,11 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   VPC : vpc-084aaffcd29bd5f24 / vpc-ggid-dev-eks  
   탄력적 IP 주소 : 13.124.180.186  
   서브넷 : subnet-02f02f65302ed6079 / ggid-dev-eks-public-01  
+  Tags :  
+    - aws:cloudformation:stack-name : ggid-dev-eks-vpc  
+    - aws:cloudformation:logical-id : NatGateway01  
+    - aws:cloudformation:stack-id : arn:aws:cloudformation:ap-northeast-2:809599471177:stack/ggid-dev-eks-vpc/490aeb40-daf0-11ea-99a4-02380a7bebca  
+    - Name : nat-ggid-dev-eks-a  
 
 2. `nat-ggid-dev-eks-b`  
   NAT 게이트웨이 ID : nat-0501e6f2eca4a80e6  
@@ -237,6 +285,11 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   VPC : vpc-084aaffcd29bd5f24 / vpc-ggid-dev-eks  
   탄력적 IP 주소 : 52.79.136.45  
   서브넷 : subnet-0d71259cadcd45e93 / ggid-dev-eks-public-02  
+  Tags :  
+    - aws:cloudformation:stack-name : ggid-dev-eks-vpc  
+    - aws:cloudformation:logical-id : NatGateway02  
+    - aws:cloudformation:stack-id : arn:aws:cloudformation:ap-northeast-2:809599471177:stack/ggid-dev-eks-vpc/490aeb40-daf0-11ea-99a4-02380a7bebca  
+    - Name : nat-ggid-dev-eks-b  
 
 #### Routing Table  
 0. ` (default)`  
@@ -254,7 +307,13 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   VPC : vpc-084aaffcd29bd5f24 | vpc-ggid-dev-eks  
   소유자 : 809599471177  
   라우팅 : 10.10.0.0/16 - local, 0.0.0.0/0 - igw-096e40d3280de38ed | igw-ggid-dev-eks  
-
+  Tags :  
+    - Name : rtb-ggid-dev-eks-public  
+    - Network : Public  
+    - aws:cloudformation:logical-id : PublicRouteTable  
+    - aws:cloudformation:stack-id : arn:aws:cloudformation:ap-northeast-2:809599471177:stack/ggid-dev-eks-vpc/490aeb40-daf0-11ea-99a4-02380a7bebca  
+    - aws:cloudformation:stack-name : ggid-dev-eks-vpc  
+  
 2. `rtb-ggid-dev-eks-private-a`  
   라우팅 테이블 ID : rtb-0f85d7b226d80db85  
   기본 : 아니요  
@@ -262,6 +321,12 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   VPC : vpc-084aaffcd29bd5f24 | vpc-ggid-dev-eks  
   소유자 : 809599471177  
   라우팅 : 10.10.0.0/16 - local, 0.0.0.0/0 - nat-0d9107e889e4a50b6 | nat-ggid-dev-eks-a  
+  Tags :  
+    - Name :  rtb-ggid-dev-eks-private-a    
+    - Network : Private01  
+    - aws:cloudformation:logical-id : PrivateRouteTable01  
+    - aws:cloudformation:stack-id : arn:aws:cloudformation:ap-northeast-2:809599471177:stack/ggid-dev-eks-vpc/490aeb40-daf0-11ea-99a4-02380a7bebca  
+    - aws:cloudformation:stack-name : ggid-dev-eks-vpc  
 
 3. `rtb-ggid-dev-eks-private-b`  
   라우팅 테이블 ID : rtb-074b4cbe07058a27c  
@@ -270,16 +335,12 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   VPC : vpc-084aaffcd29bd5f24 | vpc-ggid-dev-eks  
   소유자 : 809599471177  
   라우팅 : 10.10.0.0/16 - local, 0.0.0.0/0 - nat-0501e6f2eca4a80e6 | nat-ggid-dev-eks-b  
-
-#### Network ACL  
-1. `acl-ggid-dev-eks`  
-  네트워크 ACL ID : acl-0da11dd1bf2221fac  
-  기본값 : 예  
-  연결 대상 : subnet-0464935417e60c7f5, subnet-02f02f65302ed6079, subnet-033ce6ce5ee9e062f, subnet-0d71259cadcd45e93  
-  VPC : vpc-084aaffcd29bd5f24 | vpc-ggid-dev-eks  
-  소유자 : 809599471177  
-  Inbound : 100 | 유형 - 모두 트래픽 | 프로토콜 - 모두 | 포트 - 모두 | 소스 범위 - 0.0.0.0/0 | ALLOW, * | 유형 - 모두 트래픽 | 프로토콜 - 모두 | 포트 - 모두 | 0.0.0.0/0 | 소스 범위 - DENY  
-  Outbound : 100 | 유형 - 모두 트래픽 | 프로토콜 - 모두 | 포트 범위 - 모두 | 소스 - 0.0.0.0/0 | ALLOW, * | 유형 - 모두 트래픽 | 프로토콜 - 모두 | 포트 범위 - 모두 | 대상 - 0.0.0.0/0 | DENY  
+  Tags :  
+    - Name : rtb-ggid-dev-eks-private-b  
+    - Network : Private02  
+    - aws:cloudformation:logical-id : PrivateRouteTable02  
+    - aws:cloudformation:stack-id : arn:aws:cloudformation:ap-northeast-2:809599471177:stack/ggid-dev-eks-vpc/490aeb40-daf0-11ea-99a4-02380a7bebca  
+    - aws:cloudformation:stack-name : ggid-dev-eks-vpc  
 
 #### Network ACL  
 1. `acl-ggid-dev-eks`  
@@ -290,6 +351,8 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   소유자 : 809599471177  
   Inbound : 100 | 유형 - 모두 트래픽 | 프로토콜 - 모두 | 포트 범위 - 모두 | 소스 - 0.0.0.0/0 | ALLOW, * | 유형 - 모두 트래픽 | 프로토콜 - 모두 | 포트 범위 - 모두 | 소스 -  0.0.0.0/0 | DENY  
   Outbound : 100 | 유형 - 모두 트래픽 | 프로토콜 - 모두 | 포트 범위 - 모두 | 대상 - 0.0.0.0/0 | ALLOW, * | 유형 - 모두 트래픽 | 프로토콜 - 모두 | 포트 범위 - 모두 | 대상 - 0.0.0.0/0 | DENY  
+  Tags :  
+    - Name : acl-ggid-dev-eks  
 
 #### Security Group
 
@@ -301,6 +364,8 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   소유자 : 809599471177  
   인바운드 규칙 : 유형 - 모두 트래픽 | 프로토콜 - 전체 | 포트 범위 - 전체 | 소스 -	sg-0644bceaa3b4a6207 (default)  
   아웃바운드 규칙 : 유형 - 모두 트래픽 | 프로토콜 - 전체 | 포트 범위 - 전체 | 대상 - 0.0.0.0/0  
+  Tags :  
+    - Name : sg-ggid-dev-eks-default  
 
 2. `sg-ggid-dev-eks-cluster`  
   보안 그룹 이름 : eks-cluster-sg-ggid-dev-855710397  
@@ -310,6 +375,10 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   소유자 : 809599471177  
   인바운드 규칙 : 유형 - 모두 트래픽 | 프로토콜 - 전체 | 포트 범위 - 전체 | 소스 -	sg-0b863d54d14d7a3a8 (eks-cluster-sg-ggid-dev-855710397)  
   아웃바운드 규칙 : 유형 - 모두 트래픽 | 프로토콜 - 전체 | 포트 범위 - 전체 | 대상 - 0.0.0.0/0  
+  Tags :  
+    - kubernetes.io/cluster/ggid-dev : owned  
+    - aws:eks:cluster-name : ggid-dev  
+    - Name : sg-ggid-dev-eks-cluster  
 
 3. `sg-ggid-dev-eks-control-plane`  
   보안 그룹 이름 : ggid-dev-eks-vpc-ControlPlaneSecurityGroup-MU8NW31YBPJ3  
@@ -319,9 +388,11 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   소유자 : 809599471177  
   인바운드 규칙 : 없음
   아웃바운드 규칙 : 유형 - 모두 트래픽 | 프로토콜 - 전체 | 포트 범위 - 전체 | 대상 - 0.0.0.0/0  
-
-
-
+  Tags :  
+    - aws:cloudformation:logical-id : ControlPlaneSecurityGroup  
+    - aws:cloudformation:stack-id : arn:aws:cloudformation:ap-northeast-2:809599471177:stack/ggid-dev-eks-vpc/490aeb40-daf0-11ea-99a4-02380a7bebca  
+    - aws:cloudformation:stack-name : ggid-dev-eks-vpc  
+    - Name : sg-ggid-dev-eks-control-plane  
 
 #### ref. cloudformation 사용  
 `Amazon EKS 클러스터용 VPC 생성`  
