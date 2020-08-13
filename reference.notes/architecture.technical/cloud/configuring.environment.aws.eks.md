@@ -245,8 +245,21 @@ ssh-keygen -y -f ggid-dev-key-pair.pem > ggid-dev-public-key.pub
 #### Install(deploy) Nginx Ingress Controller
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.34.1/deploy/static/provider/aws/deploy.yaml
+(Network Load Balancer(NLB)도 추가됨.)  
+adc4eed62971543e585cc9af14ebee9c-e5fcff64edface95.elb.ap-northeast-2.amazonaws.com  
 
 
+## Service Network
+
+#### NLB
+
+#### Route 53
+
+`hosting Area`  
+ggcore.net  
+
+`create record`  
+linkerd-dashboard.ggid-dev.ggcore.net  
 
 ## appendix
 
