@@ -42,7 +42,7 @@ Visit http://localhost:50750 in your browser to view the dashboard
 linkerd -n linkerd top deploy/linkerd-web  
 
 <details>
-<summary>on windows/ppwershell</summary>
+<summary>on windows/powershell</summary>
 <div markdown="1">
 
 #### windows docker/kubernetes setup
