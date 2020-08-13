@@ -106,6 +106,11 @@ Subnet Connect : subnet-ggid-dev-2c, subnet-ggid-dev-2d
   DHCP 옵션 세트 : dopt-db7114b2  
   라우팅 테이블 : rtb-09c553ba98bb4bd1e  
   소유자 : 809599471177  
+  Tags :  
+    Name : vpc-ggid-dev-eks
+    aws:cloudformation:logical-id : VPC  
+    aws:cloudformation:stack-id : arn:aws:cloudformation:ap-northeast-2:809599471177:stack/ggid-dev-eks-vpc/490aeb40-daf0-11ea-99a4-02380a7bebca  
+    aws:cloudformation:stack-name : ggid-dev-eks-vpc  
 
 #### Subnet
 1. `ggid-dev-eks-public-01`  
