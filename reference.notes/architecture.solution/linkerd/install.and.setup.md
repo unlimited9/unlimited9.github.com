@@ -37,6 +37,7 @@ Opening Linkerd dashboard in the default browser
 Failed to open Linkerd dashboard automatically
 Visit http://localhost:50750 in your browser to view the dashboard
 ```
+로컬 시스템에서 linkerd-web pod로 포트 포워딩 해주는 것으로 공통으로 접근하기 위해서는 ingress를 설정해 줘야한다.  
 
 linkerd -n linkerd top deploy/linkerd-web  
 
