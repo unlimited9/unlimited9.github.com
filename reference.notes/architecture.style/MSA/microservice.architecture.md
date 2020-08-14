@@ -19,6 +19,7 @@ MSA is a style of architecture that defines and creates systems through the use 
 서비스 외부로부터 들어오는 접근을 내부 구조를 드러내지 않고 처리하기 위한 요소  
 사용자 인증(Consumer Identity Provider)과 권한 정책관리(policy management)를 수행  
 API Gateway는 서버 최앞단에 위치하여 모든 API 호출을 받아 서비스 인증 후 적절한 서비스들에 메세지를 전달(routing)  
+
 `기능`  
 1. 인증 및 인가 ( Authentication and Authorization)  
 2. 요청 절차의 단순화  
@@ -37,6 +38,7 @@ API Gateway는 서버 최앞단에 위치하여 모든 API 호출을 받아 서�
 마이크로서비스 구성 요소간의 네트워크를 제어  
 서비스 간에 통신을 하기 위해서는 service discovery, service routing, 트래픽 관리 및 보안 등을 담당 처리  
 Service Oriented Architecture(SOA) : Enterprise Service Bus(ESB)  
+
 `기능`  
 1. Service Discovery  
 2. Load balancing (지연시간 기반 / 대기열 기반 )  
@@ -99,36 +101,32 @@ RabbitMQ나, ActiveMQ에 비해 높은 처리량, 및 성능을 가지고 있습
 5. consumer가 pull 방식으로 메세지를 받으며, batch 처리가 가능합니다.  
 
 #### Telemetry
-Tele(먼 거리) + metry(측정) : 실시간으로 먼 거리에서 원격으로 측정
-서비스들을 모니터링하고, 서비스별로 발생하는 이슈들에 대응할 수 있도록 환경을 구성
+Tele(먼 거리) + metry(측정) : 실시간으로 먼 거리에서 원격으로 측정  
+서비스들을 모니터링하고, 서비스별로 발생하는 이슈들에 대응할 수 있도록 환경을 구성  
 
-	주요기능
-		1. Monitoring
-			metric 수집, logging, Tracing 영역에서의 데이터 수집 및 분석
-			
-			AWS의 Cloud watch, Azure의 Monitor, GCP의 Stackdriver가 Public cloud에서 Monitoring을 담당하는 요소이며, OSS로는 Prometheus등이 있습니다.
-			Monitoring은 각 대상에서 수집한 Metric을 통해 대상의 리소스 사용률이나, 트래픽 등을 대시보드로 볼 수 있게 해줍니다.
+`주요기능`  
+1. Monitoring
+  metric 수집, logging, Tracing 영역에서의 데이터 수집 및 분석  
+  AWS의 Cloud watch, Azure의 Monitor, GCP의 Stackdriver가 Public cloud에서 Monitoring을 담당하는 요소이며, OSS로는 Prometheus등이 있습니다.  
+  Monitoring은 각 대상에서 수집한 Metric을 통해 대상의 리소스 사용률이나, 트래픽 등을 대시보드로 볼 수 있게 해줍니다.  
+2.Logging
+  Log는 실행중인 프로세스에서 발생하는 이벤트를 말하며, Logging은 이러한 Log들을 수집해서 보여주는 것을 말합니다.  
+  마이크로 서비스 아키텍쳐는 Monolithic 어플리케이션보다 실행하는 프로세스의 수가 훨씬 많기 때문에 장애가 발생시에 root cause를 파악하기 힘듭니다.  
+  AWS에서는 Amazon Elastic Search 등이 Logging을 담당하는 요소이며, OSS로는 EFK(Elastic Search - FluentD - Kibana) 가 대표적입니다.
+  각 서비스에 심어진 Agent가 해당 서비스의 Log정보들을 수집하고, Log Server(Aggregator)를 통해 취합됩니다. 최종적으로 Kibana와 같은 툴을 통해 시각화된 데이터를 관리자에게 보여줍니다.
 
-		2.Logging
-			Log는 실행중인 프로세스에서 발생하는 이벤트를 말하며, Logging은 이러한 Log들을 수집해서 보여주는 것을 말합니다.
-			마이크로 서비스 아키텍쳐는 Monolithic 어플리케이션보다 실행하는 프로세스의 수가 훨씬 많기 때문에 장애가 발생시에 root cause를 파악하기 힘듭니다.
-			
-			AWS에서는 Amazon Elastic Search 등이 Logging을 담당하는 요소이며, OSS로는 EFK(Elastic Search - FluentD - Kibana) 가 대표적입니다.
-			각 서비스에 심어진 Agent가 해당 서비스의 Log정보들을 수집하고, Log Server(Aggregator)를 통해 취합됩니다. 최종적으로 Kibana와 같은 툴을 통해 시각화된 데이터를 관리자에게 보여줍니다.
+`고려사항`  
+로그를 서비스 내 저장소에 저장할 경우, 관리가 어려워지므로 ( container managed service의 경우 컨테이너가 종료되거나 재시작 될 경우 사라질 수 있습니다.) 로그를 어플리케이션 서버 내부에 저장하지 않고 외부 저장소에 저장하도록 합니다.  
+MSA 에서 가상머신과 컨테이너는 application과의 결합이 "약한 결합"입니다. 즉, 배포에 사용되는 컨테이너는 배포할 때마다 달라질 수 있습니다. 따라서 디스크 저장 상태에 의존하는 것이 아니라, 별도의 Logging도구를 활용하는 것이 효율적입니다.  
+로그파일은 ACL을 통하여 로그 관리자만 로그를 확인 할 수 있도록 하여야 합니다.  
 
-			고려사항
-				로그를 서비스 내 저장소에 저장할 경우, 관리가 어려워지므로 ( container managed service의 경우 컨테이너가 종료되거나 재시작 될 경우 사라질 수 있습니다.) 로그를 어플리케이션 서버 내부에 저장하지 않고 외부 저장소에 저장하도록 합니다.
-				MSA 에서 가상머신과 컨테이너는 application과의 결합이 "약한 결합"입니다. 즉, 배포에 사용되는 컨테이너는 배포할 때마다 달라질 수 있습니다. 따라서 디스크 저장 상태에 의존하는 것이 아니라, 별도의 Logging도구를 활용하는 것이 효율적입니다.
-				로그파일은 ACL을 통하여 로그 관리자만 로그를 확인 할 수 있도록 하여야 합니다.
-		3. Tracing
-			Tracing은 마이크로 서비스 아키텍처에서 발생한 Event를 발생한 순서대로 나열하여 추적할 수 있게 해주는 기능입니다.
-			AWS에서의 Amazon X-Ray 등이 Tracing을 담당하는 요소이며, OSS로는 Zipkin Jaeger등이 대표적입니다.
+3. Tracing  
+Tracing은 마이크로 서비스 아키텍처에서 발생한 Event를 발생한 순서대로 나열하여 추적할 수 있게 해주는 기능입니다.  
+AWS에서의 Amazon X-Ray 등이 Tracing을 담당하는 요소이며, OSS로는 Zipkin Jaeger등이 대표적입니다.  
 
-6. CI/CD Automation
-CI/CD는 어플리케이션 개발 단계를 자동화하여, 어플리케이션을 보다 짧은 주기로 고객에게 제공
-지속적인 통합(Continuous Integration), 지속적인 전달(Continuous Delivery), 지속적인 배포(Continuous Deployment)가 CI/CD의 기본 개념
-
-
+#### CI/CD Automation
+CI/CD는 어플리케이션 개발 단계를 자동화하여, 어플리케이션을 보다 짧은 주기로 고객에게 제공  
+지속적인 통합(Continuous Integration), 지속적인 전달(Continuous Delivery), 지속적인 배포(Continuous Deployment)가 CI/CD의 기본 개념  
 
 ## 9. Appendix
 
