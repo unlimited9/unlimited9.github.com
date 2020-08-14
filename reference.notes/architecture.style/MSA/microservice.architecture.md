@@ -109,7 +109,7 @@ Tele(먼 거리) + metry(측정) : 실시간으로 먼 거리에서 원격으로
   metric 수집, logging, Tracing 영역에서의 데이터 수집 및 분석  
   AWS의 Cloud watch, Azure의 Monitor, GCP의 Stackdriver가 Public cloud에서 Monitoring을 담당하는 요소이며, OSS로는 Prometheus등이 있습니다.  
   Monitoring은 각 대상에서 수집한 Metric을 통해 대상의 리소스 사용률이나, 트래픽 등을 대시보드로 볼 수 있게 해줍니다.  
-2.Logging
+2. Logging  
   Log는 실행중인 프로세스에서 발생하는 이벤트를 말하며, Logging은 이러한 Log들을 수집해서 보여주는 것을 말합니다.  
   마이크로 서비스 아키텍쳐는 Monolithic 어플리케이션보다 실행하는 프로세스의 수가 훨씬 많기 때문에 장애가 발생시에 root cause를 파악하기 힘듭니다.  
   AWS에서는 Amazon Elastic Search 등이 Logging을 담당하는 요소이며, OSS로는 EFK(Elastic Search - FluentD - Kibana) 가 대표적입니다.
