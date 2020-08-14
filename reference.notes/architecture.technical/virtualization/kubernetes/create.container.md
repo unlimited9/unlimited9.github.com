@@ -18,3 +18,28 @@ spec:
 
 `linkerd inject`  
 cat ggid-dev.build.yaml | linkerd inject - | kubectl apply -f -
+
+`container`  
+kubectl exec -it ggid-dev.build /bin/bash
+
+`delete`  
+kubectl delete pod ggid-dev.build
+
+---
+
+`create group/user : app/app`  
+groupadd -g 3000 app  
+useradd -d /apps -g 3000 -m -u 3000 -s /bin/bash app  
+passwd app  
+adduser app sudo
+
+`create directory`  
+mkdir -p /apps/install /pgms /data /logs
+chown -R app.app /apps /pgms /data /logs
+
+su - app
+mkdir /pgms/ggcore
+
+cd /apps/install
+
+
