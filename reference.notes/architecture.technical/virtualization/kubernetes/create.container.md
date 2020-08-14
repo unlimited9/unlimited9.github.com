@@ -1,6 +1,6 @@
 
-#### Create Pod : ggid-dev.build
-
+#### create pod : ggid-dev.build
+vi gid-dev.build.yaml
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -15,3 +15,6 @@ spec:
     imagePullPolicy: Always
     command: ['sh', '-c', 'tail -f /dev/null']
 ```
+
+`linkerd inject`  
+cat ggid-dev.build.yaml | linkerd inject - | kubectl apply -f -
