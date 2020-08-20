@@ -55,7 +55,23 @@ mkdir -p /apps/install /pgms /data /logs
 chown -R app.app /apps /pgms /data /logs
 
 ---
+#### ggdac
+su - app  
 
+cd /apps/install  
+
+mkdir /pgms/ggdac  
+cd /pgms/ggdac  
+
+git init  
+git config credential.helper store  
+git remote add origin https://github.com/pyloncloud/ggdac.git  
+git pull  
+git checkout origin/master  
+
+
+---
+#### ggcore
 su - app
 
 cd /apps/install
