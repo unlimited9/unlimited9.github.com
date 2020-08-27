@@ -2,7 +2,7 @@
 
 ## Local install 
 
-#### Visual Studio
+#### Visual Studio / Visual Studio Code
 
 #### Git
 1. git remote add origin https://github.com/pyloncloud/88agent.git  
