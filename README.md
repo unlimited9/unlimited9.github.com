@@ -5,4 +5,4 @@
 * [Reference Notes](reference.notes)
 
 ## Family sites
-* [Ruan.Lee, 4th child, 2th son](http://ruaniz.com)
+* [Ruan.Lee, 4th child, 2th son](http://home.ruaniz.com)
