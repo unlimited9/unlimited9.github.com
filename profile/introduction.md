@@ -19,7 +19,7 @@
       - 네트워크/보안, 스토리지, 인스턴스 설계 및 구성
     - 컨테이너(Kubernetes/Docker) 환경 구성 및 서비스 설계
       - Service Mesh(Istio, Linkerd), Serverless(k-native)구성
-      - MSA 기반 Outer, Inner 아키텍쳐 설계 및 구성
+      - MSA 구축을 위한 Outer, Inner 아키텍쳐 설계 및 구성
 
 4. 대용량 트래픽/데이터 처리 및 분석
     - 트래픽 분산을 위한 시스템 수평확장 설계/구성
@@ -37,6 +37,6 @@
     - RDBMS, NOSQL, LDAP 등 다양한 데이터 모델 이해 및 설계
     - 데이터 구조/성능 분석 및 성능개선(SQL튜닝, 힌트, 인텍스, 파티셔닝, …)
 
-7. 통합/연계 솔루션 설계/구현
+7. 통합 솔루션 설계/구현
     - Portal 솔루션(포틀릿 컨테이너 엔진) 설계/구현 
     - Kerberos 기반 SSO 솔루션 설계/구축 및 LDAP Data Model 설계
