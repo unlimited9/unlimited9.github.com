@@ -9,10 +9,10 @@
 1. **Java-based Enterprise Application Architecture Design and Implementation**
     - Spring-based development framework configuration/development and development guide/education
         - _I have experience in configuring, developing, and providing guidance and education on Spring-based development frameworks. I have led the development of a Spring-based framework for our company, which has been used to develop a variety of applications. I have also provided training to developers on Spring, including its architecture, features, and usage._
-    - In-house development framework and standard development/deployment
-        - _I have experience in developing and deploying in-house development frameworks and standards. I have led the development of a framework for our company that provides a consistent development environment and methodology for all developers. I have also worked on the development of standards for our company's software development, such as coding standards and testing standards._
-    - Architecture prototyping (implementation and deployment of common modules) and developer education
-        - _I have experience in performing architecture prototyping, including the implementation and deployment of common modules. I have worked on the prototyping of a new architecture for our company's software systems. I have also provided training to developers on architecture prototyping, including its principles and techniques._
+        - In-house development framework and standard development/deployment
+            - _I have experience in developing and deploying in-house development frameworks and standards. I have led the development of a framework for our company that provides a consistent development environment and methodology for all developers. I have also worked on the development of standards for our company's software development, such as coding standards and testing standards._
+        - Architecture prototyping (implementation and deployment of common modules) and developer education
+            - _I have experience in performing architecture prototyping, including the implementation and deployment of common modules. I have worked on the prototyping of a new architecture for our company's software systems. I have also provided training to developers on architecture prototyping, including its principles and techniques._
     - OSGi(Open Service Gateway initiative) & Eclipse RCP(Rich Client Programming)
         - _I have experience with OSGi and Eclipse RCP. I have used OSGi to develop modular and extensible software systems. I have also used Eclipse RCP to develop rich client applications._
 2. **Open-source software-based system construction**
@@ -25,21 +25,21 @@
 3. **Cloud-based architecture design**
     - Cloud-based architecture design on AWS
         - _I have experience designing cloud-based architectures using AWS. I have worked on projects to design and implement cloud-based systems for a variety of purposes, such as e-commerce, enterprise applications, and IoT._ 
-    - Network/security, storage, and instance design and configuration
-        - _I have experience designing and configuring network, security, storage, and instance infrastructure for cloud-based systems. I have worked on projects to design and implement secure and scalable cloud infrastructures._
+        - Network/security, storage, and instance design and configuration
+            - _I have experience designing and configuring network, security, storage, and instance infrastructure for cloud-based systems. I have worked on projects to design and implement secure and scalable cloud infrastructures._
     - Container (Kubernetes/Docker) environment configuration and service design
         - _I have experience configuring and designing container-based environments for cloud-based systems. I have worked on projects to deploy and manage containerized applications on the cloud._
-    - Service Mesh (Istio, Linkerd), Serverless (k-native) configuration
-        - _I have experience configuring and using service mesh and serverless technologies for cloud-based systems. I have worked on projects to improve the performance, scalability, and reliability of cloud-based systems._
-    - Outer, Inner architecture design and configuration for MSA
-        - _I have experience designing and configuring outer and inner architectures for microservice-based applications on the cloud. I have worked on projects to improve the scalability, flexibility, and maintainability of microservice-based applications._
+        - Service Mesh (Istio, Linkerd), Serverless (k-native) configuration
+            - _I have experience configuring and using service mesh and serverless technologies for cloud-based systems. I have worked on projects to improve the performance, scalability, and reliability of cloud-based systems._
+        - Outer, Inner architecture design and configuration for MSA
+            - _I have experience designing and configuring outer and inner architectures for microservice-based applications on the cloud. I have worked on projects to improve the scalability, flexibility, and maintainability of microservice-based applications._
 4. **Large-scale traffic/data processing and analysis**
     - Design and configuration of system horizontal scaling for traffic distribution
         - _I have experience designing and configuring system horizontal scaling for traffic distribution. I have worked on projects to increase the scalability of systems to handle large amounts of traffic. This includes using load balancers, caching, and distributed storage._
     - Asynchronous processing for time-series traffic distribution
         - _I have experience using asynchronous processing to distribute time-series traffic. I have worked on projects to improve the performance and scalability of systems by using asynchronous processing. This includes using message queues, such as Kafka, and event-driven architectures._
-    - Use of message queues (Kafka, etc.) for asynchronous processing
-        - _I have experience using message queues, such as Kafka, for asynchronous processing. I have worked on projects to improve the performance and scalability of systems by using message queues._
+        - Use of message queues (Kafka, etc.) for asynchronous processing
+            - _I have experience using message queues, such as Kafka, for asynchronous processing. I have worked on projects to improve the performance and scalability of systems by using message queues._
     - Data caching and configuration for improving reporting performance
         - _I have experience caching data to improve reporting performance. I have worked on projects to improve the performance of reporting systems by caching data in memory or on disk._
     - Design and implementation of data collection/transformation/aggregation/analysis
