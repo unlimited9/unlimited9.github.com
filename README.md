@@ -1,8 +1,5 @@
 ## Profile 
-* [Profile](profile) : AA/CA/TA, Java/Spring Framework, Design/Prototyping/Optimization
+* [AA/CA/TA, Java/Spring Framework, Design/Prototyping/Optimization](profile)
 
-## Documents
-* [Reference Notes](reference.notes)
-
-## Family sites
-* [Ruan.Lee, 4th child, 2th son](http://home.ruaniz.com)
+## Reference Notes
+* [Enterprise Architecture](reference.notes)
