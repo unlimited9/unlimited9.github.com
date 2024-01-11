@@ -1,4 +1,4 @@
-## About 
+## About [영문](README.md)
 **고객의 관점에서 요구사항을 분석하고 고객과 함께 시스템 구축에 필요한 것들을 설계/구축하거나 문제를 해결합니다.**
 
 - _시스템 구축에 중심에서 AA(Application Architect) 업무를 수행하며 CA(Cloud Architect)/TA(Technical Architect)/DA(Data Architect)/DBA 업무를 백업하거나 병행해왔습니다._
