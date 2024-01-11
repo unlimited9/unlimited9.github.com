@@ -1,7 +1,7 @@
 ### Collections.sort with multiple fields
 
 #### sample
-```
+```java
 List<DailyAdvrtsStatsData> aggregatedList = (List<DailyAdvrtsStatsData>) commonStatsUtils.aggregate(list, "adverId", "corpName", "adverId,corpName,statsDttm,homePage","adverCnt");
 
 Comparator<DailyAdvrtsStatsData> comparator = (d1, d2) -> {
