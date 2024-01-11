@@ -4,10 +4,12 @@
 #### EA, ITA/EA
 기업의 비즈니스, 데이터, 기술, 보안 등 주요 요건을 체계적으로 분석하여 기업의 현재 모습을 조감하고 앞으로의 지침을 제공하기 위한 아키텍처
 > EA와 ITA가 혼용되고 사용되고 있으나, EA로 통일되어 가고 있음.
- - ITA, Information Technology Architecture, 정보 기술 아키텍처
-    - = EA(Enterprise Archtecture) + TRM(Technical Reference Model) + SP(Standards Profiling)
- - EA, Enterprise Archtecture, 전사적 아키텍처와
-    - = BA(Business Architecture) + DA(Data Architecture) + AA(Application Architecture) + TA(technical architecture)
+
+* ITA, Information Technology Architecture, 정보 기술 아키텍처
+   + = EA(Enterprise Archtecture) + TRM(Technical Reference Model) + SP(Standards Profiling)
+* EA, Enterprise Archtecture, 전사적 아키텍처와
+   + = BA(Business Architecture) + DA(Data Architecture) + AA(Application Architecture) + TA(technical architecture)
+ 
 ---
 #### AA(Application Architecture)
 * Development Environment
@@ -27,6 +29,7 @@
    + Spring
       - [Spring Boot : Management and Operations](architecture.application/framework/springboot.management.n.operations.md)
       - [Overriding Dependency Versions with Spring Boot](architecture.application/framework/springboot.transitive.dependency.md)
+
 ---
 #### TA(technical architecture)
 * Operating System
@@ -65,6 +68,7 @@
    + [hardware sizing](operating.system/hardware.sizing.md) : 정보시스템 하드웨어 규모산정 지침
 * Development Environment  
    + [gitlab ci/cd](architecture.solution/gitlab/gitlab.ci.cd.md) : Gitlab Runner
+
 ---
 #### QA(Quality Assurance)
 * Testing and Tuning
@@ -73,6 +77,7 @@
       - [Install and setup Scouter](architecture.quality.assurance/install.n.setup.scouter.md) : APM(Application Performance Management) Scouter 설치
 * Monitoring
    + [Install and setup Telegraf](architecture.quality.assurance/install.n.setup.telegraf.md) : 시스템 모니터링 및 지표 수집 에이전트
+
 ---
 #### Architecture style(pattern, model)
 * [MSA(Microservices Architecture)](architecture.style/MSA/concept.md) : 서비스 분산, 독립적인 배포 및 확장
