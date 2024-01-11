@@ -7,7 +7,7 @@
  - ITA, Information Technology Architecture, 정보 기술 아키텍처
     - = EA(Enterprise Archtecture) + TRM(Technical Reference Model) + SP(Standards Profiling)
  - EA, Enterprise Archtecture, 전사적 아키텍처와
-    - = BA + DA + AA + TA
+    - = BA(Business Architecture) + DA(Data Architecture) + AA(Application Architecture) + TA(technical architecture)
 ---
 #### AA(Application Architecture)
 * Development Environment
