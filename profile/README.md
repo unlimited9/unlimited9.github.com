@@ -1,4 +1,6 @@
-## About [Korean](introduction.md)
+[Korean](introduction.md)
+
+## About
 **Analyze customer requirements and work with customers to design, build, or solve problems related to system implementation.**
 
 - _I have been working as an application architect in the center of systems construction, and have been supporting or working in parallel with cloud architects, technical architects, data architects, and database administrators._
